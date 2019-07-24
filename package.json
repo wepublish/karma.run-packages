@@ -1,0 +1,31 @@
+{
+  "private": true,
+  "engines": {
+    "node": "^10.0.0",
+    "yarn": "^1.16.0"
+  },
+  "scripts": {
+    "clean": "run-p clean:**",
+    "build": "run-s --print-label build:core",
+    "watch": "run-p --print-label watch:*",
+    "clean:core": "yarn workspace @blank-editor/core clean",
+    "build:core": "yarn workspace @blank-editor/core build",
+    "watch:core": "yarn workspace @blank-editor/core watch"
+  },
+  "workspaces": [
+    "packages/*",
+    "examples/*",
+    "services/*"
+  ],
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^1.11.1",
+    "husky": "^3.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --pattern '{examples,packages,services}/**/*.{js,ts,tsx,json}'"
+    }
+  }
+}

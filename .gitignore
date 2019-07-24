@@ -1,0 +1,10 @@
+.DS_Store
+.idea/
+lib/
+dist/
+static/
+packages/**/LICENSE
+node_modules
+npm-debug.log
+yarn-error.log
+.tsbuildinfo
