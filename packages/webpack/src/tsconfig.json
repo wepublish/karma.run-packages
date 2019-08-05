@@ -1,0 +1,10 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "include": ["./**/*"],
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "../lib/",
+    "types": ["@types/node", "@types/webpack"],
+    "lib": ["es2017"]
+  }
+}

@@ -1,8 +1,8 @@
 {
-  "name": "@blank-editor/core",
+  "name": "@dudagroup/editor",
   "version": "0.0.0",
-  "main": "./lib/cjs/shared/",
-  "module": "./lib/esm/shared/",
+  "main": "./lib/cjs/client/",
+  "module": "./lib/esm/client/",
   "license": "MIT",
   "browser": {
     "./client.js": "./lib/esm/client/",
@@ -20,7 +20,9 @@
   },
   "dependencies": {
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "find-my-way": "^2.1.0",
+    "@dudagroup/react": "^0.0.0"
   },
   "devDependencies": {
     "@types/node": "^12.0.12",

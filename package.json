@@ -6,11 +6,20 @@
   },
   "scripts": {
     "clean": "run-p clean:**",
-    "build": "run-s --print-label build:core",
+    "build": "run-s --print-label build:webpack build:react build:editor build:example-editor",
     "watch": "run-p --print-label watch:*",
-    "clean:core": "yarn workspace @blank-editor/core clean",
-    "build:core": "yarn workspace @blank-editor/core build",
-    "watch:core": "yarn workspace @blank-editor/core watch"
+    "clean:editor": "yarn workspace @dudagroup/editor clean",
+    "build:editor": "yarn workspace @dudagroup/editor build",
+    "watch:editor": "yarn workspace @dudagroup/editor watch",
+    "clean:react": "yarn workspace @dudagroup/react clean",
+    "build:react": "yarn workspace @dudagroup/react build",
+    "watch:react": "yarn workspace @dudagroup/react watch",
+    "clean:webpack": "yarn workspace @dudagroup/webpack clean",
+    "build:webpack": "yarn workspace @dudagroup/webpack build",
+    "watch:webpack": "yarn workspace @dudagroup/webpack watch",
+    "clean:example-editor": "yarn workspace @dudagroup/example-editor clean",
+    "build:example-editor": "yarn workspace @dudagroup/example-editor build",
+    "watch:example-editor": "yarn workspace @dudagroup/example-editor watch"
   },
   "workspaces": [
     "packages/*",
