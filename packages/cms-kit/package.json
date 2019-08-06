@@ -1,0 +1,46 @@
+{
+  "name": "@karma.run/cms-kit",
+  "version": "0.0.0",
+  "main": "./lib/cjs/",
+  "module": "./lib/esm/",
+  "license": "MIT",
+  "scripts": {
+    "build": "run-s copy-license sync-package-info build:*",
+    "build:typescript": "tsc -b ./src/tsconfig.json ./src/tsconfig.esm.json",
+    "watch": "npm-run-all copy-license sync-package-info --parallel watch:*",
+    "watch:typescript": "tsc -b ./src/tsconfig.json ./src/tsconfig.esm.json --watch",
+    "copy-license": "shx cp ../../LICENSE ./",
+    "clean": "shx rm -rf ./LICENSE ./lib",
+    "prepare": "run-s clean copy:license build sync-package-info",
+    "sync-package-info": "node ./../../scripts/syncPackageInfo.js ./src/version.ts",
+    "watch:storybook": "start-storybook --ci -p 3010"
+  },
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "find-my-way": "^2.1.0",
+    "@karma.run/react": "^0.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.12",
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.4",
+    "typescript": "^3.5.2",
+    "npm-run-all": "^4.1.5",
+    "shx": "^0.3.2",
+    "@types/storybook__react": "^4.0.2",
+    "@types/storybook__addon-info": "^4.1.2",
+    "@types/storybook__addon-knobs": "^5.0.3",
+    "@storybook/react": "^5.1.9",
+    "@storybook/addon-info": "^5.1.9",
+    "@storybook/addon-knobs": "^5.1.10",
+    "@babel/core": "^7.5.4",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
+    "@babel/preset-env": "^7.5.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.35.3",
+    "react-docgen-typescript-loader": "^3.1.0"
+  }
+}

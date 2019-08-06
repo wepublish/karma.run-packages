@@ -1,5 +1,5 @@
 {
-  "name": "@dudagroup/webpack",
+  "name": "@karma.run/webpack",
   "version": "0.0.0",
   "main": "./lib/index.js",
   "license": "MIT",

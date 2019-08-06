@@ -1,17 +1,17 @@
 import path from 'path'
 import webpack from 'webpack'
 
-import {AssetListPlugin} from '@dudagroup/webpack'
+import {AssetListPlugin} from '@karma.run/webpack'
 
 export default (mode: string) =>
   ({
     entry: {
-      client: './src/client/index.ts'
+      client: './src/client/index.tsx'
     },
     output: {
       filename: mode === 'production' ? '[name].[chunkhash].js' : '[name].js',
       path: path.resolve(__dirname, 'static'),
-      publicPath: mode === 'production' ? '/static' : 'http://localhost:8081/'
+      publicPath: mode === 'production' ? '/static' : 'http://localhost:3012/'
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
@@ -31,10 +31,10 @@ export default (mode: string) =>
     plugins: [new AssetListPlugin({filename: './dist/assetList.json'})],
     devServer: {
       writeToDisk: true,
-      public: 'http://localhost:8081/',
-      publicPath: 'http://localhost:8081/',
+      public: 'http://localhost:3012/',
+      publicPath: 'http://localhost:3012/',
       host: '0.0.0.0',
-      port: 8081,
+      port: 3012,
       headers: {'Access-Control-Allow-Origin': '*'}
     }
   } as webpack.Configuration)

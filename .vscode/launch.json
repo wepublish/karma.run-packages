@@ -8,7 +8,7 @@
       "type": "node",
       "request": "attach",
       "name": "Attach to Editor Example",
-      "port": 9231,
+      "port": 9230,
       "address": "localhost",
       "localRoot": "${workspaceFolder}",
       "remoteRoot": "${workspaceFolder}",
