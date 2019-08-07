@@ -4,8 +4,8 @@ import {ChildrenProps} from './types'
 import {useEventListener} from './hooks'
 
 export interface RouteContextState<T = any> {
-  current: T
-  next: string | null
+  readonly current: T
+  readonly next: string | null
 }
 
 export const RouteContext = React.createContext<RouteContextState | null>(null)
@@ -19,13 +19,13 @@ export enum RouteActionType {
 }
 
 export interface PushPathAction {
-  type: RouteActionType.PushPath
-  path: string
+  readonly type: RouteActionType.PushPath
+  readonly path: string
 }
 
 export interface PushRouteAction<T = any> {
-  type: RouteActionType.PushRoute
-  route: T
+  readonly type: RouteActionType.PushRoute
+  readonly route: T
 }
 
 export type RouteAction<T = any> = PushPathAction | PushRouteAction<T>
@@ -41,11 +41,12 @@ export function routeReducer(state: RouteContextState, action: RouteAction): Rou
 }
 
 export interface RouteProviderProps<T = any> extends ChildrenProps {
-  initialRoute: T
+  readonly initialRoute: T
 }
 
 export interface CreateRouteContextResult<T> {
-  RouteProvider: ComponentType<RouteProviderProps<T>>
+  readonly RouteProvider: ComponentType<RouteProviderProps<T>>
+
   useRoute: () => T
   useRouteDispatch: () => RouteDispatchContextState<T>
   pushRouteAction: (route: T) => PushRouteAction<T>
@@ -67,79 +68,76 @@ export function createRouteContext<T>(
     return {type: RouteActionType.PushPath, path}
   }
 
-  function RouteProvider(props: RouteProviderProps) {
-    const [state, dispatch] = useReducer(routeReducer, {
-      current: props.initialRoute,
-      next: null
-    })
-
-    // `dispatch` function identity will not change, but for consistency's sake we still add it to
-    // the dependencies array.
-    useEffect(() => {
-      if (!state.next) return
-
-      const cancel = queryRoute(state.next, () => {})
-      return cancel
-    }, [state.next, dispatch])
-
-    useEffect(() => {
-      const path = reverseRoute(state.current)
-
-      if (window.location.pathname !== path) {
-        window.history.pushState(state.current, '', path)
-      } else {
-        window.history.replaceState(state.current, '', path)
-      }
-    }, [state.current])
-
-    useEventListener(() => [
-      window,
-      'popstate',
-      (e: PopStateEvent) => {
-        if (e.state) {
-          dispatch(pushRouteAction(e.state))
-        } else {
-          dispatch(pushPathAction(window.location.pathname))
-        }
-      }
-    ])
-
-    return (
-      <RouteDispatchContext.Provider value={dispatch}>
-        <RouteContext.Provider value={state}>{props.children}</RouteContext.Provider>
-      </RouteDispatchContext.Provider>
-    )
-  }
-
-  function useRoute(): T {
-    const routeContext = useContext(RouteContext)
-
-    if (!routeContext) {
-      throw new Error(
-        "Couldn't find a RouteContext provider, did you forget to include RouteProvider in the component tree."
-      )
-    }
-
-    return routeContext.current
-  }
-
-  function useRouteDispatch(): RouteDispatchContextState<T> {
-    const routeDispatchContext = useContext(RouteDispatchContext)
-
-    if (!routeDispatchContext) {
-      throw new Error(
-        "Couldn't find a RouteDispatchContext provider, did you forget to include RouteProvider in the component tree."
-      )
-    }
-
-    return routeDispatchContext
-  }
-
   return {
-    RouteProvider,
+    RouteProvider(props: RouteProviderProps) {
+      const [state, dispatch] = useReducer(routeReducer, {
+        current: props.initialRoute,
+        next: null
+      })
+
+      // `dispatch` function identity will not change, but for consistency's sake we still add it to
+      // the dependencies array.
+      useEffect(() => {
+        if (!state.next) return
+
+        const cancel = queryRoute(state.next, () => {})
+        return cancel
+      }, [state.next, dispatch])
+
+      useEffect(() => {
+        const path = reverseRoute(state.current)
+
+        if (window.location.pathname !== path) {
+          window.history.pushState(state.current, '', path)
+        } else {
+          window.history.replaceState(state.current, '', path)
+        }
+      }, [state.current])
+
+      useEventListener(() => [
+        window,
+        'popstate',
+        (e: PopStateEvent) => {
+          if (e.state) {
+            dispatch(pushRouteAction(e.state))
+          } else {
+            dispatch(pushPathAction(window.location.pathname))
+          }
+        }
+      ])
+
+      return (
+        <RouteDispatchContext.Provider value={dispatch}>
+          <RouteContext.Provider value={state}>{props.children}</RouteContext.Provider>
+        </RouteDispatchContext.Provider>
+      )
+    },
+
     pushRouteAction,
     pushPathAction,
-    useRoute,
-    useRouteDispatch
+
+    useRoute(): T {
+      const routeContext = useContext(RouteContext)
+
+      if (!routeContext) {
+        throw new Error(
+          "Couldn't find a RouteContext provider, did you forget to include RouteProvider in the component tree."
+        )
+      }
+
+      return routeContext.current
+    },
+
+    useRouteDispatch(): RouteDispatchContextState<T> {
+      const routeDispatchContext = useContext(RouteDispatchContext)
+
+      if (!routeDispatchContext) {
+        throw new Error(
+          "Couldn't find a RouteDispatchContext provider, did you forget to include RouteProvider in the component tree."
+        )
+      }
+
+      return routeDispatchContext
+    }
   }
 }

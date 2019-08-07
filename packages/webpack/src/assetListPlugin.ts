@@ -4,7 +4,7 @@ import path from 'path'
 import {Plugin, Compiler} from 'webpack'
 
 export interface AssetListPluginOptions {
-  filename: string
+  readonly filename: string
 }
 
 export class AssetListPlugin implements Plugin {

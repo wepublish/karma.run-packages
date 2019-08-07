@@ -27,7 +27,7 @@ import {Plugin, Compiler} from 'webpack'
 import ConcatenatedModule from 'webpack/lib/optimize/ConcatenatedModule'
 
 export interface ModuleMapPluginOptions {
-  filename: string
+  readonly filename: string
 }
 
 export class ModuleMapPlugin implements Plugin {

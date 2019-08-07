@@ -17,17 +17,13 @@
   },
   "dependencies": {
     "react": "^16.8.6",
-    "react-dom": "^16.8.6",
     "find-my-way": "^2.1.0",
+    "nanoid": "^2.0.3",
     "@karma.run/react": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^12.0.12",
+    "@types/nanoid": "^2.0.0",
     "@types/react": "^16.8.23",
-    "@types/react-dom": "^16.8.4",
-    "typescript": "^3.5.2",
-    "npm-run-all": "^4.1.5",
-    "shx": "^0.3.2",
     "@types/storybook__react": "^4.0.2",
     "@types/storybook__addon-info": "^4.1.2",
     "@types/storybook__addon-knobs": "^5.0.3",
@@ -39,6 +35,9 @@
     "@babel/preset-typescript": "^7.3.3",
     "@babel/preset-env": "^7.5.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "typescript": "^3.5.2",
+    "npm-run-all": "^4.1.5",
+    "shx": "^0.3.2",
     "babel-loader": "^8.0.6",
     "webpack": "^4.35.3",
     "react-docgen-typescript-loader": "^3.1.0"

@@ -1,8 +1,8 @@
 import React, {useEffect, useState, useCallback, useMemo, useContext, ReactNode} from 'react'
 
 class PromiseWrapper {
-  private _callback: () => Promise<any>
-  private _promise: Promise<any> | null = null
+  private callback: () => Promise<any>
+  private promise: Promise<any> | null = null
 
   private _isFulfilled: boolean = false
   private _isResolved: boolean = false
@@ -12,7 +12,7 @@ class PromiseWrapper {
   private _error: any
 
   constructor(callback: () => Promise<any>) {
-    this._callback = callback
+    this.callback = callback
   }
 
   public get isFulfilled() {
@@ -36,9 +36,9 @@ class PromiseWrapper {
   }
 
   public invokePromise() {
-    if (this._promise) return this._promise
+    if (this.promise) return this.promise
 
-    this._promise = this._callback()
+    this.promise = this.callback()
       .then(value => {
         this._isFulfilled = true
         this._isResolved = true
@@ -54,7 +54,7 @@ class PromiseWrapper {
         return this._error
       })
 
-    return this._promise
+    return this.promise
   }
 }
 
@@ -65,8 +65,8 @@ interface LazyCaptureContextType {
 export const LazyCaptureContext = React.createContext<LazyCaptureContextType | null>(null)
 
 export interface LazyCaptureProps {
-  rendered: string[]
-  children?: ReactNode
+  readonly rendered: string[]
+  readonly children?: ReactNode
 }
 
 export function LazyCapture(props: LazyCaptureProps) {
