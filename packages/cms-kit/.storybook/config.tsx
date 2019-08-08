@@ -6,7 +6,7 @@ import {withKnobs} from '@storybook/addon-knobs'
 
 import {StyleProvider, createStyleRenderer, renderStyles} from '@karma.run/react'
 
-const req = require.context('../src', true, /stories.tsx$/)
+const req = require.context('../src', true, /stories.tsx?$/)
 
 function loadStories() {
   addDecorator(withInfo)
