@@ -7,7 +7,7 @@
     {
       "type": "node",
       "request": "attach",
-      "name": "Attach to Editor Example",
+      "name": "Attach to CMS Kit Example",
       "port": 9230,
       "address": "localhost",
       "localRoot": "${workspaceFolder}",
