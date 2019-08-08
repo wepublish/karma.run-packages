@@ -8,7 +8,7 @@ Monorepo for various NPM packages not directly related to karma.db.
 
 ### Prerequisites
 
-- [Yarn v1.16.0][yarn-download-url]
+- [Yarn v1.17.0][yarn-download-url]
 
 ### Recommended
 
@@ -31,8 +31,8 @@ yarn watch
 
 The following servers will be available:
 
-- **CMS Kit Example:** [http://localhost:3011](http://localhost:3011)
 - **CMS Kit Storybook:** [http://localhost:3010](http://localhost:3010)
+- **CMS Kit Example:** [http://localhost:3011](http://localhost:3011)
 
 If you want to build/watch only certain packages just have a look inside the [package.json][package-json-url],
 to find commands for each package.
