@@ -31,8 +31,8 @@ yarn watch
 
 The following servers will be available:
 
-- **CMS Kit Example:** [http://localhost:3030](http://localhost:3011)
-- **CMS Kit Storybook:** [http://localhost:3002](http://localhost:3010)
+- **CMS Kit Example:** [http://localhost:3011](http://localhost:3011)
+- **CMS Kit Storybook:** [http://localhost:3010](http://localhost:3010)
 
 If you want to build/watch only certain packages just have a look inside the [package.json][package-json-url],
 to find commands for each package.
