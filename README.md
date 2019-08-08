@@ -8,7 +8,8 @@ Monorepo for various NPM packages not directly related to karma.db.
 
 ### Prerequisites
 
-- [Yarn v1.17.0][yarn-download-url]
+- [Node v12.x.x][node-download-url]
+- [Yarn v1.17.x][yarn-download-url]
 
 ### Recommended
 
@@ -41,6 +42,7 @@ to find commands for each package.
 
 There are several launch configurations that allow you to attach the debugger to the various examples.
 
+[node-download-url]: https://nodejs.org/en/download/current/
 [yarn-download-url]: https://yarnpkg.com/en/docs/install
 [vscode-download-url]: https://code.visualstudio.com/Download
 [vscode-prettier-download-url]: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
