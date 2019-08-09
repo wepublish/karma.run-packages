@@ -1,8 +1,8 @@
-import React, {createContext, ReactNode, useContext, useMemo} from 'react'
+import React, {createContext, useContext, useMemo} from 'react'
 import {createRenderer, IRenderer, combineRules} from 'fela'
 import {rehydrate, render, renderToMarkup} from 'fela-dom'
-
 import * as CSS from 'csstype'
+
 import {ChildrenProps} from './types'
 
 export interface CSSStyle extends CSS.Properties<string | number> {
@@ -91,7 +91,6 @@ export interface CSSStyle extends CSS.Properties<string | number> {
 }
 
 export type CSSRuleFn<P = {}> = (props: P, renderer: IRenderer) => CSSStyle
-export type CSSRuleMap<P = {}> = {[key: string]: CSSRuleFn<P>}
 
 export interface StyleContextType {
   readonly renderer: IRenderer
@@ -126,10 +125,6 @@ export function renderStylesToMarkup(renderer: IRenderer): string {
   return renderToMarkup(renderer)
 }
 
-export function cssRuleMap<T>(map: CSSRuleMap<T>): CSSRuleMap<T> {
-  return map
-}
-
 export function cssRule<P>(fn: CSSRuleFn<P>): CSSRuleFn<P> {
   return fn
 }
@@ -146,7 +141,7 @@ export function useStyle<P>(props?: P): UseStyleResult<P> {
 
   if (!context) {
     throw new Error(
-      "Couldn't find a StyleRendererContext provider, did you forget to include StyleRendererProvider in the component tree."
+      "Couldn't find a StyleContext provider, did you forget to include StyleProvider in the component tree."
     )
   }
 
