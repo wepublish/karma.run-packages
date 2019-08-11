@@ -143,16 +143,9 @@ export function createRouteContext<T>(
   }
 }
 
-export interface RoutePath<K extends string> {
+export interface RoutePath<K extends string = string> {
   readonly templatePath: string
   readonly reverse: (params: {[T in K]: string}) => string
-}
-
-export interface Route<T extends string | number | symbol = string, K extends string = any> {
-  (params: {[T in K]: string}): RouteInstance<T, K>
-
-  readonly type: T
-  readonly path: RoutePath<K>
 }
 
 export interface RouteInstance<
@@ -215,118 +208,28 @@ export function routePath<K extends string>(
   }
 }
 
-export function route<T extends string, K extends string>(
-  type: T,
-  path: RoutePath<K>
-): Route<T, K> {
-  function routeFn(params: {[T in K]: string}) {
-    return {
-      type,
-      path: path.reverse(params),
-      params
-    }
-  }
+export type RouteHandler<P extends {}, D> = [Route<P>, (params: P) => Promise<D>]
 
-  routeFn.type = type
-  routeFn.path = path
+export function matchRoute<D>(routeHandlers: RouteHandler<any, D>[]) {}
 
-  return routeFn
+export function routeHandler<P extends {}, D>(
+  route: Route<P>,
+  handler: (params: P) => Promise<D>
+): RouteHandler<P, D> {
+  return [route, handler]
 }
 
-// export function createRouteContext2<T>(): CreateRouteContextResult<T> {
-//   function pushRouteAction(route: T): PushRouteAction<T> {
-//     return {type: RouteActionType.PushRoute, route}
-//   }
+export interface Route<P extends {}> {
+  (params: P): string
+  readonly path: string
+  readonly regexp: RegExp
+}
 
-//   function pushPathAction(path: string): PushPathAction {
-//     return {type: RouteActionType.PushPath, path}
-//   }
+export function route<P extends {}>(path: string): Route<P> {
+  const fn = (params: P) => ''
 
-//   return {
-//     RouteProvider({initialRoute, queryRouteData}: RouteProviderProps<M>) {
-//       const [state, dispatch] = useReducer(routeReducer, {
-//         current: initialRoute,
-//         next: null
-//       })
+  fn.path = path
+  fn.regexp = /r/
 
-//       // `dispatch` function identity will not change, but for consistency's sake we still add it to
-//       // the dependencies array.
-//       useEffect(() => {
-//         if (!state.next) return
-
-//         const cancel = queryRoute(state.next, () => {})
-//         return cancel
-//       }, [state.next, dispatch])
-
-//       useEffect(() => {
-//         const path = reverseRoute(state.current)
-
-//         if (window.location.pathname !== path) {
-//           window.history.pushState(state.current, '', path)
-//         } else {
-//           window.history.replaceState(state.current, '', path)
-//         }
-//       }, [state.current])
-
-//       useEventListener(() => [
-//         window,
-//         'popstate',
-//         (e: PopStateEvent) => {
-//           if (e.state) {
-//             dispatch(pushRouteAction(e.state))
-//           } else {
-//             dispatch(pushPathAction(window.location.pathname))
-//           }
-//         }
-//       ])
-
-//       return (
-//         <RouteDispatchContext.Provider value={dispatch}>
-//           <RouteContext.Provider value={state}>{props.children}</RouteContext.Provider>
-//         </RouteDispatchContext.Provider>
-//       )
-//     },
-
-//     pushRouteAction,
-//     pushPathAction,
-
-//     useRoute(): T {
-//       const routeContext = useContext(RouteContext)
-
-//       if (!routeContext) {
-//         throw new Error(
-//           "Couldn't find a RouteContext provider, did you forget to include RouteProvider in the component tree."
-//         )
-//       }
-
-//       return routeContext.current
-//     },
-
-//     useRouteDispatch(): RouteDispatchContextState<T> {
-//       const routeDispatchContext = useContext(RouteDispatchContext)
-
-//       if (!routeDispatchContext) {
-//         throw new Error(
-//           "Couldn't find a RouteDispatchContext provider, did you forget to include RouteProvider in the component tree."
-//         )
-//       }
-
-//       return routeDispatchContext
-//     }
-//   }
-// }
-
-// enum RouteType {
-//   Foo = 'foo',
-//   Bar = 'bar'
-// }
-
-// export interface TestRouteDataMap {
-//   [RouteType.Foo]: {foo: string}
-//   [RouteType.Bar]: {bar: string}
-// }
-
-// const FooRoute = routePath`/test/${param('foo')}`
-// const BarRoute = routePath`/test/${param('bar')}`
-
-// export type Routes = typeof FooRoute | typeof BarRoute
+  return fn
+}
