@@ -18,7 +18,8 @@
     "react": "^16.8.6",
     "fela": "^10.6.1",
     "fela-dom": "^10.6.1",
-    "csstype": "^2.6.6"
+    "csstype": "^2.6.6",
+    "path-to-regexp": "3.0.0"
   },
   "devDependencies": {
     "@types/react": "^16.8.23",
