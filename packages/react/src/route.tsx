@@ -1,75 +1,113 @@
-import React, {useContext, useReducer, useEffect, ComponentType, Dispatch, Reducer} from 'react'
+import React, {
+  useContext,
+  useReducer,
+  useEffect,
+  ComponentType,
+  Dispatch,
+  Reducer,
+  useMemo
+} from 'react'
+
 import pathToRegexp, {Key} from 'path-to-regexp'
 
 import {ChildrenProps} from './types'
 import {UnionToIntersection} from './utility'
 import {useEventListener} from './hooks'
 
-export enum RouteHistoryType {
+export enum HistoryType {
   Push = 'push',
   Replace = 'replace'
 }
 
 export enum ScrollType {
-  Maintain = 'maintain',
   Top = 'top',
-  Position = 'position'
+  Position = 'position',
+  Maintain = 'maintain'
 }
 
-export interface MaintainScrollData {
+export interface MaintainScrollState {
   type: ScrollType.Maintain
 }
 
-export interface TopScrollData {
+export interface TopScrollState {
   type: ScrollType.Top
 }
 
-export interface PositionScrollData {
+export interface PositionScrollState {
   type: ScrollType.Position
   x: number
   y: number
 }
 
-export type ScrollData = MaintainScrollData | TopScrollData | PositionScrollData
+export type ScrollState = MaintainScrollState | TopScrollState | PositionScrollState
+
+export interface HistoryState {
+  type: HistoryType
+  path: string
+  data?: any
+}
+
+export interface BrowserState {
+  history: HistoryState | null
+  scroll: ScrollState | null
+}
 
 export interface RouteContextState<R extends RouteInstance = RouteInstance, D = any> {
   readonly current: R | null
   readonly next: R | null
   readonly data: D | null
-  readonly scroll: ScrollData
-  readonly historyType: RouteHistoryType
+  readonly history: HistoryState | null
 }
 
 export const RouteContext = React.createContext<RouteContextState | null>(null)
 
-export type RouteDispatchContextState<R extends RouteInstance = RouteInstance, D = any> = Dispatch<
-  RouteAction<R, D>
->
+export interface RouteDispatchContextState<R extends RouteInstance = RouteInstance, D = any> {
+  dispatch: Dispatch<RouteAction<R, D>>
+  push(route: R): void
+}
 
 export const RouteDispatchContext = React.createContext<RouteDispatchContextState | null>(null)
 
 export enum RouteActionType {
   PushRoute = 'pushRoute',
-  ReplaceRoute = 'replaceRoute'
+  ReplaceRoute = 'replaceRoute',
+  SetRouteData = 'setRouteData',
+  SyncFromBrowser = 'syncFromBrowser'
 }
 
 export interface PushRouteAction<R extends RouteInstance = RouteInstance, D = any> {
   readonly type: RouteActionType.PushRoute
   readonly route: R
-  readonly scroll: ScrollData
   readonly data?: D
 }
 
 export interface ReplaceRouteAction<R extends RouteInstance = RouteInstance, D = any> {
   readonly type: RouteActionType.ReplaceRoute
   readonly route: R
-  readonly scroll: ScrollData
+  readonly data?: D
+}
+
+export interface SetRouteDataAction<D = any> {
+  readonly type: RouteActionType.SetRouteData
+  readonly data?: D
+}
+
+export interface SyncFromBrowser<R extends RouteInstance = RouteInstance, D = any> {
+  readonly type: RouteActionType.SyncFromBrowser
+  readonly route: R
   readonly data?: D
 }
 
 export type RouteAction<R extends RouteInstance = RouteInstance, D = any> =
   | PushRouteAction<R, D>
   | ReplaceRouteAction<R, D>
+  | SetRouteDataAction<D>
+  | SyncFromBrowser<R, D>
+
+export function fullPathForRoute(route: RouteInstance) {
+  const queryString = new URLSearchParams(route.query).toString()
+  return `${route.path}${queryString ? `?${queryString}` : ''}${route.hash ? `#${route.hash}` : ''}`
+}
 
 export function routeReducer<R extends RouteInstance = RouteInstance, D = any>(
   state: RouteContextState<R, D>,
@@ -77,37 +115,39 @@ export function routeReducer<R extends RouteInstance = RouteInstance, D = any>(
 ): RouteContextState<R, D> {
   switch (action.type) {
     case RouteActionType.PushRoute:
-      if (action.data) {
-        return {
-          ...state,
-          historyType: RouteHistoryType.Push,
-          current: action.route,
-          next: null,
-          scroll: action.scroll,
-          data: action.data
-        }
-      } else {
-        return {
-          ...state,
-          historyType: RouteHistoryType.Push,
-          next: action.route,
-          scroll: action.scroll
-        }
-      }
-
     case RouteActionType.ReplaceRoute:
-      if (action.data) {
-        return {
-          ...state,
-          historyType: RouteHistoryType.Replace,
-          current: action.route,
-          next: null,
-          scroll: action.scroll,
+    case RouteActionType.SyncFromBrowser: {
+      return {
+        current: action.data ? action.route : state.current,
+        next: action.data ? null : action.route,
+        data: action.data || null,
+        history:
+          action.type !== RouteActionType.SyncFromBrowser
+            ? {
+                type:
+                  action.type === RouteActionType.PushRoute
+                    ? HistoryType.Push
+                    : HistoryType.Replace,
+                path: fullPathForRoute(action.route),
+                data: action.data
+              }
+            : null
+      }
+    }
+
+    case RouteActionType.SetRouteData: {
+      return {
+        ...state,
+        current: state.next,
+        next: null,
+        data: action.data,
+        history: state.next && {
+          type: HistoryType.Replace,
+          path: fullPathForRoute(state.next),
           data: action.data
         }
-      } else {
-        return {...state, historyType: RouteHistoryType.Replace, next: action.route}
       }
+    }
   }
 }
 
@@ -122,14 +162,14 @@ export interface CreateRouteContextResult<R extends RouteInstance = RouteInstanc
   useRoute: () => RouteContextState<R, D>
   useRouteDispatch: () => RouteDispatchContextState<R, D>
 
-  pushRouteAction: (route: R, scroll?: ScrollData, data?: D) => PushRouteAction<R, D>
-  replaceRouteAction: (route: R, scroll?: ScrollData, data?: D) => ReplaceRouteAction<R, D>
+  // pushRouteAction: (route: R, scroll?: ScrollState, data?: D) => PushRouteAction<R, D>
+  // replaceRouteAction: (route: R, scroll?: ScrollState, data?: D) => ReplaceRouteAction<R, D>
 
-  pushPathAction: (path: string, scroll?: ScrollData, data?: D) => PushRouteAction<R, D>
-  replacePathAction: (path: string, scroll?: ScrollData, data?: D) => ReplaceRouteAction<R, D>
+  // pushPathAction: (path: string, scroll?: ScrollState, data?: D) => PushRouteAction<R, D>
+  // replacePathAction: (path: string, scroll?: ScrollState, data?: D) => ReplaceRouteAction<R, D>
 }
 
-export type RouteResolveFn<R extends RouteInstance> = (path: string) => R
+export type RouteResolveFn<R extends RouteInstance> = (url: string) => R
 export type RouteDataQueryFn<R extends RouteInstance, D = any> = (
   route: R,
   callback: (data: D) => void
@@ -139,58 +179,29 @@ export function createRouteContext<R extends RouteInstance, D = any>(
   resolveRoute: RouteResolveFn<R>,
   queryRouteData: RouteDataQueryFn<R, D>
 ): CreateRouteContextResult<R, D> {
-  function pushRouteAction(
-    route: R,
-    scroll: ScrollData = {type: ScrollType.Top},
-    data?: D
-  ): PushRouteAction<R, D> {
-    return {type: RouteActionType.PushRoute, route, scroll, data}
-  }
-
-  function replaceRouteAction(
-    route: R,
-    scroll: ScrollData = {type: ScrollType.Top},
-    data?: D
-  ): ReplaceRouteAction<R, D> {
-    return {type: RouteActionType.ReplaceRoute, route, scroll, data}
-  }
-
-  function pushPathAction(
-    path: string,
-    scroll: ScrollData = {type: ScrollType.Top},
-    data?: D
-  ): PushRouteAction<R, D> {
-    return {type: RouteActionType.PushRoute, route: resolveRoute(path), scroll, data}
-  }
-
-  function replacePathAction(
-    path: string,
-    scroll: ScrollData = {type: ScrollType.Top},
-    data?: D
-  ): ReplaceRouteAction<R, D> {
-    return {type: RouteActionType.ReplaceRoute, route: resolveRoute(path), scroll, data}
-  }
-
   return {
-    RouteProvider(props: RouteProviderProps<R, D>) {
+    RouteProvider({initialRoute, initialData, children}: RouteProviderProps<R, D>) {
       const [state, dispatch] = useReducer<Reducer<RouteContextState<R, D>, RouteAction>>(
         routeReducer as Reducer<RouteContextState<R, D>, RouteAction>,
-        props.initialData != null
-          ? {
-              current: props.initialRoute || null,
-              data: props.initialData || null,
-              historyType: RouteHistoryType.Replace,
-              scroll: {type: ScrollType.Top},
-              next: null
-            }
-          : {
-              current: null,
-              data: props.initialData || null,
-              historyType: RouteHistoryType.Replace,
-              scroll: {type: ScrollType.Top},
-              next: props.initialRoute || null
-            }
+        {
+          current: initialData ? initialRoute || null : null,
+          next: initialData ? null : initialRoute || null,
+          data: initialData || null,
+          history: null
+        }
       )
+
+      const push = useMemo(
+        () => (route: R, data?: D) =>
+          dispatch({
+            type: RouteActionType.PushRoute,
+            route,
+            data
+          }),
+        [dispatch]
+      )
+
+      const dispatchState = useMemo(() => ({dispatch, push}), [push, dispatch])
 
       // `dispatch` function identity will not change, but for consistency's sake we still add it to
       // the dependencies array.
@@ -198,91 +209,73 @@ export function createRouteContext<R extends RouteInstance, D = any>(
         if (!state.next) return
 
         const cancel = queryRouteData(state.next, (data: D) => {
-          dispatch(replaceRouteAction(state.next!, {type: ScrollType.Maintain}, data))
+          dispatch({type: RouteActionType.SetRouteData, data})
         })
 
         return cancel
       }, [state.next, dispatch])
 
+      // Initialize if we don't have any route setup
       useEffect(() => {
         if (!state.next && !state.current) {
-          dispatch(replacePathAction(window.location.pathname))
-          return
+          dispatch({
+            type: RouteActionType.SyncFromBrowser,
+            route: resolveRoute(window.location.href)
+          })
+        }
+      }, [state.next, state.current])
+
+      // Sync state with browser.
+      useEffect(() => {
+        if ('scrollRestoration' in history && history.scrollRestoration !== 'manual') {
+          history.scrollRestoration = 'manual'
         }
 
-        switch (state.historyType) {
-          case RouteHistoryType.Push:
-            if (state.next && state.next.path) {
+        if (state.history) {
+          switch (state.history.type) {
+            case HistoryType.Push:
               window.history.replaceState(
                 {scroll: {x: window.scrollX, y: window.scrollY}, data: state.data},
                 '',
-                state.current && state.current.path
+                window.location.href
               )
 
-              window.history.pushState(null, '', state.next.path)
-            } else if (state.current && state.current.path) {
-              window.history.pushState({data: state.data}, '', state.current!.path)
-            }
+              window.history.pushState({data: state.history.data}, '', state.history.path)
+              // window.scrollTo(0, 0)
 
-            break
+              break
 
-          case RouteHistoryType.Replace:
-            if (state.next && state.next.path) {
-              window.history.replaceState(null, '', state.next.path)
-            } else if (state.current) {
-              window.history.replaceState(state.data, '', state.current!.path)
-            }
-            break
+            case HistoryType.Replace:
+              window.history.replaceState({data: state.history.data}, '', state.history.path)
+              break
+          }
         }
-
-        switch (state.scroll.type) {
-          case ScrollType.Maintain:
-            break
-
-          case ScrollType.Position:
-            window.scrollTo(state.scroll.x, state.scroll.y)
-            break
-
-          case ScrollType.Top:
-            window.scrollTo(0, 0)
-            break
-        }
-      }, [state.current, state.next, state.scroll, state.data])
+      }, [state.history])
 
       useEventListener(() => [
         window,
         'popstate',
         (e: PopStateEvent) => {
-          if (e.state) {
-            dispatch(
-              replacePathAction(
-                window.location.pathname,
-                e.state.scroll && {
-                  type: ScrollType.Position,
-                  x: e.state.scroll.x,
-                  y: e.state.scroll.y
-                },
-                e.state.data
-              )
-            )
+          dispatch({
+            type: RouteActionType.SyncFromBrowser,
+            route: resolveRoute(window.location.href),
+            data: e.state.data
+          })
+
+          if (e.state.scroll) {
+            // window.scrollTo(e.state.scroll.x, e.state.scroll.y)
           } else {
-            dispatch(replacePathAction(window.location.pathname))
+            // window.scrollTo(0, 0)
           }
         }
       ])
 
       return (
-        <RouteDispatchContext.Provider value={dispatch}>
-          <RouteContext.Provider value={state}>{props.children}</RouteContext.Provider>
+        <RouteDispatchContext.Provider value={dispatchState}>
+          <RouteContext.Provider value={state}>{children}</RouteContext.Provider>
         </RouteDispatchContext.Provider>
       )
     },
-
-    pushRouteAction,
-    replaceRouteAction,
-
-    pushPathAction,
-    replacePathAction,
 
     useRoute(): RouteContextState<R, D> {
       const routeContext = useContext(RouteContext)
@@ -366,16 +359,21 @@ export interface RouteInstance<T extends string = string, P extends RouteParamet
   type: T
   params: ObjectForParams<P>
   path: string
-
-  // TODO: Add query
+  query?: Record<string, string>
+  hash?: string
 }
 
 export interface Route<T extends string = string, P extends RouteParameter[] = any[]> {
   readonly type: T
   readonly path: RoutePath<P>
 
-  create(params: ObjectForParams<P>): RouteInstance<T, P>
-  reverse(params: ObjectForParams<P>): string
+  create(
+    params: ObjectForParams<P>,
+    query?: {[key: string]: string},
+    hash?: string
+  ): RouteInstance<T, P>
+
+  reverse(params: ObjectForParams<P>, query?: {[key: string]: string}, hash?: string): string
   match(path: string): ObjectForParams<P> | null
 }
 
@@ -390,8 +388,8 @@ export function route<T extends string, P extends RouteParameter[]>(
     reverse: path.reverse,
     match: path.match,
 
-    create(params: ObjectForParams<P>) {
-      return {type, params, path: path.reverse(params)}
+    create(params: ObjectForParams<P>, query?: {[key: string]: string}, hash?: string) {
+      return {type, params, path: path.reverse(params), query, hash}
     }
   }
 }
@@ -402,7 +400,7 @@ export interface RoutePath<P extends RouteParameter[]> {
   readonly keys: Key[]
   readonly params: P
 
-  reverse(params: ObjectForParams<P>): string
+  reverse(params: ObjectForParams<P>, query?: Record<string, string>, hash?: string): string
   match(path: string): ObjectForParams<P> | null
 }
 
@@ -426,8 +424,11 @@ export function routePath<P extends RouteParameter[]>(
     keys,
     params,
 
-    reverse(params: ObjectForParams<P>) {
-      return toPath(params as object)
+    reverse(params: ObjectForParams<P>, query?: Record<string, string>, hash?: string) {
+      const queryString = new URLSearchParams(query).toString()
+      const path = toPath(params as object)
+
+      return `${path}${queryString ? `?${queryString}` : ''}${hash ? `#${hash}` : ''}`
     },
 
     match(path: string) {
@@ -454,17 +455,23 @@ export type ObjectForParams<P extends RouteParameter[]> = UnionToIntersection<
 >
 
 export function resolveRoutes<R extends readonly Route[]>(
-  path: string,
+  url: string | URL,
   routes: R
 ): UnionForRoutes<R> | null {
+  url = url instanceof URL ? url : new URL(url)
+
   for (const route of routes) {
-    const match = route.match(path)
+    const match = route.match(url.pathname)
 
     if (match) {
+      const queryObj = Object.fromEntries(url.searchParams.entries())
+
       return {
         type: route.type,
         params: match,
-        path
+        query: Object.keys(queryObj).length ? queryObj : undefined,
+        hash: url.hash.slice(1) || undefined,
+        path: url.pathname
       } as UnionForRoutes<R>
     }
   }

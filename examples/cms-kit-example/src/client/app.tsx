@@ -1,13 +1,21 @@
 import React from 'react'
-import {createRouteContext, route, routePath, required, resolveRoutes} from '@karma.run/react'
+import {
+  createRouteContext,
+  route,
+  routePath,
+  required,
+  resolveRoutes,
+  regexp
+} from '@karma.run/react'
 
 const FooRoute = route('foo', routePath`/foo/${required('foo')}`)
 const BarRoute = route('bar', routePath`/bar/${required('bar')}`)
+const NotFoundRoute = route('notFound', routePath`/${regexp('path', /.*/)}`)
 
-export const {useRoute, useRouteDispatch, pushRouteAction, RouteProvider} = createRouteContext(
+export const {useRoute, useRouteDispatch, RouteProvider} = createRouteContext(
   (path: string) =>
-    resolveRoutes(path, [FooRoute, BarRoute] as const) ||
-    ({type: '404', params: {}, path: window.location.pathname} as const),
+    resolveRoutes(path, [FooRoute, BarRoute, NotFoundRoute] as const) ||
+    NotFoundRoute.create({path: ''}),
 
   (route, callback) => {
     let timeoutHandle: number | null = null
@@ -39,17 +47,18 @@ export function App() {
 
 export function Router() {
   const route = useRoute()
-  const routeDispatch = useRouteDispatch()
+  const {push} = useRouteDispatch()
 
   return (
     <div style={{height: '2000px'}}>
       <pre>{JSON.stringify(route, undefined, 2)}</pre>
-      <a
-        onClick={() => {
-          routeDispatch(pushRouteAction(FooRoute.create({foo: '123'})))
-        }}>
-        Test
-      </a>
+      <button onClick={() => push(NotFoundRoute.create({path: 'test'}))}>Home</button>
+      <button onClick={() => push(BarRoute.create({bar: 'world'}, {filter: '123'}, 'comments'))}>
+        Bar
+      </button>
+      <button onClick={() => push(FooRoute.create({foo: 'hello'}, {test: 'query'}, 'test'))}>
+        Foo
+      </button>
     </div>
   )
 }
