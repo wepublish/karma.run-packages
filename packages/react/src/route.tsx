@@ -171,7 +171,7 @@ export type HandleNextRouteFn<R extends RouteInstance> = (
   callback: (newRoute: R) => void
 ) => () => void
 
-export function createRouteContext<R extends RouteInstance, D = any>(
+export function createRouteContext<R extends RouteInstance>(
   resolveRoute: RouteResolveFn<R>,
   handleNextRoute: HandleNextRouteFn<R>
 ): CreateRouteContextResult<R> {
@@ -376,7 +376,7 @@ export interface Route<T extends string = string, P extends RouteParameter[] = a
     data?: D,
     query?: {[key: string]: string},
     hash?: string
-  ): RouteInstance<T, P>
+  ): RouteInstance<T, P, D>
 
   reverse(params: ObjectForParams<P>, query?: {[key: string]: string}, hash?: string): string
   match(path: string): ObjectForParams<P> | null
@@ -491,5 +491,5 @@ export function resolveRoutes<R extends readonly Route[]>(
 }
 
 export type UnionForRoutes<R extends readonly Route[]> = {
-  [K in keyof R]: R[K] extends Route<infer T, infer P> ? RouteInstance<T, P> : never
+  [K in keyof R]: R[K] extends Route<infer T, infer P, infer D> ? RouteInstance<T, P, D> : never
 }[number]

@@ -38,17 +38,11 @@ export const {useRoute, useRouteDispatch, RouteProvider} = createRouteContext(
     if (!route.data) {
       switch (route.type) {
         case 'foo':
-          timeoutHandle = setTimeout(
-            () => callback(FooRoute.create(route.params, {foo: 'foo'}, route.query, route.hash)),
-            1000
-          )
+          timeoutHandle = setTimeout(() => callback({...route, data: {foo: '123'}}), 1000)
           break
 
         case 'bar':
-          timeoutHandle = setTimeout(
-            () => callback(BarRoute.create(route.params, {bar: 'bar'}, route.query, route.hash)),
-            1000
-          )
+          timeoutHandle = setTimeout(() => callback({...route, data: {bar: '123'}}), 1000)
           break
 
         default:
