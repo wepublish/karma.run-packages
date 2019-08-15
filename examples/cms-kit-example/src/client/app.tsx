@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+
 import {
   createRouteContext,
   route,
@@ -28,55 +29,55 @@ const NotFoundRoute = route('notFound', routePath`/${regexp('path', /.*/)}`, {
   notFound: '404'
 } as NotFoundRouteData)
 
-export const {useRoute, useRouteDispatch, RouteProvider} = createRouteContext(
-  (path: string) =>
-    resolveRoutes(path, [FooRoute, BarRoute, NotFoundRoute] as const) ||
-    NotFoundRoute.create({params: {path: '123'}}),
+const routes = [FooRoute, BarRoute, NotFoundRoute] as const
 
-  (route, dispatch) => {
-    let timeoutHandle: number | null = null
-
-    if (!route.data) {
-      switch (route.type) {
-        case 'foo':
-          timeoutHandle = setTimeout(
-            () =>
-              dispatch({
-                type: RouteActionType.SetCurrentRoute,
-                route: {...route, data: {foo: '123'}}
-              }),
-            1000
-          )
-          break
-
-        case 'bar':
-          timeoutHandle = setTimeout(
-            () =>
-              dispatch({
-                type: RouteActionType.SetCurrentRoute,
-                route: {...route, data: {bar: '123'}}
-              }),
-            1000
-          )
-          break
-
-        default:
-          dispatch({
-            type: RouteActionType.SetCurrentRoute,
-            route: {...route}
-          })
-      }
-    } else {
-      dispatch({type: RouteActionType.SetCurrentRoute, route: {...route}})
-    }
-
-    return () => timeoutHandle && clearTimeout(timeoutHandle)
-  }
-)
+export const {useRoute, useRouteDispatch, RouteProvider} = createRouteContext(routes)
 
 export function App() {
   return (
-    <RouteProvider>
+    <RouteProvider
+      resolveRoute={path =>
+        resolveRoutes(path, routes) || NotFoundRoute.create({params: {path: '123'}})
+      }
+      handleNextRoute={(route, dispatch) => {
+        let timeoutHandle: number | null = null
+
+        if (!route.data) {
+          switch (route.type) {
+            case 'foo':
+              timeoutHandle = setTimeout(
+                () =>
+                  dispatch({
+                    type: RouteActionType.SetCurrentRoute,
+                    route: {...route, data: {foo: '123'}}
+                  }),
+                1000
+              )
+              break
+
+            case 'bar':
+              timeoutHandle = setTimeout(
+                () =>
+                  dispatch({
+                    type: RouteActionType.SetCurrentRoute,
+                    route: {...route, data: {bar: '123'}}
+                  }),
+                1000
+              )
+              break
+
+            default:
+              dispatch({
+                type: RouteActionType.SetCurrentRoute,
+                route: {...route}
+              })
+          }
+        } else {
+          dispatch({type: RouteActionType.SetCurrentRoute, route: {...route}})
+        }
+
+        return () => timeoutHandle && clearTimeout(timeoutHandle)
+      }}>
       <Router />
     </RouteProvider>
   )

@@ -137,6 +137,8 @@ export function routeReducer<R extends RouteInstance = RouteInstance>(
 
 export interface RouteProviderProps<R extends RouteInstance> extends ChildrenProps {
   readonly initialRoute?: R
+  readonly resolveRoute?: RouteResolveFn<R>
+  readonly handleNextRoute?: HandleNextRouteFn<R>
 }
 
 export interface CreateRouteContextResult<R extends RouteInstance = RouteInstance> {
@@ -152,12 +154,11 @@ export type HandleNextRouteFn<R extends RouteInstance> = (
   dispatch: Dispatch<RouteAction<R>>
 ) => () => void
 
-export function createRouteContext<R extends RouteInstance>(
-  resolveRoute: RouteResolveFn<R>,
-  handleNextRoute: HandleNextRouteFn<R>
+export function createRouteContext<T extends readonly Route[], R extends UnionForRoutes<T>>(
+  routes: T
 ): CreateRouteContextResult<R> {
   return {
-    RouteProvider({initialRoute, children}: RouteProviderProps<R>) {
+    RouteProvider({initialRoute, handleNextRoute, resolveRoute, children}: RouteProviderProps<R>) {
       const [state, dispatch] = useReducer<Reducer<RouteContextState<R>, RouteAction>>(
         routeReducer as Reducer<RouteContextState<R>, RouteAction>,
         {
@@ -171,12 +172,13 @@ export function createRouteContext<R extends RouteInstance>(
       // `dispatch` function identity will not change, but for consistency's sake we still add it to
       // the dependencies array.
       useEffect(() => {
-        if (!state.next) return
+        if (!state.next || !handleNextRoute) return
         return handleNextRoute(state.next, dispatch)
       }, [state.next, dispatch])
 
       // Initialize if we don't have any route setup
       useEffect(() => {
+        if (!resolveRoute) return
         if (!state.next && !state.current) {
           dispatch({
             type: RouteActionType.SyncFromBrowser,
@@ -225,6 +227,8 @@ export function createRouteContext<R extends RouteInstance>(
         window,
         'popstate',
         (e: PopStateEvent) => {
+          if (!resolveRoute) return
+
           const route = resolveRoute(window.location.href)
 
           route.data = e.state.data
