@@ -90,16 +90,17 @@ export interface CSSStyle extends CSS.Properties<string | number> {
   [selector: string]: number | string | CSSStyle | undefined
 }
 
-export type CSSRuleFn<P = {}> = (props: P, renderer: IRenderer) => CSSStyle
+export type CSSRenderer = IRenderer
+export type CSSRuleFn<P = {}> = (props: P, renderer: CSSRenderer) => CSSStyle
 
 export interface StyleContextType {
-  readonly renderer: IRenderer
+  readonly renderer: CSSRenderer
 }
 
 export const StyleContext = createContext<StyleContextType | null>(null)
 
 export interface StyleRendererProviderProps extends ChildrenProps {
-  readonly renderer: IRenderer
+  readonly renderer: CSSRenderer
 }
 
 export function StyleProvider(props: StyleRendererProviderProps) {
@@ -113,18 +114,19 @@ export function createStyleRenderer() {
   })
 }
 
-export function rehydrateStyles(renderer: IRenderer): void {
+export function rehydrateStyles(renderer: CSSRenderer): void {
   rehydrate(renderer)
 }
 
-export function renderStyles(renderer: IRenderer): void {
+export function renderStyles(renderer: CSSRenderer): void {
   render(renderer)
 }
 
-export function renderStylesToComponents(renderer: IRenderer): ReactNode {
+export function renderStylesToComponents(renderer: CSSRenderer): ReactNode {
   // `(sheet as any)` is needed because typings don't include rehydration property.
   return renderToSheetList(renderer).map((sheet, index) => (
     <style
+      key={index}
       type="text/css"
       data-fela-type={sheet.type}
       data-fela-rehydration={(sheet as any).rehydration}
@@ -133,6 +135,10 @@ export function renderStylesToComponents(renderer: IRenderer): ReactNode {
       dangerouslySetInnerHTML={{__html: sheet.css}}
     />
   ))
+}
+
+export function renderStylesToMarkup(renderer: CSSRenderer) {
+  return renderToMarkup(renderer)
 }
 
 export function cssRule<P>(fn: CSSRuleFn<P>): CSSRuleFn<P> {
