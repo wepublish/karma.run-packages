@@ -1,6 +1,6 @@
-import React, {createContext, useContext, useMemo} from 'react'
+import React, {createContext, useContext, useMemo, ReactNode} from 'react'
 import {createRenderer, IRenderer, combineRules} from 'fela'
-import {rehydrate, render, renderToMarkup} from 'fela-dom'
+import {rehydrate, render, renderToMarkup, renderToSheetList} from 'fela-dom'
 import * as CSS from 'csstype'
 
 import {ChildrenProps} from './types'
@@ -121,8 +121,18 @@ export function renderStyles(renderer: IRenderer): void {
   render(renderer)
 }
 
-export function renderStylesToMarkup(renderer: IRenderer): string {
-  return renderToMarkup(renderer)
+export function renderStylesToComponents(renderer: IRenderer): ReactNode {
+  // `(sheet as any)` is needed because typings don't include rehydration property.
+  return renderToSheetList(renderer).map((sheet, index) => (
+    <style
+      type="text/css"
+      data-fela-type={sheet.type}
+      data-fela-rehydration={(sheet as any).rehydration}
+      data-fela-support={sheet.support}
+      media={sheet.media}
+      dangerouslySetInnerHTML={{__html: sheet.css}}
+    />
+  ))
 }
 
 export function cssRule<P>(fn: CSSRuleFn<P>): CSSRuleFn<P> {
