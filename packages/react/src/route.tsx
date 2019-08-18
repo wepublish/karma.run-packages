@@ -5,7 +5,10 @@ import React, {
   ComponentType,
   Dispatch,
   Reducer,
-  useMemo
+  useMemo,
+  AnchorHTMLAttributes,
+  useCallback,
+  PointerEvent
 } from 'react'
 
 import pathToRegexp, {Key} from 'path-to-regexp'
@@ -19,11 +22,16 @@ export enum HistoryType {
   Replace = 'replace'
 }
 
+export interface ScrollData {
+  x: number
+  y: number
+}
+
 export interface HistoryState {
   type: HistoryType
   path: string
   data?: any
-  scroll?: {x: number; y: number}
+  scroll?: ScrollData | null
 }
 
 export interface RouteContextState<R extends RouteInstance = RouteInstance> {
@@ -53,9 +61,19 @@ export interface PushRouteAction<R extends RouteInstance = RouteInstance> {
   readonly route: R
 }
 
+export function pushRoute<R extends RouteInstance = RouteInstance>(route: R): PushRouteAction<R> {
+  return {type: RouteActionType.PushRoute, route}
+}
+
 export interface ReplaceRouteAction<R extends RouteInstance = RouteInstance> {
   readonly type: RouteActionType.ReplaceRoute
   readonly route: R
+}
+
+export function replaceRoute<R extends RouteInstance = RouteInstance>(
+  route: R
+): ReplaceRouteAction<R> {
+  return {type: RouteActionType.ReplaceRoute, route}
 }
 
 export interface SetCurrentRouteAction<R extends RouteInstance = RouteInstance> {
@@ -63,9 +81,21 @@ export interface SetCurrentRouteAction<R extends RouteInstance = RouteInstance> 
   readonly route: R
 }
 
+export function setCurrentRoute<R extends RouteInstance = RouteInstance>(
+  route: R
+): SetCurrentRouteAction<R> {
+  return {type: RouteActionType.SetCurrentRoute, route}
+}
+
 export interface SyncFromBrowser<R extends RouteInstance = RouteInstance> {
   readonly type: RouteActionType.SyncFromBrowser
   readonly route: R
+}
+
+export function syncFromBrowser<R extends RouteInstance = RouteInstance>(
+  route: R
+): SyncFromBrowser<R> {
+  return {type: RouteActionType.SyncFromBrowser, route}
 }
 
 export type RouteAction<R extends RouteInstance = RouteInstance> =
@@ -137,15 +167,22 @@ export function routeReducer<R extends RouteInstance = RouteInstance>(
 
 export interface RouteProviderProps<R extends RouteInstance> extends ChildrenProps {
   readonly initialRoute?: R
-  readonly resolveRoute?: RouteResolveFn<R>
   readonly handleNextRoute?: HandleNextRouteFn<R>
+}
+
+export interface LinkProps<R extends RouteInstance>
+  extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  readonly route?: R
+  readonly element?: string
 }
 
 export interface CreateRouteContextResult<R extends RouteInstance = RouteInstance> {
   readonly RouteProvider: ComponentType<RouteProviderProps<R>>
+  readonly Link: ComponentType<LinkProps<R>>
 
-  useRoute: () => RouteContextState<R>
-  useRouteDispatch: () => RouteDispatchContextState<R>
+  useRoute(): RouteContextState<R>
+  useRouteDispatch(): RouteDispatchContextState<R>
+  matchRoute(url: string): R | null
 }
 
 export type RouteResolveFn<R extends RouteInstance> = (url: string) => R
@@ -154,129 +191,157 @@ export type HandleNextRouteFn<R extends RouteInstance> = (
   dispatch: Dispatch<RouteAction<R>>
 ) => () => void
 
-export function createRouteContext<T extends readonly Route[], R extends UnionForRoutes<T>>(
-  routes: T
-): CreateRouteContextResult<R> {
-  return {
-    RouteProvider({initialRoute, handleNextRoute, resolveRoute, children}: RouteProviderProps<R>) {
-      const [state, dispatch] = useReducer<Reducer<RouteContextState<R>, RouteAction>>(
-        routeReducer as Reducer<RouteContextState<R>, RouteAction>,
-        {
-          current: null,
-          next: initialRoute || null,
-          previous: null,
-          history: null
-        }
+export function createRouteContext<
+  T extends readonly Route[],
+  R extends RouteInstancesForRoutes<T> = RouteInstancesForRoutes<T>
+>(routes: T): CreateRouteContextResult<R> {
+  function matchRoute(url: string): R | null {
+    return matchRoutes<T, R>(url, routes)
+  }
+
+  function useRouteDispatch(): RouteDispatchContextState<R> {
+    const routeDispatchContext = useContext(RouteDispatchContext)
+
+    if (!routeDispatchContext) {
+      throw new Error(
+        "Couldn't find a RouteDispatchContext provider, did you forget to include RouteProvider in the component tree."
       )
-
-      // `dispatch` function identity will not change, but for consistency's sake we still add it to
-      // the dependencies array.
-      useEffect(() => {
-        if (!state.next || !handleNextRoute) return
-        return handleNextRoute(state.next, dispatch)
-      }, [state.next, dispatch])
-
-      // Initialize if we don't have any route setup
-      useEffect(() => {
-        if (!resolveRoute) return
-        if (!state.next && !state.current) {
-          dispatch({
-            type: RouteActionType.SyncFromBrowser,
-            route: resolveRoute(window.location.href)
-          })
-        }
-      }, [state.next, state.current])
-
-      // Sync state with browser.
-      useEffect(() => {
-        if (state.history) {
-          switch (state.history.type) {
-            case HistoryType.Push:
-              if (state.current) {
-                // Save current scroll position into state
-                window.history.replaceState(
-                  {
-                    scroll: {x: window.scrollX, y: window.scrollY},
-                    data: state.current ? state.current.data : null
-                  },
-                  '',
-                  window.location.href
-                )
-              }
-
-              window.history.pushState(
-                {data: state.history.data, scroll: state.history.scroll},
-                '',
-                state.history.path
-              )
-
-              break
-
-            case HistoryType.Replace:
-              window.history.replaceState(
-                {data: state.history.data, scroll: state.history.scroll},
-                '',
-                state.history.path
-              )
-              break
-          }
-        }
-      }, [state.history])
-
-      useEventListener(() => [
-        window,
-        'popstate',
-        (e: PopStateEvent) => {
-          if (!resolveRoute) return
-
-          const route = resolveRoute(window.location.href)
-
-          route.data = e.state.data
-          route.scroll = e.state.scroll
-
-          dispatch({
-            type: RouteActionType.SyncFromBrowser,
-            route
-          })
-        }
-      ])
-
-      return (
-        <RouteDispatchContext.Provider value={dispatch}>
-          <RouteContext.Provider value={state}>{children}</RouteContext.Provider>
-        </RouteDispatchContext.Provider>
-      )
-    },
-
-    useRoute(): RouteContextState<R> {
-      const routeContext = useContext(RouteContext)
-
-      if (!routeContext) {
-        throw new Error(
-          "Couldn't find a RouteContext provider, did you forget to include RouteProvider in the component tree."
-        )
-      }
-
-      return routeContext as RouteContextState<R>
-    },
-
-    useRouteDispatch(): RouteDispatchContextState<R> {
-      const routeDispatchContext = useContext(RouteDispatchContext)
-
-      if (!routeDispatchContext) {
-        throw new Error(
-          "Couldn't find a RouteDispatchContext provider, did you forget to include RouteProvider in the component tree."
-        )
-      }
-
-      return routeDispatchContext as RouteDispatchContextState<R>
     }
+
+    return routeDispatchContext as RouteDispatchContextState<R>
+  }
+
+  function useRoute(): RouteContextState<R> {
+    const routeContext = useContext(RouteContext)
+
+    if (!routeContext) {
+      throw new Error(
+        "Couldn't find a RouteContext provider, did you forget to include RouteProvider in the component tree."
+      )
+    }
+
+    return routeContext as RouteContextState<R>
+  }
+
+  function Link({element, route, onClick, ...rest}: LinkProps<R>) {
+    const dispatch = useRouteDispatch()
+
+    if (route) {
+      const clickHandler = useCallback((e: PointerEvent<HTMLAnchorElement>) => {
+        if (onClick) onClick(e)
+        if (e.isDefaultPrevented()) return
+
+        e.preventDefault()
+        dispatch(pushRoute(route))
+      }, [])
+
+      return <a {...rest} href={fullPathForRoute(route)} onClick={clickHandler} />
+    } else {
+      return <a {...rest} />
+    }
+  }
+
+  function RouteProvider({initialRoute, handleNextRoute, children}: RouteProviderProps<R>) {
+    const [state, dispatch] = useReducer<Reducer<RouteContextState<R>, RouteAction>>(
+      routeReducer as Reducer<RouteContextState<R>, RouteAction>,
+      {
+        current: null,
+        next: initialRoute || null,
+        previous: null,
+        history: null
+      }
+    )
+
+    // `dispatch` function identity will not change, but for consistency's sake we still add it to
+    // the dependencies array.
+    useEffect(() => {
+      if (!state.next || !handleNextRoute) return
+      return handleNextRoute(state.next, dispatch)
+    }, [state.next, dispatch])
+
+    // Initialize if we don't have any route setup
+    useEffect(() => {
+      if (!state.next && !state.current) {
+        const route = matchRoute(window.location.href)
+
+        if (!route) return
+
+        dispatch(syncFromBrowser(route))
+      }
+    }, [state.next, state.current])
+
+    // Sync state with browser.
+    useEffect(() => {
+      if (state.history) {
+        switch (state.history.type) {
+          case HistoryType.Push:
+            if (state.current) {
+              // Save current scroll position into state
+              window.history.replaceState(
+                {
+                  scroll: {x: window.scrollX, y: window.scrollY},
+                  data: state.current ? state.current.data : null
+                },
+                '',
+                window.location.href
+              )
+            }
+
+            window.history.pushState(
+              {data: state.history.data, scroll: state.history.scroll},
+              '',
+              state.history.path
+            )
+
+            break
+
+          case HistoryType.Replace:
+            window.history.replaceState(
+              {data: state.history.data, scroll: state.history.scroll},
+              '',
+              state.history.path
+            )
+            break
+        }
+      }
+    }, [state.history])
+
+    useEventListener(() => [
+      window,
+      'popstate',
+      (e: PopStateEvent) => {
+        const route = matchRoute(window.location.href)
+
+        if (!route) return
+
+        route.data = route.data || e.state.data
+        route.scroll = e.state.scroll
+
+        dispatch(syncFromBrowser(route))
+      }
+    ])
+
+    return (
+      <RouteDispatchContext.Provider value={dispatch}>
+        <RouteContext.Provider value={state}>{children}</RouteContext.Provider>
+      </RouteDispatchContext.Provider>
+    )
+  }
+
+  return {
+    Link,
+    RouteProvider,
+    matchRoute,
+    useRouteDispatch,
+    useRoute
   }
 }
 
 export enum RouteParameterType {
   Required = 'required',
   Optional = 'optional',
+  ZeroOrMore = 'zeroOrMore',
+  OneOrMore = 'oneOrMore',
   Regexp = 'regexp'
 }
 
@@ -290,6 +355,16 @@ export interface OptionalRouteParameter<K extends string = string> {
   readonly key: K
 }
 
+export interface ZeroOrMoreRouteParameter<K extends string = string> {
+  readonly type: RouteParameterType.ZeroOrMore
+  readonly key: K
+}
+
+export interface OneOrMoreRouteParameter<K extends string = string> {
+  readonly type: RouteParameterType.OneOrMore
+  readonly key: K
+}
+
 export interface RegexpRouteParameter<K extends string = string> {
   readonly type: RouteParameterType.Regexp
   readonly key: K
@@ -299,18 +374,26 @@ export interface RegexpRouteParameter<K extends string = string> {
 export type RouteParameter<K extends string = string> =
   | RequiredRouteParameter<K>
   | OptionalRouteParameter<K>
+  | ZeroOrMoreRouteParameter<K>
+  | OneOrMoreRouteParameter<K>
   | RegexpRouteParameter<K>
 
-function routeParamToPathParam(param: RouteParameter) {
+function routeParamToPathParam(param: RouteParameter): string {
   switch (param.type) {
     case RouteParameterType.Required:
       return `:${param.key}`
 
     case RouteParameterType.Optional:
-      return `:${param.key}`
+      return `:${param.key}?`
 
     case RouteParameterType.Regexp:
-      return `:${param.key}?`
+      return `:${param.key}(${param.regexp.source})`
+
+    case RouteParameterType.ZeroOrMore:
+      return `:${param.key}*`
+
+    case RouteParameterType.OneOrMore:
+      return `:${param.key}+`
   }
 }
 
@@ -320,6 +403,14 @@ export function required<K extends string>(key: K): RequiredRouteParameter<K> {
 
 export function optional<K extends string>(key: K): OptionalRouteParameter<K> {
   return {type: RouteParameterType.Optional, key}
+}
+
+export function zeroOrMore<K extends string>(key: K): ZeroOrMoreRouteParameter<K> {
+  return {type: RouteParameterType.ZeroOrMore, key}
+}
+
+export function oneOrMore<K extends string>(key: K): OneOrMoreRouteParameter<K> {
+  return {type: RouteParameterType.OneOrMore, key}
 }
 
 export function regexp<K extends string>(key: K, regexp: RegExp): RegexpRouteParameter<K> {
@@ -338,7 +429,7 @@ export interface RouteInstance<
   path: string
   query?: Record<string, string>
   hash?: string
-  scroll?: {x: number; y: number}
+  scroll?: ScrollData | null
 }
 
 export interface Route<T extends string = string, P extends RouteParameter[] = any[], D = unknown> {
@@ -346,17 +437,16 @@ export interface Route<T extends string = string, P extends RouteParameter[] = a
   readonly path: RoutePath<P>
   readonly defaultData: D
 
-  create(args: CreateParams<P, D>): RouteInstance<T, P, D>
+  create(params: ObjectForParams<P>, opts?: CreateOptions<D>): RouteInstance<T, P, D>
   reverse(params: ObjectForParams<P>, query?: {[key: string]: string}, hash?: string): string
   match(path: string): ObjectForParams<P> | null
 }
 
-export interface CreateParams<P extends RouteParameter[] = any[], D = unknown> {
-  params: ObjectForParams<P>
+export interface CreateOptions<D = unknown> {
   data?: D
   query?: {[key: string]: string}
   hash?: string
-  scroll?: {x: number; y: number}
+  scroll?: ScrollData | null
 }
 
 export function route<T extends string, P extends RouteParameter[], D = unknown>(
@@ -372,15 +462,15 @@ export function route<T extends string, P extends RouteParameter[], D = unknown>
     reverse: path.reverse,
     match: path.match,
 
-    create({params, data, query, hash, scroll}: CreateParams<P, D>) {
+    create(params, {data, query, hash, scroll}: CreateOptions<D> = {}): RouteInstance<T, P, D> {
       return {
         type,
         params,
         path: path.reverse(params),
         query,
         hash,
-        data: data !== undefined ? data : defaultData,
-        scroll
+        data: data === undefined ? defaultData : data,
+        scroll: scroll === undefined ? {x: 0, y: 0} : scroll
       }
     }
   }
@@ -438,18 +528,21 @@ export function routePath<P extends RouteParameter[]>(
 
 export type ObjectForParams<P extends RouteParameter[]> = UnionToIntersection<
   {
-    [K in keyof P]: P[K] extends RequiredRouteParameter | RegexpRouteParameter
+    [K in keyof P]: P[K] extends
+      | RequiredRouteParameter
+      | RegexpRouteParameter
+      | OneOrMoreRouteParameter
       ? {[PK in P[K]['key']]: string}
-      : P[K] extends OptionalRouteParameter
+      : P[K] extends OptionalRouteParameter | ZeroOrMoreRouteParameter
       ? {[PK in P[K]['key']]?: string}
       : {}
   }[number]
 >
 
-export function resolveRoutes<R extends readonly Route[]>(
+export function matchRoutes<R extends readonly Route[], I extends RouteInstancesForRoutes<R>>(
   url: string | URL,
   routes: R
-): UnionForRoutes<R> | null {
+): I | null {
   url = url instanceof URL ? url : new URL(url)
 
   for (const route of routes) {
@@ -465,12 +558,12 @@ export function resolveRoutes<R extends readonly Route[]>(
         query: Object.keys(queryObj).length ? queryObj : undefined,
         hash: url.hash.slice(1) || undefined,
         path: url.pathname
-      } as UnionForRoutes<R>
+      } as I
     }
   }
   return null
 }
 
-export type UnionForRoutes<R extends readonly Route[]> = {
+export type RouteInstancesForRoutes<R extends readonly Route[]> = {
   [K in keyof R]: R[K] extends Route<infer T, infer P, infer D> ? RouteInstance<T, P, D> : never
 }[number]

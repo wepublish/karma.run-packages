@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react'
-
 import {
-  createRouteContext,
   route,
   routePath,
   required,
-  resolveRoutes,
-  regexp,
-  RouteActionType
+  createRouteContext,
+  setCurrentRoute,
+  zeroOrMore
 } from '@karma.run/react'
 
 export interface BarRouteData {
@@ -24,21 +22,21 @@ export interface NotFoundRouteData {
 
 const FooRoute = route('foo', routePath`/foo/${required('foo')}`, null as FooRouteData | null)
 const BarRoute = route('bar', routePath`/bar/${required('bar')}`, null as BarRouteData | null)
+const NoParamRoute = route(
+  'noParam',
+  routePath`/noparam/${required('id')}/${zeroOrMore('path')}`,
+  null
+)
 
-const NotFoundRoute = route('notFound', routePath`/${regexp('path', /.*/)}`, {
-  notFound: '404'
-} as NotFoundRouteData)
-
-const routes = [FooRoute, BarRoute, NotFoundRoute] as const
-
-export const {useRoute, useRouteDispatch, RouteProvider} = createRouteContext(routes)
+export const {useRoute, useRouteDispatch, RouteProvider, Link, matchRoute} = createRouteContext([
+  FooRoute,
+  BarRoute,
+  NoParamRoute
+] as const)
 
 export function App() {
   return (
     <RouteProvider
-      resolveRoute={path =>
-        resolveRoutes(path, routes) || NotFoundRoute.create({params: {path: '123'}})
-      }
       handleNextRoute={(route, dispatch) => {
         let timeoutHandle: number | null = null
 
@@ -46,34 +44,23 @@ export function App() {
           switch (route.type) {
             case 'foo':
               timeoutHandle = setTimeout(
-                () =>
-                  dispatch({
-                    type: RouteActionType.SetCurrentRoute,
-                    route: {...route, data: {foo: '123'}}
-                  }),
-                1000
+                () => dispatch(setCurrentRoute({...route, data: {foo: '123'}})),
+                300
               )
               break
 
             case 'bar':
               timeoutHandle = setTimeout(
-                () =>
-                  dispatch({
-                    type: RouteActionType.SetCurrentRoute,
-                    route: {...route, data: {bar: '123'}}
-                  }),
-                1000
+                () => dispatch(setCurrentRoute({...route, data: {bar: '123'}})),
+                300
               )
               break
 
             default:
-              dispatch({
-                type: RouteActionType.SetCurrentRoute,
-                route: {...route}
-              })
+              dispatch(setCurrentRoute(route))
           }
         } else {
-          dispatch({type: RouteActionType.SetCurrentRoute, route: {...route}})
+          dispatch(setCurrentRoute(route))
         }
 
         return () => timeoutHandle && clearTimeout(timeoutHandle)
@@ -84,51 +71,34 @@ export function App() {
 }
 
 export function Router() {
-  const route = useRoute()
-  const dispatch = useRouteDispatch()
-
   return (
     <div style={{height: '2000px', background: 'linear-gradient(#fff, #000)'}}>
       <Content />
-      {/* <pre>{JSON.stringify(route, undefined, 2)}</pre> */}
       <div style={{position: 'fixed'}}>
-        <button
-          onClick={() =>
-            dispatch({
-              type: RouteActionType.PushRoute,
-              route: NotFoundRoute.create({params: {path: 'test'}, scroll: {x: 0, y: 0}})
-            })
-          }>
-          Home
-        </button>
-        <button
-          onClick={() =>
-            dispatch({
-              type: RouteActionType.PushRoute,
-              route: BarRoute.create({
-                params: {bar: 'world'},
-                query: {filter: '123'},
-                hash: 'comments',
-                scroll: {x: 0, y: 0}
-              })
-            })
-          }>
-          Bar
-        </button>
-        <button
-          onClick={() =>
-            dispatch({
-              type: RouteActionType.PushRoute,
-              route: FooRoute.create({
-                params: {foo: 'hello'},
-                query: {test: 'query'},
-                hash: 'test',
-                scroll: {x: 0, y: 0}
-              })
-            })
-          }>
+        <Link route={NoParamRoute.create({path: 'test'})}>No Param</Link>
+        <Link route={NoParamRoute.create({})}>No Param 2</Link>
+
+        <Link
+          route={FooRoute.create(
+            {foo: 'hello'},
+            {
+              query: {test: 'query'},
+              hash: 'test'
+            }
+          )}>
           Foo
-        </button>
+        </Link>
+
+        <Link
+          route={BarRoute.create(
+            {bar: 'world'},
+            {
+              query: {test: 'query'},
+              hash: 'test'
+            }
+          )}>
+          Bar
+        </Link>
       </div>
     </div>
   )
@@ -169,11 +139,12 @@ export function Content() {
     }
   }, [activeRoute, route.previous])
 
-  if (!activeRoute) return null
+  if (!activeRoute) return <div>404</div>
 
   switch (activeRoute.type) {
     case 'bar':
       return <div>Bar: {activeRoute.data ? activeRoute.data.bar : 'Loading...'}</div>
+
     case 'foo':
       return (
         <div>
@@ -188,7 +159,8 @@ export function Content() {
           )}
         </div>
       )
-    case 'notFound':
-      return <div>NotFound: {activeRoute.data.notFound}</div>
+
+    case 'noParam':
+      return <div>NoParam: {activeRoute.params.path}</div>
   }
 }
