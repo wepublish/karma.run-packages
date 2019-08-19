@@ -19,7 +19,7 @@
     "react": "^16.8.6",
     "find-my-way": "^2.1.0",
     "nanoid": "^2.0.3",
-    "@karma.run/react": "^0.0.3"
+    "@karma.run/react": "^0.0.6"
   },
   "devDependencies": {
     "@types/nanoid": "^2.0.0",

@@ -166,7 +166,7 @@ export function routeReducer<R extends RouteInstance = RouteInstance>(
 }
 
 export interface RouteProviderProps<R extends RouteInstance> extends ChildrenProps {
-  readonly initialRoute?: R
+  readonly initialRoute?: R | null
   readonly handleNextRoute?: HandleNextRouteFn<R>
 }
 
@@ -245,8 +245,8 @@ export function createRouteContext<
     const [state, dispatch] = useReducer<Reducer<RouteContextState<R>, RouteAction>>(
       routeReducer as Reducer<RouteContextState<R>, RouteAction>,
       {
-        current: null,
-        next: initialRoute || null,
+        current: initialRoute || null,
+        next: null,
         previous: null,
         history: null
       }
