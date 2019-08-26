@@ -1,7 +1,6 @@
 {
   "name": "@karma.run/webpack",
   "version": "0.0.0",
-  "main": "./lib/index.js",
   "license": "MIT",
   "scripts": {
     "build": "run-s copy-license sync-package-info build:*",
