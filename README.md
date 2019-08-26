@@ -33,14 +33,9 @@ yarn watch
 The following servers will be available:
 
 - **CMS Kit Storybook:** [http://localhost:3010](http://localhost:3010)
-- **CMS Kit Example:** [http://localhost:3011](http://localhost:3011)
 
 If you want to build/watch only certain packages just have a look inside the [package.json][package-json-url],
 to find commands for each package.
-
-### Debugging Node.js via VSCode
-
-There are several launch configurations that allow you to attach the debugger to the various examples.
 
 [node-download-url]: https://nodejs.org/en/download/current/
 [yarn-download-url]: https://yarnpkg.com/en/docs/install

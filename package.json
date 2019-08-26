@@ -21,10 +21,7 @@
     "build:cms-kit-example": "yarn workspace @karma.run/cms-kit-example build",
     "watch:cms-kit-example": "yarn workspace @karma.run/cms-kit-example watch"
   },
-  "workspaces": [
-    "packages/*",
-    "examples/*"
-  ],
+  "workspaces": ["packages/*"],
   "devDependencies": {
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
@@ -33,7 +30,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --pattern '{examples,packages}/**/*.{js,ts,tsx,json}'"
+      "pre-commit": "pretty-quick --pattern 'packages/**/*.{js,ts,tsx,json}'"
     }
   }
 }
