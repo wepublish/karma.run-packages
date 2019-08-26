@@ -141,8 +141,8 @@ export function renderStylesToMarkup(renderer: CSSRenderer) {
   return renderToMarkup(renderer)
 }
 
-export function cssRule<P>(fn: CSSRuleFn<P>): CSSRuleFn<P> {
-  return fn
+export function cssRule<P>(fnOrStyle: CSSRuleFn<P> | CSSStyle): CSSRuleFn<P> {
+  return typeof fnOrStyle === 'function' ? fnOrStyle : () => fnOrStyle
 }
 
 export interface UseStyleResult<P> {
