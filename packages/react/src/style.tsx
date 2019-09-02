@@ -143,11 +143,11 @@ export function renderStylesToMarkup(renderer: CSSRenderer) {
   return renderToMarkup(renderer)
 }
 
-export function cssRule<P = undefined>(fnOrStyle: CSSRuleFn<P> | CSSStyle): CSSRuleFn<P> {
+export function cssRule<P = any>(fnOrStyle: CSSRuleFn<P> | CSSStyle): CSSRuleFn<P> {
   return typeof fnOrStyle === 'function' ? fnOrStyle : () => fnOrStyle
 }
 
-export function cssKeyframes<P = undefined>(keyframesRuleFn: CSSKeyframesFn<P>): CSSKeyframesFn<P> {
+export function cssKeyframes<P = any>(keyframesRuleFn: CSSKeyframesFn<P>): CSSKeyframesFn<P> {
   return keyframesRuleFn
 }
 
