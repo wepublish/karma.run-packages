@@ -159,12 +159,12 @@ export interface UseStyleResult<P> {
 }
 
 export interface CSSFontProps {
-  fontDisplay: 'auto' | 'block' | 'swap' | 'fallback' | 'optional'
-  fontVariant: string
-  fontWeight: string
-  fontStretch: string
-  fontStyle: string
-  unicodeRange: string
+  fontDisplay?: 'auto' | 'block' | 'swap' | 'fallback' | 'optional'
+  fontVariant?: string
+  fontWeight?: string
+  fontStretch?: string
+  fontStyle?: string
+  unicodeRange?: string
 }
 
 export function useStyle<P = undefined>(): UseStyleResult<P>
