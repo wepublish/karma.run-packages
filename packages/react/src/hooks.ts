@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import {useEffect, DependencyList} from 'react'
 
 export function useFetch(
   input: RequestInfo | null,
@@ -33,11 +33,12 @@ export interface EventListenerEffect<T extends EventTarget, E extends Event> {
 }
 
 export function useEventListener<T extends EventTarget, E extends Event>(
-  effect: EventListenerEffect<T, E>
+  effect: EventListenerEffect<T, E>,
+  deps?: DependencyList
 ) {
   useEffect(() => {
     const [target, event, callback] = effect()
     target.addEventListener(event, callback as EventListener)
     return () => target.removeEventListener(event, callback as EventListener)
-  })
+  }, deps)
 }
