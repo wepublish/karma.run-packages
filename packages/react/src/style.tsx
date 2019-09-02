@@ -4,6 +4,7 @@ import {rehydrate, render, renderToMarkup, renderToSheetList} from 'fela-dom'
 import * as CSS from 'csstype'
 
 import {ChildrenProps} from './types'
+import {string} from 'prop-types'
 
 export interface CSSStyle extends CSS.Properties<string | number> {
   ':active'?: CSSStyle
@@ -92,6 +93,7 @@ export interface CSSStyle extends CSS.Properties<string | number> {
 
 export type CSSRenderer = IRenderer
 export type CSSRuleFn<P = {}> = (props: P, renderer: CSSRenderer) => CSSStyle
+export type CSSKeyframesFn<P = {}> = (props: P, renderer: CSSRenderer) => Record<string, CSSStyle>
 
 export interface StyleContextType {
   readonly renderer: CSSRenderer
@@ -141,16 +143,31 @@ export function renderStylesToMarkup(renderer: CSSRenderer) {
   return renderToMarkup(renderer)
 }
 
-export function cssRule<P>(fnOrStyle: CSSRuleFn<P> | CSSStyle): CSSRuleFn<P> {
+export function cssRule<P = undefined>(fnOrStyle: CSSRuleFn<P> | CSSStyle): CSSRuleFn<P> {
   return typeof fnOrStyle === 'function' ? fnOrStyle : () => fnOrStyle
+}
+
+export function cssKeyframes<P = undefined>(keyframesRuleFn: CSSKeyframesFn<P>): CSSKeyframesFn<P> {
+  return keyframesRuleFn
 }
 
 export interface UseStyleResult<P> {
   staticCSS(selector: string, style: CSSStyle): void
   css(...rules: CSSRuleFn<P>[]): string
+  font(family: string, files: string[], props: FontCSSProps): void
+  keyframes(keyframesFn: CSSKeyframesFn<P>): string
 }
 
-export function useStyle(): UseStyleResult<undefined>
+export interface FontCSSProps {
+  fontDisplay: 'auto' | 'block' | 'swap' | 'fallback' | 'optional'
+  fontVariant: string
+  fontWeight: 'bold'
+  fontStretch: string
+  fontStyle: string
+  unicodeRange: string
+}
+
+export function useStyle<P = undefined>(): UseStyleResult<P>
 export function useStyle<P>(props: P): UseStyleResult<P>
 export function useStyle<P>(props?: P): UseStyleResult<P> {
   const context = useContext(StyleContext)
@@ -164,12 +181,18 @@ export function useStyle<P>(props?: P): UseStyleResult<P> {
   const {renderer} = context
 
   return {
-    staticCSS(selector: string, style: CSSStyle) {
+    staticCSS(selector: string, style: CSSStyle): void {
       renderer.renderStatic(style, selector)
     },
     css(...rules: CSSRuleFn<P>[]): string {
       // `as any` is needed because there's no generic version of the rest parameter function overload
-      return renderer.renderRule(combineRules(...(rules as any)), props || {})
+      return renderer.renderRule(combineRules(...(rules as any)), props as any)
+    },
+    font(family: string, files: string[], fontProps: FontCSSProps): void {
+      renderer.renderFont(family, files, fontProps)
+    },
+    keyframes(keyframesFn: CSSKeyframesFn<P>): string {
+      return renderer.renderKeyframe(keyframesFn, props as any)
     }
   }
 }
