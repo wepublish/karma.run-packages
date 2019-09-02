@@ -1,6 +1,6 @@
 {
   "name": "@karma.run/react",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "module": "./lib/esm/",
   "license": "MIT",
   "scripts": {

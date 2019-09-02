@@ -161,7 +161,7 @@ export interface UseStyleResult<P> {
 export interface FontCSSProps {
   fontDisplay: 'auto' | 'block' | 'swap' | 'fallback' | 'optional'
   fontVariant: string
-  fontWeight: 'bold'
+  fontWeight: string
   fontStretch: string
   fontStyle: string
   unicodeRange: string
@@ -188,7 +188,7 @@ export function useStyle<P>(props?: P): UseStyleResult<P> {
       // `as any` is needed because there's no generic version of the rest parameter function overload
       return renderer.renderRule(combineRules(...(rules as any)), props as any)
     },
-    font(family: string, files: string[], fontProps: FontCSSProps): void {
+    font(family: string, files: string[], fontProps?: FontCSSProps): void {
       renderer.renderFont(family, files, fontProps)
     },
     keyframes(keyframesFn: CSSKeyframesFn<P>): string {
