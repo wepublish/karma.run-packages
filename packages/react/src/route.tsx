@@ -225,16 +225,18 @@ export function createRouteContext<
 
   function Link({element, route, onClick, ...rest}: LinkProps<R>) {
     const dispatch = useRouteDispatch()
-
-    if (route) {
-      const clickHandler = useCallback((e: PointerEvent<HTMLAnchorElement>) => {
+    const clickHandler = useCallback(
+      (e: PointerEvent<HTMLAnchorElement>) => {
         if (onClick) onClick(e)
         if (e.isDefaultPrevented()) return
 
         e.preventDefault()
-        dispatch(pushRoute(route))
-      }, [])
+        dispatch(pushRoute(route!))
+      },
+      [route]
+    )
 
+    if (route) {
       return <a {...rest} href={fullPathForRoute(route)} onClick={clickHandler} />
     } else {
       return <a {...rest} />
