@@ -154,7 +154,7 @@ export function cssKeyframes<P = undefined>(keyframesRuleFn: CSSKeyframesFn<P>):
 export interface UseStyleResult<P> {
   staticCSS(selector: string, style: CSSStyle): void
   css(...rules: CSSRuleFn<P>[]): string
-  font(family: string, files: string[], fontProps?: CSSFontProps): void
+  font(family: string, files: string | string[], fontProps?: CSSFontProps): void
   keyframes(keyframesFn: CSSKeyframesFn<P>): string
 }
 
@@ -188,8 +188,8 @@ export function useStyle<P>(props?: P): UseStyleResult<P> {
       // `as any` is needed because there's no generic version of the rest parameter function overload
       return renderer.renderRule(combineRules(...(rules as any)), props as any)
     },
-    font(family: string, files: string[], fontProps?: CSSFontProps): void {
-      renderer.renderFont(family, files, fontProps)
+    font(family: string, files: string | string[], fontProps?: CSSFontProps): void {
+      renderer.renderFont(family, Array.isArray(files) ? files : [files], fontProps)
     },
     keyframes(keyframesFn: CSSKeyframesFn<P>): string {
       return renderer.renderKeyframe(keyframesFn, props as any)
