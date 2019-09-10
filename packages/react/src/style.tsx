@@ -1,10 +1,13 @@
 import React, {createContext, useContext, useMemo, ReactNode} from 'react'
 import {createRenderer, IRenderer, combineRules} from 'fela'
 import {rehydrate, render, renderToMarkup, renderToSheetList} from 'fela-dom'
+
+import felaPrefixer from 'fela-plugin-prefixer'
+import felaFallbackValue from 'fela-plugin-fallback-value'
+
 import * as CSS from 'csstype'
 
 import {ChildrenProps} from './types'
-import {string} from 'prop-types'
 
 export interface CSSStyle extends CSS.Properties<string | number> {
   ':active'?: CSSStyle
@@ -112,7 +115,8 @@ export function StyleProvider(props: StyleRendererProviderProps) {
 
 export function createStyleRenderer() {
   return createRenderer({
-    devMode: process.env.NODE_ENV !== 'production'
+    devMode: process.env.NODE_ENV !== 'production',
+    plugins: [felaPrefixer(), felaFallbackValue()]
   })
 }
 
