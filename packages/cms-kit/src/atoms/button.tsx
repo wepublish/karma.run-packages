@@ -1,20 +1,20 @@
 import React from 'react'
-import {useStyle, cssRule} from '@karma.run/react'
+import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
 
 export interface ButtonProps {
-  test: string
+  title: string
 }
 
-const buttonStyle = cssRule(() => ({
-  backgroundColor: 'red',
-  margin: '0 0 0 0',
+const buttonStyle = cssRuleWithTheme(({theme}) => ({
+  backgroundColor: theme.colors.primary,
 
   '&:hover': {
-    backgroundColor: 'blue'
+    backgroundColor: theme.colors.primaryDark
   }
 }))
 
-export function Button(props: ButtonProps) {
-  const {css} = useStyle('Button')
-  return <div className={css(buttonStyle)}>Test</div>
+export function Button({title}: ButtonProps) {
+  const {css} = useThemeStyle({title})
+
+  return <div className={css(buttonStyle)}>{title}</div>
 }

@@ -12,22 +12,20 @@
     "clean": "shx rm -rf ./LICENSE ./lib",
     "prepare": "run-s clean copy-license build sync-package-info",
     "sync-package-info": "node ./../../scripts/syncPackageInfo.js ./src/version.ts",
-    "watch:storybook": "start-storybook --ci -p 3010"
+    "watch:storybook": "start-storybook --ci -p 3010 -c ./src/.storybook"
   },
   "dependencies": {
     "react": "^16.8.6",
     "find-my-way": "^2.1.0",
     "nanoid": "^2.0.3",
-    "@karma.run/react": "^0.0.16"
+    "@karma.run/react": "^0.0.17"
   },
   "devDependencies": {
     "@types/nanoid": "^2.0.0",
     "@types/react": "^16.8.23",
     "@types/storybook__react": "^4.0.2",
-    "@types/storybook__addon-info": "^4.1.2",
     "@types/storybook__addon-knobs": "^5.0.3",
     "@storybook/react": "^5.1.9",
-    "@storybook/addon-info": "^5.1.9",
     "@storybook/addon-knobs": "^5.1.10",
     "@babel/core": "^7.5.4",
     "@babel/preset-react": "^7.0.0",

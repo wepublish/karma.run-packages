@@ -16,9 +16,13 @@
     "watch:react": "yarn workspace @karma.run/react watch",
     "clean:webpack": "yarn workspace @karma.run/webpack clean",
     "build:webpack": "yarn workspace @karma.run/webpack build",
-    "watch:webpack": "yarn workspace @karma.run/webpack watch"
+    "watch:webpack": "yarn workspace @karma.run/webpack watch",
+    "clean:cms-kit-example": "yarn workspace @karma.run/cms-kit-example clean",
+    "build:cms-kit-example": "yarn workspace @karma.run/cms-kit-example build",
+    "watch:cms-kit-example": "yarn workspace @karma.run/cms-kit-example watch",
+    "start:cms-kit-example": "yarn workspace @karma.run/cms-kit-example start"
   },
-  "workspaces": ["packages/*"],
+  "workspaces": ["packages/*", "examples/*"],
   "devDependencies": {
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",

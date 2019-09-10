@@ -95,8 +95,11 @@ export interface CSSStyle extends CSS.Properties<string | number> {
 }
 
 export type CSSRenderer = IRenderer
-export type CSSRuleFn<P = {}> = (props: P, renderer: CSSRenderer) => CSSStyle
-export type CSSKeyframesFn<P = {}> = (props: P, renderer: CSSRenderer) => Record<string, CSSStyle>
+export type CSSRuleFn<P = unknown> = (props: P, renderer: CSSRenderer) => CSSStyle
+export type CSSKeyframesFn<P = unknown> = (
+  props: P,
+  renderer: CSSRenderer
+) => Record<string, CSSStyle>
 
 export interface StyleContextType {
   readonly renderer: CSSRenderer
@@ -147,11 +150,11 @@ export function renderStylesToMarkup(renderer: CSSRenderer) {
   return renderToMarkup(renderer)
 }
 
-export function cssRule<P = any>(fnOrStyle: CSSRuleFn<P> | CSSStyle): CSSRuleFn<P> {
+export function cssRule<P = unknown>(fnOrStyle: CSSRuleFn<P> | CSSStyle): CSSRuleFn<P> {
   return typeof fnOrStyle === 'function' ? fnOrStyle : () => fnOrStyle
 }
 
-export function cssKeyframes<P = any>(keyframesRuleFn: CSSKeyframesFn<P>): CSSKeyframesFn<P> {
+export function cssKeyframes<P = {}>(keyframesRuleFn: CSSKeyframesFn<P>): CSSKeyframesFn<P> {
   return keyframesRuleFn
 }
 
@@ -171,7 +174,7 @@ export interface CSSFontProps {
   unicodeRange?: string
 }
 
-export function useStyle<P = undefined>(): UseStyleResult<P>
+export function useStyle<P = unknown>(): UseStyleResult<P>
 export function useStyle<P>(props: P): UseStyleResult<P>
 export function useStyle<P>(props?: P): UseStyleResult<P> {
   const context = useContext(StyleContext)
