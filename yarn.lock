@@ -1106,17 +1106,6 @@
   resolved "https://registry.yarnpkg.com/@icons/material/-/material-0.2.4.tgz#e90c9f71768b3736e76d7dd6783fc6c2afa88bc8"
   integrity sha512-QPcGmICAPbGLGb6F/yNf/KzKqvFx8z5qx3D1yFqVAjoFmXK35EgyW+cJ57Te3CNsmzblwtzakLGFqHPqrfb4Tw==
 
-"@karma.run/react@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@karma.run/react/-/react-0.0.6.tgz#84f14fcb8b3d22226f5c52a8c6c26235862a8aa9"
-  integrity sha512-Ww7F/XpPbaDkF5J9r1fD0dV3hYO7uXekNF3h2YvUq7loisCk17etpwQcfoeMljbaq6Pj7jDIbnkUBpeP1c3tNA==
-  dependencies:
-    csstype "^2.6.6"
-    fela "^10.6.1"
-    fela-dom "^10.6.1"
-    path-to-regexp "3.0.0"
-    react "^16.8.6"
-
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
