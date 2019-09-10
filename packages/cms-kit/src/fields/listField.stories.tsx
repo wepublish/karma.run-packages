@@ -17,4 +17,4 @@ export function ListFieldWrapper() {
   )
 }
 
-storiesOf('Fields/ListField', module).add('default', () => <ListFieldWrapper />)
+storiesOf('Fields|ListField', module).add('default', () => <ListFieldWrapper />)

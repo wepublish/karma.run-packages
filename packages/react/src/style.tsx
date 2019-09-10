@@ -4,7 +4,6 @@ import {rehydrate, render, renderToMarkup, renderToSheetList} from 'fela-dom'
 import * as CSS from 'csstype'
 
 import {ChildrenProps} from './types'
-import {string} from 'prop-types'
 
 export interface CSSStyle extends CSS.Properties<string | number> {
   ':active'?: CSSStyle

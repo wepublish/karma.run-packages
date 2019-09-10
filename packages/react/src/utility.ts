@@ -6,6 +6,10 @@ export function isFunctionalUpdate<T>(value: React.SetStateAction<T>): value is 
   return typeof value === 'function' ? true : false
 }
 
+export function isValueConstructor<T>(value: T | (() => T)): value is () => T {
+  return typeof value === 'function' ? true : false
+}
+
 export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((
   k: infer I
 ) => void)

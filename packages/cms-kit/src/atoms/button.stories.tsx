@@ -5,4 +5,6 @@ import {text} from '@storybook/addon-knobs'
 
 import {Button} from './button'
 
-storiesOf('Button', module).add('with text', () => <Button test={text('Text', 'Hello World')} />)
+storiesOf('Atoms|Button', module).add('with text', () => (
+  <Button test={text('Text', 'Hello World')} />
+))

@@ -1,7 +1,7 @@
 import React, {memo, useCallback} from 'react'
 import nanoid from 'nanoid'
 
-import {useStyle, isFunctionalUpdate} from '@karma.run/react'
+import {isFunctionalUpdate, isValueConstructor} from '@karma.run/react'
 
 import {FieldProps} from './types'
 
@@ -12,7 +12,7 @@ export interface ListValue<T = any> {
 
 export interface ListProps<T = any> extends FieldProps<ListValue<T>[]> {
   readonly label?: string
-  readonly defaultValue: T
+  readonly defaultValue: T | (() => T)
   readonly children: (props: FieldProps<T>) => JSX.Element
 }
 
@@ -66,7 +66,10 @@ export function ListField<T>({value, label, defaultValue, children, onChange}: L
   )
 
   const handleAdd = useCallback(() => {
-    onChange(value => [...value, {id: nanoid(), value: defaultValue}])
+    onChange(value => [
+      ...value,
+      {id: nanoid(), value: isValueConstructor(defaultValue) ? defaultValue() : defaultValue}
+    ])
   }, [])
 
   const handleRemove = useCallback((itemIndex: number) => {

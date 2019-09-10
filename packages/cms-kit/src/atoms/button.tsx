@@ -9,7 +9,7 @@ const buttonStyle = cssRule(() => ({
   backgroundColor: 'red',
   margin: '0 0 0 0',
 
-  ':hover': {
+  '&:hover': {
     backgroundColor: 'blue'
   }
 }))
