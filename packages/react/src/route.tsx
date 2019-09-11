@@ -5,10 +5,10 @@ import React, {
   ComponentType,
   Dispatch,
   Reducer,
-  useMemo,
   AnchorHTMLAttributes,
   useCallback,
-  PointerEvent
+  MouseEvent,
+  MouseEventHandler
 } from 'react'
 
 import pathToRegexp, {Key} from 'path-to-regexp'
@@ -170,19 +170,27 @@ export interface RouteProviderProps<R extends RouteInstance> extends ChildrenPro
   readonly handleNextRoute?: HandleNextRouteFn<R>
 }
 
-export interface LinkProps<R extends RouteInstance>
-  extends AnchorHTMLAttributes<HTMLAnchorElement> {
+export interface LinkProps<R extends RouteInstance> {
   readonly route?: R
-  readonly element?: string
 }
+
+export interface LinkPropsWithAnchorAttributes<R extends RouteInstance>
+  extends LinkProps<R>,
+    AnchorHTMLAttributes<HTMLAnchorElement> {}
+
+export type LinkHOCCompatibleProps = {href?: string; onClick?: MouseEventHandler}
 
 export interface CreateRouteContextResult<R extends RouteInstance = RouteInstance> {
   readonly RouteProvider: ComponentType<RouteProviderProps<R>>
-  readonly Link: ComponentType<LinkProps<R>>
+  readonly Link: ComponentType<LinkPropsWithAnchorAttributes<R>>
 
   useRoute(): RouteContextState<R>
   useRouteDispatch(): RouteDispatchContextState<R>
   matchRoute(url: string): R | null
+
+  createLinkHOC<P extends LinkHOCCompatibleProps>(
+    Component: ComponentType<P>
+  ): ComponentType<P & LinkProps<R>>
 }
 
 export type RouteResolveFn<R extends RouteInstance> = (url: string) => R
@@ -223,10 +231,10 @@ export function createRouteContext<
     return routeContext as RouteContextState<R>
   }
 
-  function Link({element, route, onClick, ...rest}: LinkProps<R>) {
+  function Link({route, onClick, ...rest}: LinkPropsWithAnchorAttributes<R>) {
     const dispatch = useRouteDispatch()
     const clickHandler = useCallback(
-      (e: PointerEvent<HTMLAnchorElement>) => {
+      (e: MouseEvent<HTMLAnchorElement>) => {
         if (onClick) onClick(e)
         if (e.isDefaultPrevented()) return
 
@@ -240,6 +248,30 @@ export function createRouteContext<
       return <a {...rest} href={fullPathForRoute(route)} onClick={clickHandler} />
     } else {
       return <a {...rest} />
+    }
+  }
+
+  function createLinkHOC<P extends LinkHOCCompatibleProps>(
+    Component: ComponentType<P>
+  ): ComponentType<P & LinkProps<R>> {
+    return ({route, onClick, ...rest}: P & LinkProps<R>) => {
+      const dispatch = useRouteDispatch()
+      const clickHandler = useCallback(
+        (e: MouseEvent<HTMLAnchorElement>) => {
+          if (onClick) onClick(e)
+          if (e.isDefaultPrevented()) return
+
+          e.preventDefault()
+          dispatch(pushRoute(route!))
+        },
+        [route]
+      )
+
+      if (route) {
+        return <Component {...(rest as P)} href={fullPathForRoute(route)} onClick={clickHandler} />
+      } else {
+        return <Component {...(rest as P)} onClick={onClick} />
+      }
     }
   }
 
@@ -335,7 +367,8 @@ export function createRouteContext<
     RouteProvider,
     matchRoute,
     useRouteDispatch,
-    useRoute
+    useRoute,
+    createLinkHOC
   }
 }
 
