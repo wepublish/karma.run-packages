@@ -69,3 +69,48 @@ export function fontSizeDecorator(fontSize: number = 24) {
     return <FontSize fontSize={fontSize}>{story()}</FontSize>
   }
 }
+
+export const InfoBoxStyle = cssRule(() => ({
+  backgroundColor: '#f7fcff',
+  display: 'inline-block',
+  margin: pxToRem(10),
+  textAlign: 'center',
+  minWidth: pxToRem(80),
+  paddingTop: pxToRem(20),
+  paddingBottom: pxToRem(5)
+}))
+
+export const InfoBoxTextStyle = cssRule(() => ({
+  paddingBottom: pxToRem(5),
+  paddingTop: pxToRem(5)
+}))
+
+export interface InfoBoxProps {
+  infoText: string
+  children: ReactNode
+  fontSize?: number
+}
+
+export function InfoBox({fontSize = 12, infoText, children}: InfoBoxProps) {
+  const {css} = useStyle()
+
+  return (
+    <div className={css(InfoBoxStyle)}>
+      <div className="test"></div>
+      <div>{children}</div>
+      <div className={css(InfoBoxTextStyle)}>
+        <FontSize fontSize={fontSize}>{infoText}</FontSize>
+      </div>
+    </div>
+  )
+}
+
+export function infoBoxDecorator(infoText: string, fontSize: number = 12) {
+  return (story: RenderFunction) => {
+    return (
+      <InfoBox infoText={infoText} fontSize={fontSize}>
+        {story()}
+      </InfoBox>
+    )
+  }
+}
