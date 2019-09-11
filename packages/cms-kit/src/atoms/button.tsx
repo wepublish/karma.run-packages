@@ -8,7 +8,7 @@ export interface ButtonProps
   title: string
 }
 
-const buttonStyle = cssRuleWithTheme(({theme}) => ({
+export const ButtonStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.primary,
 
   '&:hover': {
@@ -21,7 +21,11 @@ export function Button({title, href, onClick, className, ...rest}: ButtonProps) 
   const Element = href ? 'a' : 'button'
 
   return (
-    <Element {...rest} className={joinClassNames(css(buttonStyle), className)}>
+    <Element
+      {...rest}
+      href={href}
+      onClick={onClick}
+      className={joinClassNames(css(ButtonStyle), className)}>
       {title}
     </Element>
   )
