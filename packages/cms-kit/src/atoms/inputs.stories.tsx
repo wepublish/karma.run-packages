@@ -5,6 +5,7 @@ import {Input} from './input'
 import {centerLayoutDecorator} from '../.storybook/decorators'
 import {IconType} from './icon'
 import {TextArea} from './textArea'
+import {FilterTag} from './filterTag'
 
 storiesOf('Atoms|Inputs', module)
   .addDecorator(centerLayoutDecorator())
@@ -61,3 +62,7 @@ storiesOf('Atoms|TextArea', module)
       onValueChange={value => {}}
     />
   ))
+
+storiesOf('Atoms|FilterTag', module)
+  .addDecorator(centerLayoutDecorator())
+  .add('default', () => <FilterTag text={'Article tag'} onDismiss={() => {}} />)
