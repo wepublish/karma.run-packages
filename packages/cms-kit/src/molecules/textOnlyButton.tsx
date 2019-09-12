@@ -1,7 +1,6 @@
 import React from 'react'
 import {ButtonProps, Button} from '../atoms/button'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
-import {pxToRem} from '../style/helpers'
 
 export const TextOnlyButtonStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.white,

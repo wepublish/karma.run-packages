@@ -3,10 +3,9 @@ import React from 'react'
 import {storiesOf} from '@storybook/react'
 import {Icon, IconType} from './icon'
 
-import {centerLayoutDecorator, fontSizeDecorator, InfoBox} from '../.storybook/decorators'
+import {centerLayoutDecorator, InfoBox} from '../.storybook/decorators'
 
 storiesOf('Atoms|Icon/Base', module)
-  .addDecorator(fontSizeDecorator(32))
   .addDecorator(centerLayoutDecorator())
   .add('Base', () => (
     <>

@@ -85,19 +85,25 @@ export const InfoBoxTextStyle = cssRule(() => ({
   paddingTop: pxToRem(5)
 }))
 
+export const InfoBoxContentStyle = cssRule((elementSize: number) => ({
+  width: pxToRem(elementSize),
+  display: 'inline-block'
+}))
+
 export interface InfoBoxProps {
   infoText: string
   children: ReactNode
   fontSize?: number
+  elementSize?: number
 }
 
-export function InfoBox({fontSize = 12, infoText, children}: InfoBoxProps) {
-  const {css} = useStyle()
+export function InfoBox({fontSize = 12, elementSize = 24, infoText, children}: InfoBoxProps) {
+  const {css} = useStyle(elementSize)
 
   return (
     <div className={css(InfoBoxStyle)}>
       <div className="test"></div>
-      <div>{children}</div>
+      <div className={css(InfoBoxContentStyle)}>{children}</div>
       <div className={css(InfoBoxTextStyle)}>
         <FontSize fontSize={fontSize}>{infoText}</FontSize>
       </div>

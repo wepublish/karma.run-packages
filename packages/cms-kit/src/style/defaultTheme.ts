@@ -22,5 +22,12 @@ export const defaultTheme: Theme = {
     light: '#F7F9FA',
 
     white: '#FFFFFF'
+  },
+
+  iconSize: {
+    xsmall: 12,
+    small: 16,
+    medium: 24,
+    default: 24
   }
 }
