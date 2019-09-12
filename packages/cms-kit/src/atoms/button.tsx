@@ -4,20 +4,20 @@ import {joinClassNames} from '@karma.run/react'
 
 export interface ButtonProps
   extends Omit<AnchorHTMLAttributes<any>, 'type'>,
-    ButtonHTMLAttributes<any> {
-  title: string
-}
+    ButtonHTMLAttributes<any> {}
 
 export const ButtonStyle = cssRuleWithTheme(({theme}) => ({
-  backgroundColor: theme.colors.primary,
-
-  '&:hover': {
-    backgroundColor: theme.colors.primaryDark
-  }
+  cursor: 'pointer'
 }))
 
-export function Button({title, href, onClick, className, ...rest}: ButtonProps) {
-  const {css} = useThemeStyle({title})
+export function Button({
+  href,
+  onClick,
+  className,
+  children,
+  ...rest
+}: ButtonProps & {children: string | JSX.Element}) {
+  const {css} = useThemeStyle()
   const Element = href ? 'a' : 'button'
 
   return (
@@ -26,7 +26,7 @@ export function Button({title, href, onClick, className, ...rest}: ButtonProps) 
       href={href}
       onClick={onClick}
       className={joinClassNames(css(ButtonStyle), className)}>
-      {title}
+      {children}
     </Element>
   )
 }
