@@ -2,6 +2,7 @@
 export * from './atoms/button'
 export * from './atoms/icon'
 export * from './atoms/input'
+export * from './atoms/textArea'
 
 // Fields
 export * from './fields/hooks'

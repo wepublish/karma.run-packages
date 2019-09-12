@@ -64,8 +64,4 @@ export function Input({
       <div className={css(DescriptionStyle)}>{Description}</div>
     </div>
   )
-
-  function hasInputError() {
-    return hasError
-  }
 }

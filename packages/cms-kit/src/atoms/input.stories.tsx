@@ -4,6 +4,7 @@ import {storiesOf} from '@storybook/react'
 import {Input} from './input'
 import {centerLayoutDecorator} from '../.storybook/decorators'
 import {IconType} from './icon'
+import {TextArea} from './textArea'
 
 storiesOf('Atoms|Inputs', module)
   .addDecorator(centerLayoutDecorator())
@@ -39,6 +40,24 @@ storiesOf('Atoms|Inputs', module)
       placeholder={'Placeholder-Label'}
       description={'Description Text'}
       hasError={false}
+      onValueChange={value => {}}
+    />
+  ))
+
+storiesOf('Atoms|TextArea', module)
+  .addDecorator(centerLayoutDecorator())
+  .add('default', () => (
+    <TextArea
+      placeholder={'Placeholder-Label'}
+      description={'Description Text'}
+      onValueChange={value => {}}
+    />
+  ))
+  .add('with label', () => (
+    <TextArea
+      label={'Label'}
+      placeholder={'Placeholder-Label'}
+      description={'Description Text'}
       onValueChange={value => {}}
     />
   ))
