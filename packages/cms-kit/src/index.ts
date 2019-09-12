@@ -1,6 +1,7 @@
 // Atoms
 export * from './atoms/button'
 export * from './atoms/icon'
+export * from './atoms/input'
 
 // Fields
 export * from './fields/hooks'
