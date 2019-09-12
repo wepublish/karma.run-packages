@@ -4,7 +4,6 @@ export function WaveIconSVG() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 32">
       <g fill="none" fill-rule="evenodd">
-        <path d="M-5-8h48v48H-5z" />
         <path
           fill="#222"
           fill-rule="nonzero"

@@ -3,10 +3,8 @@ import React from 'react'
 export function Column4IconSVG() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-      <g fill="none" fill-rule="evenodd">
-        <path d="M0 0h48v48H0z" />
+      <g fill-rule="evenodd">
         <path
-          fill="#222"
           fill-rule="nonzero"
           d="M26 36h8V14h-8v22zM2 36h8V14H2v22zm12 0h8V14h-8v22zm24-22v22h8V14h-8z"
         />

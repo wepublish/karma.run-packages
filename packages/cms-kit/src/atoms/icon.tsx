@@ -60,6 +60,7 @@ import {UpdateIconSVG} from '../icons/update'
 import {UploadIconSVG} from '../icons/upload'
 import {VideoIconSVG} from '../icons/video'
 import {WaveIconSVG} from '../icons/wave'
+import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 
 export enum IconType {
   Add = 'add',
@@ -123,25 +124,39 @@ export enum IconType {
   Wave = 'wave'
 }
 
-export const IconStyle = cssRule({
-  display: 'inline-block',
-  height: '1em',
+export const IconStyle = cssRuleWithTheme(({theme}) => ({
+  //display: 'inline-block',
+  //height: '1em',
 
   '> svg': {height: 'inherit'}
-})
+}))
 
 export interface IconProps {
   readonly type: IconType
   readonly className?: string
 }
 
+export interface IconSVGProps {
+  readonly colorClass?: string
+}
+
 export function Icon({type, className}: IconProps) {
-  const {css} = useStyle()
+  const {css} = useThemeStyle()
 
   return (
     <span className={joinClassNames(css(IconStyle), className)} role="img">
       {iconForType(type)}
     </span>
+  )
+}
+
+export function BlockIcon({type, className}: IconProps) {
+  const {css} = useThemeStyle()
+
+  return (
+    <div className={joinClassNames(css(IconStyle), className)} role="img">
+      {iconForType(type)}
+    </div>
   )
 }
 
