@@ -6,7 +6,7 @@ import {Icon, IconType} from './icon'
 import {centerLayoutDecorator, fontSizeDecorator, InfoBox} from '../.storybook/decorators'
 
 storiesOf('Atoms|Icon/Base', module)
-  .addDecorator(fontSizeDecorator(20))
+  .addDecorator(fontSizeDecorator(32))
   .addDecorator(centerLayoutDecorator())
   .add('Base', () => (
     <>

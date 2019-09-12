@@ -1,11 +1,14 @@
-import React from 'react'
+import React, {MouseEventHandler, AnchorHTMLAttributes, ButtonHTMLAttributes} from 'react'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
+import {joinClassNames} from '@karma.run/react'
 
-export interface ButtonProps {
+export interface ButtonProps
+  extends Omit<AnchorHTMLAttributes<any>, 'type'>,
+    ButtonHTMLAttributes<any> {
   title: string
 }
 
-const buttonStyle = cssRuleWithTheme(({theme}) => ({
+export const ButtonStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.primary,
 
   '&:hover': {
@@ -13,8 +16,17 @@ const buttonStyle = cssRuleWithTheme(({theme}) => ({
   }
 }))
 
-export function Button({title}: ButtonProps) {
+export function Button({title, href, onClick, className, ...rest}: ButtonProps) {
   const {css} = useThemeStyle({title})
+  const Element = href ? 'a' : 'button'
 
-  return <div className={css(buttonStyle)}>{title}</div>
+  return (
+    <Element
+      {...rest}
+      href={href}
+      onClick={onClick}
+      className={joinClassNames(css(ButtonStyle), className)}>
+      {title}
+    </Element>
+  )
 }

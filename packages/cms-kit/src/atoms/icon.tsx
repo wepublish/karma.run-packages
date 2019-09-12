@@ -127,7 +127,7 @@ export const IconStyle = cssRule({
   display: 'inline-block',
   height: '1em',
 
-  '> svg': {height: '1em'}
+  '> svg': {height: 'inherit'}
 })
 
 export interface IconProps {
