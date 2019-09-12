@@ -2,7 +2,7 @@ import React from 'react'
 
 export function ItalicIconSVG() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
       <g fill="none" fill-rule="evenodd">
         <path
           fill="#222"
