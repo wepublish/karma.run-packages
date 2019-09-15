@@ -1,6 +1,9 @@
 // Atoms
 export * from './atoms/button'
 export * from './atoms/icon'
+export * from './atoms/input'
+export * from './atoms/textArea'
+export * from './atoms/filterTag'
 
 // Fields
 export * from './fields/hooks'
