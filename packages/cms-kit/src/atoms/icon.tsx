@@ -62,6 +62,13 @@ import {VideoIconSVG} from '../icons/video'
 import {WaveIconSVG} from '../icons/wave'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 
+export enum IconSize {
+  XSmall = 12,
+  Small = 16,
+  Medium = 24,
+  Default = Medium
+}
+
 export enum IconType {
   Add = 'add',
   Archive = 'archive',

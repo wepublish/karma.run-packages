@@ -2,7 +2,7 @@ import React from 'react'
 import {ButtonProps, Button} from '../atoms/button'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem} from '../style/helpers'
-import {IconType, Icon, BlockIcon} from '../atoms/icon'
+import {IconType, Icon, IconSize, BlockIcon} from '../atoms/icon'
 
 export const IconLabelButtonStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.white,
@@ -26,7 +26,7 @@ export const IconLabelButtonStyle = cssRuleWithTheme(({theme}) => ({
 }))
 
 export const IconLabelIconStyle = cssRuleWithTheme(({theme}) => ({
-  height: pxToRem(theme.iconSize.default)
+  height: pxToRem(IconSize.Default)
 }))
 
 export interface IconLabelButtonProps extends ButtonProps {

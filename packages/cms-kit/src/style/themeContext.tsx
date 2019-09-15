@@ -44,7 +44,6 @@ export interface LayoutSpacing {
 
 export interface Theme {
   colors: ThemeColors
-  iconSize: IconSizes
 }
 
 export const ThemeContext = createContext<Theme>(defaultTheme)

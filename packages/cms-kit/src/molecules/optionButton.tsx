@@ -2,12 +2,12 @@ import React from 'react'
 import {ButtonProps, Button} from '../atoms/button'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem} from '../style/helpers'
-import {IconType, Icon} from '../atoms/icon'
+import {IconType, Icon, IconSize} from '../atoms/icon'
 
 export const OptionButtonStyle = cssRuleWithTheme(({theme}) => ({}))
 
 const IconStyle = cssRuleWithTheme(({theme}) => ({
-  height: pxToRem(theme.iconSize.small)
+  height: pxToRem(IconSize.Small)
 }))
 
 export interface OptionButtonProps extends ButtonProps {

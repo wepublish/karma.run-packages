@@ -2,7 +2,7 @@ import React from 'react'
 import {ButtonProps, Button} from '../atoms/button'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem} from '../style/helpers'
-import {IconType, Icon} from '../atoms/icon'
+import {IconType, Icon, IconSize} from '../atoms/icon'
 
 export const RoundIconButtonStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.white,
@@ -25,7 +25,7 @@ export const RoundIconButtonStyle = cssRuleWithTheme(({theme}) => ({
 }))
 
 export const RoundIconIconStyle = cssRuleWithTheme(({theme}) => ({
-  height: pxToRem(theme.iconSize.default)
+  height: pxToRem(IconSize.Default)
 }))
 
 export interface RoundIconButtonProps extends ButtonProps {
