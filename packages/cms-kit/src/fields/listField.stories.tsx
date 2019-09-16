@@ -10,9 +10,7 @@ export function ListFieldWrapper() {
 
   return (
     <ListField value={values} onChange={setValues} defaultValue={''}>
-      {useField(props => (
-        <TextField {...props} />
-      ))}
+      {props => <TextField {...props} />}
     </ListField>
   )
 }

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {memo} from 'react'
 import {FieldProps} from './types'
 
-export function TextField({value, onChange}: FieldProps<string>) {
+export const TextField = memo(function TextField({value, onChange}: FieldProps<string>) {
   return (
     <input
       type="text"
@@ -11,4 +11,4 @@ export function TextField({value, onChange}: FieldProps<string>) {
       }}
     />
   )
-}
+})

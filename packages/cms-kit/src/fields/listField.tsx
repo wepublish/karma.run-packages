@@ -1,4 +1,4 @@
-import React, {memo, useCallback} from 'react'
+import React from 'react'
 import nanoid from 'nanoid'
 
 import {isFunctionalUpdate, isValueConstructor} from '@karma.run/react'
@@ -10,12 +10,6 @@ export interface ListValue<T = any> {
   readonly value: T
 }
 
-export interface ListProps<T = any> extends FieldProps<ListValue<T>[]> {
-  readonly label?: string
-  readonly defaultValue: T | (() => T)
-  readonly children: (props: FieldProps<T>) => JSX.Element
-}
-
 export interface ListItemProps<T = any> {
   readonly index: number
   readonly value: ListValue<T>
@@ -24,26 +18,17 @@ export interface ListItemProps<T = any> {
   readonly children: (props: FieldProps<T>) => JSX.Element
 }
 
-export const ListItem = memo<ListItemProps>(function ListItem({
-  index,
-  value,
-  onChange,
-  onRemove,
-  children
-}) {
-  const handleValueChange = useCallback(
-    (fieldValue: React.SetStateAction<any>) => {
-      onChange(index, value => ({
-        ...value,
-        value: isFunctionalUpdate(fieldValue) ? fieldValue(value.value) : fieldValue
-      }))
-    },
-    [index]
-  )
+export function ListItem({index, value, onChange, onRemove, children}: ListItemProps) {
+  function handleValueChange(fieldValue: React.SetStateAction<any>) {
+    onChange(index, value => ({
+      ...value,
+      value: isFunctionalUpdate(fieldValue) ? fieldValue(value.value) : fieldValue
+    }))
+  }
 
-  const handleRemove = useCallback(() => {
+  function handleRemove() {
     onRemove(index)
-  }, [index])
+  }
 
   return (
     <div>
@@ -51,30 +36,33 @@ export const ListItem = memo<ListItemProps>(function ListItem({
       <button onClick={handleRemove}>-</button>
     </div>
   )
-})
+}
 
-export function ListField<T>({value, label, defaultValue, children, onChange}: ListProps<T>) {
-  const handleItemChange = useCallback(
-    (index: number, itemValue: React.SetStateAction<ListValue>) => {
-      onChange(value =>
-        Object.assign([], value, {
-          [index]: isFunctionalUpdate(itemValue) ? itemValue(value[index]) : itemValue
-        })
-      )
-    },
-    []
-  )
+export interface ListFieldProps<T = any> extends FieldProps<ListValue<T>[]> {
+  readonly label?: string
+  readonly defaultValue: T | (() => T)
+  readonly children: (props: FieldProps<T>) => JSX.Element
+}
 
-  const handleAdd = useCallback(() => {
+export function ListField<T>({value, label, defaultValue, children, onChange}: ListFieldProps<T>) {
+  function handleItemChange(index: number, itemValue: React.SetStateAction<ListValue>) {
+    onChange(value =>
+      Object.assign([], value, {
+        [index]: isFunctionalUpdate(itemValue) ? itemValue(value[index]) : itemValue
+      })
+    )
+  }
+
+  function handleAdd() {
     onChange(value => [
       ...value,
       {id: nanoid(), value: isValueConstructor(defaultValue) ? defaultValue() : defaultValue}
     ])
-  }, [])
+  }
 
-  const handleRemove = useCallback((itemIndex: number) => {
+  function handleRemove(itemIndex: number) {
     onChange(value => value.filter((_, index) => index !== itemIndex))
-  }, [])
+  }
 
   return (
     <div>

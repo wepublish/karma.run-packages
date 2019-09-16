@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import {storiesOf} from '@storybook/react'
 
 import {TransformField} from './transformField'
-import {useField} from './hooks'
 import {TextField} from './textField'
 
 function transformFromStringToNumber(value: string) {
@@ -22,9 +21,7 @@ export function TransformFieldWrapper() {
       onChange={value => setValue(value)}
       transformFrom={transformFromStringToNumber}
       transformTo={transformFromNumberToString}>
-      {useField(props => (
-        <TextField {...props} />
-      ))}
+      {props => <TextField {...props} />}
     </TransformField>
   )
 }
