@@ -19,10 +19,6 @@ export function GlobalStyles({rootElementID}: GlobalStylesProps) {
     margin: 0
   })
 
-  staticCSS('body', {
-    fontSize: '1.6rem'
-  })
-
   staticCSS('a, a:link, a:visited, a:hover, a:active', {
     color: 'inherit',
     textDecoration: 'none'

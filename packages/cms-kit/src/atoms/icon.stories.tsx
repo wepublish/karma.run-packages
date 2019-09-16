@@ -3,11 +3,12 @@ import React from 'react'
 import {storiesOf} from '@storybook/react'
 import {Icon, IconType} from './icon'
 
-import {centerLayoutDecorator, InfoBox} from '../.storybook/decorators'
+import {centerLayoutDecorator, InfoBox, fontSizeDecorator} from '../.storybook/decorators'
 
-storiesOf('Atoms|Icon/Base', module)
+storiesOf('Atoms|Icon', module)
   .addDecorator(centerLayoutDecorator())
-  .add('Base', () => (
+  .addDecorator(fontSizeDecorator(32))
+  .add('base', () => (
     <>
       <InfoBox infoText={IconType.DropHere}>
         <Icon type={IconType.DropHere} />
@@ -95,7 +96,7 @@ storiesOf('Atoms|Icon/Base', module)
       </InfoBox>
     </>
   ))
-  .add('Blocks', () => (
+  .add('blocks', () => (
     <>
       <InfoBox infoText={IconType.Wave}>
         <Icon type={IconType.Wave} />
@@ -144,7 +145,7 @@ storiesOf('Atoms|Icon/Base', module)
       </InfoBox>
     </>
   ))
-  .add('Navigation', () => (
+  .add('navigation', () => (
     <>
       <InfoBox infoText={IconType.Logout}>
         <Icon type={IconType.Logout} />
@@ -169,7 +170,7 @@ storiesOf('Atoms|Icon/Base', module)
       </InfoBox>
     </>
   ))
-  .add('Texteditor', () => (
+  .add('text editor', () => (
     <>
       <InfoBox infoText={IconType.Italic}>
         <Icon type={IconType.Italic} />

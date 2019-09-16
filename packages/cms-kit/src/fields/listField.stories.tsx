@@ -3,7 +3,6 @@ import {storiesOf} from '@storybook/react'
 
 import {ListField, ListValue} from './listField'
 import {TextField} from './textField'
-import {useField} from './hooks'
 
 export function ListFieldWrapper() {
   const [values, setValues] = useState<ListValue<string>[]>([])

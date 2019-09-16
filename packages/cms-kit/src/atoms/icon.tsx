@@ -1,5 +1,4 @@
 import React from 'react'
-import {cssRule, useStyle, joinClassNames} from '@karma.run/react'
 
 import {DropHereIconSVG} from '../icons/dropHere'
 import {ReplaceIconSVG} from '../icons/replace'
@@ -60,7 +59,9 @@ import {UpdateIconSVG} from '../icons/update'
 import {UploadIconSVG} from '../icons/upload'
 import {VideoIconSVG} from '../icons/video'
 import {WaveIconSVG} from '../icons/wave'
-import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
+
+import {cssRuleWithTheme, useThemeStyle, CSSRuleWithTheme} from '../style/themeContext'
+import {toArray} from '../utility'
 
 export enum IconSize {
   XSmall = 12,
@@ -132,38 +133,50 @@ export enum IconType {
 }
 
 export const IconStyle = cssRuleWithTheme(({theme}) => ({
-  //display: 'inline-block',
-  //height: '1em',
+  display: 'inline-block',
+  height: '1em',
+  lineHeight: '1em',
 
-  '> svg': {height: 'inherit'}
+  fill: 'inherit',
+  stroke: 'inherit',
+
+  '> svg': {
+    fill: 'inherit',
+    stroke: 'inherit',
+    height: 'inherit'
+  }
 }))
 
-export interface IconProps {
+export interface IconProps<P = undefined> {
   readonly type: IconType
-  readonly className?: string
+  readonly style?: CSSRuleWithTheme | CSSRuleWithTheme[]
+  readonly styleProps?: P
+}
+
+export interface IconPropsWithoutStyleProps<P = undefined> {
+  readonly type: IconType
+  readonly style?: CSSRuleWithTheme | CSSRuleWithTheme[]
+}
+
+export interface IconPropsWithStyleProps<P = undefined> {
+  readonly type: IconType
+  readonly style?: CSSRuleWithTheme<P> | CSSRuleWithTheme<P>[]
+  readonly styleProps: P
 }
 
 export interface IconSVGProps {
   readonly colorClass?: string
 }
 
-export function Icon({type, className}: IconProps) {
-  const {css} = useThemeStyle()
+export function Icon(props: IconPropsWithoutStyleProps): JSX.Element
+export function Icon<P = undefined>(props: IconPropsWithStyleProps<P>): JSX.Element
+export function Icon<P = undefined>({type, style, styleProps}: IconProps<P>): JSX.Element {
+  const {css} = useThemeStyle(styleProps)
 
   return (
-    <span className={joinClassNames(css(IconStyle), className)} role="img">
+    <span className={css(IconStyle, ...toArray(style))} role="img">
       {iconForType(type)}
     </span>
-  )
-}
-
-export function BlockIcon({type, className}: IconProps) {
-  const {css} = useThemeStyle()
-
-  return (
-    <div className={joinClassNames(css(IconStyle), className)} role="img">
-      {iconForType(type)}
-    </div>
   )
 }
 

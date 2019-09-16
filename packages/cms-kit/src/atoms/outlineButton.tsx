@@ -1,9 +1,9 @@
 import React from 'react'
-import {ButtonProps, Button} from '../atoms/button'
-import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
+import {BaseButton, ButtonProps} from './baseButton'
+import {cssRuleWithTheme} from '../style/themeContext'
 import {pxToRem} from '../style/helpers'
 
-export const OutlineTextButtonStyle = cssRuleWithTheme(({theme}) => ({
+export const OutlineButtonStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.white,
   borderColor: theme.colors.action,
   borderRadius: pxToRem(10),
@@ -13,9 +13,11 @@ export const OutlineTextButtonStyle = cssRuleWithTheme(({theme}) => ({
   '&:hover': {
     backgroundColor: theme.colors.light
   },
+
   '&:active': {
     backgroundColor: theme.colors.actionDark
   },
+
   '&:disabled': {
     backgroundColor: theme.colors.light,
     borderColor: theme.colors.grayLight,
@@ -23,15 +25,14 @@ export const OutlineTextButtonStyle = cssRuleWithTheme(({theme}) => ({
   }
 }))
 
-export interface OutlineTextButtonProps extends ButtonProps {
+export interface OutlineButtonProps extends ButtonProps {
   readonly label: string
 }
 
-export function OutlineTextButton({label, href, onClick, ...rest}: OutlineTextButtonProps) {
-  const {css} = useThemeStyle()
+export function OutlineButton({label, ...rest}: OutlineButtonProps) {
   return (
-    <Button href={href} onClick={onClick} className={css(OutlineTextButtonStyle)} {...rest}>
+    <BaseButton {...rest} style={OutlineButtonStyle}>
       {label}
-    </Button>
+    </BaseButton>
   )
 }

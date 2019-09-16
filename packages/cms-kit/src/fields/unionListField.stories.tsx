@@ -40,4 +40,4 @@ export function UnionListFieldWrapper() {
   )
 }
 
-storiesOf('Fields|UnionListField', module).add('Default', () => <UnionListFieldWrapper />)
+storiesOf('Fields|UnionListField', module).add('default', () => <UnionListFieldWrapper />)
