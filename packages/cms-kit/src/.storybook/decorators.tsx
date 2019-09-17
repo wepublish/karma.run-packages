@@ -82,11 +82,11 @@ export const InfoBoxStyle = cssRule(() => ({
 
 export const InfoBoxTextStyle = cssRule(() => ({
   paddingBottom: pxToRem(5),
-  paddingTop: pxToRem(5)
+  paddingTop: pxToRem(5),
+  fontSize: '1.2rem'
 }))
 
-export const InfoBoxContentStyle = cssRule((elementSize: number) => ({
-  width: pxToRem(elementSize),
+export const InfoBoxContentStyle = cssRule(() => ({
   display: 'inline-block'
 }))
 
@@ -97,16 +97,14 @@ export interface InfoBoxProps {
   elementSize?: number
 }
 
-export function InfoBox({fontSize = 12, elementSize = 24, infoText, children}: InfoBoxProps) {
-  const {css} = useStyle(elementSize)
+export function InfoBox({infoText, children}: InfoBoxProps) {
+  const {css} = useStyle()
 
   return (
     <div className={css(InfoBoxStyle)}>
       <div className="test"></div>
       <div className={css(InfoBoxContentStyle)}>{children}</div>
-      <div className={css(InfoBoxTextStyle)}>
-        <FontSize fontSize={fontSize}>{infoText}</FontSize>
-      </div>
+      <div className={css(InfoBoxTextStyle)}>{infoText}</div>
     </div>
   )
 }

@@ -64,8 +64,8 @@ export function useThemeStyle<P>(props?: P): UseStyleResult<P & {theme: Theme}> 
   return useStyle({...props, theme} as P & {theme: Theme})
 }
 
-export function cssRuleWithTheme<P = {}>(
-  styleFn: CSSRuleFn<P & {theme: Theme}>
-): CSSRuleFn<P & {theme: Theme}> {
+export type CSSRuleWithTheme<P = {}> = CSSRuleFn<P & {theme: Theme}>
+
+export function cssRuleWithTheme<P = {}>(styleFn: CSSRuleWithTheme<P>): CSSRuleWithTheme<P> {
   return styleFn
 }

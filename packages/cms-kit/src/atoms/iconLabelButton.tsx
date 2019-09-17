@@ -1,8 +1,9 @@
 import React from 'react'
-import {ButtonProps, Button} from '../atoms/button'
-import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
+
+import {BaseButton, ButtonProps} from './baseButton'
+import {IconType, Icon, IconSize} from './icon'
+import {cssRuleWithTheme} from '../style/themeContext'
 import {pxToRem} from '../style/helpers'
-import {IconType, Icon, IconSize, BlockIcon} from '../atoms/icon'
 
 export const IconLabelButtonStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.white,
@@ -34,14 +35,13 @@ export interface IconLabelButtonProps extends ButtonProps {
   readonly label: string
 }
 
-export function IconLabelButton({label, icon, href, onClick, ...rest}: IconLabelButtonProps) {
-  const {css} = useThemeStyle()
+export function IconLabelButton({label, icon, ...rest}: IconLabelButtonProps) {
   return (
-    <Button href={href} onClick={onClick} className={css(IconLabelButtonStyle)} {...rest}>
+    <BaseButton {...rest} style={IconLabelButtonStyle}>
       <>
-        <BlockIcon type={icon} className={css(IconLabelIconStyle)} />
+        <Icon type={icon} style={IconLabelIconStyle} />
         <div>{label}</div>
       </>
-    </Button>
+    </BaseButton>
   )
 }

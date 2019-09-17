@@ -9,4 +9,4 @@ export function ListFieldWrapper() {
   return <TextField value={value} onChange={value => setValue(value)} />
 }
 
-storiesOf('Fields|TextField', module).add('Default', () => <ListFieldWrapper />)
+storiesOf('Fields|TextField', module).add('default', () => <ListFieldWrapper />)

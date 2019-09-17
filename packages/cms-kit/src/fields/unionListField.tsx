@@ -5,16 +5,28 @@ import {isFunctionalUpdate, isValueConstructor} from '@karma.run/react'
 
 import {FieldProps, UnionListValue, UnionListCaseMapForValue, UnionFieldCaseMap} from './types'
 import {Icon} from '../atoms/icon'
+import {ListItemWrapper} from '../molecules/listItemWrapper'
+import {AddBlockButton} from '../molecules/addBlockButton'
 
 export interface UnionListItemProps<T extends string = string, V = any> {
   readonly index: number
   readonly value: UnionListValue<T, V>
   readonly onChange: (index: number, value: React.SetStateAction<UnionListValue<T, V>>) => void
-  readonly onRemove: (index: number) => void
+  readonly onDelete: (index: number) => void
+  readonly onMoveUp?: (index: number) => void
+  readonly onMoveDown?: (index: number) => void
   readonly children: (props: FieldProps<V>) => JSX.Element
 }
 
-function UnionListItem({index, value, onChange, onRemove, children}: UnionListItemProps) {
+function UnionListItem({
+  index,
+  value,
+  onChange,
+  onDelete,
+  onMoveUp,
+  onMoveDown,
+  children
+}: UnionListItemProps) {
   function handleValueChange(fieldValue: React.SetStateAction<any>) {
     onChange(index, value => ({
       ...value,
@@ -22,15 +34,13 @@ function UnionListItem({index, value, onChange, onRemove, children}: UnionListIt
     }))
   }
 
-  function handleRemove() {
-    onRemove(index)
-  }
-
   return (
-    <div>
+    <ListItemWrapper
+      onDelete={() => onDelete(index)}
+      onMoveUp={onMoveUp ? () => onMoveUp(index) : undefined}
+      onMoveDown={onMoveDown ? () => onMoveDown(index) : undefined}>
       {children({value: value.value, onChange: handleValueChange})}
-      <button onClick={handleRemove}>-</button>
-    </div>
+    </ListItemWrapper>
   )
 }
 
@@ -77,7 +87,7 @@ export function UnionListField<V extends UnionListValue>({
     onChange(value => value.filter((_value, index) => index !== itemIndex))
   }
 
-  function moveIndex(from: number, to: number) {
+  function handleMoveIndex(from: number, to: number) {
     onChange(values => {
       const valuesCopy = values.slice()
       const [value] = valuesCopy.splice(from, 1)
@@ -88,20 +98,18 @@ export function UnionListField<V extends UnionListValue>({
     })
   }
 
+  function handleMoveUp(index: number) {
+    handleMoveIndex(index, index - 1)
+  }
+
+  function handleMoveDown(index: number) {
+    handleMoveIndex(index, index + 1)
+  }
+
   function addButtonForIndex(index: number) {
-    const prevIndex = index - 1
-    const nextIndex = index + 1
-
-    const hasPrevIndex = prevIndex >= 0
-    const hasNextIndex = nextIndex < values.length
-
     return (
       <>
-        <button onClick={() => setCasePickerIndex(index)}>+</button>
-
-        {hasPrevIndex && <button onClick={() => moveIndex(index, prevIndex)}>UP</button>}
-        {hasNextIndex && <button onClick={() => moveIndex(index, nextIndex)}>DOWN</button>}
-
+        <AddBlockButton onClick={() => setCasePickerIndex(index)} />
         <div>
           {casePickerIndex === index &&
             Object.entries(unionFieldMap).map(([type, value]) => (
@@ -115,22 +123,30 @@ export function UnionListField<V extends UnionListValue>({
     )
   }
 
+  function listItemForIndex(value: V, index: number) {
+    const hasPrevIndex = index - 1 >= 0
+    const hasNextIndex = index + 1 < values.length
+
+    return (
+      <Fragment key={value.id}>
+        <UnionListItem
+          index={index}
+          value={value}
+          onDelete={handleRemove}
+          onChange={handleItemChange}
+          onMoveUp={hasPrevIndex ? handleMoveUp : undefined}
+          onMoveDown={hasNextIndex ? handleMoveDown : undefined}>
+          {unionFieldMap[value.type].field}
+        </UnionListItem>
+        {addButtonForIndex(index)}
+      </Fragment>
+    )
+  }
+
   return (
     <div>
       {label && <label>{label}</label>}
-      {values.map((value, index) => (
-        <Fragment key={value.id}>
-          <UnionListItem
-            index={index}
-            value={value}
-            onChange={handleItemChange}
-            onRemove={handleRemove}>
-            {unionFieldMap[value.type].field}
-          </UnionListItem>
-          {addButtonForIndex(index)}
-        </Fragment>
-      ))}
-
+      {values.map((value, index) => listItemForIndex(value, index))}
       {values.length === 0 && addButtonForIndex(values.length - 1)}
     </div>
   )

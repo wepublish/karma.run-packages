@@ -1,9 +1,9 @@
 import React from 'react'
-import {ButtonProps, Button} from '../atoms/button'
-import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
+import {BaseButton, ButtonProps} from './baseButton'
+import {cssRuleWithTheme} from '../style/themeContext'
 import {pxToRem} from '../style/helpers'
 
-export const TextButtonStyle = cssRuleWithTheme(({theme}) => ({
+export const PrimaryButtonStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.primary,
   border: 'none',
   borderRadius: pxToRem(10),
@@ -13,24 +13,25 @@ export const TextButtonStyle = cssRuleWithTheme(({theme}) => ({
   '&:hover': {
     backgroundImage: `linear-gradient(254deg, ${theme.colors.primaryDark}, ${theme.colors.primary})`
   },
+
   '&:active': {
     backgroundColor: theme.colors.primaryDark
   },
+
   '&:disabled': {
     backgroundColor: theme.colors.grayLight,
     color: theme.colors.gray
   }
 }))
 
-export interface TextButtonProps extends ButtonProps {
+export interface PrimaryButtonProps extends ButtonProps {
   readonly label: string
 }
 
-export function TextButton({label, href, onClick, ...rest}: TextButtonProps) {
-  const {css} = useThemeStyle()
+export function PrimaryButton({label, ...rest}: PrimaryButtonProps) {
   return (
-    <Button href={href} onClick={onClick} className={css(TextButtonStyle)}>
+    <BaseButton {...rest} style={PrimaryButtonStyle}>
       {label}
-    </Button>
+    </BaseButton>
   )
 }
