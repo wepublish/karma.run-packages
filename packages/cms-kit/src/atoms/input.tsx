@@ -1,6 +1,6 @@
 import React from 'react'
 import {IconType, Icon} from './icon'
-import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
+import {cssRuleWithTheme, useThemeStyle, ThemeContext} from '../style/themeContext'
 import {joinClassNames} from '@karma.run/react'
 
 export interface InputStyleProps {
@@ -21,17 +21,19 @@ const DescriptionStyle = cssRuleWithTheme<InputStyleProps>(({hasError, theme}) =
 
 export interface InputProps {
   readonly label?: string
+  readonly value: string
   readonly placeholder: string
   readonly description: string
   readonly errorDescription?: string
   readonly icon?: IconType
   readonly className?: string
-  onValueChange(value: React.ChangeEvent<HTMLInputElement>): void
+  onValueChange(value: string, event: React.ChangeEvent<HTMLInputElement>): void
 }
 
 export function Input({
   label,
   placeholder,
+  value,
   description,
   errorDescription,
   icon,
@@ -43,8 +45,9 @@ export function Input({
   const Input = (
     <input
       placeholder={placeholder}
+      value={value}
       onChange={event => {
-        onValueChange(event)
+        onValueChange(event.target.value, event)
       }}
     />
   )

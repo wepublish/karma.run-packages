@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import {storiesOf} from '@storybook/react'
 import {Input} from './input'
@@ -7,18 +7,28 @@ import {IconType} from './icon'
 import {TextArea} from './textArea'
 import {FilterTag} from './filterTag'
 
-storiesOf('Atoms|Inputs', module)
-  .addDecorator(centerLayoutDecorator())
-  .add('default', () => (
+export function TextInputWrapper() {
+  const [value, setValue] = useState('')
+
+  return (
     <Input
       label={'Label'}
+      value={value}
       placeholder={'Placeholder-Label'}
       description={'Description Text'}
-      onValueChange={value => {}}
+      onValueChange={value => {
+        setValue(value)
+      }}
     />
-  ))
+  )
+}
+
+storiesOf('Atoms|Input/Single', module)
+  .addDecorator(centerLayoutDecorator())
+  .add('default', () => <TextInputWrapper />)
   .add('no label', () => (
     <Input
+      value={''}
       placeholder={'Placeholder-Label'}
       description={'Description Text'}
       onValueChange={value => {}}
@@ -26,13 +36,18 @@ storiesOf('Atoms|Inputs', module)
   ))
   .add('error', () => (
     <Input
+      label={'Label'}
+      value={''}
       placeholder={'Placeholder-Label'}
       description={'Description Text'}
+      errorDescription={'Error text'}
       onValueChange={value => {}}
     />
   ))
   .add('icon', () => (
     <Input
+      label={'Label'}
+      value={''}
       icon={IconType.DropHere}
       placeholder={'Placeholder-Label'}
       description={'Description Text'}
@@ -40,10 +55,21 @@ storiesOf('Atoms|Inputs', module)
     />
   ))
 
-storiesOf('Atoms|TextArea', module)
+storiesOf('Atoms|Input/TextArea', module)
   .addDecorator(centerLayoutDecorator())
   .add('default', () => (
     <TextArea
+      value={''}
+      placeholder={'Placeholder-Label'}
+      description={'Description Text'}
+      onValueChange={value => {}}
+    />
+  ))
+  .add('default with value', () => (
+    <TextArea
+      value={
+        'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam'
+      }
       placeholder={'Placeholder-Label'}
       description={'Description Text'}
       onValueChange={value => {}}
@@ -51,6 +77,7 @@ storiesOf('Atoms|TextArea', module)
   ))
   .add('with label', () => (
     <TextArea
+      value={''}
       label={'Label'}
       placeholder={'Placeholder-Label'}
       description={'Description Text'}

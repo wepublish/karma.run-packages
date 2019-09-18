@@ -102,7 +102,6 @@ export function InfoBox({infoText, children}: InfoBoxProps) {
 
   return (
     <div className={css(InfoBoxStyle)}>
-      <div className="test"></div>
       <div className={css(InfoBoxContentStyle)}>{children}</div>
       <div className={css(InfoBoxTextStyle)}>{infoText}</div>
     </div>

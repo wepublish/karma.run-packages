@@ -22,7 +22,7 @@ export type Route = RouteInstancesForRoutes<typeof routes>
 export function App() {
   return (
     <RouteProvider>
-      <LinkButton title="Hello World" route={IndexRoute.create({})} />
+      <LinkButton route={IndexRoute.create({})}>Hello World</LinkButton>
     </RouteProvider>
   )
 }
