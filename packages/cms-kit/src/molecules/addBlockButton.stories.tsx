@@ -6,4 +6,4 @@ import {AddBlockButton} from './addBlockButton'
 
 storiesOf('Molecules|AddBlockButton', module)
   .addDecorator(centerLayoutDecorator(0.8))
-  .add('default', () => <AddBlockButton onClick={() => {}} />)
+  .add('button', () => <AddBlockButton onClick={() => {}} />)

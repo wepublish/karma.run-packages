@@ -136,6 +136,7 @@ export const IconStyle = cssRuleWithTheme(({theme}) => ({
   display: 'inline-block',
   height: '1em',
   lineHeight: '1em',
+  verticalAlign: 'middle',
 
   fill: 'inherit',
   stroke: 'inherit',

@@ -1,9 +1,20 @@
 import React from 'react'
-import {IconType, Icon} from './icon'
+import {IconType, Icon, IconSize} from './icon'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
+import {pxToRem} from '../style/helpers'
+import {BaseButton} from './baseButton'
 
 export const FilterTagStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.action
+}))
+
+const CloseButtonStyle = cssRuleWithTheme(() => ({
+  height: pxToRem(IconSize.Small)
+}))
+
+const CloseIconStyle = cssRuleWithTheme(({theme}) => ({
+  height: pxToRem(IconSize.Small),
+  fill: theme.colors.white
 }))
 
 export interface FilterTagProps {
@@ -17,9 +28,9 @@ export function FilterTag({text, onDismiss}: FilterTagProps) {
   return (
     <div className={css(FilterTagStyle)}>
       {text}
-      <button onClick={onDismiss}>
-        <Icon type={IconType.Replace} />
-      </button>
+      <BaseButton onClick={onDismiss} style={CloseButtonStyle}>
+        <Icon type={IconType.Close} style={CloseIconStyle} />
+      </BaseButton>
     </div>
   )
 }
