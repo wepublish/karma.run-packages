@@ -5,7 +5,7 @@ import {toArray} from '../utility'
 export interface SelectProps {
   readonly id?: string
   readonly type?: string
-  readonly checked: boolean
+  readonly checked?: boolean
   onSelectChange(value: SelectChangeEvent): void
 }
 

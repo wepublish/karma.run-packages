@@ -8,5 +8,5 @@ import {IconType, IconSize} from './icon'
 storiesOf('Atoms|Buttons/Icon/Menu', module)
   .addDecorator(centerLayoutDecorator())
   .add('default', () => (
-    <MenuIconButton icon={IconType.Replace} iconSize={IconSize.Default} title={'menu item'} />
+    <MenuIconButton icon={IconType.Replace} iconSize={IconSize.Medium} title={'menu item'} />
   ))

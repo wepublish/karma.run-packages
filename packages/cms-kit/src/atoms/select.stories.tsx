@@ -12,8 +12,8 @@ export function SelectWrapper() {
 
   return (
     <Toggle
-      isChecked={checked}
-      onChange={event => {
+      checked={checked}
+      onSelectChange={event => {
         setChecked(event.isChecked)
       }}
       id={'1'}
@@ -30,15 +30,14 @@ storiesOf('Atoms|Selects', module)
         <ToggleWithLabel
           label={'Value'}
           description={'Description text'}
-          isChecked={true}
-          onChange={checked => {}}
+          onSelectChange={checked => {}}
           id={'4'}
+          checked
         />
         <ToggleWithLabel
           label={'Value'}
           description={'Description text'}
-          isChecked={false}
-          onChange={checked => {}}
+          onSelectChange={checked => {}}
           id={'5'}
         />
       </div>

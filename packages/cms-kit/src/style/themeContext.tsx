@@ -26,22 +26,6 @@ export interface ThemeColors {
   white: string
 }
 
-export interface IconSizes {
-  xsmall: number
-  small: number
-  medium: number // or default?
-  default: number
-}
-
-export interface LayoutSpacing {
-  tiny: number
-  xsmall: number
-  small: number
-  medium: number
-  large: number
-  xlarge: number
-}
-
 export interface Theme {
   colors: ThemeColors
 }

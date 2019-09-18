@@ -1,7 +1,6 @@
 import React from 'react'
 import {ToggleProps, Toggle} from '../atoms/toggle'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
-import {toArray} from '../utility'
 
 const ToggleStyle = cssRuleWithTheme(({theme}) => ({}))
 
@@ -20,13 +19,13 @@ export function ToggleWithLabel({
   label,
   description,
   id,
-  style,
   checked,
   onSelectChange
 }: ToggleWithLabelProps) {
   const {css} = useThemeStyle()
+
   return (
-    <div className={css(ToggleStyle, ...toArray(style))}>
+    <div className={css(ToggleStyle)}>
       <label className={css(ToggleLabelStyle)} htmlFor={id}>
         <span className={css(ToggleLabelValueStyle)}>{label}</span>
         <span className={css(ToggleDescriptionStyle)}>{description}</span>

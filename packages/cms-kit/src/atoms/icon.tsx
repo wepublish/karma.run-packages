@@ -66,8 +66,7 @@ import {toArray} from '../utility'
 export enum IconSize {
   XSmall = 12,
   Small = 16,
-  Medium = 24,
-  Default = Medium
+  Medium = 24
 }
 
 export enum IconType {

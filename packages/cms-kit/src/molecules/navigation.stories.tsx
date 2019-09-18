@@ -29,7 +29,7 @@ export function NavigationWrapper() {
           style={MenuItemStyle}
           key={index}
           icon={item.icon}
-          iconSize={IconSize.Default}
+          iconSize={IconSize.Medium}
           title={item.label}
           showTitle={isOpen}
         />
@@ -54,7 +54,7 @@ export function LayoutWrapper() {
             style={MenuItemStyle}
             key={index}
             icon={item.icon}
-            iconSize={IconSize.Default}
+            iconSize={IconSize.Medium}
             title={item.label}
             showTitle={isOpen}
           />

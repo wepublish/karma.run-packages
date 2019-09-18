@@ -31,7 +31,7 @@ export const IconLabelButtonStyle = cssRuleWithTheme(({theme}) => ({
 }))
 
 export const IconLabelIconStyle = cssRuleWithTheme(({theme}) => ({
-  height: pxToRem(IconSize.Default)
+  height: pxToRem(IconSize.Medium)
 }))
 
 export interface IconLabelButtonProps extends ButtonProps {

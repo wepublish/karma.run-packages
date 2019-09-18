@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button} from '@karma.run/cms-kit'
+import {PrimaryButton} from '@karma.run/cms-kit'
 import {route, routePath, RouteInstancesForRoutes, createRouteContext} from '@karma.run/react'
 
 export const IndexRoute = route('test', routePath`/`, null)
@@ -15,14 +15,14 @@ export const {
   useRouteDispatch
 } = createRouteContext(routes)
 
-export const LinkButton = createLinkHOC(Button)
+export const LinkButton = createLinkHOC(PrimaryButton)
 
 export type Route = RouteInstancesForRoutes<typeof routes>
 
 export function App() {
   return (
     <RouteProvider>
-      <LinkButton route={IndexRoute.create({})}>Hello World</LinkButton>
+      <LinkButton route={IndexRoute.create({})} label="Hello World" />
     </RouteProvider>
   )
 }

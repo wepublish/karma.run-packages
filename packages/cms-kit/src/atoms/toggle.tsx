@@ -1,8 +1,7 @@
 import React from 'react'
-import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
+import {cssRuleWithTheme} from '../style/themeContext'
 import {pxToRem} from '../style/helpers'
-import {Select, SelectChangeEvent, BaseSelectProps} from './select'
-import {toArray} from '../utility'
+import {Select, SelectProps} from './select'
 
 const ToggleStyle = cssRuleWithTheme(({theme}) => ({
   position: 'relative',
@@ -42,15 +41,13 @@ const ToggleStyle = cssRuleWithTheme(({theme}) => ({
   }
 }))
 
-export interface ToggleProps extends BaseSelectProps {}
+export interface ToggleProps extends SelectProps {}
 
-export function Toggle({id, checked, onSelectChange, style, styleProps}: ToggleProps) {
-  const {css} = useThemeStyle()
+export function Toggle({id, checked, onSelectChange}: ToggleProps) {
   return (
     <Select
       id={id}
-      style={[ToggleStyle, ...toArray(style)]}
-      styleProps={styleProps}
+      style={ToggleStyle}
       checked={checked}
       type="checkbox"
       onSelectChange={onSelectChange}

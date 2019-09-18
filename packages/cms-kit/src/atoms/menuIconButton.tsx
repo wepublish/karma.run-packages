@@ -1,12 +1,12 @@
 import React from 'react'
 import {BaseButton, BaseButtonProps} from '../atoms/baseButton'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
-import {pxToEm, pxToRem} from '../style/helpers'
+import {pxToEm} from '../style/helpers'
 import {IconType, Icon, IconSize} from '../atoms/icon'
-import {FontSize} from '../style/fontSizes'
+import {FontSize} from '../style/fontSize'
 import {toArray} from '../utility'
 
-export const MenuIconButtonStyle = cssRuleWithTheme<{iconSize: IconSize}>(({iconSize, theme}) => ({
+export const MenuIconButtonStyle = cssRuleWithTheme<{iconSize: IconSize}>(({theme}) => ({
   display: 'block',
   border: 'none',
   width: '100%',
@@ -36,7 +36,7 @@ const IconStyle = cssRuleWithTheme<{iconSize: IconSize}>(({iconSize, theme}) => 
 const LabelStyle = cssRuleWithTheme<{show: boolean}>(({show, theme}) => ({
   verticalAlign: 'middle',
   paddingLeft: '5px',
-  fontSize: show ? pxToEm(FontSize.Default) : 0,
+  fontSize: show ? pxToEm(FontSize.Medium) : 0,
   opacity: show ? 1 : 0,
   transition: '200ms'
 }))

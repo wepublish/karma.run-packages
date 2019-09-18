@@ -13,13 +13,6 @@ export * from './atoms/toggle'
 export * from './atoms/checkbox'
 
 // Molecules
-export * from './molecules/iconLabelButton'
-export * from './molecules/outlineTextButton'
-export * from './molecules/textButton'
-export * from './molecules/textOnlyButton'
-export * from './molecules/roundIconButton'
-export * from './molecules/optionButton'
-export * from './molecules/optionButtonShadow'
 export * from './molecules/toggleWithLabel'
 
 // Fields
