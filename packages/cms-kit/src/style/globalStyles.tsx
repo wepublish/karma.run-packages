@@ -1,7 +1,7 @@
 import {useStyle} from '@karma.run/react'
 
 export interface GlobalStylesProps {
-  rootElementID: string
+  readonly rootElementID: string
 }
 
 export function GlobalStyles({rootElementID}: GlobalStylesProps) {
@@ -14,7 +14,7 @@ export function GlobalStyles({rootElementID}: GlobalStylesProps) {
 
   staticCSS(`body, html, #${rootElementID}`, {
     width: '100%',
-    minHeight: '100%',
+    height: '100%',
     padding: 0,
     margin: 0
   })

@@ -1,11 +1,14 @@
 import React from 'react'
-import {storiesOf} from '@storybook/react'
 import {OptionButtonSmall} from './optionButtonSmall'
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
 import {IconType} from './icon'
 
-storiesOf('Atoms|Buttons/Icon/OptionButtonSmall', module)
-  .addDecorator(centerLayoutDecorator())
-  .add('default', () => <OptionButtonSmall icon={IconType.Add} />)
-  .add('disabled', () => <OptionButtonSmall icon={IconType.Add} disabled />)
+export default {
+  component: OptionButtonSmall,
+  title: 'Atoms|Buttons/Icon/OptionButtonSmall',
+  decorators: [centerLayoutDecorator()]
+}
+
+export const Standard = () => <OptionButtonSmall icon={IconType.Add} />
+export const Disabled = () => <OptionButtonSmall icon={IconType.Add} disabled />

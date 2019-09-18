@@ -6,6 +6,7 @@ import {pxToRem} from '../style/helpers'
 export const CardStyle = cssRuleWithTheme(({theme}) => ({
   border: `solid 1px ${theme.colors.grayLight}`,
   borderRadius: pxToRem(8),
+  backgroundColor: theme.colors.white,
   padding: pxToRem(Spacing.ExtraSmall),
   width: '100%'
 }))

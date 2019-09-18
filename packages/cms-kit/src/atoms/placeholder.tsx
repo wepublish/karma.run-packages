@@ -12,10 +12,21 @@ export const PlaceholderStyle = cssRuleWithTheme(({theme}) => ({
 }))
 
 export interface PlaceholderProps {
-  children?: ReactNode
+  /**
+   * Setting children will directly render them.
+   */
+  readonly children?: ReactNode
+
+  /**
+   * Called when the add button is clicked.
+   */
+  onAdd?(): void
 }
 
-export function Placeholder({children}: PlaceholderProps) {
+/**
+ * A placeholder for a component.
+ */
+export function Placeholder({children, onAdd}: PlaceholderProps) {
   const {css} = useThemeStyle()
 
   if (children) {
@@ -24,7 +35,7 @@ export function Placeholder({children}: PlaceholderProps) {
 
   return (
     <div className={css(PlaceholderStyle)}>
-      <OptionButton icon={IconType.Add} />
+      <OptionButton icon={IconType.Add} onClick={() => onAdd && onAdd()} />
     </div>
   )
 }

@@ -1,16 +1,21 @@
 import React, {useState, Fragment} from 'react'
 import nanoid from 'nanoid'
 
-import {isFunctionalUpdate, isValueConstructor} from '@karma.run/react'
+import {isFunctionalUpdate, isValueConstructor, useStyle, cssRule} from '@karma.run/react'
 
 import {FieldProps, UnionListValue, UnionListCaseMapForValue, UnionFieldCaseMap} from './types'
-import {Icon} from '../atoms/icon'
+import {Icon, IconType} from '../atoms/icon'
 import {ListItemWrapper} from '../molecules/listItemWrapper'
 import {AddBlockButton} from '../molecules/addBlockButton'
+
+export const UnionListFieldStyle = cssRule({
+  width: '100%'
+})
 
 export interface UnionListItemProps<T extends string = string, V = any> {
   readonly index: number
   readonly value: UnionListValue<T, V>
+  readonly icon: IconType
   readonly onChange: (index: number, value: React.SetStateAction<UnionListValue<T, V>>) => void
   readonly onDelete: (index: number) => void
   readonly onMoveUp?: (index: number) => void
@@ -21,6 +26,7 @@ export interface UnionListItemProps<T extends string = string, V = any> {
 function UnionListItem({
   index,
   value,
+  icon,
   onChange,
   onDelete,
   onMoveUp,
@@ -36,6 +42,7 @@ function UnionListItem({
 
   return (
     <ListItemWrapper
+      icon={icon}
       onDelete={() => onDelete(index)}
       onMoveUp={onMoveUp ? () => onMoveUp(index) : undefined}
       onMoveDown={onMoveDown ? () => onMoveDown(index) : undefined}>
@@ -57,6 +64,7 @@ export function UnionListField<V extends UnionListValue>({
 }: UnionListFieldProps<V>) {
   const [casePickerIndex, setCasePickerIndex] = useState<number | null>(null)
   const unionFieldMap = children as UnionFieldCaseMap
+  const {css} = useStyle()
 
   function handleItemChange(index: number, itemValue: React.SetStateAction<UnionListValue>) {
     onChange(value =>
@@ -127,16 +135,19 @@ export function UnionListField<V extends UnionListValue>({
     const hasPrevIndex = index - 1 >= 0
     const hasNextIndex = index + 1 < values.length
 
+    const unionCase = unionFieldMap[value.type]
+
     return (
       <Fragment key={value.id}>
         <UnionListItem
           index={index}
           value={value}
+          icon={unionCase.icon}
           onDelete={handleRemove}
           onChange={handleItemChange}
           onMoveUp={hasPrevIndex ? handleMoveUp : undefined}
           onMoveDown={hasNextIndex ? handleMoveDown : undefined}>
-          {unionFieldMap[value.type].field}
+          {unionCase.field}
         </UnionListItem>
         {addButtonForIndex(index)}
       </Fragment>
@@ -144,7 +155,7 @@ export function UnionListField<V extends UnionListValue>({
   }
 
   return (
-    <div>
+    <div className={css(UnionListFieldStyle)}>
       {label && <label>{label}</label>}
       {values.map((value, index) => listItemForIndex(value, index))}
       {values.length === 0 && addButtonForIndex(values.length - 1)}

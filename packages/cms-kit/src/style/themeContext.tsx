@@ -57,7 +57,7 @@ export function ThemeProvider({theme, children}: ThemeProviderProps) {
   return <ThemeContext.Provider value={theme || defaultTheme}>{children}</ThemeContext.Provider>
 }
 
-export function useThemeStyle<P = undefined>(): UseStyleResult<P & {theme: Theme}>
+export function useThemeStyle(): UseStyleResult<{theme: Theme}>
 export function useThemeStyle<P>(props: P): UseStyleResult<P & {theme: Theme}>
 export function useThemeStyle<P>(props?: P): UseStyleResult<P & {theme: Theme}> {
   const theme = useContext(ThemeContext)

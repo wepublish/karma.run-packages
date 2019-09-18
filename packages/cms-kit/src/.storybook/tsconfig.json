@@ -1,4 +1,9 @@
 {
   "extends": "../../../../tsconfig.base.json",
-  "compilerOptions": {}
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "declaration": false,
+    "declarationMap": false,
+    "types": ["@types/webpack-env"]
+  }
 }

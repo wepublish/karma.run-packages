@@ -7,6 +7,7 @@ import {IconType} from '../atoms/icon'
 
 import {UnionListValue} from './types'
 import {ListField, ListValue} from './listField'
+import {centerLayoutDecorator} from '../.storybook/decorators'
 
 export type StringValue = UnionListValue<'string', string>
 export type StringArrayValue = UnionListValue<'stringArray', ListValue<string>[]>
@@ -40,4 +41,6 @@ export function UnionListFieldWrapper() {
   )
 }
 
-storiesOf('Fields|UnionListField', module).add('default', () => <UnionListFieldWrapper />)
+storiesOf('Fields|UnionListField', module)
+  .addDecorator(centerLayoutDecorator(0.8))
+  .add('default', () => <UnionListFieldWrapper />)

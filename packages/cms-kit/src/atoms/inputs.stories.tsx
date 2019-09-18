@@ -14,7 +14,6 @@ storiesOf('Atoms|Inputs', module)
       label={'Label'}
       placeholder={'Placeholder-Label'}
       description={'Description Text'}
-      hasError={false}
       onValueChange={value => {}}
     />
   ))
@@ -22,7 +21,6 @@ storiesOf('Atoms|Inputs', module)
     <Input
       placeholder={'Placeholder-Label'}
       description={'Description Text'}
-      hasError={false}
       onValueChange={value => {}}
     />
   ))
@@ -30,8 +28,6 @@ storiesOf('Atoms|Inputs', module)
     <Input
       placeholder={'Placeholder-Label'}
       description={'Description Text'}
-      hasError={true}
-      errorText={'Error text'}
       onValueChange={value => {}}
     />
   ))
@@ -40,7 +36,6 @@ storiesOf('Atoms|Inputs', module)
       icon={IconType.DropHere}
       placeholder={'Placeholder-Label'}
       description={'Description Text'}
-      hasError={false}
       onValueChange={value => {}}
     />
   ))

@@ -1,10 +1,13 @@
 module.exports = ({config}) => {
-  config.module.rules.push({
-    test: /\.tsx?$/,
-    exclude: /node_modules/,
-    loaders: ['babel-loader', 'react-docgen-typescript-loader']
-  })
+  if (process.env.NODE_ENV !== 'production') {
+    config.module.rules.push({
+      test: /\.tsx?$/,
+      exclude: /node_modules/,
+      loaders: ['babel-loader']
+    })
 
-  config.resolve.extensions.push('.ts', '.tsx')
+    config.resolve.extensions.push('.ts', '.tsx')
+  }
+
   return config
 }

@@ -4,25 +4,29 @@ import {BaseButton, ButtonProps} from './baseButton'
 import {IconType, Icon, IconSize} from './icon'
 import {cssRuleWithTheme} from '../style/themeContext'
 import {pxToRem} from '../style/helpers'
+import {Spacing} from '../style/spacing'
 
 export const IconLabelButtonStyle = cssRuleWithTheme(({theme}) => ({
-  backgroundColor: theme.colors.white,
-  border: 'none',
+  width: pxToRem(70),
+  borderRadius: pxToRem(2),
 
-  '&:hover:enabled path': {
+  '&:hover:enabled': {
     fill: theme.colors.action
   },
+
   '&:active': {
+    fill: theme.colors.action,
     backgroundColor: theme.colors.light
   },
-  '&:active path': {
-    fill: theme.colors.action
-  },
+
   '&:disabled': {
+    fill: theme.colors.gray,
     color: theme.colors.gray
   },
-  '&:disabled path': {
-    fill: theme.colors.gray
+
+  '&:focus': {
+    outline: 'none',
+    fill: theme.colors.action
   }
 }))
 
