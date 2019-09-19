@@ -14,7 +14,7 @@ export interface NavigationStyleProps {
   readonly isCollapsed: boolean
 }
 
-export const NavigationStyle = cssRuleWithTheme<NavigationStyleProps>(({isCollapsed, theme}) => ({
+const NavigationStyle = cssRuleWithTheme<NavigationStyleProps>(({isCollapsed, theme}) => ({
   display: 'flex',
   flexDirection: 'column',
 
@@ -27,10 +27,26 @@ export const NavigationStyle = cssRuleWithTheme<NavigationStyleProps>(({isCollap
   transition: `width ${TransitionDuration.Fast}`
 }))
 
-export const NavigationItemContentStyle = cssRuleWithTheme<NavigationStyleProps>(({theme}) => ({
+const NavigationItemContentStyle = cssRuleWithTheme<NavigationStyleProps>(({theme}) => ({
   marginTop: pxToRem(85),
   marginBottom: pxToRem(Spacing.Large),
-  overflow: 'auto'
+  overflow: 'auto',
+
+  '::-webkit-scrollbar': {
+    width: pxToRem(Spacing.Tiny)
+  },
+
+  '::-webkit-scrollbar-thumb': {
+    backgroundColor: theme.colors.gray,
+    borderTopLeftRadius: pxToRem(Spacing.Tiny),
+    borderBottomLeftRadius: pxToRem(Spacing.Tiny)
+  },
+
+  '::-webkit-scrollbar-track': {
+    backgroundColor: theme.colors.grayLight,
+    borderTopLeftRadius: pxToRem(Spacing.Tiny),
+    borderBottomLeftRadius: pxToRem(Spacing.Tiny)
+  }
 }))
 
 export interface NavigationProps {

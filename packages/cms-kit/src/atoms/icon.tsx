@@ -63,15 +63,10 @@ import {WaveIconSVG} from '../icons/wave'
 import {cssRuleWithTheme, useThemeStyle, CSSRuleWithTheme} from '../style/themeContext'
 import {toArray} from '../utility'
 
-export enum IconSize {
-  XSmall = 12,
-  Small = 16,
-  Medium = 24
-}
-
 export enum IconScale {
   Equal = '1em',
-  Larger = '1.5em'
+  Larger = '1.5em',
+  Double = '2em'
 }
 
 export enum IconType {

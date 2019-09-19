@@ -2,17 +2,17 @@ import React from 'react'
 import {BaseButton, BaseButtonProps} from '../atoms/baseButton'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem} from '../style/helpers'
-import {IconType, Icon, IconSize, IconScale} from '../atoms/icon'
+import {IconType, Icon, IconScale} from '../atoms/icon'
 import {FontSize} from '../style/fontSize'
 import {toArray} from '../utility'
 import {TransitionDuration} from '../style/transition'
 import {Spacing} from '../style/spacing'
 
-export interface MenuIconButtonStyleProps {
-  hideLabel: boolean
+interface MenuIconButtonStyleProps {
+  readonly hideLabel: boolean
 }
 
-export const MenuIconButtonStyle = cssRuleWithTheme<{iconSize: IconSize}>(({theme}) => ({
+const MenuIconButtonStyle = cssRuleWithTheme<MenuIconButtonStyleProps>(({theme}) => ({
   display: 'flex',
   flexWrap: 'nowrap',
   alignItems: 'center',

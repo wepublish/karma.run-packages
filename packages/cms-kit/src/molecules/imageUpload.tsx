@@ -1,5 +1,6 @@
 import React from 'react'
-import {IconType, Icon, IconSize} from '../atoms/icon'
+
+import {IconType, Icon, IconScale} from '../atoms/icon'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {OptionButtonSmall} from '../atoms/optionButtonSmall'
 import {pxToRem, pxToEm} from '../style/helpers'
@@ -54,13 +55,12 @@ export function ImageUpload({images, isProcessing, onDeleteImage}: ImageUploadPr
 const UploadInfoStyle = cssRuleWithTheme<{inProcess: boolean}>(({inProcess, theme}) => ({
   color: inProcess ? theme.colors.primary : theme.colors.action,
   fill: inProcess ? theme.colors.primary : theme.colors.action,
-  fontSize: pxToRem(IconSize.Default),
+
+  fontSize: pxToRem(FontSize.Small),
   textAlign: 'center'
 }))
 
-const UploadInfoLabelStyle = cssRuleWithTheme<{inProcess: boolean}>(({inProcess, theme}) => ({
-  fontSize: pxToRem(FontSize.Small)
-}))
+const UploadInfoLabelStyle = cssRuleWithTheme<{inProcess: boolean}>(({inProcess, theme}) => ({}))
 
 export enum UploadState {
   Empty,
@@ -80,8 +80,10 @@ export function ImageUploadIcon({state}: ImageUploadIconProps) {
     switch (state) {
       case UploadState.Empty:
         return 'drop image here or click to upload'
+
       case UploadState.Upload:
         return 'upload all'
+
       case UploadState.InProcess:
         return 'in process'
     }
@@ -89,7 +91,7 @@ export function ImageUploadIcon({state}: ImageUploadIconProps) {
 
   return (
     <div className={css(UploadInfoStyle)}>
-      <Icon type={isInProcess ? IconType.Created : IconType.Upload} />
+      <Icon type={isInProcess ? IconType.Created : IconType.Upload} scale={IconScale.Double} />
       <div className={css(UploadInfoLabelStyle)}>{getInfoText()}</div>
     </div>
   )

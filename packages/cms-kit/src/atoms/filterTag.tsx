@@ -1,20 +1,21 @@
 import React from 'react'
-import {IconType, Icon, IconSize} from './icon'
+
+import {IconType, Icon} from './icon'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
-import {pxToRem} from '../style/helpers'
 import {BaseButton} from './baseButton'
+import {FontSize} from '../style/fontSize'
 
-export const FilterTagStyle = cssRuleWithTheme(({theme}) => ({
-  backgroundColor: theme.colors.action
+const FilterTagStyle = cssRuleWithTheme(({theme}) => ({
+  backgroundColor: theme.colors.action,
+  fontSize: FontSize.Medium
 }))
 
-const CloseButtonStyle = cssRuleWithTheme(() => ({
-  height: pxToRem(IconSize.Small)
-}))
+const CloseButtonStyle = cssRuleWithTheme(({theme}) => ({
+  fill: theme.colors.white,
 
-const CloseIconStyle = cssRuleWithTheme(({theme}) => ({
-  height: pxToRem(IconSize.Small),
-  fill: theme.colors.white
+  ':hover': {
+    fill: theme.colors.primary
+  }
 }))
 
 export interface FilterTagProps {
@@ -29,7 +30,7 @@ export function FilterTag({text, onDismiss}: FilterTagProps) {
     <div className={css(FilterTagStyle)}>
       {text}
       <BaseButton onClick={onDismiss} style={CloseButtonStyle}>
-        <Icon type={IconType.Close} style={CloseIconStyle} />
+        <Icon type={IconType.Close} />
       </BaseButton>
     </div>
   )

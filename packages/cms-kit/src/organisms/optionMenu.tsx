@@ -3,8 +3,9 @@ import React, {useState} from 'react'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {OverlayMenu, MenuItem} from '../molecules/overlayMenu'
 import {BaseButton} from '../atoms/baseButton'
-import {IconType, Icon, IconSize} from '../atoms/icon'
+import {IconType, Icon} from '../atoms/icon'
 import {pxToEm} from '../style/helpers'
+import {FontSize} from '../style/fontSize'
 
 interface OptionMenuStyleProps {
   isOpen: boolean
@@ -15,7 +16,7 @@ const OptionMenuStyle = cssRuleWithTheme<OptionMenuStyleProps>(({isOpen, theme})
 const OptionButtonStyle = cssRuleWithTheme<OptionMenuStyleProps>(({isOpen, theme}) => ({
   height: '1.5em',
   width: '1.5em',
-  fontSize: pxToEm(IconSize.Small),
+  fontSize: pxToEm(FontSize.Medium),
 
   backgroundColor: isOpen ? theme.colors.grayLight : undefined,
   borderRadius: '100%',
