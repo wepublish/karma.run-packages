@@ -1,12 +1,13 @@
 import React from 'react'
-import {storiesOf} from '@storybook/react'
 import {MenuIconButton} from './menuIconButton'
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
-import {IconType, IconSize} from './icon'
+import {IconType} from './icon'
 
-storiesOf('Atoms|Buttons/Icon/Menu', module)
-  .addDecorator(centerLayoutDecorator())
-  .add('default', () => (
-    <MenuIconButton icon={IconType.Replace} iconSize={IconSize.Medium} title={'menu item'} />
-  ))
+export default {
+  component: MenuIconButton,
+  title: 'Atoms|Buttons/Icon/MenuIconButton',
+  decorators: [centerLayoutDecorator()]
+}
+
+export const Standard = () => <MenuIconButton icon={IconType.Replace} label={'Label'} />

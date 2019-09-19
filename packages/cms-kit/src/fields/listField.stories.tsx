@@ -1,10 +1,16 @@
 import React, {useState} from 'react'
-import {storiesOf} from '@storybook/react'
 
+import {centerLayoutDecorator} from '../.storybook/decorators'
 import {ListField, ListValue} from './listField'
 import {TextField} from './textField'
 
-export function ListFieldWrapper() {
+export default {
+  component: ListField,
+  title: 'Fields|ListField',
+  decorators: [centerLayoutDecorator()]
+}
+
+export const Standard = () => {
   const [values, setValues] = useState<ListValue<string>[]>([])
 
   return (
@@ -13,5 +19,3 @@ export function ListFieldWrapper() {
     </ListField>
   )
 }
-
-storiesOf('Fields|ListField', module).add('default', () => <ListFieldWrapper />)

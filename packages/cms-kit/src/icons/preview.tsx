@@ -1,7 +1,6 @@
 import React from 'react'
-import {IconSVGProps} from '../atoms/icon'
 
-export function PreviewIconSVG({colorClass}: IconSVGProps) {
+export function PreviewIconSVG() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
       <path

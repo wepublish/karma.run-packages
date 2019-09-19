@@ -1,10 +1,12 @@
 import React from 'react'
 
-import {storiesOf} from '@storybook/react'
 import {centerLayoutDecorator} from '../.storybook/decorators'
-
 import {Card} from './card'
 
-storiesOf('Atoms|Card', module)
-  .addDecorator(centerLayoutDecorator())
-  .add('default', () => <Card>Hello World</Card>)
+export default {
+  component: Card,
+  title: 'Atoms|Card',
+  decorators: [centerLayoutDecorator()]
+}
+
+export const Standard = () => <Card>Hello World</Card>

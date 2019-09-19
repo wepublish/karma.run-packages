@@ -84,7 +84,3 @@ storiesOf('Atoms|Input/TextArea', module)
       onValueChange={value => {}}
     />
   ))
-
-storiesOf('Atoms|FilterTag', module)
-  .addDecorator(centerLayoutDecorator())
-  .add('default', () => <FilterTag text={'Article tag'} onDismiss={() => {}} />)

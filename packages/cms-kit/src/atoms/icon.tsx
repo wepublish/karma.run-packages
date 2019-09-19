@@ -69,6 +69,11 @@ export enum IconSize {
   Medium = 24
 }
 
+export enum IconScale {
+  Equal = '1em',
+  Larger = '1.5em'
+}
+
 export enum IconType {
   Add = 'add',
   Archive = 'archive',
@@ -131,9 +136,14 @@ export enum IconType {
   Wave = 'wave'
 }
 
-export const IconStyle = cssRuleWithTheme(({theme}) => ({
+export interface IconStyleProps {
+  scale: IconScale
+}
+
+export const IconStyle = cssRuleWithTheme<IconStyleProps>(({scale, theme}) => ({
   display: 'inline-block',
   height: '1em',
+  fontSize: scale,
   lineHeight: '1em',
   verticalAlign: 'middle',
 
@@ -149,29 +159,33 @@ export const IconStyle = cssRuleWithTheme(({theme}) => ({
 
 export interface IconProps<P = undefined> {
   readonly type: IconType
+  readonly scale?: IconScale
   readonly style?: CSSRuleWithTheme | CSSRuleWithTheme[]
   readonly styleProps?: P
 }
 
-export interface IconPropsWithoutStyleProps<P = undefined> {
+export interface IconPropsWithoutStyleProps {
   readonly type: IconType
+  readonly scale?: IconScale
   readonly style?: CSSRuleWithTheme | CSSRuleWithTheme[]
 }
 
 export interface IconPropsWithStyleProps<P = undefined> {
   readonly type: IconType
+  readonly scale?: IconScale
   readonly style?: CSSRuleWithTheme<P> | CSSRuleWithTheme<P>[]
   readonly styleProps: P
 }
 
-export interface IconSVGProps {
-  readonly colorClass?: string
-}
-
 export function Icon(props: IconPropsWithoutStyleProps): JSX.Element
 export function Icon<P = undefined>(props: IconPropsWithStyleProps<P>): JSX.Element
-export function Icon<P = undefined>({type, style, styleProps}: IconProps<P>): JSX.Element {
-  const {css} = useThemeStyle(styleProps)
+export function Icon<P = undefined>({
+  type,
+  scale = IconScale.Equal,
+  style,
+  styleProps
+}: IconProps<P>): JSX.Element {
+  const {css} = useThemeStyle({...styleProps, scale})
 
   return (
     <span className={css(IconStyle, ...toArray(style))} role="img">

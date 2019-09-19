@@ -1,9 +1,12 @@
 import React from 'react'
-import {storiesOf} from '@storybook/react'
 import {PrimaryButton} from './primaryButton'
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
 
-storiesOf('Atoms|Buttons/Text/PrimaryButton', module)
-  .addDecorator(centerLayoutDecorator())
-  .add('default', () => <PrimaryButton label={'Label'} />)
+export default {
+  component: PrimaryButton,
+  title: 'Atoms|Buttons/Text/PrimaryButton',
+  decorators: [centerLayoutDecorator()]
+}
+
+export const Standard = () => <PrimaryButton label={'Label'} />

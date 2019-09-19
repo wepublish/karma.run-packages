@@ -1,19 +1,24 @@
 import React, {useState} from 'react'
-import {storiesOf} from '@storybook/react'
 
+import {centerLayoutDecorator} from '../.storybook/decorators'
 import {UnionListField} from './unionListField'
 import {TextField} from './textField'
 import {IconType} from '../atoms/icon'
 
 import {UnionListValue} from './types'
 import {ListField, ListValue} from './listField'
-import {centerLayoutDecorator} from '../.storybook/decorators'
 
 export type StringValue = UnionListValue<'string', string>
 export type StringArrayValue = UnionListValue<'stringArray', ListValue<string>[]>
 export type WrapperValue = StringValue | StringArrayValue
 
-export function UnionListFieldWrapper() {
+export default {
+  component: UnionListField,
+  title: 'Fields|UnionListField',
+  decorators: [centerLayoutDecorator(0.8)]
+}
+
+export const Standard = () => {
   const [values, setValues] = useState<WrapperValue[]>([])
 
   return (
@@ -40,7 +45,3 @@ export function UnionListFieldWrapper() {
     </UnionListField>
   )
 }
-
-storiesOf('Fields|UnionListField', module)
-  .addDecorator(centerLayoutDecorator(0.8))
-  .add('default', () => <UnionListFieldWrapper />)

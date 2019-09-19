@@ -3,13 +3,7 @@ import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
 import {pxToRem} from '../style/helpers'
 import {Spacing} from '../style/spacing'
 
-export const navigationWidth = 280
-export const navigationCollapsedWidth = 60
 export const contentMaxWidth = 880
-
-export interface NavigationTemplateStyleProps {
-  isNavigationCollapsed: boolean
-}
 
 export const NavigationTemplateStyle = cssRuleWithTheme(() => ({
   display: 'flex',
@@ -18,12 +12,11 @@ export const NavigationTemplateStyle = cssRuleWithTheme(() => ({
   minHeight: '100%'
 }))
 
-export const NavigationTemplateMenuStyle = cssRuleWithTheme<NavigationTemplateStyleProps>(
-  ({isNavigationCollapsed}) => ({
-    width: isNavigationCollapsed ? pxToRem(navigationCollapsedWidth) : pxToRem(navigationWidth),
-    transition: 'width 200ms'
-  })
-)
+export const NavigationTemplateNavigationStyle = cssRuleWithTheme(() => ({
+  position: 'sticky',
+  top: 0,
+  height: '100vh'
+}))
 
 export const NavigationTemplateContentWrapperStyle = cssRuleWithTheme(() => ({
   display: 'flex',
@@ -45,13 +38,12 @@ export interface NavigationTemplateProps {
   children?: ReactNode
 }
 
-export function NavigationTemplate({children}: NavigationTemplateProps) {
-  const [isNavigationCollapsed, setNavigationCollapsed] = useState(false)
-  const {css} = useThemeStyle<NavigationTemplateStyleProps>({isNavigationCollapsed})
+export function NavigationTemplate({children, navigationChildren}: NavigationTemplateProps) {
+  const {css} = useThemeStyle()
 
   return (
     <div className={css(NavigationTemplateStyle)}>
-      <div className={css(NavigationTemplateMenuStyle)}></div>
+      <div className={css(NavigationTemplateNavigationStyle)}>{navigationChildren}</div>
       <div className={css(NavigationTemplateContentWrapperStyle)}>
         <div className={css(NavigationTemplateContentStyle)}>{children}</div>
       </div>

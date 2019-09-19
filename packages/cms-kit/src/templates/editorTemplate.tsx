@@ -1,6 +1,5 @@
 import React, {ReactNode} from 'react'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
-import {NavigationBar} from '../molecules/navigationBar'
 import {IconLabelButton} from '../atoms/iconLabelButton'
 import {IconType} from '../atoms/icon'
 import {pxToRem} from '../style/helpers'
@@ -43,24 +42,12 @@ export interface EditorTemplateProps {
   children?: ReactNode
 }
 
-export function EditorTemplate({children}: EditorTemplateProps) {
+export function EditorTemplate({children, navigationChildren}: EditorTemplateProps) {
   const {css} = useThemeStyle()
 
   return (
     <div className={css(EditorTemplateStyle)}>
-      <div className={css(EditorTemplateNavigationStyle)}>
-        <NavigationBar
-          leftChildren={<IconLabelButton label="Back" icon={IconType.ArrowLeft} />}
-          rightChildren={<IconLabelButton label="Preview" icon={IconType.Preview} />}
-          centerChildren={
-            <>
-              <IconLabelButton label="Metadata" icon={IconType.Description} />
-              <IconLabelButton label="Save" icon={IconType.Save} />
-              <IconLabelButton label="Publish" icon={IconType.Publish} />
-            </>
-          }
-        />
-      </div>
+      <div className={css(EditorTemplateNavigationStyle)}>{navigationChildren}</div>
       <div className={css(EditorTemplateContentWrapperStyle)}>
         <div className={css(EditorTemplateContentStyle)}>{children}</div>
       </div>

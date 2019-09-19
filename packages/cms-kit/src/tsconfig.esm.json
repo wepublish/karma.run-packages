@@ -1,7 +1,7 @@
 {
   "extends": "../../../tsconfig.base.json",
   "include": ["./**/*"],
-  "exclude": ["./**/*/*.stories.*"],
+  "exclude": ["./**/*.stories.*"],
   "compilerOptions": {
     "outDir": "../lib/esm/",
     "module": "esnext",

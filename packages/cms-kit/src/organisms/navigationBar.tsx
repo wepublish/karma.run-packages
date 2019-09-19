@@ -8,8 +8,7 @@ export const NavigationBarStyle = cssRuleWithTheme(({theme}) => ({
   overflow: 'hidden',
   width: '100%',
   backgroundColor: theme.colors.white,
-  borderBottom: `solid 1px ${theme.colors.grayLight}`,
-  padding: pxToRem(Spacing.ExtraSmall)
+  borderBottom: `solid 1px ${theme.colors.grayLight}`
 }))
 
 export const NavigationBarLeftWrapperStyle = cssRuleWithTheme(({theme}) => ({

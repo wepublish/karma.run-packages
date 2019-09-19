@@ -1,9 +1,12 @@
 import React from 'react'
-import {storiesOf} from '@storybook/react'
-import {OutlineButton} from './outlineButton'
 
+import {OutlineButton} from './outlineButton'
 import {centerLayoutDecorator} from '../.storybook/decorators'
 
-storiesOf('Atoms|Buttons/Text/OutlineButton', module)
-  .addDecorator(centerLayoutDecorator())
-  .add('default', () => <OutlineButton label={'Label'} />)
+export default {
+  component: OutlineButton,
+  title: 'Atoms|Buttons/Text/OutlineButton',
+  decorators: [centerLayoutDecorator()]
+}
+
+export const Standard = () => <OutlineButton label={'Label'} />

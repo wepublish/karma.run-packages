@@ -11,4 +11,8 @@ export default {
 }
 
 export const Standard = () => <OptionButtonSmall icon={IconType.Add} />
+
+/**
+ * @description Test
+ */
 export const Disabled = () => <OptionButtonSmall icon={IconType.Add} disabled />

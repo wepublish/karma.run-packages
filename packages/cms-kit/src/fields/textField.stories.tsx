@@ -1,12 +1,15 @@
 import React, {useState} from 'react'
 
-import {storiesOf} from '@storybook/react'
+import {centerLayoutDecorator} from '../.storybook/decorators'
 import {TextField} from './textField'
 
-export function ListFieldWrapper() {
-  const [value, setValue] = useState('')
-
-  return <TextField value={value} onChange={value => setValue(value)} />
+export default {
+  component: TextField,
+  title: 'Fields|TextField',
+  decorators: [centerLayoutDecorator()]
 }
 
-storiesOf('Fields|TextField', module).add('default', () => <ListFieldWrapper />)
+export const Standard = () => {
+  const [value, setValue] = useState('')
+  return <TextField value={value} onChange={value => setValue(value)} />
+}

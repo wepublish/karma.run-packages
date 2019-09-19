@@ -1,18 +1,17 @@
 import React from 'react'
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
+import {AddBlockMenu} from './addBlockMenu'
 import {IconType} from '../atoms/icon'
-import {OverlayMenu} from './overlayMenu'
 
 export default {
-  component: OverlayMenu,
-  title: 'Molecules|OverlayMenu',
-  decorators: [centerLayoutDecorator()]
+  component: AddBlockMenu,
+  title: 'Organisms|AddBlockMenu',
+  decorators: [centerLayoutDecorator(0.8)]
 }
 
 export const Standard = () => (
-  <OverlayMenu
-    inline={false}
+  <AddBlockMenu
     menuItems={[
       {id: 'text', icon: IconType.Text, label: 'Text'},
       {id: 'image', icon: IconType.Image, label: 'Image'},
@@ -20,17 +19,6 @@ export const Standard = () => (
       {id: 'video', icon: IconType.Video, label: 'Video'},
       {id: 'embed', icon: IconType.Embed, label: 'Embed'},
       {id: 'quote', icon: IconType.Quote, label: 'Quote'}
-    ]}
-    onMenuItemClick={item => {}}
-  />
-)
-
-export const Inline = () => (
-  <OverlayMenu
-    inline={true}
-    menuItems={[
-      {id: 'copy', icon: IconType.Copy, label: 'Copy'},
-      {id: 'archive', icon: IconType.Archive, label: 'Archive'}
     ]}
     onMenuItemClick={item => {}}
   />

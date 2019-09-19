@@ -10,6 +10,8 @@ export const IconLabelButtonStyle = cssRuleWithTheme(({theme}) => ({
   width: pxToRem(70),
   borderRadius: pxToRem(2),
 
+  padding: pxToRem(Spacing.ExtraSmall),
+
   '&:hover:enabled': {
     fill: theme.colors.action
   },

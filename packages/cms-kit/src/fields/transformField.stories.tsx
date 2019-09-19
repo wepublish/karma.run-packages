@@ -1,29 +1,25 @@
 import React, {useState} from 'react'
-import {storiesOf} from '@storybook/react'
 
 import {TransformField} from './transformField'
 import {TextField} from './textField'
+import {centerLayoutDecorator} from '../.storybook/decorators'
 
-function transformFromStringToNumber(value: string) {
-  return parseInt(value)
+export default {
+  component: TransformField,
+  title: 'Fields|TransformField',
+  decorators: [centerLayoutDecorator()]
 }
 
-function transformFromNumberToString(value: number) {
-  return value.toString()
-}
-
-export function TransformFieldWrapper() {
+export const Standard = () => {
   const [value, setValue] = useState<number>(0)
 
   return (
     <TransformField
       value={value}
       onChange={value => setValue(value)}
-      transformFrom={transformFromStringToNumber}
-      transformTo={transformFromNumberToString}>
+      transformTo={value => value.toString()}
+      transformFrom={(value: string) => parseInt(value)}>
       {props => <TextField {...props} />}
     </TransformField>
   )
 }
-
-storiesOf('Fields|TransformField', module).add('default', () => <TransformFieldWrapper />)
