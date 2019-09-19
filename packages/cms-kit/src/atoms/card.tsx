@@ -1,7 +1,6 @@
 import React, {ReactNode} from 'react'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
-import {Spacing} from '../style/spacing'
-import {pxToRem} from '../style/helpers'
+import {pxToRem, Spacing} from '../style/helpers'
 
 export const CardStyle = cssRuleWithTheme(({theme}) => ({
   border: `solid 1px ${theme.colors.grayLight}`,

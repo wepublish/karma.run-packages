@@ -4,8 +4,7 @@ import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {OverlayMenu, MenuItem} from '../molecules/overlayMenu'
 import {BaseButton} from '../atoms/baseButton'
 import {IconType, Icon} from '../atoms/icon'
-import {pxToEm} from '../style/helpers'
-import {FontSize} from '../style/fontSize'
+import {pxToEm, FontSize} from '../style/helpers'
 
 interface OptionMenuStyleProps {
   isOpen: boolean

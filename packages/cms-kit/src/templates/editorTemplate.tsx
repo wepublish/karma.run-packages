@@ -1,13 +1,10 @@
 import React, {ReactNode} from 'react'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
-import {IconLabelButton} from '../atoms/iconLabelButton'
-import {IconType} from '../atoms/icon'
-import {pxToRem} from '../style/helpers'
-import {Spacing} from '../style/spacing'
+import {pxToRem, ZIndex, Spacing} from '../style/helpers'
 
 export const contentMaxWidth = 1030
 
-export const EditorTemplateStyle = cssRuleWithTheme(() => ({
+const EditorTemplateStyle = cssRuleWithTheme(() => ({
   display: 'flex',
   flexDirection: 'column',
 
@@ -15,22 +12,22 @@ export const EditorTemplateStyle = cssRuleWithTheme(() => ({
   minHeight: '100%'
 }))
 
-export const EditorTemplateNavigationStyle = cssRuleWithTheme(() => ({
+const EditorTemplateNavigationStyle = cssRuleWithTheme(() => ({
   display: 'flex',
   position: 'sticky',
   top: 0,
-
+  zIndex: ZIndex.NavigationBar,
   width: '100%'
 }))
 
-export const EditorTemplateContentWrapperStyle = cssRuleWithTheme(() => ({
+const EditorTemplateContentWrapperStyle = cssRuleWithTheme(() => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   width: '100%'
 }))
 
-export const EditorTemplateContentStyle = cssRuleWithTheme(() => ({
+const EditorTemplateContentStyle = cssRuleWithTheme(() => ({
   display: 'flex',
   width: '100%',
   maxWidth: pxToRem(contentMaxWidth + Spacing.Large),

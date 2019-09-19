@@ -1,7 +1,6 @@
 import React, {ReactNode} from 'react'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
-import {pxToRem} from '../style/helpers'
-import {Spacing} from '../style/spacing'
+import {pxToRem, Spacing} from '../style/helpers'
 
 export const contentMaxWidth = 880
 

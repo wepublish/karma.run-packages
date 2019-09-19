@@ -1,7 +1,6 @@
 import React, {ReactNode, Children} from 'react'
 import {useStyle, cssRule} from '@karma.run/react'
-import {pxToRem, whenDesktop} from '../style/helpers'
-import {Spacing} from '../style/spacing'
+import {pxToRem, whenDesktop, Spacing} from '../style/helpers'
 
 export interface GridStyleProps {
   numColumns: number

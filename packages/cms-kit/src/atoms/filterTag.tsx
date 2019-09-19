@@ -3,7 +3,7 @@ import React from 'react'
 import {IconType, Icon} from './icon'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {BaseButton} from './baseButton'
-import {FontSize} from '../style/fontSize'
+import {FontSize} from '../style/helpers'
 
 const FilterTagStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.action,

@@ -3,9 +3,7 @@ import React from 'react'
 import {BaseButton, ButtonProps} from './baseButton'
 import {IconType, Icon, IconScale} from './icon'
 import {cssRuleWithTheme} from '../style/themeContext'
-import {pxToRem} from '../style/helpers'
-import {Spacing} from '../style/spacing'
-import {FontSize} from '../style/fontSize'
+import {pxToRem, FontSize, Spacing} from '../style/helpers'
 
 const IconLabelButtonStyle = cssRuleWithTheme(({theme}) => ({
   width: pxToRem(70),
@@ -13,6 +11,8 @@ const IconLabelButtonStyle = cssRuleWithTheme(({theme}) => ({
 
   padding: pxToRem(Spacing.ExtraSmall),
   fontSize: pxToRem(FontSize.Small),
+
+  whiteSpace: 'nowrap',
 
   '&:hover:enabled': {
     fill: theme.colors.action

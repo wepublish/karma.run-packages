@@ -136,7 +136,6 @@ export interface IconStyleProps {
 }
 
 export const IconStyle = cssRuleWithTheme<IconStyleProps>(({scale, theme}) => ({
-  display: 'inline-block',
   height: '1em',
   fontSize: scale,
   lineHeight: '1em',
@@ -150,6 +149,14 @@ export const IconStyle = cssRuleWithTheme<IconStyleProps>(({scale, theme}) => ({
     stroke: 'inherit',
     height: 'inherit'
   }
+}))
+
+export const InlineIconStyle = cssRuleWithTheme<IconStyleProps>(({scale, theme}) => ({
+  display: 'inline-block'
+}))
+
+export const BlockIconStyle = cssRuleWithTheme<IconStyleProps>(({scale, theme}) => ({
+  display: 'block'
 }))
 
 export interface IconProps<P = undefined> {
@@ -183,7 +190,24 @@ export function Icon<P = undefined>({
   const {css} = useThemeStyle({...styleProps, scale})
 
   return (
-    <span className={css(IconStyle, ...toArray(style))} role="img">
+    <span className={css(IconStyle, InlineIconStyle, ...toArray(style))} role="img">
+      {iconForType(type)}
+    </span>
+  )
+}
+
+export function BlockIcon(props: IconPropsWithoutStyleProps): JSX.Element
+export function BlockIcon<P = undefined>(props: IconPropsWithStyleProps<P>): JSX.Element
+export function BlockIcon<P = undefined>({
+  type,
+  scale = IconScale.Equal,
+  style,
+  styleProps
+}: IconProps<P>): JSX.Element {
+  const {css} = useThemeStyle({...styleProps, scale})
+
+  return (
+    <span className={css(IconStyle, BlockIconStyle, ...toArray(style))} role="img">
       {iconForType(type)}
     </span>
   )

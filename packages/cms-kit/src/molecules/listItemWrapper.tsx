@@ -3,8 +3,7 @@ import {Card} from '../atoms/card'
 import {useStyle, cssRule} from '@karma.run/react'
 import {IconType, Icon} from '../atoms/icon'
 import {OptionButtonSmall} from '../atoms/optionButtonSmall'
-import {Spacing} from '../style/spacing'
-import {pxToRem} from '../style/helpers'
+import {pxToRem, Spacing} from '../style/helpers'
 
 export const ListItemWrapperStyle = cssRule({
   display: 'flex',

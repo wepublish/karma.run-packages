@@ -3,10 +3,8 @@ import React, {useState} from 'react'
 import {TextButton} from '../atoms/textButton'
 import {OptionButtonSmall} from '../atoms/optionButtonSmall'
 import {IconType} from '../atoms/icon'
-import {cssRuleWithTheme, useThemeStyle, ThemeContext} from '../style/themeContext'
-import {Spacing} from '../style/spacing'
-import {pxToRem} from '../style/helpers'
-import {PrimaryButton} from '../atoms/primaryButton'
+import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
+import {pxToRem, Spacing} from '../style/helpers'
 import {OutlineButton} from '../atoms/outlineButton'
 
 export interface GalleryImage {

@@ -1,11 +1,8 @@
 import React, {ReactNode, useState} from 'react'
-import {Icon, IconType} from '../atoms/icon'
+import {IconType, BlockIcon} from '../atoms/icon'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
-import {pxToRem} from '../style/helpers'
+import {pxToRem, TransitionDuration, Spacing, FontSize} from '../style/helpers'
 import {BaseButton} from '../atoms/baseButton'
-import {TransitionDuration} from '../style/transition'
-import {Spacing} from '../style/spacing'
-import {FontSize} from '../style/fontSize'
 
 export const navigationWidth = 280
 export const navigationWidthCollapsed = 60
@@ -66,11 +63,15 @@ export function Navigation({children}: NavigationProps) {
 }
 
 export const NavigationButtonStyle = cssRuleWithTheme(({theme}) => ({
-  border: 'none',
   alignSelf: 'flex-end',
-  padding: pxToRem(Spacing.Small),
-  fontSize: pxToRem(FontSize.Medium),
-  fill: theme.colors.gray
+
+  padding: pxToRem(18),
+  fontSize: pxToRem(FontSize.Heading2),
+  fill: theme.colors.gray,
+
+  ':focus': {
+    fill: theme.colors.action
+  }
 }))
 
 export interface NavigationButtonProps {
@@ -81,7 +82,7 @@ export interface NavigationButtonProps {
 export function NavigationButton({isCollapsed, onClick}: NavigationButtonProps) {
   return (
     <BaseButton onClick={onClick} style={NavigationButtonStyle}>
-      <Icon type={isCollapsed ? IconType.ChevronRight : IconType.ChevronLeft} />
+      <BlockIcon type={isCollapsed ? IconType.ChevronRight : IconType.ChevronLeft} />
     </BaseButton>
   )
 }

@@ -1,12 +1,9 @@
 import React from 'react'
 import {BaseButton, BaseButtonProps} from '../atoms/baseButton'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
-import {pxToRem} from '../style/helpers'
+import {pxToRem, FontSize, Spacing, TransitionDuration} from '../style/helpers'
 import {IconType, Icon, IconScale} from '../atoms/icon'
-import {FontSize} from '../style/fontSize'
 import {toArray} from '../utility'
-import {TransitionDuration} from '../style/transition'
-import {Spacing} from '../style/spacing'
 
 interface MenuIconButtonStyleProps {
   readonly hideLabel: boolean
@@ -43,10 +40,11 @@ const MenuIconButtonStyle = cssRuleWithTheme<MenuIconButtonStyleProps>(({theme})
 }))
 
 const LabelStyle = cssRuleWithTheme<MenuIconButtonStyleProps>(({hideLabel, theme}) => ({
-  paddingLeft: pxToRem(Spacing.Tiny),
+  marginLeft: pxToRem(Spacing.ExtraSmall),
   whiteSpace: 'nowrap',
   opacity: hideLabel ? 0 : 1,
-  transition: `opacity ${TransitionDuration.Fast}`
+  transition: 'opacity',
+  transitionDuration: TransitionDuration.Fast
 }))
 
 export interface MenuIconButtonProps extends BaseButtonProps {

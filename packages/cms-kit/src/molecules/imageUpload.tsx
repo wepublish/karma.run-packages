@@ -3,8 +3,7 @@ import React from 'react'
 import {IconType, Icon, IconScale} from '../atoms/icon'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {OptionButtonSmall} from '../atoms/optionButtonSmall'
-import {pxToRem, pxToEm} from '../style/helpers'
-import {FontSize} from '../style/fontSize'
+import {pxToRem, FontSize} from '../style/helpers'
 
 export const ImageUploadStyle = cssRuleWithTheme(({theme}) => ({
   display: 'flex',

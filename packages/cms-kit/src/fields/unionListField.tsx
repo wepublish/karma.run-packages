@@ -7,6 +7,7 @@ import {FieldProps, UnionListValue, UnionListCaseMapForValue, UnionFieldCaseMap}
 import {Icon, IconType} from '../atoms/icon'
 import {ListItemWrapper} from '../molecules/listItemWrapper'
 import {AddBlockButton} from '../molecules/addBlockButton'
+import {AddBlockMenu} from '../organisms/addBlockMenu'
 
 export const UnionListFieldStyle = cssRule({
   width: '100%'
@@ -117,7 +118,14 @@ export function UnionListField<V extends UnionListValue>({
   function addButtonForIndex(index: number) {
     return (
       <>
-        <AddBlockButton onClick={() => setCasePickerIndex(index)} />
+        <AddBlockMenu
+          menuItems={Object.entries(unionFieldMap).map(([type, {icon, label}]) => ({
+            id: type,
+            icon,
+            label
+          }))}
+          onMenuItemClick={({id}) => handleAdd(index, id)}
+        />
         <div>
           {casePickerIndex === index &&
             Object.entries(unionFieldMap).map(([type, value]) => (

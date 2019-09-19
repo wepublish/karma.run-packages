@@ -27,7 +27,13 @@ export function AddBlockMenu({menuItems, onMenuItemClick}: AddBlockMenuProps) {
 
       {isOpen && (
         <div className={css(AddButtonOverlayMenuStyle)}>
-          <OverlayMenu menuItems={menuItems} onMenuItemClick={onMenuItemClick} />
+          <OverlayMenu
+            menuItems={menuItems}
+            onMenuItemClick={item => {
+              setOpen(false)
+              onMenuItemClick(item)
+            }}
+          />
         </div>
       )}
     </div>

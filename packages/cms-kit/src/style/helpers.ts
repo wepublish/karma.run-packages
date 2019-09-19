@@ -6,7 +6,31 @@ export enum Breakpoint {
 }
 
 export enum ZIndex {
-  Default = 0
+  Default = 0,
+  NavigationBar = 10
+}
+
+export enum Spacing {
+  Tiny = 5,
+  ExtraSmall = 10,
+  Small = 20,
+  Medium = 30,
+  Large = 40,
+  ExtraLarge = 60
+}
+
+export enum FontSize {
+  Small = 12,
+  Medium = 16,
+  Heading3 = 20,
+  Heading2 = 24,
+  Heading1 = 28,
+  ExtraLarge = 60
+}
+
+export enum TransitionDuration {
+  Fast = '200ms',
+  Slow = '500ms'
 }
 
 export function pxToRem(px: number) {
