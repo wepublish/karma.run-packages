@@ -50,20 +50,24 @@ export function ListItemWrapper({
   return (
     <div className={css(ListItemWrapperStyle)}>
       <div className={css(ListItemWrapperActionStyle)}>
-        {onDelete && (
-          <OptionButtonSmall title="Delete" icon={IconType.Delete} onClick={() => onDelete()} />
-        )}
-        {onMoveUp && (
-          <OptionButtonSmall title="Move Up" icon={IconType.ChevronUp} onClick={() => onMoveUp()} />
-        )}
-
-        {onMoveDown && (
-          <OptionButtonSmall
-            title="Move Down"
-            icon={IconType.ChevronDown}
-            onClick={() => onMoveDown()}
-          />
-        )}
+        <OptionButtonSmall
+          title="Delete"
+          icon={IconType.Delete}
+          onClick={onDelete}
+          disabled={onDelete == null}
+        />
+        <OptionButtonSmall
+          title="Move Up"
+          icon={IconType.ChevronUp}
+          onClick={onMoveUp}
+          disabled={onMoveUp == null}
+        />
+        <OptionButtonSmall
+          title="Move Down"
+          icon={IconType.ChevronDown}
+          onClick={onMoveDown}
+          disabled={onMoveDown == null}
+        />
       </div>
       <div className={css(ListItemWrapperContentStyle)}>
         <Card>{children}</Card>
