@@ -3,16 +3,21 @@ import React from 'react'
 import {BaseButton, ButtonProps} from './baseButton'
 import {cssRuleWithTheme} from '../style/themeContext'
 import {IconType, Icon} from './icon'
+import {pxToRem, TransitionDuration} from '../style/helpers'
 
 export const OptionButtonStyle = cssRuleWithTheme(({theme}) => ({
-  width: '2em',
-  height: '2em',
+  width: pxToRem(40),
+  height: pxToRem(40),
 
-  padding: '0.5em',
+  fontSize: pxToRem(24),
+  lineHeight: pxToRem(24),
 
-  backgroundColor: theme.colors.gray,
+  backgroundColor: theme.colors.white,
   border: 'none',
   borderRadius: '100%',
+
+  transition: 'background-color ease-in',
+  transitionDuration: TransitionDuration.Fast,
 
   '& path': {
     fill: theme.colors.action
@@ -22,8 +27,8 @@ export const OptionButtonStyle = cssRuleWithTheme(({theme}) => ({
     backgroundColor: theme.colors.light
   },
 
-  '&:active': {
-    backgroundImage: `linear-gradient(230deg, ${theme.colors.actionDark}, ${theme.colors.action})`
+  '&:active:enabled': {
+    backgroundColor: theme.colors.actionDark
   },
 
   '&:disabled path': {

@@ -3,7 +3,7 @@ import React from 'react'
 import {BaseButton, ButtonProps} from './baseButton'
 import {cssRuleWithTheme} from '../style/themeContext'
 import {IconType, Icon} from './icon'
-import {pxToEm} from '../style/helpers'
+import {pxToEm, TransitionDuration} from '../style/helpers'
 
 export const OptionButtonSmallStyle = cssRuleWithTheme(({theme}) => ({
   display: 'flex',
@@ -24,26 +24,25 @@ export const OptionButtonSmallStyle = cssRuleWithTheme(({theme}) => ({
 
   fill: theme.colors.dark,
 
+  transition: 'background-color ease-in, border ease-in',
+  transitionDuration: TransitionDuration.Fast,
+
   '> *': {
     fontSize: pxToEm(14)
   },
 
   '&:hover:enabled': {
-    boxShadow: '0 2px 2px 0 rgba(0, 0, 0, 0.5)'
+    backgroundColor: theme.colors.light,
+    borderColor: theme.colors.action
   },
 
   '&:active:enabled': {
-    backgroundColor: theme.colors.light
+    backgroundColor: theme.colors.actionDark,
+    fill: theme.colors.action
   },
 
   '&:disabled': {
     fill: theme.colors.gray
-  },
-
-  '&:focus': {
-    outline: 'none',
-    fill: theme.colors.action,
-    border: `solid 1px ${theme.colors.action}`
   }
 }))
 

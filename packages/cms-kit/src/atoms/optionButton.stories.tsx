@@ -10,4 +10,6 @@ export default {
   decorators: [centerLayoutDecorator()]
 }
 
-export const Standard = () => <OptionButton icon={IconType.Replace} />
+export const Standard = () => <OptionButton icon={IconType.Add} />
+
+export const Disabled = () => <OptionButton icon={IconType.Add} disabled />

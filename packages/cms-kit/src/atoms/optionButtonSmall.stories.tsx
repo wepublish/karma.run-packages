@@ -10,9 +10,9 @@ export default {
   decorators: [centerLayoutDecorator()]
 }
 
-export const Standard = () => <OptionButtonSmall icon={IconType.Add} />
+export const Standard = () => <OptionButtonSmall icon={IconType.ChevronDown} />
 
 /**
  * @description Test
  */
-export const Disabled = () => <OptionButtonSmall icon={IconType.Add} disabled />
+export const Disabled = () => <OptionButtonSmall icon={IconType.ChevronDown} disabled />

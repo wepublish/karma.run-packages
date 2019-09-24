@@ -10,3 +10,5 @@ export default {
 }
 
 export const Standard = () => <OutlineButton label={'Label'} />
+
+export const Disabled = () => <OutlineButton label={'Label'} disabled />

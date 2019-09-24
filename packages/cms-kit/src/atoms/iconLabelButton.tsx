@@ -3,34 +3,31 @@ import React from 'react'
 import {BaseButton, ButtonProps} from './baseButton'
 import {IconType, Icon, IconScale} from './icon'
 import {cssRuleWithTheme} from '../style/themeContext'
-import {pxToRem, FontSize, Spacing} from '../style/helpers'
+import {pxToRem, FontSize, Spacing, TransitionDuration} from '../style/helpers'
 
-const IconLabelButtonStyle = cssRuleWithTheme(({theme}) => ({
-  width: pxToRem(70),
+export const IconLabelButtonStyle = cssRuleWithTheme(({theme}) => ({
+  minWidth: pxToRem(70),
   borderRadius: pxToRem(2),
 
-  padding: pxToRem(Spacing.ExtraSmall),
   fontSize: pxToRem(FontSize.Small),
 
-  whiteSpace: 'nowrap',
+  padding: pxToRem(Spacing.Tiny),
+
+  transition: 'fill ease-in, background-color ease-in',
+  transitionDuration: TransitionDuration.Fast,
 
   '&:hover:enabled': {
     fill: theme.colors.action
   },
 
-  '&:active': {
-    fill: theme.colors.action,
+  '&:active:enabled': {
+    fill: theme.colors.actionDark,
     backgroundColor: theme.colors.light
   },
 
   '&:disabled': {
     fill: theme.colors.gray,
     color: theme.colors.gray
-  },
-
-  '&:focus': {
-    outline: 'none',
-    fill: theme.colors.action
   }
 }))
 

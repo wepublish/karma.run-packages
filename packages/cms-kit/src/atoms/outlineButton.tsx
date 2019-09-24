@@ -1,24 +1,27 @@
 import React from 'react'
 import {BaseButton, ButtonProps} from './baseButton'
 import {cssRuleWithTheme} from '../style/themeContext'
-import {pxToRem} from '../style/helpers'
+import {pxToRem, FontSize, TransitionDuration} from '../style/helpers'
 
 export const OutlineButtonStyle = cssRuleWithTheme<{invert: boolean}>(({invert, theme}) => ({
-  backgroundColor: invert ? 'transparent' : theme.colors.white,
-  borderColor: theme.colors.action,
+  border: `1px ${theme.colors.action}  solid`,
   borderRadius: pxToRem(10),
   padding: pxToRem(10),
   color: theme.colors.action,
+  fontSize: pxToRem(FontSize.Medium),
+  minWidth: pxToRem(140),
+  transition: 'background-color ease-in, box-shadow ease-in',
+  transitionDuration: TransitionDuration.Fast,
 
-  '&:hover': {
+  ':hover': {
     backgroundColor: invert ? theme.colors.grayDark : theme.colors.light
   },
 
-  '&:active': {
+  ':active:enabled': {
     backgroundColor: theme.colors.actionDark
   },
 
-  '&:disabled': {
+  ':disabled': {
     backgroundColor: invert ? 'transparent' : theme.colors.light,
     borderColor: theme.colors.grayLight,
     color: theme.colors.gray

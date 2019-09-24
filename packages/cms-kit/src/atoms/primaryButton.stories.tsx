@@ -10,3 +10,5 @@ export default {
 }
 
 export const Standard = () => <PrimaryButton label={'Label'} />
+
+export const Disabled = () => <PrimaryButton label={'Label'} disabled />

@@ -23,19 +23,17 @@ const MenuIconButtonStyle = cssRuleWithTheme<MenuIconButtonStyleProps>(({theme})
 
   fill: theme.colors.dark,
 
-  '&:hover:enabled': {
+  transition: 'background-color ease-in',
+  transitionDuration: TransitionDuration.Fast,
+
+  ':hover:enabled': {
     backgroundColor: theme.colors.grayLight,
     fill: theme.colors.dark
   },
 
-  '&:active:enabled': {
+  ':active:enabled': {
     backgroundColor: theme.colors.white,
-    fill: theme.colors.primary
-  },
-
-  '&:focus': {
-    outline: 'none',
-    fill: theme.colors.action
+    fill: theme.colors.primaryDark
   }
 }))
 

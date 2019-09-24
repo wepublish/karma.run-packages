@@ -10,4 +10,6 @@ export default {
   decorators: [centerLayoutDecorator()]
 }
 
-export const Standard = () => <IconLabelButton icon={IconType.Replace} label={'Label'} />
+export const Standard = () => <IconLabelButton icon={IconType.Save} label={'Label'} />
+
+export const Disabled = () => <IconLabelButton icon={IconType.Save} label={'Label'} disabled />

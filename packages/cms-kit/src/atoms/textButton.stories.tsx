@@ -10,3 +10,5 @@ export default {
 }
 
 export const Standard = () => <TextButton label={'Label'} />
+
+export const Disabled = () => <TextButton label={'Label'} disabled />
