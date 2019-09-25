@@ -44,14 +44,14 @@ storiesOf('Atoms|Selects', module)
     )
   })
   .add('Checkbox', () => (
-    <div>
+    <React.Fragment>
       <Checkbox isChecked={true} onChange={checked => {}} label={'Checkbox label'} id={'2'} />
       <Checkbox isChecked={false} onChange={checked => {}} label={'Checkbox label'} id={'7'} />
-    </div>
+    </React.Fragment>
   ))
   .add('RadioButton', () => (
-    <div>
+    <React.Fragment>
       <RadioButton isChecked={true} onChange={checked => {}} label={'Radio label'} id={'3'} />
       <RadioButton isChecked={false} onChange={checked => {}} label={'Radio label'} id={'8'} />
-    </div>
+    </React.Fragment>
   ))
