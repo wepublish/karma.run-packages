@@ -4,12 +4,11 @@ import {BaseButton, ButtonProps} from './baseButton'
 import {IconType, Icon, IconScale} from './icon'
 import {cssRuleWithTheme} from '../style/themeContext'
 import {pxToRem, FontSize, Spacing, TransitionDuration} from '../style/helpers'
+import {FontSmall, FontInlineSmall, FontFace, Align} from '../style/textStyles'
 
 export const IconLabelButtonStyle = cssRuleWithTheme(({theme}) => ({
   minWidth: pxToRem(70),
   borderRadius: pxToRem(2),
-
-  fontSize: pxToRem(FontSize.Small),
 
   padding: pxToRem(Spacing.Tiny),
 
@@ -39,8 +38,10 @@ export interface IconLabelButtonProps extends ButtonProps {
 export function IconLabelButton({label, icon, ...rest}: IconLabelButtonProps) {
   return (
     <BaseButton {...rest} style={IconLabelButtonStyle}>
-      <Icon type={icon} scale={IconScale.Double} />
-      <div>{label}</div>
+      <FontSmall>
+        <Icon type={icon} scale={IconScale.Double} />
+        <div>{label}</div>
+      </FontSmall>
     </BaseButton>
   )
 }

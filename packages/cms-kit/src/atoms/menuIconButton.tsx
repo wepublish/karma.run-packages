@@ -4,22 +4,18 @@ import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem, FontSize, Spacing, TransitionDuration} from '../style/helpers'
 import {IconType, Icon, IconScale} from '../atoms/icon'
 import {toArray} from '../utility'
+import {FontMedium, Align, FontInlineMedium} from '../style/textStyles'
 
 interface MenuIconButtonStyleProps {
   readonly hideLabel: boolean
 }
 
 const MenuIconButtonStyle = cssRuleWithTheme<MenuIconButtonStyleProps>(({theme}) => ({
-  display: 'flex',
-  flexWrap: 'nowrap',
-  alignItems: 'center',
-
   padding: `${pxToRem(12)} ${pxToRem(18)}`,
 
   border: 'none',
   width: '100%',
   textAlign: 'left',
-  fontSize: pxToRem(FontSize.Medium),
 
   fill: theme.colors.dark,
 
@@ -70,8 +66,10 @@ export function MenuIconButton({
       onClick={onClick}
       style={[MenuIconButtonStyle, ...toArray(style)]}
       styleProps={styleProps}>
-      <Icon type={icon} scale={iconScale} />
-      <span className={css(LabelStyle)}>{label}</span>
+      <FontInlineMedium>
+        <Icon type={icon} scale={iconScale} />
+        <span className={css(LabelStyle)}>{label}</span>
+      </FontInlineMedium>
     </BaseButton>
   )
 }

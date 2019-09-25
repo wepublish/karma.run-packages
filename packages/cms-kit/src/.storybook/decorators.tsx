@@ -70,20 +70,23 @@ export function fontSizeDecorator(fontSize: number = 24) {
   }
 }
 
-export const InfoBoxStyle = cssRule(() => ({
-  backgroundColor: '#f7fcff',
+export const InfoBoxStyle = cssRule<{padding: number}>(({padding}) => ({
+  backgroundColor: '#f7f9fa',
   display: 'inline-block',
   margin: pxToRem(10),
   textAlign: 'center',
   minWidth: pxToRem(80),
   paddingTop: pxToRem(20),
-  paddingBottom: pxToRem(5)
+  paddingBottom: pxToRem(5),
+  paddingLeft: pxToRem(padding),
+  paddingRight: pxToRem(padding)
 }))
 
 export const InfoBoxTextStyle = cssRule(() => ({
   paddingBottom: pxToRem(5),
   paddingTop: pxToRem(5),
-  fontSize: '1.2rem'
+  fontSize: '1.2rem',
+  color: '#b9b9b9'
 }))
 
 export const InfoBoxContentStyle = cssRule(() => ({
@@ -95,10 +98,11 @@ export interface InfoBoxProps {
   children: ReactNode
   fontSize?: number
   elementSize?: number
+  padding?: number
 }
 
-export function InfoBox({infoText, children}: InfoBoxProps) {
-  const {css} = useStyle()
+export function InfoBox({infoText, children, padding = 0}: InfoBoxProps) {
+  const {css} = useStyle({padding: padding})
 
   return (
     <div className={css(InfoBoxStyle)}>

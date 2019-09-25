@@ -2,15 +2,14 @@ import React from 'react'
 import {BaseButton, ButtonProps} from './baseButton'
 import {cssRuleWithTheme} from '../style/themeContext'
 import {pxToRem, FontSize, TransitionDuration} from '../style/helpers'
+import {FontMedium, FontFace} from '../style/textStyles'
 
 export const PrimaryButtonStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.primary,
   borderRadius: pxToRem(10),
   padding: pxToRem(10),
   color: theme.colors.white,
-  fontSize: pxToRem(FontSize.Medium),
   minWidth: pxToRem(140),
-  fontWeight: 'bold',
   transition: 'background-color ease-in',
   transitionDuration: TransitionDuration.Fast,
 
@@ -37,7 +36,7 @@ export interface PrimaryButtonProps extends ButtonProps {
 export function PrimaryButton({label, ...rest}: PrimaryButtonProps) {
   return (
     <BaseButton {...rest} style={PrimaryButtonStyle}>
-      {label}
+      <FontMedium fontFace={FontFace.Bold}>{label}</FontMedium>
     </BaseButton>
   )
 }
