@@ -117,3 +117,27 @@ export function infoBoxDecorator(infoText: string, fontSize: number = 12) {
     )
   }
 }
+
+export const DarkBackgroundStyle = cssRule({
+  backgroundColor: '#222222',
+  width: '100%',
+  height: '100%',
+  padding: '20px',
+  borderRadius: '5px'
+})
+
+export interface DarkBackgroundProps {
+  children?: ReactNode
+}
+
+export function DarkBackground({children}: DarkBackgroundProps) {
+  const {css} = useStyle()
+
+  return <div className={css(DarkBackgroundStyle)}>{children}</div>
+}
+
+export function darkBackgroundDecorator() {
+  return (story: StoryFn<ReactNode>) => {
+    return <DarkBackground>{story()}</DarkBackground>
+  }
+}
