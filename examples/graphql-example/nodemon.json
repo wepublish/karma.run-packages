@@ -1,0 +1,4 @@
+{
+  "watch": ["../../node_modules/@karma.run/graphql/lib/**/*.js", "./dist/**/*.js"],
+  "ignoreRoot": [".git"]
+}
