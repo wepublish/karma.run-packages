@@ -3,6 +3,7 @@ import {IconType, Icon, IconScale} from './icon'
 import {cssRuleWithTheme, useThemeStyle, ThemeContext} from '../style/themeContext'
 import {joinClassNames} from '@karma.run/react'
 import {pxToRem, FontSize, TransitionDuration, Spacing} from '../style/helpers'
+import {BaseInput} from './baseInput'
 
 export interface InputStyleProps {
   hasError: boolean
@@ -118,15 +119,7 @@ export function Input({
 }: InputProps) {
   const {css} = useThemeStyle<InputStyleProps>({hasError: errorDescription != null})
 
-  const Input = (
-    <input
-      placeholder={placeholder}
-      value={value}
-      onChange={event => {
-        onValueChange(event.target.value, event)
-      }}
-    />
-  )
+  const Input = <BaseInput placeholder={placeholder} value={value} onChange={onValueChange} />
 
   return (
     <div className={joinClassNames(css(InputContainerStyle), className)}>

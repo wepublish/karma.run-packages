@@ -5,7 +5,6 @@ import {Input} from './input'
 import {centerLayoutDecorator} from '../.storybook/decorators'
 import {IconType} from './icon'
 import {TextArea} from './textArea'
-import {FilterTag} from './filterTag'
 
 export function TextInputWrapper() {
   const [value, setValue] = useState('')
