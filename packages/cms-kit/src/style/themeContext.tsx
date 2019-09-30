@@ -5,16 +5,24 @@ import {defaultTheme} from './defaultTheme'
 
 export interface ThemeColors {
   primary: string
+  primaryTransparent: string
   primaryDark: string
+  primaryDarkTransparent: string
 
   action: string
+  actionTransparent: string
   actionDark: string
+  actionDarkTransparent: string
 
   success: string
+  successTransparent: string
   successDark: string
+  successDarkTransparent: string
 
   alert: string
+  alertTransparent: string
   alertDark: string
+  alertDarkTransparent: string
 
   gray: string
   grayDark: string

@@ -9,13 +9,9 @@ export default {
 }
 
 export const Info = () => (
-  <Toast type={ToastType.Info} text={'Something went wrong, please try again later'} />
+  <Toast type={ToastType.Info} text={'Information ALERT like: Please update your system'} />
 )
-
-export const Action = () => <Toast type={ToastType.Action} text={'Alert message'} />
-
-export const Success = () => <Toast type={ToastType.Success} text={'Saved successfully'} />
-
-export const Error = () => (
-  <Toast type={ToastType.Error} text={'Something went wrong, please try again later'} />
+export const Success = () => (
+  <Toast type={ToastType.Success} text={'Success ALERT like: Saved successfully'} />
 )
+export const Error = () => <Toast type={ToastType.Error} text={'Error ALERT like: Fatal error'} />
