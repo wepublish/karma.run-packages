@@ -5,7 +5,7 @@ import {StoryFn} from '@storybook/addons'
 import {pxToRem} from '../style/helpers'
 
 export interface CenterLayoutStyleProps {
-  scale: number
+  scale?: number
 }
 
 export const CenterLayoutStyle = cssRule({
@@ -14,18 +14,18 @@ export const CenterLayoutStyle = cssRule({
   alignItems: 'center',
 
   width: '100%',
-  height: '100%'
+  minHeight: '100%'
 })
 
 export const CenterLayoutContentStyle = cssRule(({scale}: CenterLayoutStyleProps) => ({
   padding: pxToRem(20),
   margin: pxToRem(20),
-  minWidth: `${scale * 100}%`,
+  width: scale ? `${scale * 100}%` : undefined,
   border: '1px dashed rgba(0,0,0, 0.05)'
 }))
 
 export interface CenterLayoutProps {
-  minWidthFactor: number
+  minWidthFactor?: number
   children?: ReactNode
 }
 
@@ -39,7 +39,7 @@ export function CenterLayout({minWidthFactor: scale, children}: CenterLayoutProp
   )
 }
 
-export function centerLayoutDecorator(minWidthFactor: number = 0) {
+export function centerLayoutDecorator(minWidthFactor?: number) {
   return (story: StoryFn<ReactNode>) => {
     return <CenterLayout minWidthFactor={minWidthFactor}>{story()}</CenterLayout>
   }

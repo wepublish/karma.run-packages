@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
 import {pxToRem, ZIndex, Spacing} from '../style/helpers'
 
-export const contentMaxWidth = 1030
+const contentMaxWidth = 1030
 
 const EditorTemplateStyle = cssRuleWithTheme(() => ({
   display: 'flex',
@@ -24,14 +24,14 @@ const EditorTemplateContentWrapperStyle = cssRuleWithTheme(() => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  width: '100%'
+  width: '100%',
+  padding: pxToRem(Spacing.Large)
 }))
 
 const EditorTemplateContentStyle = cssRuleWithTheme(() => ({
   display: 'flex',
   width: '100%',
-  maxWidth: pxToRem(contentMaxWidth + Spacing.Large),
-  padding: pxToRem(Spacing.Large)
+  maxWidth: pxToRem(contentMaxWidth + Spacing.Large)
 }))
 
 export interface EditorTemplateProps {

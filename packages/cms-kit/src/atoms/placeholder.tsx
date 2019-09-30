@@ -2,13 +2,18 @@ import React, {ReactNode} from 'react'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
 import {OptionButton} from './optionButton'
 import {IconType} from './icon'
+import {pxToEm} from '../style/helpers'
 
 export const PlaceholderStyle = cssRuleWithTheme(({theme}) => ({
   display: 'flex',
-  alignContent: 'center',
+  width: '100%',
+  height: '100%',
+  minWidth: pxToEm(230),
+  minHeight: pxToEm(260),
+  flexDirection: 'column',
+  alignItems: 'center',
   justifyContent: 'center',
-  backgroundColor: theme.colors.light,
-  width: '100%'
+  backgroundColor: theme.colors.light
 }))
 
 export interface PlaceholderProps {
