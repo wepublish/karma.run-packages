@@ -11,88 +11,88 @@ export default {
 
 export const Base = () => (
   <>
-    <InfoBox infoText={IconType.DropHere}>
+    <InfoBox label={IconType.DropHere}>
       <Icon type={IconType.DropHere} />
     </InfoBox>
-    <InfoBox infoText={IconType.Replace}>
+    <InfoBox label={IconType.Replace}>
       <Icon type={IconType.Replace} />
     </InfoBox>
-    <InfoBox infoText={IconType.Archive}>
+    <InfoBox label={IconType.Archive}>
       <Icon type={IconType.Archive} />
     </InfoBox>
-    <InfoBox infoText={IconType.ArrowLeft}>
+    <InfoBox label={IconType.ArrowLeft}>
       <Icon type={IconType.ArrowLeft} />
     </InfoBox>
-    <InfoBox infoText={IconType.ArrowRight}>
+    <InfoBox label={IconType.ArrowRight}>
       <Icon type={IconType.ArrowRight} />
     </InfoBox>
-    <InfoBox infoText={IconType.Auto}>
+    <InfoBox label={IconType.Auto}>
       <Icon type={IconType.Auto} />
     </InfoBox>
-    <InfoBox infoText={IconType.Add}>
+    <InfoBox label={IconType.Add}>
       <Icon type={IconType.Add} />
     </InfoBox>
-    <InfoBox infoText={IconType.ChevronDown}>
+    <InfoBox label={IconType.ChevronDown}>
       <Icon type={IconType.ChevronDown} />
     </InfoBox>
-    <InfoBox infoText={IconType.ChevronUp}>
+    <InfoBox label={IconType.ChevronUp}>
       <Icon type={IconType.ChevronUp} />
     </InfoBox>
-    <InfoBox infoText={IconType.ChevronLeft}>
+    <InfoBox label={IconType.ChevronLeft}>
       <Icon type={IconType.ChevronLeft} />
     </InfoBox>
-    <InfoBox infoText={IconType.ChevronRight}>
+    <InfoBox label={IconType.ChevronRight}>
       <Icon type={IconType.ChevronRight} />
     </InfoBox>
-    <InfoBox infoText={IconType.Check}>
+    <InfoBox label={IconType.Check}>
       <Icon type={IconType.Check} />
     </InfoBox>
-    <InfoBox infoText={IconType.Close}>
+    <InfoBox label={IconType.Close}>
       <Icon type={IconType.Close} />
     </InfoBox>
-    <InfoBox infoText={IconType.Delete}>
+    <InfoBox label={IconType.Delete}>
       <Icon type={IconType.Delete} />
     </InfoBox>
-    <InfoBox infoText={IconType.Description}>
+    <InfoBox label={IconType.Description}>
       <Icon type={IconType.Description} />
     </InfoBox>
-    <InfoBox infoText={IconType.Created}>
+    <InfoBox label={IconType.Created}>
       <Icon type={IconType.Created} />
     </InfoBox>
-    <InfoBox infoText={IconType.Filter}>
+    <InfoBox label={IconType.Filter}>
       <Icon type={IconType.Filter} />
     </InfoBox>
-    <InfoBox infoText={IconType.Focus}>
+    <InfoBox label={IconType.Focus}>
       <Icon type={IconType.Focus} />
     </InfoBox>
-    <InfoBox infoText={IconType.More}>
+    <InfoBox label={IconType.More}>
       <Icon type={IconType.More} />
     </InfoBox>
-    <InfoBox infoText={IconType.Edit}>
+    <InfoBox label={IconType.Edit}>
       <Icon type={IconType.Edit} />
     </InfoBox>
-    <InfoBox infoText={IconType.Preview}>
+    <InfoBox label={IconType.Preview}>
       <Icon type={IconType.Preview} />
     </InfoBox>
-    <InfoBox infoText={IconType.Publish}>
+    <InfoBox label={IconType.Publish}>
       <Icon type={IconType.Publish} />
     </InfoBox>
-    <InfoBox infoText={IconType.Save}>
+    <InfoBox label={IconType.Save}>
       <Icon type={IconType.Save} />
     </InfoBox>
-    <InfoBox infoText={IconType.Search}>
+    <InfoBox label={IconType.Search}>
       <Icon type={IconType.Search} />
     </InfoBox>
-    <InfoBox infoText={IconType.Update}>
+    <InfoBox label={IconType.Update}>
       <Icon type={IconType.Update} />
     </InfoBox>
-    <InfoBox infoText={IconType.Upload}>
+    <InfoBox label={IconType.Upload}>
       <Icon type={IconType.Upload} />
     </InfoBox>
-    <InfoBox infoText={IconType.Favorite}>
+    <InfoBox label={IconType.Favorite}>
       <Icon type={IconType.Favorite} />
     </InfoBox>
-    <InfoBox infoText={IconType.Copy}>
+    <InfoBox label={IconType.Copy}>
       <Icon type={IconType.Copy} />
     </InfoBox>
   </>
@@ -100,49 +100,49 @@ export const Base = () => (
 
 export const Blocks = () => (
   <>
-    <InfoBox infoText={IconType.Wave}>
+    <InfoBox label={IconType.Wave}>
       <Icon type={IconType.Wave} />
     </InfoBox>
-    <InfoBox infoText={IconType.Column6}>
+    <InfoBox label={IconType.Column6}>
       <Icon type={IconType.Column6} />
     </InfoBox>
-    <InfoBox infoText={IconType.Column4}>
+    <InfoBox label={IconType.Column4}>
       <Icon type={IconType.Column4} />
     </InfoBox>
-    <InfoBox infoText={IconType.Column2Alt}>
+    <InfoBox label={IconType.Column2Alt}>
       <Icon type={IconType.Column2Alt} />
     </InfoBox>
-    <InfoBox infoText={IconType.Column2}>
+    <InfoBox label={IconType.Column2}>
       <Icon type={IconType.Column2} />
     </InfoBox>
-    <InfoBox infoText={IconType.Column1}>
+    <InfoBox label={IconType.Column1}>
       <Icon type={IconType.Column1} />
     </InfoBox>
-    <InfoBox infoText={IconType.Quote}>
+    <InfoBox label={IconType.Quote}>
       <Icon type={IconType.Quote} />
     </InfoBox>
-    <InfoBox infoText={IconType.Image}>
+    <InfoBox label={IconType.Image}>
       <Icon type={IconType.Image} />
     </InfoBox>
-    <InfoBox infoText={IconType.Gallery}>
+    <InfoBox label={IconType.Gallery}>
       <Icon type={IconType.Gallery} />
     </InfoBox>
-    <InfoBox infoText={IconType.Text}>
+    <InfoBox label={IconType.Text}>
       <Icon type={IconType.Text} />
     </InfoBox>
-    <InfoBox infoText={IconType.Title}>
+    <InfoBox label={IconType.Title}>
       <Icon type={IconType.Title} />
     </InfoBox>
-    <InfoBox infoText={IconType.BreakingNews}>
+    <InfoBox label={IconType.BreakingNews}>
       <Icon type={IconType.BreakingNews} />
     </InfoBox>
-    <InfoBox infoText={IconType.Video}>
+    <InfoBox label={IconType.Video}>
       <Icon type={IconType.Video} />
     </InfoBox>
-    <InfoBox infoText={IconType.Teaser}>
+    <InfoBox label={IconType.Teaser}>
       <Icon type={IconType.Teaser} />
     </InfoBox>
-    <InfoBox infoText={IconType.Embed}>
+    <InfoBox label={IconType.Embed}>
       <Icon type={IconType.Embed} />
     </InfoBox>
   </>
@@ -150,25 +150,25 @@ export const Blocks = () => (
 
 export const Navigation = () => (
   <>
-    <InfoBox infoText={IconType.Logout}>
+    <InfoBox label={IconType.Logout}>
       <Icon type={IconType.Logout} />
     </InfoBox>
-    <InfoBox infoText={IconType.Menu}>
+    <InfoBox label={IconType.Menu}>
       <Icon type={IconType.Menu} />
     </InfoBox>
-    <InfoBox infoText={IconType.Proofreading}>
+    <InfoBox label={IconType.Proofreading}>
       <Icon type={IconType.Proofreading} />
     </InfoBox>
-    <InfoBox infoText={IconType.Article}>
+    <InfoBox label={IconType.Article}>
       <Icon type={IconType.Article} />
     </InfoBox>
-    <InfoBox infoText={IconType.Settings}>
+    <InfoBox label={IconType.Settings}>
       <Icon type={IconType.Settings} />
     </InfoBox>
-    <InfoBox infoText={IconType.MediaLibrary}>
+    <InfoBox label={IconType.MediaLibrary}>
       <Icon type={IconType.MediaLibrary} />
     </InfoBox>
-    <InfoBox infoText={IconType.Page}>
+    <InfoBox label={IconType.Page}>
       <Icon type={IconType.Page} />
     </InfoBox>
   </>
@@ -176,31 +176,31 @@ export const Navigation = () => (
 
 export const TextEditor = () => (
   <>
-    <InfoBox infoText={IconType.Italic}>
+    <InfoBox label={IconType.Italic}>
       <Icon type={IconType.Italic} />
     </InfoBox>
-    <InfoBox infoText={IconType.H2}>
+    <InfoBox label={IconType.H2}>
       <Icon type={IconType.H2} />
     </InfoBox>
-    <InfoBox infoText={IconType.H3}>
+    <InfoBox label={IconType.H3}>
       <Icon type={IconType.H3} />
     </InfoBox>
-    <InfoBox infoText={IconType.ListSorted}>
+    <InfoBox label={IconType.ListSorted}>
       <Icon type={IconType.ListSorted} />
     </InfoBox>
-    <InfoBox infoText={IconType.ListUnsorted}>
+    <InfoBox label={IconType.ListUnsorted}>
       <Icon type={IconType.ListUnsorted} />
     </InfoBox>
-    <InfoBox infoText={IconType.Striked}>
+    <InfoBox label={IconType.Striked}>
       <Icon type={IconType.Striked} />
     </InfoBox>
-    <InfoBox infoText={IconType.Underline}>
+    <InfoBox label={IconType.Underline}>
       <Icon type={IconType.Underline} />
     </InfoBox>
-    <InfoBox infoText={IconType.Bold}>
+    <InfoBox label={IconType.Bold}>
       <Icon type={IconType.Bold} />
     </InfoBox>
-    <InfoBox infoText={IconType.Link}>
+    <InfoBox label={IconType.Link}>
       <Icon type={IconType.Link} />
     </InfoBox>
   </>

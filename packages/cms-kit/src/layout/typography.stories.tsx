@@ -12,28 +12,28 @@ export default {
 
 export const All = () => (
   <>
-    <InfoBox infoText="title" padding={Spacing.ExtraSmall}>
+    <InfoBox label="title">
       <Typography variant="title">Title</Typography>
     </InfoBox>
-    <InfoBox infoText="h1" padding={Spacing.ExtraSmall}>
+    <InfoBox label="h1">
       <Typography variant="h1">Heading 1</Typography>
     </InfoBox>
-    <InfoBox infoText="h2" padding={Spacing.ExtraSmall}>
+    <InfoBox label="h2">
       <Typography variant="h2">Heading 2</Typography>
     </InfoBox>
-    <InfoBox infoText="h3" padding={Spacing.ExtraSmall}>
+    <InfoBox label="h3">
       <Typography variant="h3">Heading 3</Typography>
     </InfoBox>
-    <InfoBox infoText="body1" padding={Spacing.ExtraSmall}>
+    <InfoBox label="body1">
       <Typography variant="body1">Body 1</Typography>
     </InfoBox>
-    <InfoBox infoText="body2" padding={Spacing.ExtraSmall}>
+    <InfoBox label="body2">
       <Typography variant="body2">Body 2</Typography>
     </InfoBox>
-    <InfoBox infoText="subtitle1" padding={Spacing.ExtraSmall}>
+    <InfoBox label="subtitle1">
       <Typography variant="subtitle1">Subtitle 1</Typography>
     </InfoBox>
-    <InfoBox infoText="subtitle2" padding={Spacing.ExtraSmall}>
+    <InfoBox label="subtitle2">
       <Typography variant="subtitle2">Subtitle 2</Typography>
     </InfoBox>
   </>

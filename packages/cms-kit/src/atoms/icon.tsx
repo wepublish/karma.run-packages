@@ -132,13 +132,16 @@ export enum IconType {
 }
 
 interface IconStyleProps {
+  block?: boolean
   scale: IconScale
 }
 
-const IconStyle = cssRuleWithTheme<IconStyleProps>(({scale, theme}) => ({
+const IconStyle = cssRuleWithTheme<IconStyleProps>(({scale, block}) => ({
+  display: block ? 'block' : 'inline-block',
+
   height: '1em',
   fontSize: scale,
-  lineHeight: '1em',
+  lineHeight: 1,
   verticalAlign: 'middle',
 
   fill: 'inherit',
@@ -151,30 +154,22 @@ const IconStyle = cssRuleWithTheme<IconStyleProps>(({scale, theme}) => ({
   }
 }))
 
-const InlineIconStyle = cssRuleWithTheme<IconStyleProps>(({scale, theme}) => ({
-  display: 'inline-block'
-}))
-
-const BlockIconStyle = cssRuleWithTheme<IconStyleProps>(({scale, theme}) => ({
-  display: 'block'
-}))
-
-export interface IconProps<P = undefined> {
+export interface BaseIconProps {
   readonly type: IconType
   readonly scale?: IconScale
+  readonly block?: boolean
+}
+
+export interface IconProps<P = undefined> extends BaseIconProps {
   readonly style?: CSSRuleWithTheme | CSSRuleWithTheme[]
   readonly styleProps?: P
 }
 
-export interface IconPropsWithoutStyleProps {
-  readonly type: IconType
-  readonly scale?: IconScale
+export interface IconPropsWithoutStyleProps extends BaseIconProps {
   readonly style?: CSSRuleWithTheme | CSSRuleWithTheme[]
 }
 
-export interface IconPropsWithStyleProps<P = undefined> {
-  readonly type: IconType
-  readonly scale?: IconScale
+export interface IconPropsWithStyleProps<P = undefined> extends BaseIconProps {
   readonly style?: CSSRuleWithTheme<P> | CSSRuleWithTheme<P>[]
   readonly styleProps: P
 }
@@ -184,30 +179,14 @@ export function Icon<P = undefined>(props: IconPropsWithStyleProps<P>): JSX.Elem
 export function Icon<P = undefined>({
   type,
   scale = IconScale.Equal,
+  block,
   style,
   styleProps
 }: IconProps<P>): JSX.Element {
-  const {css} = useThemeStyle({...styleProps, scale})
+  const {css} = useThemeStyle({...styleProps, scale, block})
 
   return (
-    <span className={css(IconStyle, InlineIconStyle, ...toArray(style))} role="img">
-      {iconForType(type)}
-    </span>
-  )
-}
-
-export function BlockIcon(props: IconPropsWithoutStyleProps): JSX.Element
-export function BlockIcon<P = undefined>(props: IconPropsWithStyleProps<P>): JSX.Element
-export function BlockIcon<P = undefined>({
-  type,
-  scale = IconScale.Equal,
-  style,
-  styleProps
-}: IconProps<P>): JSX.Element {
-  const {css} = useThemeStyle({...styleProps, scale})
-
-  return (
-    <span className={css(IconStyle, BlockIconStyle, ...toArray(style))} role="img">
+    <span className={css(IconStyle, ...toArray(style))} role="img">
       {iconForType(type)}
     </span>
   )

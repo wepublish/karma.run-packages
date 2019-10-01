@@ -1,5 +1,5 @@
 import React, {ReactNode, useState, createContext} from 'react'
-import {IconType, BlockIcon} from '../atoms/icon'
+import {IconType, Icon} from '../atoms/icon'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem, TransitionDuration, Spacing, FontSize} from '../style/helpers'
 import {BaseButton} from '../atoms/baseButton'
@@ -87,7 +87,7 @@ export interface NavigationButtonProps {
 export function NavigationButton({isCollapsed, onClick}: NavigationButtonProps) {
   return (
     <BaseButton onClick={onClick} style={NavigationButtonStyle}>
-      <BlockIcon type={isCollapsed ? IconType.ChevronRight : IconType.ChevronLeft} />
+      <Icon type={isCollapsed ? IconType.ChevronRight : IconType.ChevronLeft} block />
     </BaseButton>
   )
 }
