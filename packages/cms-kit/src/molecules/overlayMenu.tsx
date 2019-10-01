@@ -1,10 +1,11 @@
 import React from 'react'
 
 import {IconType, IconScale} from '../atoms/icon'
-import {IconLabelButton} from '../atoms/iconLabelButton'
 import {MenuIconButton} from '../atoms/menuIconButton'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem} from '../style/helpers'
+import {Row} from '../atoms/grid'
+import {IconLabelButton} from '..'
 
 const OverlayMenuStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.white,
@@ -28,10 +29,11 @@ export interface MenuItem {
 export function OverlayMenu({menuItems, inline, onMenuItemClick}: OverlayMenuProps) {
   const {css} = useThemeStyle()
 
-  return (
-    <div className={css(OverlayMenuStyle)}>
-      {menuItems.map((item, index) =>
-        inline ? (
+  let MenuItems = <></>
+  if (inline) {
+    MenuItems = (
+      <>
+        {menuItems.map((item, index) => (
           <MenuIconButton
             key={index}
             title={item.label}
@@ -40,15 +42,42 @@ export function OverlayMenu({menuItems, inline, onMenuItemClick}: OverlayMenuPro
             label={item.label}
             onClick={() => onMenuItemClick(item)}
           />
-        ) : (
-          <IconLabelButton
-            key={index}
-            label={item.label}
-            icon={item.icon}
-            onClick={() => onMenuItemClick(item)}
-          />
-        )
-      )}
-    </div>
-  )
+        ))}
+      </>
+    )
+  } else {
+    const numColumns = 3
+
+    const rows = menuItems.reduce<MenuItem[][]>((acc, child, index) => {
+      const rowIndex = Math.floor(index / numColumns)
+      const columnIndex = index % numColumns
+
+      if (!acc[rowIndex]) {
+        acc[rowIndex] = []
+      }
+
+      acc[rowIndex][columnIndex] = child
+
+      return acc
+    }, [])
+
+    MenuItems = (
+      <>
+        {rows.map((columns, index) => (
+          <Row key={index}>
+            {columns.map((item, index) => (
+              <IconLabelButton
+                key={index}
+                label={item.label}
+                icon={item.icon}
+                onClick={() => onMenuItemClick(item)}
+              />
+            ))}
+          </Row>
+        ))}
+      </>
+    )
+  }
+
+  return <div className={css(OverlayMenuStyle)}>{MenuItems}</div>
 }

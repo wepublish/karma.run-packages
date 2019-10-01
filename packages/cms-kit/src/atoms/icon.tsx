@@ -73,6 +73,7 @@ export enum IconType {
   Add = 'add',
   Archive = 'archive',
   ArrowLeft = 'arrowLeft',
+  ArrowRight = 'arrowRight',
   Article = 'article',
   Auto = 'auto',
   Bold = 'bold',
@@ -98,7 +99,6 @@ export enum IconType {
   Favorite = 'favorite',
   Filter = 'filter',
   Focus = 'focus',
-  Forward = 'forward',
   Gallery = 'gallery',
   H2 = 'h2',
   H3 = 'h3',
@@ -299,7 +299,7 @@ export function iconForType(type: IconType, color?: string) {
     case IconType.Focus:
       return <FocusIconSVG />
 
-    case IconType.Forward:
+    case IconType.ArrowRight:
       return <ForwardIconSVG />
 
     case IconType.Gallery:

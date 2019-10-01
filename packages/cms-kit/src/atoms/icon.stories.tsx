@@ -23,6 +23,9 @@ export const Base = () => (
     <InfoBox infoText={IconType.ArrowLeft}>
       <Icon type={IconType.ArrowLeft} />
     </InfoBox>
+    <InfoBox infoText={IconType.ArrowRight}>
+      <Icon type={IconType.ArrowRight} />
+    </InfoBox>
     <InfoBox infoText={IconType.Auto}>
       <Icon type={IconType.Auto} />
     </InfoBox>
@@ -58,9 +61,6 @@ export const Base = () => (
     </InfoBox>
     <InfoBox infoText={IconType.Filter}>
       <Icon type={IconType.Filter} />
-    </InfoBox>
-    <InfoBox infoText={IconType.Forward}>
-      <Icon type={IconType.Forward} />
     </InfoBox>
     <InfoBox infoText={IconType.Focus}>
       <Icon type={IconType.Focus} />
