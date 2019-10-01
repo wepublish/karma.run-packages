@@ -4,9 +4,9 @@ import {Icon, IconType, IconScale} from '../atoms/icon'
 import {BaseButton} from '../atoms/baseButton'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem, BorderRadius, pxToEm, FontSize, Spacing} from '../style/helpers'
-import {BaseInput} from '../atoms/baseInput'
+import {BaseInput, InputType} from '../atoms/baseInput'
 
-export const SearchBarStyle = cssRuleWithTheme(({theme}) => ({
+const SearchBarStyle = cssRuleWithTheme(({theme}) => ({
   border: `1px solid ${theme.colors.grayLight}`,
   borderRadius: pxToRem(BorderRadius.Medium),
   display: 'flex',
@@ -51,8 +51,9 @@ export function SearchBar({
           </BaseButton>
         </div>
         <BaseInput
+          type={InputType.Text}
           value={searchValue}
-          onChange={value => onTextInput(value)}
+          onChange={e => onTextInput(e.target.value)}
           placeholder={'Search'}
         />
       </div>

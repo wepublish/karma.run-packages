@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
 import {pxToRem, Spacing} from '../style/helpers'
 
-export const NavigationBarStyle = cssRuleWithTheme(({theme}) => ({
+const NavigationBarStyle = cssRuleWithTheme(({theme}) => ({
   display: 'flex',
   overflow: 'hidden',
   width: '100%',
@@ -10,17 +10,17 @@ export const NavigationBarStyle = cssRuleWithTheme(({theme}) => ({
   borderBottom: `solid 1px ${theme.colors.grayLight}`
 }))
 
-export const NavigationBarLeftWrapperStyle = cssRuleWithTheme(({theme}) => ({
+const NavigationBarLeftWrapperStyle = cssRuleWithTheme(({theme}) => ({
   display: 'flex',
   flex: 1
 }))
 
-export const NavigationBarCenterWrapperStyle = cssRuleWithTheme(({theme}) => ({
+const NavigationBarCenterWrapperStyle = cssRuleWithTheme(({theme}) => ({
   display: 'flex',
   margin: `0 ${pxToRem(Spacing.ExtraSmall)}`
 }))
 
-export const NavigationBarRightWrapperStyle = cssRuleWithTheme(({theme}) => ({
+const NavigationBarRightWrapperStyle = cssRuleWithTheme(({theme}) => ({
   display: 'flex',
   flex: 1,
   justifyContent: 'flex-end'

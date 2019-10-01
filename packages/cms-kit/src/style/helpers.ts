@@ -32,14 +32,18 @@ export enum FontSize {
   ExtraLarge = 60
 }
 
+export enum BorderWidth {
+  Small = '1px'
+}
+
 export enum BorderRadius {
   Small = 5,
   Medium = 10
 }
 
 export enum TransitionDuration {
-  Fast = '200ms',
-  Slow = '500ms'
+  Fast = '50ms',
+  Slow = '200ms'
 }
 
 export function pxToRem(px: number) {
@@ -62,4 +66,14 @@ export function whenMobile(styles: CSSStyle) {
   return {
     [`@media screen and (max-width: ${Breakpoint.Tablet - 1}px)`]: styles
   }
+}
+
+export function hexToRgba(hex: string | number, alpha: number) {
+  hex = typeof hex === 'string' ? parseInt(hex[0] === '#' ? hex.slice(1) : hex, 16) : hex
+
+  const red = 0xff & (hex >> 16)
+  const green = 0xff & (hex >> 8)
+  const blue = 0xff & (hex >> 0)
+
+  return `rgba(${red}, ${green}, ${blue}, ${alpha})`
 }

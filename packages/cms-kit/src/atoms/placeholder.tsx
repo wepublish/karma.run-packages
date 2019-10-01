@@ -4,7 +4,7 @@ import {OptionButton} from './optionButton'
 import {IconType} from './icon'
 import {pxToEm} from '../style/helpers'
 
-export const PlaceholderStyle = cssRuleWithTheme(({theme}) => ({
+const PlaceholderStyle = cssRuleWithTheme(({theme}) => ({
   display: 'flex',
   width: '100%',
   height: '100%',

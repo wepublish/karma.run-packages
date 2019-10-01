@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {Modal} from './modal'
-import {Input} from './input'
+import {TextInput} from './textInput'
 import {DescriptionListing, DescriptionListingItem} from './descriptionListingItem'
 
 export default {
@@ -11,12 +11,11 @@ export default {
 
 export const PublishArticle = () => (
   <Modal title={'Publish Article'} onConfirm={() => {}} onCancel={() => {}}>
-    <Input
+    <TextInput
       label={'Publish state'}
       value={''}
-      placeholder={''}
       description={'Set state to Proofreading or Live'}
-      onValueChange={() => {}}
+      onChange={() => {}}
     />
     <DescriptionListing>
       <DescriptionListingItem label={'Teaser type'} value={'image & Title'} />

@@ -16,17 +16,19 @@
     "sync-package-info": "node ./../../scripts/syncPackageInfo.js ./src/version.ts"
   },
   "dependencies": {
-    "react": "^16.8.6",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
     "find-my-way": "^2.1.0",
     "nanoid": "^2.0.3",
-    "@karma.run/react": "^0.0.17"
+    "@karma.run/react": "^0.0.17",
+    "@karma.run/utility": "^0.0.0"
   },
   "devDependencies": {
+    "@types/webpack": "^4.39.2",
     "@types/nanoid": "^2.0.0",
     "@types/react": "^16.8.23",
     "@types/webpack-env": "^1.14.0",
     "@storybook/react": "^5.2.1",
-    "@storybook/addon-knobs": "^5.2.1",
     "@storybook/addon-docs": "^5.2.1",
     "@storybook/preset-typescript": "^1.1.0",
     "@babel/core": "^7.5.4",

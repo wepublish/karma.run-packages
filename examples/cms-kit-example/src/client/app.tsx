@@ -1,28 +1,24 @@
 import React from 'react'
-import {PrimaryButton} from '@karma.run/cms-kit'
-import {route, routePath, RouteInstancesForRoutes, createRouteContext} from '@karma.run/react'
-
-export const IndexRoute = route('test', routePath`/`, null)
-
-export const routes = [IndexRoute] as const
-
-export const {
-  Link,
-  createLinkHOC,
-  RouteProvider,
-  matchRoute,
-  useRoute,
-  useRouteDispatch
-} = createRouteContext(routes)
-
-export const LinkButton = createLinkHOC(PrimaryButton)
-
-export type Route = RouteInstancesForRoutes<typeof routes>
+import {useRoute, RouteType} from './route'
+import {Login} from './login'
+import {Base} from './base'
 
 export function App() {
-  return (
-    <RouteProvider>
-      <LinkButton route={IndexRoute.create({})} label="Hello World" />
-    </RouteProvider>
-  )
+  const {current} = useRoute()
+
+  switch (current && current.type) {
+    case RouteType.Login:
+      return <Login />
+
+    case RouteType.Index:
+      return <Base>Welcome to the CMS Kit example!</Base>
+
+    case RouteType.ArticleList:
+      return <Base></Base>
+
+    case RouteType.NotFound:
+      return <Base></Base>
+  }
+
+  return <div>Loading...</div>
 }

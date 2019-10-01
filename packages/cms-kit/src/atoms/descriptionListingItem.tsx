@@ -3,7 +3,7 @@ import {cssRule, useStyle} from '@karma.run/react'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {FontSize, pxToRem, Spacing} from '../style/helpers'
 
-export const DescriptionListingStyle = cssRule({
+const DescriptionListingStyle = cssRule({
   display: 'block',
   width: '100%',
   fontSize: pxToRem(FontSize.Small)

@@ -20,7 +20,8 @@
     "fela-plugin-fallback-value": "^10.6.1",
     "fela-plugin-prefixer": "^10.6.1",
     "path-to-regexp": "^3.0.0",
-    "react": "^16.8.6"
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1"
   },
   "devDependencies": {
     "@types/react": "^16.8.23",

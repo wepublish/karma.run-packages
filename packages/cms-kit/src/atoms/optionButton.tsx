@@ -1,42 +1,39 @@
 import React from 'react'
 
 import {BaseButton, ButtonProps} from './baseButton'
-import {cssRuleWithTheme} from '../style/themeContext'
 import {IconType, Icon} from './icon'
-import {pxToRem, TransitionDuration} from '../style/helpers'
+import {pxToRem, TransitionDuration, FontSize} from '../style/helpers'
+import {cssRuleWithTheme} from '../style/themeContext'
 
-export const OptionButtonStyle = cssRuleWithTheme(({theme}) => ({
+const OptionButtonStyle = cssRuleWithTheme(({theme}) => ({
   width: pxToRem(40),
   height: pxToRem(40),
 
-  fontSize: pxToRem(24),
-  lineHeight: pxToRem(24),
+  fontSize: pxToRem(FontSize.Heading2),
+  lineHeight: 1,
 
-  backgroundColor: theme.colors.white,
   border: 'none',
   borderRadius: '100%',
 
-  transition: 'background-color ease-in',
+  transitionProperty: 'background',
+  transitionTimingFunction: 'ease-in',
   transitionDuration: TransitionDuration.Fast,
 
-  '& path': {
-    fill: theme.colors.action
-  },
+  fill: theme.colors.action,
+  backgroundColor: theme.colors.white,
 
-  '&:hover:enabled': {
+  ':hover:enabled': {
     backgroundColor: theme.colors.light
   },
 
-  '&:active:enabled': {
+  ':active:enabled': {
     backgroundColor: theme.colors.actionDark
   },
 
-  '&:disabled path': {
+  ':disabled': {
     fill: theme.colors.gray
   }
 }))
-
-const IconStyle = cssRuleWithTheme(({theme}) => ({}))
 
 export interface OptionButtonProps extends ButtonProps {
   readonly icon: IconType
@@ -45,7 +42,7 @@ export interface OptionButtonProps extends ButtonProps {
 export function OptionButton({icon, ...rest}: OptionButtonProps) {
   return (
     <BaseButton {...rest} style={OptionButtonStyle}>
-      <Icon type={icon} style={IconStyle} />
+      <Icon type={icon} />
     </BaseButton>
   )
 }

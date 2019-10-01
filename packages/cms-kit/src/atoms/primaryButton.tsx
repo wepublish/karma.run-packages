@@ -1,16 +1,22 @@
 import React from 'react'
+
 import {BaseButton, ButtonProps} from './baseButton'
 import {cssRuleWithTheme} from '../style/themeContext'
 import {pxToRem, FontSize, TransitionDuration} from '../style/helpers'
-import {FontMedium, FontFace} from '../style/textStyles'
 
-export const PrimaryButtonStyle = cssRuleWithTheme(({theme}) => ({
-  backgroundColor: theme.colors.primary,
+const PrimaryButtonStyle = cssRuleWithTheme(({theme}) => ({
   borderRadius: pxToRem(10),
   padding: pxToRem(10),
-  color: theme.colors.white,
   minWidth: pxToRem(140),
-  transition: 'background-color ease-in',
+
+  color: theme.colors.white,
+  backgroundColor: theme.colors.primary,
+
+  fontSize: pxToRem(FontSize.Medium),
+  fontWeight: 'bold',
+
+  transitionProperty: 'background-color',
+  transitionTimingFunction: 'ease-in',
   transitionDuration: TransitionDuration.Fast,
 
   '&:hover:enabled': {
@@ -36,7 +42,7 @@ export interface PrimaryButtonProps extends ButtonProps {
 export function PrimaryButton({label, ...rest}: PrimaryButtonProps) {
   return (
     <BaseButton {...rest} style={PrimaryButtonStyle}>
-      <FontMedium fontFace={FontFace.Bold}>{label}</FontMedium>
+      {label}
     </BaseButton>
   )
 }

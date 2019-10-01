@@ -1,56 +1,109 @@
-import React from 'react'
-import {cssRuleWithTheme} from '../style/themeContext'
-import {pxToRem} from '../style/helpers'
-import {Select, SelectProps} from './select'
+import React, {ChangeEvent} from 'react'
+import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
+import {pxToRem, FontSize, BorderWidth, TransitionDuration} from '../style/helpers'
+import {BaseInput, InputType} from './baseInput'
 
-const ToggleStyle = cssRuleWithTheme(({theme}) => ({
-  position: 'relative',
-  appearance: 'none',
-  outline: 'none',
-  width: pxToRem(50),
-  height: pxToRem(30),
-  backgroundColor: '#ffffff',
-  border: `${pxToRem(1)} solid ${theme.colors.gray}`,
-  borderRadius: pxToRem(50),
-  boxShadow: `inset -${pxToRem(20)} 0 0 0 #f4f4f4`,
-  transitionDuration: '200ms',
-  cursor: 'pointer',
+const ToggleInputStyle = cssRuleWithTheme(({theme}) => ({
+  position: 'absolute',
+  opacity: 0,
 
-  '&:after': {
-    content: '',
-    position: 'absolute',
-    top: pxToRem(1),
-    left: pxToRem(1),
-    width: pxToRem(26),
-    height: pxToRem(26),
-    backgroundColor: 'transparent',
-    borderRadius: '50%',
-    border: `${pxToRem(1)} solid ${theme.colors.gray}`,
-    boxShadow: '2px 4px 6px rgba(0,0,0,0.2)'
-  },
-
-  '&:checked': {
+  ':checked + span': {
     borderColor: theme.colors.successDark,
-    boxShadow: `inset ${pxToRem(20)} 0 0 0 ${theme.colors.success}`
+    backgroundColor: theme.colors.success
   },
 
-  '&:checked:after': {
-    left: pxToRem(20),
-    border: `${pxToRem(1)} solid ${theme.colors.successDark}`,
-    boxShadow: `-2px 4px 3px rgba(0,0,0,0.05)`
+  ':checked + span::after': {
+    transform: `translate(${pxToRem(50 - 26)})`,
+    borderStyle: 'solid',
+    borderWidth: BorderWidth.Small,
+    borderColor: theme.colors.successDark
   }
 }))
 
-export interface ToggleProps extends SelectProps {}
+const ToggleStyle = cssRuleWithTheme(({theme}) => ({
+  overflow: 'hidden',
+  position: 'relative',
+  cursor: 'pointer',
 
-export function Toggle({id, checked, onSelectChange}: ToggleProps) {
+  width: pxToRem(50),
+  height: pxToRem(26),
+
+  borderStyle: 'solid',
+  borderWidth: BorderWidth.Small,
+  borderColor: theme.colors.gray,
+  borderRadius: pxToRem(26),
+  backgroundColor: theme.colors.light,
+
+  transitionProperty: 'background-color, border-color',
+  transitionTimingFunction: 'ease-in',
+  transitionDuration: TransitionDuration.Fast,
+
+  '::after': {
+    content: '""',
+    position: 'absolute',
+    top: `-${BorderWidth.Small}`,
+    left: `-${BorderWidth.Small}`,
+
+    width: pxToRem(26),
+    height: pxToRem(26),
+
+    borderRadius: pxToRem(26),
+    border: `${pxToRem(1)} solid ${theme.colors.gray}`,
+    backgroundColor: theme.colors.white,
+
+    transitionProperty: 'transform',
+    transitionTimingFunction: 'ease-in',
+    transitionDuration: TransitionDuration.Fast
+  },
+
+  ':checked': {
+    borderColor: theme.colors.successDark
+  }
+}))
+
+const ToggleWrapperStyle = cssRuleWithTheme(() => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: '100%'
+}))
+
+const ToggleTextWrapperStyle = cssRuleWithTheme(({theme}) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  fontSize: pxToRem(FontSize.Medium),
+  color: theme.colors.dark
+}))
+
+const ToggleLabelStyle = cssRuleWithTheme(({theme}) => ({}))
+
+const ToggleDescriptionStyle = cssRuleWithTheme(({theme}) => ({
+  color: theme.colors.gray,
+  fontSize: pxToRem(FontSize.Small)
+}))
+
+export interface ToggleProps {
+  readonly label?: string
+  readonly description?: string
+  readonly name?: string
+  readonly checked?: boolean
+  readonly disabled?: boolean
+
+  onChange?(event: ChangeEvent<HTMLInputElement>): void
+}
+
+export function Toggle({label, description, ...props}: ToggleProps) {
+  const {css} = useThemeStyle()
+
   return (
-    <Select
-      id={id}
-      style={ToggleStyle}
-      checked={checked}
-      type="checkbox"
-      onSelectChange={onSelectChange}
-    />
+    <label className={css(ToggleWrapperStyle)}>
+      {(label || description) && (
+        <span className={css(ToggleTextWrapperStyle)}>
+          <span className={css(ToggleLabelStyle)}>{label}</span>
+          <span className={css(ToggleDescriptionStyle)}>{description}</span>
+        </span>
+      )}
+      <BaseInput {...props} type={InputType.Checkbox} style={ToggleInputStyle} />
+      <span className={css(ToggleStyle)} />
+    </label>
   )
 }

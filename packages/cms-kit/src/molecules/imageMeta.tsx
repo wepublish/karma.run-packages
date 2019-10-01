@@ -7,7 +7,7 @@ import {Spacing} from '../style/helpers'
 import {Draggable} from '../atoms/draggable'
 import {DragContainer} from '../atoms/dragContainer'
 
-export const ImageMetaStyle = cssRuleWithTheme(({theme}) => ({
+const ImageMetaStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.dark,
   padding: pxToRem(Spacing.Small)
 }))
@@ -40,7 +40,7 @@ export function ImageMeta({file}: ImageMetaProps) {
   )
 }
 
-export const ImageMetaItemStyle = cssRuleWithTheme(({theme}) => ({
+const ImageMetaItemStyle = cssRuleWithTheme(({theme}) => ({
   color: theme.colors.white,
   display: 'flex',
   justifyContent: 'space-between',
@@ -109,7 +109,7 @@ export function FocalPointSetter({
  * Focal Point Icon
  */
 export const FocalPointSize = 50
-export const FocalPointStyle = cssRuleWithTheme(({theme}) => ({
+const FocalPointStyle = cssRuleWithTheme(({theme}) => ({
   cursor: 'pointer',
 
   width: pxToRem(FocalPointSize),

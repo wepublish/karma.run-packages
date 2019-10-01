@@ -1,7 +1,9 @@
 import React from 'react'
 
-import {Standard as StandardNavigation} from '../organisms/navigation.stories'
+import {Text} from '../layout/typography.stories'
 import {NavigationTemplate} from './navigationTemplate'
+import {MenuIconButton} from '../atoms/menuIconButton'
+import {IconType} from '../atoms/icon'
 
 export default {
   component: NavigationTemplate,
@@ -9,7 +11,19 @@ export default {
 }
 
 export const Standard = () => (
-  <NavigationTemplate navigationChildren={<StandardNavigation />}>
-    <div style={{height: '2000px', backgroundImage: 'linear-gradient(#FFF, #000)'}} />
+  <NavigationTemplate
+    navigationChildren={
+      <>
+        <MenuIconButton icon={IconType.Article} label={'Article'} />
+        <MenuIconButton icon={IconType.Page} label={'Pages'} />
+        <MenuIconButton icon={IconType.MediaLibrary} label={'Media Library'} />
+        <MenuIconButton icon={IconType.Proofreading} label={'Proofreading'} />
+        <MenuIconButton icon={IconType.Menu} label={'Menu'} />
+        <MenuIconButton icon={IconType.Logout} label={'Logout'} />
+      </>
+    }>
+    <Text />
+    <Text />
+    <Text />
   </NavigationTemplate>
 )

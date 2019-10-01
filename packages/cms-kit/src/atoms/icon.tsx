@@ -1,4 +1,5 @@
 import React from 'react'
+import {toArray} from '@karma.run/utility'
 
 import {DropHereIconSVG} from '../icons/dropHere'
 import {ReplaceIconSVG} from '../icons/replace'
@@ -61,7 +62,6 @@ import {VideoIconSVG} from '../icons/video'
 import {WaveIconSVG} from '../icons/wave'
 
 import {cssRuleWithTheme, useThemeStyle, CSSRuleWithTheme} from '../style/themeContext'
-import {toArray} from '../utility'
 
 export enum IconScale {
   Equal = '1em',
@@ -131,11 +131,11 @@ export enum IconType {
   Wave = 'wave'
 }
 
-export interface IconStyleProps {
+interface IconStyleProps {
   scale: IconScale
 }
 
-export const IconStyle = cssRuleWithTheme<IconStyleProps>(({scale, theme}) => ({
+const IconStyle = cssRuleWithTheme<IconStyleProps>(({scale, theme}) => ({
   height: '1em',
   fontSize: scale,
   lineHeight: '1em',
@@ -151,11 +151,11 @@ export const IconStyle = cssRuleWithTheme<IconStyleProps>(({scale, theme}) => ({
   }
 }))
 
-export const InlineIconStyle = cssRuleWithTheme<IconStyleProps>(({scale, theme}) => ({
+const InlineIconStyle = cssRuleWithTheme<IconStyleProps>(({scale, theme}) => ({
   display: 'inline-block'
 }))
 
-export const BlockIconStyle = cssRuleWithTheme<IconStyleProps>(({scale, theme}) => ({
+const BlockIconStyle = cssRuleWithTheme<IconStyleProps>(({scale, theme}) => ({
   display: 'block'
 }))
 

@@ -23,7 +23,11 @@ const FilterTagStyle = cssRuleWithTheme(({theme}) => ({
 const CloseButtonStyle = cssRuleWithTheme(({theme}) => ({
   fill: theme.colors.white,
   fontSize: pxToRem(FontSize.Medium),
-  transition: `fill ease-in ${TransitionDuration.Fast}`,
+
+  transitionProperty: 'fill',
+  transitionTimingFunction: 'ease-in',
+  transitionDuration: TransitionDuration.Fast,
+
   width: pxToRem(20),
 
   ':hover': {

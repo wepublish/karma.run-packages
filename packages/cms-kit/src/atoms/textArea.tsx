@@ -1,26 +1,34 @@
 import React from 'react'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {joinClassNames} from '@karma.run/react'
-import {pxToRem, FontSize, TransitionDuration} from '../style/helpers'
+import {pxToRem, FontSize, TransitionDuration, BorderWidth} from '../style/helpers'
 
 export interface TextAreaStyleProps {
   hasError: boolean
 }
 
-export const TextAreaContainerStyle = cssRuleWithTheme(({theme}) => ({
+const TextAreaContainerStyle = cssRuleWithTheme(({theme}) => ({
   minHeight: pxToRem(54),
   paddingTop: pxToRem(16)
 }))
 
-export const TextAreaStyle = cssRuleWithTheme<TextAreaStyleProps>(({hasError, theme}) => ({
+const TextAreaStyle = cssRuleWithTheme<TextAreaStyleProps>(({hasError, theme}) => ({
   position: 'relative',
 
   '> textarea': {
     width: '100%',
-    border: 'none',
-    borderBottom: '1px solid',
-    borderColor: hasError ? theme.colors.alert : theme.colors.gray,
-    transition: `border-color ease-in ${TransitionDuration.Slow}`,
+    borderTop: 'none',
+    borderLeft: 'none',
+    borderRight: 'none',
+
+    borderBottomWidth: BorderWidth.Small,
+    borderBottomStyle: 'solid',
+    borderBottomColor: hasError ? theme.colors.alert : theme.colors.gray,
+
+    transitionProperty: 'border-bottom-color',
+    transitionTimingFunction: 'ease-in',
+    transitionDuration: TransitionDuration.Slow,
+
     resize: 'none',
 
     fontSize: pxToRem(FontSize.Medium),
@@ -31,7 +39,7 @@ export const TextAreaStyle = cssRuleWithTheme<TextAreaStyleProps>(({hasError, th
 
     ':focus': {
       outline: 'none',
-      borderColor: theme.colors.action
+      borderBottomColor: theme.colors.action
     },
 
     ':placeholder-shown + label': {
@@ -53,7 +61,9 @@ const LabelStyle = cssRuleWithTheme<TextAreaStyleProps>(({hasError, theme}) => (
   fontSize: pxToRem(FontSize.Small),
   opacity: 1,
   transform: 'translateY(0%)',
-  transition: 'transform ease-in-out, opacity ease-in-out, color ease-in-out',
+
+  transitionProperty: 'transform, opacity, color',
+  transitionTimingFunction: 'ease-in-out',
   transitionDuration: TransitionDuration.Fast
 }))
 

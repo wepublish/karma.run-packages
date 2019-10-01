@@ -1,59 +1,65 @@
-import React from 'react'
-import {cssRuleWithTheme, useThemeStyle, CSSRuleWithTheme} from '../style/themeContext'
-import {toArray} from '../utility'
+import React, {ChangeEvent} from 'react'
+import {toArray} from '@karma.run/utility'
 
-export const BaseInputStyle = cssRuleWithTheme(({theme}) => ({
-  border: 'none',
+import {CSSRuleWithTheme, useThemeStyle} from '../style/themeContext'
+import {cssRule} from '@karma.run/react'
 
-  '&::placeholder': {
-    color: theme.colors.gray
-  },
-
-  '&:focus': {
-    outline: 'none'
-  }
-}))
-
-export interface InputProps {
-  readonly value?: string
-  readonly placeholder?: string
-  readonly type?: string
-  onChange?(value: string, event: React.ChangeEvent<HTMLInputElement>): void
+export enum InputType {
+  Text = 'text',
+  Checkbox = 'checkbox',
+  Radio = 'radio'
 }
 
-export interface BaseInputProps<P = undefined> extends InputProps {
+export type ValueTypeForInputType<T extends InputType> = T extends InputType.Text
+  ? string
+  : T extends InputType.Checkbox | InputType.Radio
+  ? boolean
+  : never
+
+export interface InputProps<T extends InputType> {
+  readonly type: T
+
+  readonly name?: string
+  readonly value?: string
+  readonly checked?: boolean
+  readonly placeholder?: string
+  readonly disabled?: boolean
+
+  onChange?(event: ChangeEvent<HTMLInputElement>): void
+}
+
+export interface BaseInputProps<T extends InputType, P = undefined> extends InputProps<T> {
   readonly style?: CSSRuleWithTheme<P> | CSSRuleWithTheme<P>[]
   readonly styleProps?: P
 }
 
-export interface BaseInputPropsWithoutStyleProps extends InputProps {
+export interface BaseInputPropsWithoutStyleProps<T extends InputType> extends InputProps<T> {
   readonly style?: CSSRuleWithTheme | CSSRuleWithTheme[]
 }
 
-export interface BaseInputPropsWithStyleProps<P = undefined> extends InputProps {
+export interface BaseInputPropsPropsWithStyleProps<T extends InputType, P = undefined>
+  extends InputProps<T> {
   readonly style?: CSSRuleWithTheme<P> | CSSRuleWithTheme<P>[]
   readonly styleProps: P
 }
 
-export function BaseInput(props: BaseInputPropsWithoutStyleProps): JSX.Element
-export function BaseInput<P = undefined>(props: BaseInputPropsWithStyleProps<P>): JSX.Element
-export function BaseInput<P = undefined>({
-  placeholder,
-  value,
-  onChange,
-  style,
-  styleProps
-}: BaseInputProps<P>): JSX.Element {
-  const {css} = useThemeStyle(styleProps)
+const BaseInputStyle = cssRule(() => ({
+  border: 'none',
+  fontSize: 'inherit'
+}))
 
-  return (
-    <input
-      className={css(BaseInputStyle, ...toArray(style))}
-      placeholder={placeholder}
-      value={value}
-      onChange={event => {
-        if (onChange) onChange(event.target.value, event)
-      }}
-    />
-  )
+export function BaseInput<T extends InputType>(
+  props: BaseInputPropsWithoutStyleProps<T>
+): JSX.Element
+export function BaseInput<T extends InputType, P = undefined>(
+  props: BaseInputPropsPropsWithStyleProps<T, P>
+): JSX.Element
+export function BaseInput<T extends InputType, P = undefined>({
+  type,
+  style,
+  styleProps,
+  ...props
+}: BaseInputProps<T, P>): JSX.Element {
+  const {css} = useThemeStyle(styleProps)
+  return <input {...props} type={type} className={css(BaseInputStyle, ...toArray(style))} />
 }

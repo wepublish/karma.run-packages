@@ -10,6 +10,8 @@ import {CMSKitProvider} from '@karma.run/cms-kit'
 import {hot} from 'react-hot-loader/root'
 import {App} from './app'
 import {ElementID} from '../shared/elementID'
+import {RouteProvider} from './route'
+import {AuthProvider} from './authContext'
 
 const HotApp = hot(App)
 
@@ -19,7 +21,11 @@ const onDOMContentLoaded = async () => {
 
   ReactDOM.render(
     <CMSKitProvider styleRenderer={styleRenderer} rootElementID={ElementID.ReactRoot}>
-      <HotApp />
+      <AuthProvider>
+        <RouteProvider>
+          <HotApp />
+        </RouteProvider>
+      </AuthProvider>
     </CMSKitProvider>,
     document.getElementById(ElementID.ReactRoot)
   )

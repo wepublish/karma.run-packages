@@ -5,24 +5,24 @@ import {IconType, Icon} from '../atoms/icon'
 import {OptionButtonSmall} from '../atoms/optionButtonSmall'
 import {pxToRem, Spacing} from '../style/helpers'
 
-export const ListItemWrapperStyle = cssRule({
+const ListItemWrapperStyle = cssRule({
   display: 'flex',
   width: '100%'
 })
 
-export const ListItemWrapperActionStyle = cssRule({
+const ListItemWrapperActionStyle = cssRule({
   display: 'flex',
   flexDirection: 'column',
   marginRight: pxToRem(Spacing.ExtraSmall)
 })
 
-export const ListItemWrapperAccessoryStyle = cssRule({
+const ListItemWrapperAccessoryStyle = cssRule({
   display: 'flex',
   flexDirection: 'column',
   marginLeft: pxToRem(Spacing.ExtraSmall)
 })
 
-export const ListItemWrapperContentStyle = cssRule({
+const ListItemWrapperContentStyle = cssRule({
   display: 'flex',
   width: '100%'
 })

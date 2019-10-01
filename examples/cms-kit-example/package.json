@@ -23,7 +23,8 @@
   },
   "dependencies": {
     "@karma.run/cms-kit": "^0.0.0",
-    "react": "^16.8.6",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
     "react-hot-loader": "^4.12.3",
     "core-js": "^3.1.4",
     "regenerator-runtime": "^0.13.3"
@@ -39,13 +40,14 @@
     "@babel/preset-env": "^7.5.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@hot-loader/react-dom": "^16.8.6",
+    "@karma.run/webpack": "^0.0.3",
     "babel-loader": "^8.0.6",
     "nodemon": "^1.19.1",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5",
     "webpack-dev-server": "^3.7.2",
     "ts-node": "^8.3.0",
-    "typescript": "^3.5.2",
+    "typescript": "^3.6.2",
     "npm-run-all": "^4.1.5"
   }
 }

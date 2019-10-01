@@ -1,8 +1,9 @@
 import React, {ReactNode} from 'react'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
 import {pxToRem, Spacing} from '../style/helpers'
+import {Navigation} from '../organisms/navigation'
 
-export const contentMaxWidth = 880
+const contentMaxWidth = 880
 
 const NavigationTemplateStyle = cssRuleWithTheme(() => ({
   display: 'flex',
@@ -42,7 +43,9 @@ export function NavigationTemplate({children, navigationChildren}: NavigationTem
 
   return (
     <div className={css(NavigationTemplateStyle)}>
-      <div className={css(NavigationTemplateNavigationStyle)}>{navigationChildren}</div>
+      <div className={css(NavigationTemplateNavigationStyle)}>
+        <Navigation>{navigationChildren}</Navigation>
+      </div>
       <div className={css(NavigationTemplateContentWrapperStyle)}>
         <div className={css(NavigationTemplateContentStyle)}>{children}</div>
       </div>

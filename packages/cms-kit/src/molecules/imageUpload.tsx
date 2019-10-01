@@ -5,7 +5,7 @@ import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {OptionButtonSmall} from '../atoms/optionButtonSmall'
 import {pxToRem, FontSize} from '../style/helpers'
 
-export const ImageUploadStyle = cssRuleWithTheme(({theme}) => ({
+const ImageUploadStyle = cssRuleWithTheme(({theme}) => ({
   display: 'flex',
   borderRadius: pxToRem(3),
   border: `1px dashed ${theme.colors.actionDark}`

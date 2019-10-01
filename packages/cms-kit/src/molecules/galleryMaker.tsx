@@ -69,7 +69,7 @@ export function GalleryMaker({images, onUpdate, onRemove}: GalleryMakerProps): J
  *
  * Gallery Maker View
  */
-export const GalleryMakerStyle = cssRuleWithTheme(({theme}) => ({
+const GalleryMakerStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.dark
 }))
 

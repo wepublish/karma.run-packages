@@ -3,10 +3,9 @@ import {IconType} from '../atoms/icon'
 import {IconLabelButton} from '../atoms/iconLabelButton'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem} from '../style/helpers'
-import {TransitionDuration} from '../style/transition'
 
-export const sidePanelWidth = 480
-export const SidePanelStyle = cssRuleWithTheme(({theme}) => ({
+const sidePanelWidth = 480
+const SidePanelStyle = cssRuleWithTheme(({theme}) => ({
   width: pxToRem(sidePanelWidth)
 }))
 
@@ -24,11 +23,7 @@ export function SidePanel({title, action, onClose, children}: SidePanelProps) {
   )
 }
 
-/**
- *
- * Side Panel Header
- */
-export const SidePanelHeaderStyle = cssRuleWithTheme(({theme}) => ({
+const SidePanelHeaderStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.light,
   display: 'flex',
   width: '100%'
@@ -53,11 +48,7 @@ export function SidePanelHeader({title, action, onClose}: SidePanelHeaderProps) 
   )
 }
 
-/**
- *
- * Side Panel Title
- */
-export const SidePanelTitleStyle = cssRuleWithTheme(({theme}) => ({
+const SidePanelTitleStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.light,
   width: '100%'
 }))

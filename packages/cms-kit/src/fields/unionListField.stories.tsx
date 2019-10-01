@@ -7,7 +7,7 @@ import {IconType} from '../atoms/icon'
 
 import {UnionListValue} from './types'
 import {ListField, ListValue} from './listField'
-import {Grid, GridColumn} from '../atoms/grid'
+import {Grid, Column} from '../layout/grid'
 import {Placeholder} from '../atoms/placeholder'
 
 export type StringValue = UnionListValue<'string', string>
@@ -57,18 +57,18 @@ export const WithGrid = () => {
         string: {
           field: props => (
             <Grid>
-              <GridColumn ratio={1 / 4}>
+              <Column ratio={1 / 4}>
                 <Placeholder></Placeholder>
-              </GridColumn>
-              <GridColumn ratio={1 / 4}>
+              </Column>
+              <Column ratio={1 / 4}>
                 <Placeholder></Placeholder>
-              </GridColumn>
-              <GridColumn ratio={1 / 4}>
+              </Column>
+              <Column ratio={1 / 4}>
                 <Placeholder></Placeholder>
-              </GridColumn>
-              <GridColumn ratio={1 / 4}>
+              </Column>
+              <Column ratio={1 / 4}>
                 <Placeholder></Placeholder>
-              </GridColumn>
+              </Column>
             </Grid>
           ),
           defaultValue: '',
@@ -79,12 +79,12 @@ export const WithGrid = () => {
         column2: {
           field: props => (
             <Grid>
-              <GridColumn ratio={1 / 2}>
+              <Column ratio={1 / 2}>
                 <Placeholder></Placeholder>
-              </GridColumn>
-              <GridColumn ratio={1 / 2}>
+              </Column>
+              <Column ratio={1 / 2}>
                 <Placeholder></Placeholder>
-              </GridColumn>
+              </Column>
             </Grid>
           ),
           defaultValue: [],
@@ -95,12 +95,12 @@ export const WithGrid = () => {
         column2Alt: {
           field: props => (
             <Grid>
-              <GridColumn ratio={2 / 3}>
+              <Column ratio={2 / 3}>
                 <Placeholder></Placeholder>
-              </GridColumn>
-              <GridColumn ratio={1 / 3}>
+              </Column>
+              <Column ratio={1 / 3}>
                 <Placeholder></Placeholder>
-              </GridColumn>
+              </Column>
             </Grid>
           ),
           defaultValue: [],

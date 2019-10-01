@@ -4,9 +4,9 @@ import {SidePanel, SidePanelHeader, SidePanelTitle} from './sidePanel'
 import {useState} from '@storybook/addons'
 import {OptionButton} from '../atoms/optionButton'
 import {IconType} from '../atoms/icon'
-import {Input} from '../atoms/input'
+import {TextInput} from '../atoms/textInput'
 import {Dropdown} from '../atoms/dropdown'
-import {ToggleWithLabel} from '../molecules/toggleWithLabel'
+import {Toggle} from '../atoms/toggle'
 
 export default {
   component: SidePanel,
@@ -32,19 +32,19 @@ export const Empty = () => {
 }
 
 export const ArticleMetaData = () => (
-  <SidePanel title={'Article meta data'} onClose={() => {}}>
-    <Input value={''} placeholder={'SLUG URL'} onValueChange={() => {}} />
+  <SidePanel title={'Article'} onClose={() => {}}>
+    <TextInput value={''} label={'Slug'} onChange={() => {}} />
     <Dropdown
       value={''}
       label={'Author'}
       options={[{value: 'gabriel', name: 'Gabriel'}]}
       onValueChange={() => {}}
     />
-    <Input value={''} label={'Tags'} placeholder={'Add tag'} onValueChange={() => {}} />
-    <ToggleWithLabel
+    <TextInput value={''} label={'Tags'} onChange={() => {}} />
+    <Toggle
       label={'Share with peers'}
       description={'All peers can publish this article'}
-      onSelectChange={() => {}}
+      onChange={() => {}}
       checked={true}
     />
 
@@ -56,20 +56,20 @@ export const ArticleMetaData = () => (
       description={'Choose the teaser type for the pages and social media'}
       onValueChange={() => {}}
     />
-    <Input value={''} placeholder={'Title'} description={'site title'} onValueChange={() => {}} />
-    <Input
+    <TextInput value={''} label={'Title'} description={'site title'} onChange={() => {}} />
+    <TextInput
       value={''}
-      placeholder={'Short description'}
+      label={'Short description'}
       description={'Teaser test for indexing and social media'}
-      onValueChange={() => {}}
+      onChange={() => {}}
     />
 
     <SidePanelTitle title={'Publish contorl'} />
-    <Input
+    <TextInput
       value={''}
-      placeholder={'Publish date'}
+      label={'Publish date'}
       description={'Set the publish date'}
-      onValueChange={() => {}}
+      onChange={() => {}}
     />
   </SidePanel>
 )

@@ -2,10 +2,10 @@ import React from 'react'
 
 import {IconType, IconScale} from '../atoms/icon'
 import {MenuIconButton} from '../atoms/menuIconButton'
+import {IconLabelButton} from '../atoms/iconLabelButton'
+
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem} from '../style/helpers'
-import {Row} from '../atoms/grid'
-import {IconLabelButton} from '..'
 
 const OverlayMenuStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.white,
@@ -64,7 +64,7 @@ export function OverlayMenu({menuItems, inline, onMenuItemClick}: OverlayMenuPro
     MenuItems = (
       <>
         {rows.map((columns, index) => (
-          <Row key={index}>
+          <div key={index}>
             {columns.map((item, index) => (
               <IconLabelButton
                 key={index}
@@ -73,7 +73,7 @@ export function OverlayMenu({menuItems, inline, onMenuItemClick}: OverlayMenuPro
                 onClick={() => onMenuItemClick(item)}
               />
             ))}
-          </Row>
+          </div>
         ))}
       </>
     )

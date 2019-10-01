@@ -1,49 +1,58 @@
-import React from 'react'
-import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
-import {SelectChangeEvent, Select} from './select'
+import React, {ChangeEvent} from 'react'
+
 import {pxToRem, FontSize, Spacing} from '../style/helpers'
+import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
+import {BaseInput, InputType} from './baseInput'
 
 const CheckboxContainerStyle = cssRuleWithTheme(() => ({
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'row',
   justifyContent: 'center',
-  position: 'relative',
-  width: '100%',
-  minHeight: pxToRem(30)
+  alignItems: 'center',
+
+  cursor: 'pointer',
+
+  width: '100%'
 }))
 
 const CheckboxStyle = cssRuleWithTheme(({theme}) => ({
   position: 'absolute',
-  opacity: 0,
-  cursor: 'pointer',
+
   width: 0,
   height: 0,
+  opacity: 0,
 
-  ':checked ~ span': {
+  appearance: 'none',
+
+  ':checked + span': {
     backgroundColor: theme.colors.action,
     borderColor: theme.colors.actionDark
   },
-  ':checked ~ span:after': {
+
+  ':checked + span::after': {
     display: 'block',
-    top: '1px',
-    left: '6px',
-    width: '6px',
-    height: '13px',
+
+    top: pxToRem(1),
+    left: pxToRem(6),
+    width: pxToRem(6),
+    height: pxToRem(13),
+
     border: `solid ${theme.colors.white}`,
-    borderWidth: '0  2px 2px 0',
+    borderWidth: `0 ${pxToRem(2)} ${pxToRem(2)} 0`,
     transform: 'rotate(42deg)'
   }
 }))
 
 const CheckMarkStyle = cssRuleWithTheme(({theme}) => ({
-  position: 'absolute',
-  width: '20px',
-  height: '20px',
-  borderRadius: '2px',
+  position: 'relative',
+
+  width: pxToRem(20),
+  height: pxToRem(20),
+  borderRadius: pxToRem(2),
   backgroundColor: theme.colors.light,
   border: `1px solid ${theme.colors.grayDark}`,
 
-  ':after': {
+  '::after': {
     content: '""',
     position: 'absolute',
     display: 'none'
@@ -51,34 +60,29 @@ const CheckMarkStyle = cssRuleWithTheme(({theme}) => ({
 }))
 
 const LabelStyle = cssRuleWithTheme(({theme}) => ({
-  fontSize: pxToRem(FontSize.Medium),
   color: theme.colors.dark,
-  marginLeft: pxToRem(Spacing.Medium)
+  fontSize: pxToRem(FontSize.Medium),
+  marginLeft: pxToRem(Spacing.ExtraSmall)
 }))
 
 export interface CheckboxProps {
-  readonly id: string
   readonly label: string
-  readonly isChecked: boolean
-  onChange(value: SelectChangeEvent): void
-  readonly className?: string
+  readonly checked: boolean
+
+  readonly value?: string
+  readonly disabled?: boolean
+
+  onChange(event: ChangeEvent<HTMLInputElement>): void
 }
 
-export function Checkbox(props: CheckboxProps) {
+export function Checkbox({label, ...props}: CheckboxProps) {
   const {css} = useThemeStyle()
+
   return (
-    <div className={css(CheckboxContainerStyle)}>
-      <Select
-        id={props.id}
-        style={CheckboxStyle}
-        type="checkbox"
-        checked={props.isChecked}
-        onSelectChange={props.onChange}
-      />
+    <label className={css(CheckboxContainerStyle)}>
+      <BaseInput {...props} type={InputType.Checkbox} style={CheckboxStyle} />
       <span className={css(CheckMarkStyle)} />
-      <label className={css(LabelStyle)} htmlFor={props.id}>
-        {props.label}
-      </label>
-    </div>
+      <span className={css(LabelStyle)}>{label}</span>
+    </label>
   )
 }

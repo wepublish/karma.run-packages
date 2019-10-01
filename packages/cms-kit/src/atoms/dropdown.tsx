@@ -1,9 +1,8 @@
 import React from 'react'
-import {IconType, Icon} from './icon'
-import {cssRuleWithTheme, useThemeStyle, ThemeContext} from '../style/themeContext'
+import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {joinClassNames} from '@karma.run/react'
 
-export const DropdownStyle = cssRuleWithTheme(({theme}) => ({
+const DropdownStyle = cssRuleWithTheme(({theme}) => ({
   // todo
 }))
 

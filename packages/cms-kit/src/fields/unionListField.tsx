@@ -9,7 +9,7 @@ import {ListItemWrapper} from '../molecules/listItemWrapper'
 import {AddBlockButton} from '../molecules/addBlockButton'
 import {AddBlockMenu} from '../organisms/addBlockMenu'
 
-export const UnionListFieldStyle = cssRule({
+const UnionListFieldStyle = cssRule({
   width: '100%'
 })
 

@@ -1,9 +1,11 @@
 import React, {ReactNode} from 'react'
+
+import {TextButton} from './textButton'
+import {OutlineButton} from './outlineButton'
+
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem, Spacing, ZIndex, BorderRadius, whenTablet, whenMobile} from '../style/helpers'
-import {TextButton} from './textButton'
-import {OutlineButton} from '..'
-import {Heading3} from '../style/textStyles'
+import {Typography} from '../layout/typography'
 
 const ModalStyle = cssRuleWithTheme(({theme}) => ({
   position: 'fixed',
@@ -80,7 +82,7 @@ export function Modal({title, children, onConfirm, onCancel}: ModalProps) {
       <div className={css(ModalStyle)}>
         <div className={css(ModalDialogStyle)}>
           <div className={css(ModalHeaderStyle)}>
-            <Heading3>{title}</Heading3>
+            <Typography variant="h3">{title}</Typography>
           </div>
           <div className={css(ModalBodyStyle)}>{children}</div>
           <div className={css(ModalFooterStyle)}>

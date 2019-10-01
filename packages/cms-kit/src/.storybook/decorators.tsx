@@ -8,7 +8,7 @@ export interface CenterLayoutStyleProps {
   scale?: number
 }
 
-export const CenterLayoutStyle = cssRule({
+const CenterLayoutStyle = cssRule({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -17,7 +17,7 @@ export const CenterLayoutStyle = cssRule({
   minHeight: '100%'
 })
 
-export const CenterLayoutContentStyle = cssRule(({scale}: CenterLayoutStyleProps) => ({
+const CenterLayoutContentStyle = cssRule(({scale}: CenterLayoutStyleProps) => ({
   padding: pxToRem(20),
   margin: pxToRem(20),
   width: scale ? `${scale * 100}%` : undefined,
@@ -49,7 +49,7 @@ export interface FontSizeStyleProps {
   fontSize: number
 }
 
-export const FontSizeStyle = cssRule(({fontSize}: FontSizeStyleProps) => ({
+const FontSizeStyle = cssRule(({fontSize}: FontSizeStyleProps) => ({
   fontSize: pxToRem(fontSize)
 }))
 
@@ -70,7 +70,7 @@ export function fontSizeDecorator(fontSize: number = 24) {
   }
 }
 
-export const InfoBoxStyle = cssRule<{padding: number}>(({padding}) => ({
+const InfoBoxStyle = cssRule<{padding: number}>(({padding}) => ({
   backgroundColor: '#f7f9fa',
   display: 'inline-block',
   margin: pxToRem(10),
@@ -82,14 +82,14 @@ export const InfoBoxStyle = cssRule<{padding: number}>(({padding}) => ({
   paddingRight: pxToRem(padding)
 }))
 
-export const InfoBoxTextStyle = cssRule(() => ({
+const InfoBoxTextStyle = cssRule(() => ({
   paddingBottom: pxToRem(5),
   paddingTop: pxToRem(5),
   fontSize: '1.2rem',
   color: '#b9b9b9'
 }))
 
-export const InfoBoxContentStyle = cssRule(() => ({
+const InfoBoxContentStyle = cssRule(() => ({
   display: 'inline-block'
 }))
 
@@ -122,7 +122,7 @@ export function infoBoxDecorator(infoText: string, fontSize: number = 12) {
   }
 }
 
-export const DarkBackgroundStyle = cssRule({
+const DarkBackgroundStyle = cssRule({
   backgroundColor: '#222222',
   width: '100%',
   height: '100%',

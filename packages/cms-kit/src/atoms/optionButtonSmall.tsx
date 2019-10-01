@@ -1,21 +1,21 @@
 import React from 'react'
 
 import {BaseButton, ButtonProps} from './baseButton'
-import {cssRuleWithTheme} from '../style/themeContext'
 import {IconType, Icon} from './icon'
-import {pxToEm, TransitionDuration} from '../style/helpers'
+import {cssRuleWithTheme} from '../style/themeContext'
+import {pxToEm, TransitionDuration, FontSize} from '../style/helpers'
 
-export const OptionButtonSmallStyle = cssRuleWithTheme(({theme}) => ({
+const OptionButtonSmallStyle = cssRuleWithTheme(({theme}) => ({
   display: 'flex',
 
+  flexShrink: 0,
+  flexGrow: 0,
   alignItems: 'center',
   justifyContent: 'center',
 
   width: pxToEm(20),
   height: pxToEm(20),
-
-  flexShrink: 0,
-  flexGrow: 0,
+  fontSize: pxToEm(FontSize.Small),
 
   borderRadius: '100%',
 
@@ -24,29 +24,24 @@ export const OptionButtonSmallStyle = cssRuleWithTheme(({theme}) => ({
 
   fill: theme.colors.dark,
 
-  transition: 'background-color ease-in, border ease-in',
+  transitionProperty: 'background-color, border',
+  transitionTimingFunction: 'ease-in',
   transitionDuration: TransitionDuration.Fast,
 
-  '> *': {
-    fontSize: pxToEm(14)
-  },
-
-  '&:hover:enabled': {
+  ':hover:enabled': {
     backgroundColor: theme.colors.light,
     borderColor: theme.colors.action
   },
 
-  '&:active:enabled': {
+  ':active:enabled': {
     backgroundColor: theme.colors.actionDark,
     fill: theme.colors.action
   },
 
-  '&:disabled': {
+  ':disabled': {
     fill: theme.colors.gray
   }
 }))
-
-const IconStyle = cssRuleWithTheme(({theme}) => ({}))
 
 export interface OptionButtonSmallProps extends ButtonProps {
   readonly icon: IconType
@@ -55,7 +50,7 @@ export interface OptionButtonSmallProps extends ButtonProps {
 export function OptionButtonSmall({icon, ...rest}: OptionButtonSmallProps) {
   return (
     <BaseButton {...rest} style={OptionButtonSmallStyle}>
-      <Icon type={icon} style={IconStyle} />
+      <Icon type={icon} />
     </BaseButton>
   )
 }

@@ -1,8 +1,8 @@
 import React from 'react'
 
+import {WithGrid} from '../fields/unionListField.stories'
 import {Standard as StandardNavigationBar} from '../organisms/navigationBar.stories'
 import {EditorTemplate} from './editorTemplate'
-import {WithGrid} from '../fields/unionListField.stories'
 
 export default {
   component: EditorTemplate,
