@@ -6,7 +6,7 @@ import {FontSize, pxToRem, Spacing} from '../style/helpers'
 export const DescriptionListingStyle = cssRule({
   display: 'block',
   width: '100%',
-  FontSize: pxToRem(FontSize.Small)
+  fontSize: pxToRem(FontSize.Small)
 })
 
 export interface DescriptionListingProps {
@@ -25,8 +25,8 @@ const DescriptionListingItemLabelStyle = cssRuleWithTheme(({theme}) => ({
 }))
 
 const DescriptionListingItemValueStyle = cssRule({
-  width: '50%',
-  marginLeft: '50%',
+  width: '60%',
+  marginLeft: '40%',
   verticalAlign: 'middle',
   textAlign: 'right',
   marginTop: pxToRem(Spacing.ExtraSmall),
