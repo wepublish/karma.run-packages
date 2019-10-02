@@ -18,7 +18,6 @@
   "dependencies": {
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
-    "find-my-way": "^2.1.0",
     "nanoid": "^2.0.3",
     "@karma.run/react": "^0.0.17",
     "@karma.run/utility": "^0.0.0"
