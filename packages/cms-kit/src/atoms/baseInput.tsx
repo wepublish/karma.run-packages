@@ -7,7 +7,13 @@ import {cssRule} from '@karma.run/react'
 export enum InputType {
   Text = 'text',
   Checkbox = 'checkbox',
-  Radio = 'radio'
+  Radio = 'radio',
+  Email = 'email',
+  Password = 'password',
+  Number = 'number',
+  Search = 'search',
+  Tel = 'tel',
+  Url = 'url'
 }
 
 export type ValueTypeForInputType<T extends InputType> = T extends InputType.Text

@@ -25,6 +25,11 @@ const RadioStyle = cssRuleWithTheme(({theme}) => ({
 
   appearance: 'none',
 
+  ':disabled + span': {
+    borderColor: theme.colors.gray,
+    backgroundColor: theme.colors.white
+  },
+
   ':checked + span': {
     backgroundColor: theme.colors.white,
     borderColor: theme.colors.actionDark
@@ -40,6 +45,10 @@ const RadioStyle = cssRuleWithTheme(({theme}) => ({
 
     borderRadius: '50%',
     background: theme.colors.action
+  },
+
+  ':disabled:checked + span:after': {
+    backgroundColor: theme.colors.grayLight
   }
 }))
 

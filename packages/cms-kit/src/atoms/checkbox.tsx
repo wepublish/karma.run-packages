@@ -40,6 +40,15 @@ const CheckboxStyle = cssRuleWithTheme(({theme}) => ({
     border: `solid ${theme.colors.white}`,
     borderWidth: `0 ${pxToRem(2)} ${pxToRem(2)} 0`,
     transform: 'rotate(42deg)'
+  },
+
+  ':disabled + span': {
+    borderColor: theme.colors.grayLight,
+    backgroundColor: theme.colors.white
+  },
+
+  ':disabled:checked + span': {
+    backgroundColor: theme.colors.grayLight
   }
 }))
 

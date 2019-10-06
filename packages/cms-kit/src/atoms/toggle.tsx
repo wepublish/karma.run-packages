@@ -17,6 +17,16 @@ const ToggleInputStyle = cssRuleWithTheme(({theme}) => ({
     borderStyle: 'solid',
     borderWidth: BorderWidth.Small,
     borderColor: theme.colors.successDark
+  },
+
+  ':disabled + span': {
+    borderColor: theme.colors.grayDark,
+    backgroundColor: theme.colors.gray
+  },
+
+  ':disabled:checked + span:after': {
+    borderColor: theme.colors.gray,
+    backgroundColor: theme.colors.grayDark
   }
 }))
 
