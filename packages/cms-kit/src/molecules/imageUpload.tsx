@@ -1,116 +1,113 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-import {IconType, Icon, IconScale} from '../atoms/icon'
-import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
+import {FileDropZone} from './fileDropZone'
 import {OptionButtonSmall} from '../atoms/optionButtonSmall'
-import {pxToRem, FontSize} from '../style/helpers'
 
-const ImageUploadStyle = cssRuleWithTheme(({theme}) => ({
-  display: 'flex',
-  borderRadius: pxToRem(3),
-  border: `1px dashed ${theme.colors.actionDark}`
-}))
+import {IconType} from '..'
+import {ProgressBar} from '../atoms/progressBar'
+import {ButtonBar} from '../atoms/buttonBar'
+import {cssRule, useStyle} from '@karma.run/react'
+import {Icon} from '../atoms/icon'
 
-const ThumbStyle = cssRuleWithTheme<{inProcess: boolean}>(({inProcess}) => ({
-  opacity: inProcess ? 0.4 : 1
-}))
+enum UploadState {
+  Empty = 'empty',
+  ReadyToUpload = 'ready',
+  Uploading = 'uploading'
+}
 
 export interface ImageUploadProps {
-  readonly images: ImageUploadThumbProps[]
-  readonly isProcessing: boolean
-  onDeleteImage(id: string): void
+  // upload progress in percentage
+  readonly uploadProgress?: number
+  onUpload(files: File[]): void
+  onUploadCancel?(): void
 }
 
-export function ImageUpload({images, isProcessing, onDeleteImage}: ImageUploadProps) {
-  const {css} = useThemeStyle({inProcess: isProcessing})
+export function ImageUpload({uploadProgress, onUpload, onUploadCancel}: ImageUploadProps) {
+  const [images, setImages] = useState<File[]>([])
 
-  function getState() {
-    if (images.length == 0) return UploadState.Empty
-    else if (isProcessing) return UploadState.InProcess
-    else return UploadState.Upload
+  function addImages(fileList: FileList) {
+    let newImages = [...images]
+
+    for (let i = 0; i < fileList.length; i++) {
+      if (fileList.item(i) != null) {
+        newImages.push(fileList.item(i)!)
+      }
+    }
+    setImages(newImages)
+  }
+
+  function removeImage(idx: number) {
+    let newImages = [...images]
+    newImages.splice(idx, 1)
+    setImages(newImages)
+  }
+
+  function removeAll() {
+    setImages([])
   }
 
   return (
-    <div className={css(ImageUploadStyle)}>
-      <ImageUploadIcon state={getState()} />
-      {images.map(img => (
-        <div className={css(ThumbStyle)}>
-          <OptionButtonSmall
-            disabled={isProcessing}
-            icon={IconType.Close}
-            onClick={() => onDeleteImage(img.id)}
+    <FileDropZone onDrop={addImages} showPlaceholder={images.length == 0}>
+      {images.map((img, idx) => (
+        <div key={idx}>
+          <ImageUploadThumb
+            id={idx}
+            src={URL.createObjectURL(img)}
+            size={`${img.size}`}
+            name={img.name}
+            onDelete={removeImage}
+            isLoading={uploadProgress != undefined}
           />
-          <ImageUploadThumb id={img.id} src={img.src} size={img.size} name={img.name} />
         </div>
       ))}
-    </div>
+
+      {images.length > 0 && (
+        <div>
+          {uploadProgress ? (
+            <ProgressBar progress={uploadProgress} onCancel={onUploadCancel} />
+          ) : (
+            <ButtonBar
+              cancelLabel={'Cancel'}
+              onCancel={removeAll}
+              confirmLabel={'Upload'}
+              onConfirm={() => onUpload(images)}
+            />
+          )}
+        </div>
+      )}
+    </FileDropZone>
   )
 }
 
 /**
  *
- * upload icon and info text component
+ * Image Upload Thumb
  */
-const UploadInfoStyle = cssRuleWithTheme<{inProcess: boolean}>(({inProcess, theme}) => ({
-  color: inProcess ? theme.colors.primary : theme.colors.action,
-  fill: inProcess ? theme.colors.primary : theme.colors.action,
+const ImageUploadThumbStyle = cssRule({})
 
-  fontSize: pxToRem(FontSize.Small),
-  textAlign: 'center'
-}))
-
-const UploadInfoLabelStyle = cssRuleWithTheme<{inProcess: boolean}>(({inProcess, theme}) => ({}))
-
-export enum UploadState {
-  Empty,
-  Upload,
-  InProcess
-}
-
-export interface ImageUploadIconProps {
-  state: UploadState
-}
-
-export function ImageUploadIcon({state}: ImageUploadIconProps) {
-  const isInProcess = state == UploadState.InProcess
-  const {css} = useThemeStyle({inProcess: isInProcess})
-
-  function getInfoText() {
-    switch (state) {
-      case UploadState.Empty:
-        return 'drop image here or click to upload'
-
-      case UploadState.Upload:
-        return 'upload all'
-
-      case UploadState.InProcess:
-        return 'in process'
-    }
-  }
-
-  return (
-    <div className={css(UploadInfoStyle)}>
-      <Icon type={isInProcess ? IconType.Created : IconType.Upload} scale={IconScale.Double} />
-      <div className={css(UploadInfoLabelStyle)}>{getInfoText()}</div>
-    </div>
-  )
-}
-
-/**
- *
- * image thumb
- */
 export interface ImageUploadThumbProps {
-  readonly id: string
+  readonly id: number
   readonly src: string
-  readonly size: string
-  readonly name: string
+  readonly size?: string
+  readonly name?: string
+  readonly isLoading?: boolean
+  onDelete(id: number): void
 }
 
-export function ImageUploadThumb({src, size, name}: ImageUploadThumbProps) {
+export function ImageUploadThumb({
+  id,
+  src,
+  size,
+  name,
+  isLoading,
+  onDelete
+}: ImageUploadThumbProps) {
+  const {css} = useStyle()
   return (
-    <div>
-      <img src={src} />
+    <div className={css(ImageUploadThumbStyle)}>
+      {!isLoading && <OptionButtonSmall icon={IconType.Delete} onClick={e => onDelete(id)} />}
+      {isLoading && <Icon type={IconType.Upload} />}
+      <img src={src} width={210} height={140} />
       <div>{size}</div>
       <div>{name}</div>
     </div>

@@ -1,20 +1,50 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-import {storiesOf} from '@storybook/react'
 import {centerLayoutDecorator} from '../.storybook/decorators'
-import {ImageUpload} from './imageUpload'
+import {ImageUpload, ImageUploadThumb} from './imageUpload'
 
-storiesOf('Molecules|ImageUpload', module)
-  .addDecorator(centerLayoutDecorator(0.4))
-  .add('empty', () => <ImageUpload images={[]} isProcessing={false} onDeleteImage={id => {}} />)
-  .add('upload all', () => (
-    <ImageUpload images={mockThumbImages} isProcessing={false} onDeleteImage={id => {}} />
-  ))
-  .add('in process', () => (
-    <ImageUpload images={mockThumbImages} isProcessing={true} onDeleteImage={id => {}} />
-  ))
+export default {
+  component: ImageUpload,
+  title: 'Molecules|ImagesUpload',
+  decorators: [centerLayoutDecorator(0.6)]
+}
 
-export const mockThumbImages = [
-  {id: 'banana', src: 'https://dummyimage.com/100x68/000/fff', size: '1.1MB', name: 'Banana.jpg'},
-  {id: 'flower', src: 'https://dummyimage.com/100x68/ba37ba/fff', size: '1.5MB', name: 'flower.jpg'}
-]
+export const Standard = () => {
+  return <ImageUpload onUpload={() => {}} />
+}
+
+export const Uploading = () => {
+  return <ImageUpload onUpload={() => {}} uploadProgress={60} />
+}
+
+export const ImageThumb = () => {
+  return (
+    <ImageUploadThumb
+      id={mockThumbImage.id}
+      src={mockThumbImage.src}
+      name={mockThumbImage.name}
+      size={mockThumbImage.size}
+      onDelete={() => {}}
+    />
+  )
+}
+
+export const ImageThumbUploading = () => {
+  return (
+    <ImageUploadThumb
+      id={mockThumbImage.id}
+      src={mockThumbImage.src}
+      name={mockThumbImage.name}
+      size={mockThumbImage.size}
+      isLoading={true}
+      onDelete={() => {}}
+    />
+  )
+}
+
+const mockThumbImage = {
+  id: 0,
+  src: 'https://dummyimage.com/100x68/000/fff',
+  size: '1.1MB',
+  name: 'Banana.jpg'
+}
