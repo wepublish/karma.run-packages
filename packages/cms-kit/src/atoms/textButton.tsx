@@ -21,7 +21,7 @@ const TextButtonStyle = cssRuleWithTheme(({theme}) => ({
   transitionTimingFunction: 'ease-in',
   transitionDuration: TransitionDuration.Fast,
 
-  minWidth: pxToRem(140),
+  minWidth: pxToRem(100),
   padding: `${pxToRem(Spacing.Tiny)} ${pxToRem(Spacing.ExtraSmall)}`,
 
   ':hover:enabled': {

@@ -4,7 +4,7 @@ import {TextButton} from '../atoms/textButton'
 import {OptionButtonSmall} from '../atoms/optionButtonSmall'
 import {IconType} from '../atoms/icon'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
-import {pxToRem, Spacing} from '../style/helpers'
+import {pxToRem, Spacing, BorderWidth, FontSize} from '../style/helpers'
 import {OutlineButton} from '../atoms/outlineButton'
 
 export interface GalleryImage {
@@ -70,7 +70,14 @@ export function GalleryMaker({images, onUpdate, onRemove}: GalleryMakerProps): J
  * Gallery Maker View
  */
 const GalleryMakerStyle = cssRuleWithTheme(({theme}) => ({
-  backgroundColor: theme.colors.dark
+  backgroundColor: theme.colors.dark,
+  padding: pxToRem(Spacing.Small)
+}))
+
+const GalleryMakerFooterStyle = cssRuleWithTheme(({theme}) => ({
+  width: '100%',
+  textAlign: 'right',
+  marginTop: pxToRem(Spacing.Small)
 }))
 
 export interface GalleryMakerListProps {
@@ -100,7 +107,9 @@ export function GalleryMakerList({
           onMoveDown={index < images.length - 1 ? () => onMoveDown(index) : undefined}
         />
       ))}
-      <OutlineButton isInvert={true} label={'Update'} onClick={() => onConfirm()} />
+      <div className={css(GalleryMakerFooterStyle)}>
+        <OutlineButton isInvert={true} label={'Update'} onClick={() => onConfirm()} />
+      </div>
     </div>
   )
 }
@@ -110,15 +119,39 @@ export function GalleryMakerList({
  *
  */
 const GalleryMakerItemStyle = cssRuleWithTheme(({theme}) => ({
-  paddingTop: pxToRem(Spacing.Small),
-  paddingBottom: pxToRem(Spacing.Small),
-  color: theme.colors.white
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: '100%',
+  minHeight: pxToRem(88),
+  color: theme.colors.white,
+  borderBottom: `${BorderWidth.Small} solid ${theme.colors.white}`
 }))
 
-const GalleryMakerItemDividerStyle = cssRuleWithTheme(({theme}) => ({
-  width: '100%',
-  height: '1px',
-  backgroundColor: theme.colors.white
+const GalleryMakerItemImageStyle = cssRuleWithTheme(({theme}) => ({
+  minWidth: pxToRem(200),
+  display: 'flex',
+  alignItems: 'center',
+  fontSize: pxToRem(FontSize.Small),
+
+  '> span': {
+    marginLeft: pxToRem(Spacing.ExtraSmall)
+  }
+}))
+
+const GalleryMakerItemOptionStyle = cssRuleWithTheme(({theme}) => ({
+  display: 'flex',
+  alignItems: 'center',
+
+  '> button': {
+    marginRight: pxToRem(Spacing.ExtraSmall)
+  }
+}))
+
+const GalleryMakerItemMoverStyle = cssRuleWithTheme(({theme}) => ({
+  '> button': {
+    marginTop: pxToRem(Spacing.Tiny),
+    marginBottom: pxToRem(Spacing.Tiny)
+  }
 }))
 
 export interface GalleryImageThumb {
@@ -138,27 +171,32 @@ export function GalleryMakerItem({image, onMoveUp, onMoveDown, onRemove}: Galler
   return (
     <div>
       <div className={css(GalleryMakerItemStyle)}>
-        <img src={image.src} />
-        <div>{image.name}</div>
-        <TextButton label={'Remove'} onClick={() => onRemove()} />
-        <OptionButtonSmall
-          title="Move Up"
-          icon={IconType.ChevronUp}
-          onClick={() => {
-            if (onMoveUp) onMoveUp()
-          }}
-          disabled={onMoveUp == undefined}
-        />
-        <OptionButtonSmall
-          title="Move Down"
-          icon={IconType.ChevronDown}
-          onClick={() => {
-            if (onMoveDown) onMoveDown()
-          }}
-          disabled={onMoveDown == undefined}
-        />
+        <div className={css(GalleryMakerItemImageStyle)}>
+          <img src={image.src} />
+          <span>{image.name}</span>
+        </div>
+        <div className={css(GalleryMakerItemOptionStyle)}>
+          <TextButton label={'Remove'} onClick={() => onRemove()} />
+          <div className={css(GalleryMakerItemMoverStyle)}>
+            <OptionButtonSmall
+              title="Move Up"
+              icon={IconType.ChevronUp}
+              onClick={() => {
+                if (onMoveUp) onMoveUp()
+              }}
+              disabled={onMoveUp == undefined}
+            />
+            <OptionButtonSmall
+              title="Move Down"
+              icon={IconType.ChevronDown}
+              onClick={() => {
+                if (onMoveDown) onMoveDown()
+              }}
+              disabled={onMoveDown == undefined}
+            />
+          </div>
+        </div>
       </div>
-      <div className={css(GalleryMakerItemDividerStyle)}></div>
     </div>
   )
 }
