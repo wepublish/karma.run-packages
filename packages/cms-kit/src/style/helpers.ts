@@ -37,6 +37,7 @@ export enum BorderWidth {
 }
 
 export enum BorderRadius {
+  Tiny = 2,
   Small = 5,
   Medium = 10
 }

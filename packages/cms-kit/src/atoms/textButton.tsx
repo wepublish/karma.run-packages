@@ -1,14 +1,21 @@
 import React from 'react'
 import {BaseButtonProps, BaseButton} from './baseButton'
 import {cssRuleWithTheme} from '../style/themeContext'
-import {pxToRem, TransitionDuration, Spacing, FontSize} from '../style/helpers'
+import {
+  pxToRem,
+  TransitionDuration,
+  Spacing,
+  FontSize,
+  pxToEm,
+  BorderRadius
+} from '../style/helpers'
 
 const TextButtonStyle = cssRuleWithTheme(({theme}) => ({
   border: 'none',
-  color: theme.colors.action,
-  borderRadius: '2px',
+  color: theme.colors.alert,
+  borderRadius: pxToRem(BorderRadius.Tiny),
 
-  fontSize: FontSize.Medium,
+  fontSize: pxToEm(FontSize.Medium),
 
   transitionProperty: 'background-color',
   transitionTimingFunction: 'ease-in',
@@ -22,7 +29,7 @@ const TextButtonStyle = cssRuleWithTheme(({theme}) => ({
   },
 
   ':active:enabled': {
-    backgroundColor: theme.colors.actionDark
+    backgroundColor: theme.colors.alertDark
   },
 
   ':disabled': {
