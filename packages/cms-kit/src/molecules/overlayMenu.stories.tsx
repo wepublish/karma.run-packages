@@ -1,8 +1,18 @@
 import React from 'react'
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
-import {IconType} from '../atoms/icon'
 import {OverlayMenu} from './overlayMenu'
+
+import {
+  MaterialIconTextFormat,
+  MaterialIconImage,
+  MaterialIconFilter,
+  MaterialIconMovie,
+  MaterialIconCode,
+  MaterialIconFormatQuote,
+  MaterialIconFileCopy,
+  MaterialIconArchive
+} from '@karma.run/icons'
 
 export default {
   component: OverlayMenu,
@@ -14,12 +24,12 @@ export const Standard = () => (
   <OverlayMenu
     inline={false}
     menuItems={[
-      {id: 'text', icon: IconType.Text, label: 'Text'},
-      {id: 'image', icon: IconType.Image, label: 'Image'},
-      {id: 'slideshow', icon: IconType.Gallery, label: 'Slideshow'},
-      {id: 'video', icon: IconType.Video, label: 'Video'},
-      {id: 'embed', icon: IconType.Embed, label: 'Embed'},
-      {id: 'quote', icon: IconType.Quote, label: 'Quote'}
+      {id: 'text', icon: MaterialIconTextFormat, label: 'Text'},
+      {id: 'image', icon: MaterialIconImage, label: 'Image'},
+      {id: 'slideshow', icon: MaterialIconFilter, label: 'Slideshow'},
+      {id: 'video', icon: MaterialIconMovie, label: 'Video'},
+      {id: 'embed', icon: MaterialIconCode, label: 'Embed'},
+      {id: 'quote', icon: MaterialIconFormatQuote, label: 'Quote'}
     ]}
     onMenuItemClick={item => {}}
   />
@@ -29,8 +39,8 @@ export const Inline = () => (
   <OverlayMenu
     inline={true}
     menuItems={[
-      {id: 'copy', icon: IconType.Copy, label: 'Copy'},
-      {id: 'archive', icon: IconType.Archive, label: 'Archive'}
+      {id: 'copy', icon: MaterialIconFileCopy, label: 'Copy'},
+      {id: 'archive', icon: MaterialIconArchive, label: 'Archive'}
     ]}
     onMenuItemClick={item => {}}
   />

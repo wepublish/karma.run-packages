@@ -2,7 +2,7 @@ import React from 'react'
 import {OptionButtonSmall} from './optionButtonSmall'
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
-import {IconType} from './icon'
+import {MaterialIconKeyboardArrowDown} from '@karma.run/icons'
 
 export default {
   component: OptionButtonSmall,
@@ -10,9 +10,9 @@ export default {
   decorators: [centerLayoutDecorator()]
 }
 
-export const Standard = () => <OptionButtonSmall icon={IconType.ChevronDown} />
+export const Standard = () => <OptionButtonSmall icon={MaterialIconKeyboardArrowDown} />
 
 /**
  * @description Test
  */
-export const Disabled = () => <OptionButtonSmall icon={IconType.ChevronDown} disabled />
+export const Disabled = () => <OptionButtonSmall icon={MaterialIconKeyboardArrowDown} disabled />

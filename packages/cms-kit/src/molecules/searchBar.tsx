@@ -5,6 +5,7 @@ import {BaseButton} from '../atoms/baseButton'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem, BorderRadius, pxToEm, FontSize, Spacing} from '../style/helpers'
 import {BaseInput, InputType} from '../atoms/baseInput'
+import {MaterialIconClose, MaterialIconKeyboardArrowDown} from '@karma.run/icons'
 
 const SearchBarStyle = cssRuleWithTheme(({theme}) => ({
   border: `1px solid ${theme.colors.grayLight}`,
@@ -47,7 +48,7 @@ export function SearchBar({
         <div>
           {'Filters'}
           <BaseButton onClick={e => setShowOptions(!showOptions)}>
-            <Icon type={IconType.ChevronDown} scale={IconScale.Equal} />
+            <Icon element={MaterialIconKeyboardArrowDown} scale={IconScale.Equal} />
           </BaseButton>
         </div>
         <BaseInput
@@ -69,7 +70,7 @@ export function SearchBar({
       {searchValue.length > 0 && (
         <div>
           <BaseButton onClick={onClear}>
-            <Icon type={IconType.Close} scale={IconScale.Equal} />
+            <Icon element={MaterialIconClose} scale={IconScale.Equal} />
           </BaseButton>
           {'Clear current search query, filters and sorts'}
         </div>

@@ -1,5 +1,11 @@
 import React, {ReactNode} from 'react'
-import {NavigationTemplate, IconType} from '@karma.run/cms-kit'
+
+import {
+  NavigationTemplate,
+  MaterialIconInsertDriveFileOutlined,
+  MaterialIconPowerSettingsNew
+} from '@karma.run/cms-kit'
+
 import {LinkMenuIconButton, LogoutRoute, ArticleListRoute} from './route'
 
 export interface BaseProps {
@@ -12,13 +18,13 @@ export function Base({children}: BaseProps) {
       navigationChildren={
         <>
           <LinkMenuIconButton
-            icon={IconType.Article}
+            icon={MaterialIconInsertDriveFileOutlined}
             label="Article"
             route={ArticleListRoute.create({})}
           />
 
           <LinkMenuIconButton
-            icon={IconType.Logout}
+            icon={MaterialIconPowerSettingsNew}
             label="Logout"
             route={LogoutRoute.create({})}
           />

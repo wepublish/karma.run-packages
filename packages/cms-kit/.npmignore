@@ -3,3 +3,4 @@
 .storybook/
 .storybookbuild/
 .stories.*
+scripts/

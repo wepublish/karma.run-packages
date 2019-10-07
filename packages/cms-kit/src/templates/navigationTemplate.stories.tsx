@@ -1,9 +1,17 @@
 import React from 'react'
 
+import {
+  MaterialIconInsertDriveFileOutlined,
+  MaterialIconPowerSettingsNew,
+  MaterialIconTextFields,
+  MaterialIconPermMediaOutlined,
+  MaterialIconSpellcheck,
+  MaterialIconNavigationOutlined
+} from '@karma.run/icons'
+
 import {Text} from '../layout/typography.stories'
 import {NavigationTemplate} from './navigationTemplate'
 import {MenuIconButton} from '../atoms/menuIconButton'
-import {IconType} from '../atoms/icon'
 
 export default {
   component: NavigationTemplate,
@@ -14,12 +22,12 @@ export const Standard = () => (
   <NavigationTemplate
     navigationChildren={
       <>
-        <MenuIconButton icon={IconType.Article} label={'Article'} />
-        <MenuIconButton icon={IconType.Page} label={'Pages'} />
-        <MenuIconButton icon={IconType.MediaLibrary} label={'Media Library'} />
-        <MenuIconButton icon={IconType.Proofreading} label={'Proofreading'} />
-        <MenuIconButton icon={IconType.Menu} label={'Menu'} />
-        <MenuIconButton icon={IconType.Logout} label={'Logout'} />
+        <MenuIconButton icon={MaterialIconTextFields} label={'Article'} />
+        <MenuIconButton icon={MaterialIconInsertDriveFileOutlined} label={'Pages'} />
+        <MenuIconButton icon={MaterialIconPermMediaOutlined} label={'Media Library'} />
+        <MenuIconButton icon={MaterialIconSpellcheck} label={'Proofreading'} />
+        <MenuIconButton icon={MaterialIconNavigationOutlined} label={'Menu'} />
+        <MenuIconButton icon={MaterialIconPowerSettingsNew} label={'Logout'} />
       </>
     }>
     <Text />

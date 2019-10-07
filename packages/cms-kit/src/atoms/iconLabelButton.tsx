@@ -39,7 +39,7 @@ export interface IconLabelButtonProps extends ButtonProps {
 export function IconLabelButton({label, icon, ...rest}: IconLabelButtonProps) {
   return (
     <BaseButton {...rest} style={IconLabelButtonStyle}>
-      <Icon type={icon} scale={IconScale.Double} />
+      <Icon element={icon} scale={IconScale.Double} />
       <div>{label}</div>
     </BaseButton>
   )

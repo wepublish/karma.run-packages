@@ -3,6 +3,7 @@ import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
 import {OptionButton} from './optionButton'
 import {IconType} from './icon'
 import {pxToEm} from '../style/helpers'
+import {MaterialIconAdd} from '@karma.run/icons'
 
 const PlaceholderStyle = cssRuleWithTheme(({theme}) => ({
   display: 'flex',
@@ -40,7 +41,7 @@ export function Placeholder({children, onAdd}: PlaceholderProps) {
 
   return (
     <div className={css(PlaceholderStyle)}>
-      <OptionButton icon={IconType.Add} onClick={() => onAdd && onAdd()} />
+      <OptionButton icon={MaterialIconAdd} onClick={() => onAdd && onAdd()} />
     </div>
   )
 }

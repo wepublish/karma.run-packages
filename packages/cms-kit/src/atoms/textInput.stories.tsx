@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
 import {TextInput} from './textInput'
-import {IconType} from './icon'
+import {MaterialIconSearch} from '@karma.run/icons'
 
 export default {
   component: TextInput,
@@ -15,7 +15,7 @@ export const Interactive = () => {
 
   return (
     <TextInput
-      icon={IconType.Search}
+      icon={MaterialIconSearch}
       label="Label"
       description="Description"
       value={value}
@@ -30,7 +30,7 @@ export const WithValue = () => (
 
 export const WithIcon = () => (
   <TextInput
-    icon={IconType.Search}
+    icon={MaterialIconSearch}
     label="Label"
     value=""
     description="Description"

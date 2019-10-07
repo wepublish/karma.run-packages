@@ -129,7 +129,7 @@ export function UnionListField<V extends UnionListValue>({
           {casePickerIndex === index &&
             Object.entries(unionFieldMap).map(([type, value]) => (
               <button key={type} onClick={() => handleAdd(index, type)}>
-                <Icon type={value.icon} />
+                <Icon element={value.icon} />
                 {value.label}
               </button>
             ))}

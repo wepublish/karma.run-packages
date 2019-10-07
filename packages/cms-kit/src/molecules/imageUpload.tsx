@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 
-import {FileDropZone} from './fileDropZone'
-import {OptionButtonSmall} from '../atoms/optionButtonSmall'
-
-import {IconType} from '..'
-import {ProgressBar} from '../atoms/progressBar'
-import {ButtonBar} from '../atoms/buttonBar'
 import {cssRule, useStyle} from '@karma.run/react'
+import {MaterialIconCloudUploadOutlined, MaterialIconDeleteOutlined} from '@karma.run/icons'
+
+import {ButtonBar} from '../atoms/buttonBar'
 import {Icon} from '../atoms/icon'
+import {OptionButtonSmall} from '../atoms/optionButtonSmall'
+import {ProgressBar} from '../atoms/progressBar'
+import {FileDropZone} from './fileDropZone'
 
 enum UploadState {
   Empty = 'empty',
@@ -105,8 +105,10 @@ export function ImageUploadThumb({
   const {css} = useStyle()
   return (
     <div className={css(ImageUploadThumbStyle)}>
-      {!isLoading && <OptionButtonSmall icon={IconType.Delete} onClick={e => onDelete(id)} />}
-      {isLoading && <Icon type={IconType.Upload} />}
+      {!isLoading && (
+        <OptionButtonSmall icon={MaterialIconDeleteOutlined} onClick={e => onDelete(id)} />
+      )}
+      {isLoading && <Icon element={MaterialIconCloudUploadOutlined} />}
       <img src={src} width={210} height={140} />
       <div>{size}</div>
       <div>{name}</div>

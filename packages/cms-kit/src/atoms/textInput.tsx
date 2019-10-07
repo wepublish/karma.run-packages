@@ -127,7 +127,7 @@ export function TextInput({label, description, errorDescription, icon, ...props}
   return (
     <div className={css(TextInputContainerStyle)}>
       <label className={css(TextInputWrapperStyle)}>
-        {icon && <Icon type={icon} style={IconStyle} />}
+        {icon && <Icon element={icon} style={IconStyle} />}
         <BaseInput
           type={InputType.Text}
           placeholder={label}

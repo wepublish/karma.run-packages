@@ -50,7 +50,7 @@ export interface OptionButtonSmallProps extends ButtonProps {
 export function OptionButtonSmall({icon, ...rest}: OptionButtonSmallProps) {
   return (
     <BaseButton {...rest} style={OptionButtonSmallStyle}>
-      <Icon type={icon} />
+      <Icon element={icon} />
     </BaseButton>
   )
 }

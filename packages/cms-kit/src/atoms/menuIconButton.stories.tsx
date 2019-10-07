@@ -2,7 +2,7 @@ import React from 'react'
 import {MenuIconButton} from './menuIconButton'
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
-import {IconType} from './icon'
+import {MaterialIconHome} from '@karma.run/icons'
 
 export default {
   component: MenuIconButton,
@@ -10,4 +10,4 @@ export default {
   decorators: [centerLayoutDecorator()]
 }
 
-export const Standard = () => <MenuIconButton icon={IconType.Replace} label={'Label'} />
+export const Standard = () => <MenuIconButton icon={MaterialIconHome} label={'Label'} />

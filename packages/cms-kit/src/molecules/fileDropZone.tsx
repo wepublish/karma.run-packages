@@ -3,6 +3,7 @@ import {pxToRem, FontSize} from '../style/helpers'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
 import {Icon, IconType, IconScale} from '..'
 import {cssRule} from '@karma.run/react'
+import {MaterialIconCloudUploadOutlined} from '@karma.run/icons'
 
 const FileDropZoneStyle = cssRuleWithTheme<{dragging: boolean; isDisabled: boolean}>(
   ({dragging, isDisabled, theme}) => ({
@@ -89,7 +90,7 @@ export function FileDropZone({
       onDragLeave={!isDisabled ? handleDragOut : undefined}>
       {showPlaceholder ? (
         <div>
-          <Icon type={IconType.Upload} scale={IconScale.Double} />
+          <Icon element={MaterialIconCloudUploadOutlined} scale={IconScale.Double} />
           <div>{'Drop image here or click to upload'}</div>
         </div>
       ) : (
@@ -97,7 +98,7 @@ export function FileDropZone({
       )}
       {dragging && (
         <div className={css(DragOverStyle)}>
-          <Icon type={IconType.Upload} scale={IconScale.Double} />
+          <Icon element={MaterialIconCloudUploadOutlined} scale={IconScale.Double} />
           <div>{'Drop here'}</div>
         </div>
       )}

@@ -12,6 +12,8 @@ interface MenuIconButtonStyleProps {
 
 const MenuIconButtonStyle = cssRuleWithTheme(({theme}) => ({
   display: 'flex',
+  alignItems: 'center',
+
   padding: `${pxToRem(12)} ${pxToRem(18)}`,
 
   width: '100%',
@@ -63,7 +65,7 @@ export function MenuIconButton({
 
   return (
     <BaseButton href={href} onClick={onClick} style={MenuIconButtonStyle}>
-      <Icon type={icon} scale={iconScale} />
+      <Icon element={icon} scale={iconScale} block />
       <span className={css(LabelStyle)}>{label}</span>
     </BaseButton>
   )

@@ -1,4 +1,6 @@
 import React, {ReactNode} from 'react'
+import {MaterialIconArrowForward} from '@karma.run/icons'
+
 import {IconType} from '../atoms/icon'
 import {IconLabelButton} from '../atoms/iconLabelButton'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
@@ -61,7 +63,7 @@ export function SidePanelHeader({title, action, onClose}: SidePanelHeaderProps) 
   const {css} = useThemeStyle()
   return (
     <div className={css(SidePanelHeaderStyle)}>
-      <IconLabelButton icon={IconType.ArrowRight} label={'Close'} onClick={onClose} />
+      <IconLabelButton icon={MaterialIconArrowForward} label={'Close'} onClick={onClose} />
       <h4>{title}</h4>
       {action && (
         <IconLabelButton icon={action.icon} label={action.label} onClick={action.onClick} />

@@ -1,8 +1,15 @@
 import React from 'react'
 
+import {
+  MaterialIconDescription,
+  MaterialIconArrowBack,
+  MaterialIconPhonelink,
+  MaterialIconSaveOutlined,
+  MaterialIconPublishOutlined
+} from '@karma.run/icons'
+
 import {NavigationBar} from './navigationBar'
 import {IconLabelButton} from '../atoms/iconLabelButton'
-import {IconType} from '../atoms/icon'
 import {centerLayoutDecorator} from '../.storybook/decorators'
 
 export default {
@@ -13,13 +20,13 @@ export default {
 
 export const Standard = () => (
   <NavigationBar
-    leftChildren={<IconLabelButton label="Back" icon={IconType.ArrowLeft} />}
-    rightChildren={<IconLabelButton label="Preview" icon={IconType.Preview} />}
+    leftChildren={<IconLabelButton label="Back" icon={MaterialIconArrowBack} />}
+    rightChildren={<IconLabelButton label="Preview" icon={MaterialIconPhonelink} />}
     centerChildren={
       <>
-        <IconLabelButton label="Metadata" icon={IconType.Description} />
-        <IconLabelButton label="Save" icon={IconType.Save} />
-        <IconLabelButton label="Publish" icon={IconType.Publish} />
+        <IconLabelButton label="Metadata" icon={MaterialIconDescription} />
+        <IconLabelButton label="Save" icon={MaterialIconSaveOutlined} />
+        <IconLabelButton label="Publish" icon={MaterialIconPublishOutlined} />
       </>
     }
   />

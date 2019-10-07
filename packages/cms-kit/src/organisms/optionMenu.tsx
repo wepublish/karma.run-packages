@@ -3,8 +3,9 @@ import React, {useState} from 'react'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {OverlayMenu, MenuItem} from '../molecules/overlayMenu'
 import {BaseButton} from '../atoms/baseButton'
-import {IconType, Icon} from '../atoms/icon'
+import {Icon} from '../atoms/icon'
 import {pxToEm, FontSize} from '../style/helpers'
+import {MaterialIconMoreVert} from '@karma.run/icons'
 
 interface OptionMenuStyleProps {
   isOpen: boolean
@@ -37,7 +38,7 @@ export function OptionMenu({menuItems, onMenuItemClick}: OptionMenuProps) {
   return (
     <div className={css(OptionMenuStyle)}>
       <BaseButton style={OptionButtonStyle} styleProps={{isOpen}} onClick={() => setOpen(!isOpen)}>
-        <Icon type={IconType.More} />
+        <Icon element={MaterialIconMoreVert} />
       </BaseButton>
       {isOpen && (
         <OverlayMenu

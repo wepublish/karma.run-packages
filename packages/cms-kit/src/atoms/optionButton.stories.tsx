@@ -2,7 +2,7 @@ import React from 'react'
 import {OptionButton} from './optionButton'
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
-import {IconType} from './icon'
+import {MaterialIconAdd} from '@karma.run/icons'
 
 export default {
   component: OptionButton,
@@ -10,6 +10,6 @@ export default {
   decorators: [centerLayoutDecorator()]
 }
 
-export const Standard = () => <OptionButton icon={IconType.Add} />
+export const Standard = () => <OptionButton icon={MaterialIconAdd} />
 
-export const Disabled = () => <OptionButton icon={IconType.Add} disabled />
+export const Disabled = () => <OptionButton icon={MaterialIconAdd} disabled />

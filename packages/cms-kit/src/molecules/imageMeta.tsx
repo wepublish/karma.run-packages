@@ -1,11 +1,12 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 
-import {Icon, IconType, IconScale} from '../atoms/icon'
+import {Icon, IconScale} from '../atoms/icon'
 import {pxToRem} from '../style/helpers'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {Spacing} from '../style/helpers'
 import {Draggable} from '../atoms/draggable'
 import {DragContainer} from '../atoms/dragContainer'
+import {MaterialIconCenterFocusStrong} from '@karma.run/icons'
 import {DescriptionListing, DescriptionListingItem} from '../atoms/descriptionListingItem'
 
 const ImageMetaStyle = cssRuleWithTheme(({theme}) => ({
@@ -121,7 +122,7 @@ export function FocalPoint({}: FocalPointProps) {
 
   return (
     <div className={css(FocalPointStyle)}>
-      <Icon type={IconType.Focus} />
+      <Icon element={MaterialIconCenterFocusStrong} />
     </div>
   )
 }

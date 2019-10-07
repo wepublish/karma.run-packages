@@ -1,9 +1,10 @@
 import React from 'react'
+import {MaterialIconAdd} from '@karma.run/icons'
+
 import {centerLayoutDecorator} from '../.storybook/decorators'
-import {SidePanel, SidePanelHeader, SidePanelTitle} from './sidePanel'
+import {SidePanel, SidePanelTitle} from './sidePanel'
 import {useState} from '@storybook/addons'
 import {OptionButton} from '../atoms/optionButton'
-import {IconType} from '../atoms/icon'
 import {TextInput} from '../atoms/textInput'
 import {Dropdown} from '../atoms/dropdown'
 import {Toggle} from '../atoms/toggle'
@@ -20,7 +21,7 @@ export const Empty = () => {
   return (
     <>
       {!showSidePanel && (
-        <OptionButton icon={IconType.Add} onClick={() => setShowSidePanel(true)} />
+        <OptionButton icon={MaterialIconAdd} onClick={() => setShowSidePanel(true)} />
       )}
       {showSidePanel && (
         <SidePanel title={'Title'} onClose={() => setShowSidePanel(false)}>

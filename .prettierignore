@@ -2,3 +2,9 @@ lib/
 dist/
 static/
 package.json
+
+packages/icons/src/materialIcons.tsx
+packages/icons/src/materialIconsOutlined.tsx
+packages/icons/src/materialIconsRound.tsx
+packages/icons/src/materialIconsSharp.tsx
+packages/icons/src/materialIconsTwoTone.tsx

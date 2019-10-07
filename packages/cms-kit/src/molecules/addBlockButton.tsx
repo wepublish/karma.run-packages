@@ -1,7 +1,7 @@
 import React from 'react'
-import {IconType} from '../atoms/icon'
 import {OptionButtonSmall} from '../atoms/optionButtonSmall'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
+import {MaterialIconAdd} from '@karma.run/icons'
 
 export interface AddBlockButtonStyleProps {
   active: boolean
@@ -49,7 +49,7 @@ export function AddBlockButton({onClick, active = false}: AddBlockButtonProps) {
   return (
     <div className={css(AddBlockButtonStyle)}>
       <div className={css(AddBlockButtonWrapperStyle)}>
-        <OptionButtonSmall title="Add Block" icon={IconType.Add} onClick={() => onClick()} />
+        <OptionButtonSmall title="Add Block" icon={MaterialIconAdd} onClick={() => onClick()} />
       </div>
     </div>
   )

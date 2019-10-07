@@ -2,7 +2,7 @@ import React from 'react'
 
 import {IconLabelButton} from './iconLabelButton'
 import {centerLayoutDecorator} from '../.storybook/decorators'
-import {IconType} from './icon'
+import {MaterialIconSaveOutlined} from '@karma.run/icons'
 
 export default {
   component: IconLabelButton,
@@ -10,6 +10,8 @@ export default {
   decorators: [centerLayoutDecorator()]
 }
 
-export const Standard = () => <IconLabelButton icon={IconType.Save} label={'Label'} />
+export const Standard = () => <IconLabelButton icon={MaterialIconSaveOutlined} label={'Label'} />
 
-export const Disabled = () => <IconLabelButton icon={IconType.Save} label={'Label'} disabled />
+export const Disabled = () => (
+  <IconLabelButton icon={MaterialIconSaveOutlined} label={'Label'} disabled />
+)

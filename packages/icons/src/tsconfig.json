@@ -1,0 +1,14 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "include": ["./**/*"],
+  "exclude": ["./**/*.stories.*"],
+  "compilerOptions": {
+    "sourceMap": false,
+    "declarationMap": false,
+    "outDir": "../lib/cjs/",
+    "module": "commonjs",
+    "types": [],
+    "lib": ["dom", "dom.iterable", "es2017"],
+    "composite": true
+  }
+}

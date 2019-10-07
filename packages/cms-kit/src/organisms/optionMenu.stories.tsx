@@ -1,8 +1,8 @@
 import React from 'react'
+import {MaterialIconFileCopyOutlined, MaterialIconArchiveOutlined} from '@karma.run/icons'
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
 import {OptionMenu} from './optionMenu'
-import {IconType} from '../atoms/icon'
 
 export default {
   component: OptionMenu,
@@ -13,8 +13,8 @@ export default {
 export const Standard = () => (
   <OptionMenu
     menuItems={[
-      {id: 'copy', icon: IconType.Copy, label: 'Copy'},
-      {id: 'archive', icon: IconType.Archive, label: 'Archive'}
+      {id: 'copy', icon: MaterialIconFileCopyOutlined, label: 'Copy'},
+      {id: 'archive', icon: MaterialIconArchiveOutlined, label: 'Archive'}
     ]}
     onMenuItemClick={item => {}}
   />

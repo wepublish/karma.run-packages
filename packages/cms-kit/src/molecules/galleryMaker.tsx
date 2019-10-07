@@ -6,6 +6,7 @@ import {IconType} from '../atoms/icon'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem, Spacing, BorderWidth, FontSize} from '../style/helpers'
 import {OutlineButton} from '../atoms/outlineButton'
+import {MaterialIconKeyboardArrowUp, MaterialIconKeyboardArrowDown} from '@karma.run/icons'
 
 export interface GalleryImage {
   readonly id: string
@@ -180,7 +181,7 @@ export function GalleryMakerItem({image, onMoveUp, onMoveDown, onRemove}: Galler
           <div className={css(GalleryMakerItemMoverStyle)}>
             <OptionButtonSmall
               title="Move Up"
-              icon={IconType.ChevronUp}
+              icon={MaterialIconKeyboardArrowUp}
               onClick={() => {
                 if (onMoveUp) onMoveUp()
               }}
@@ -188,7 +189,7 @@ export function GalleryMakerItem({image, onMoveUp, onMoveDown, onRemove}: Galler
             />
             <OptionButtonSmall
               title="Move Down"
-              icon={IconType.ChevronDown}
+              icon={MaterialIconKeyboardArrowDown}
               onClick={() => {
                 if (onMoveDown) onMoveDown()
               }}

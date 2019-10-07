@@ -1,6 +1,7 @@
 import React from 'react'
+import {MaterialIconClose} from '@karma.run/icons'
 
-import {IconType, Icon} from './icon'
+import {Icon} from './icon'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {BaseButton} from './baseButton'
 import {FontSize, pxToRem, Spacing, TransitionDuration} from '../style/helpers'
@@ -47,7 +48,7 @@ export function FilterTag({text, onDismiss}: FilterTagProps) {
     <div className={css(FilterTagStyle)}>
       {text}
       <BaseButton onClick={onDismiss} style={CloseButtonStyle}>
-        <Icon type={IconType.Close} />
+        <Icon element={MaterialIconClose} />
       </BaseButton>
     </div>
   )

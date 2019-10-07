@@ -42,7 +42,7 @@ export interface OptionButtonProps extends ButtonProps {
 export function OptionButton({icon, ...rest}: OptionButtonProps) {
   return (
     <BaseButton {...rest} style={OptionButtonStyle}>
-      <Icon type={icon} />
+      <Icon element={icon} />
     </BaseButton>
   )
 }
