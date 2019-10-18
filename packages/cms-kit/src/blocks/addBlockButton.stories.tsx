@@ -5,7 +5,7 @@ import {AddBlockButton} from './addBlockButton'
 
 export default {
   component: AddBlockButton,
-  title: 'Molecules|AddBlockButton',
+  title: 'Blocks|Interactivty/AddBlockButton',
   decorators: [centerLayoutDecorator(0.8)]
 }
 

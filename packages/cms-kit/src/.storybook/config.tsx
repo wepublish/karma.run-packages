@@ -19,6 +19,7 @@ configure(
     require.context('../atoms', true, /\.stories.tsx?$/),
     require.context('../molecules', true, /\.stories.tsx?$/),
     require.context('../organisms', true, /\.stories.tsx?$/),
+    require.context('../blocks', true, /\.stories.tsx?$/),
     require.context('../layout', true, /\.stories.tsx?$/),
     require.context('../fields', true, /\.stories.tsx?$/),
     require.context('../templates', true, /\.stories.tsx?$/)

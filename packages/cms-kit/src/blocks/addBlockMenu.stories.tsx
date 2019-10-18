@@ -14,7 +14,7 @@ import {
 
 export default {
   component: AddBlockMenu,
-  title: 'Organisms|AddBlockMenu',
+  title: 'Blocks|Interactivty/AddBlockMenu',
   decorators: [centerLayoutDecorator(0.8)]
 }
 

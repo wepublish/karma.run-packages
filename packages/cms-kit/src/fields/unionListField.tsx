@@ -6,7 +6,7 @@ import {isFunctionalUpdate, isValueConstructor, useStyle, cssRule} from '@karma.
 import {FieldProps, UnionListValue, UnionListCaseMapForValue, UnionFieldCaseMap} from './types'
 import {Icon, IconType} from '../atoms/icon'
 import {ListItemWrapper} from '../molecules/listItemWrapper'
-import {AddBlockMenu} from '../organisms/addBlockMenu'
+import {AddBlockMenu} from '../blocks/addBlockMenu'
 
 const UnionListFieldStyle = cssRule({
   width: '100%'

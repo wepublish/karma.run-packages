@@ -26,7 +26,6 @@ export * from './atoms/radioGroup'
 export * from './atoms/toast'
 
 // Molecules
-export * from './molecules/addBlockButton'
 export * from './molecules/galleryMaker'
 export * from './molecules/imageMeta'
 export * from './molecules/imageUpload'
@@ -37,7 +36,6 @@ export * from './molecules/searchBar'
 // Organisms
 export * from './organisms/navigation'
 export * from './organisms/navigationBar'
-export * from './organisms/addBlockMenu'
 export * from './organisms/optionMenu'
 export * from './organisms/sidePanel'
 

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 import {OverlayMenu, MenuItem} from '../molecules/overlayMenu'
-import {AddBlockButton} from '../molecules/addBlockButton'
+import {AddBlockButton} from './addBlockButton'
 import {useStyle, cssRule} from '@karma.run/react'
 
 const AddBlockMenuStyle = cssRule(() => ({
