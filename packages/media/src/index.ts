@@ -30,13 +30,12 @@ export interface ServerOptions {
 
   tempDirPath?: string
   maxUploadSize?: number
-
-  tokens: {[key: string]: string}
+  token: string
 }
 
 export default async function startMediaServer(opts: ServerOptions): Promise<() => Promise<void>> {
-  if (Object.keys(opts.tokens).length === 0) {
-    console.warn('No "tokens" defined, you won\'t be able to upload or manage media.')
+  if (Object.keys(opts.token).length === 0) {
+    console.warn('No "token" defined, you won\'t be able to upload or manage media.')
   }
 
   opts.logger = opts.logger || true
@@ -54,11 +53,11 @@ export default async function startMediaServer(opts: ServerOptions): Promise<() 
 
     imageBackend: opts.imageBackend,
     storageBackend: opts.storageBackend,
-    tokens: opts.tokens,
+    token: opts.token,
 
     verifyToken(req: FastifyRequest) {
       const [, token] = req.headers.authorization.match(/Bearer (.+?$)/i) || []
-      return Object.values(opts.tokens).includes(token)
+      return token === opts.token
     }
   }
 

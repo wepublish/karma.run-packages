@@ -13,8 +13,8 @@ if (cluster.isMaster) {
     cluster.fork()
   }
 } else {
-  if (!process.env.TOKENS) {
-    console.error('No TOKENS are defined in the environment.')
+  if (!process.env.TOKEN) {
+    console.error('No TOKEN defined in the environment.')
     process.exit(1)
   }
 
@@ -23,7 +23,7 @@ if (cluster.isMaster) {
     process.exit(1)
   }
 
-  const tokens = process.env.TOKENS!
+  const token = process.env.TOKEN!
   const storagePath = process.env.STORAGE_PATH!
   const port = process.env.PORT ? parseInt(process.env.PORT) : undefined
   const debug = Boolean(process.env.DEBUG)
@@ -36,15 +36,6 @@ if (cluster.isMaster) {
     debug,
 
     address: '0.0.0.0',
-    tokens: tokens
-      .split(',')
-      .map(keySecret => keySecret.split(':'))
-      .reduce(
-        (acc, [key, secret]) => {
-          acc[key] = secret
-          return acc
-        },
-        {} as {[key: string]: string}
-      )
+    token
   })
 }

@@ -11,7 +11,7 @@ export interface ServerContext {
   maxUploadSize: number
 
   debug: boolean
-  tokens: {[key: string]: string}
+  token: string
 
   verifyToken(req: fastify.FastifyRequest): boolean
 }
