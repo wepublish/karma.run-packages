@@ -14,7 +14,7 @@
     "watch:cjs": "tsc -p ./tsconfig.json --declarationMap --declaration --outDir ./lib --watch",
     "copy-license": "shx cp ../../LICENSE ./",
     "clean": "shx rm -rf ./LICENSE ./lib",
-    "prepare": "run-s clean copy:license build sync-package-info",
+    "prepare": "run-s clean copy-license build sync-package-info",
     "sync-package-info": "node ./../../scripts/syncPackageInfo.js ./src/version.ts"
   },
   "peerDependencies": {
