@@ -11,10 +11,11 @@ import React, {
   MouseEventHandler
 } from 'react'
 
+import {UnionToIntersection} from '@karma.run/utility'
+
 import pathToRegexp, {Key} from 'path-to-regexp'
 
 import {ChildrenProps} from './types'
-import {UnionToIntersection} from './utility'
 import {useEventListener} from './hooks'
 
 export enum HistoryType {
@@ -484,20 +485,32 @@ export interface CreateOptions<D = unknown> {
   scroll?: ScrollData | null
 }
 
-export function route<T extends string, P extends RouteParameter[], D = unknown>(
+export function route<T extends string, P extends RouteParameter[]>(
+  type: T,
+  path: RoutePath<P>
+): Route<T, P, null>
+export function route<T extends string, P extends RouteParameter[], D>(
   type: T,
   path: RoutePath<P>,
   defaultData: D
-): Route<T, P, D> {
+): Route<T, P, D>
+export function route<T extends string, P extends RouteParameter[]>(
+  type: T,
+  path: RoutePath<P>,
+  defaultData: unknown = null
+): Route<T, P, unknown> {
   return {
     type,
     path,
-    defaultData,
+    defaultData: defaultData || null,
 
     reverse: path.reverse,
     match: path.match,
 
-    create(params, {data, query, hash, scroll}: CreateOptions<D> = {}): RouteInstance<T, P, D> {
+    create(
+      params,
+      {data, query, hash, scroll}: CreateOptions<any> = {}
+    ): RouteInstance<T, P, unknown> {
       return {
         type,
         params,

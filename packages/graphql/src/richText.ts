@@ -2,6 +2,8 @@ import {GraphQLScalarType, valueFromASTUntyped} from 'graphql'
 import {DocumentJSON, NodeJSON, BlockJSON, TextJSON, MarkJSON, InlineJSON} from 'slate'
 import {isObject, isArray, isString} from '@karma.run/utility'
 
+export type RichTextValue = DocumentJSON
+
 export interface KeyGeneratorClass {
   new (): KeyGenerator
 }
@@ -47,10 +49,10 @@ export function createRichTextScalar({
       return node
     },
 
-    parseLiteral(ast, variables) {
+    parseLiteral(ast) {
       const keyGenerator = new keyGeneratorClass()
       const opts = {validation, keyGenerator}
-      const node = validateNodeJSON(valueFromASTUntyped(ast, variables), opts)
+      const node = validateNodeJSON(valueFromASTUntyped(ast), opts)
 
       if (node.object !== 'document') throw new TypeError(`Top-level node must be a document node.`)
       return node

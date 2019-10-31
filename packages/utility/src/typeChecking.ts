@@ -29,3 +29,9 @@ export function isFunction(unknown: unknown): unknown is Function {
 export function isBoolean(unknown: unknown): unknown is boolean {
   return typeof unknown === 'boolean'
 }
+
+export type ValueConstructor<T> = T | (() => T)
+
+export function isValueConstructor<T>(value: T | (() => T)): value is () => T {
+  return typeof value === 'function' ? true : false
+}

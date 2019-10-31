@@ -1,0 +1,25 @@
+{
+  "name": "@karma.run/media-example",
+  "private": true,
+  "version": "0.0.0",
+  "main": "./lib/index.js",
+  "license": "MIT",
+  "repository": "github:karmarun/karma.media",
+  "scripts": {
+    "start": "node ./lib/index.js",
+    "watch:start": "nodemon ./index.js",
+    "clean": "shx rm -rf ./lib",
+    "build": "tsc --declaration --outDir ./lib",
+    "watch": "run-p watch:*",
+    "watch:cjs": "tsc -p ./tsconfig.json --declarationMap --declaration --outDir ./lib --watch"
+  },
+  "dependencies": {
+    "@karma.run/media": "^0.0.0",
+    "@karma.run/media-storage-local": "^0.0.0",
+    "@karma.run/media-image-sharp": "^0.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.10",
+    "nodemon": "^1.19.1"
+  }
+}

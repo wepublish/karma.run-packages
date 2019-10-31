@@ -1,4 +1,4 @@
-import {useEffect, DependencyList} from 'react'
+import {useEffect, DependencyList, RefObject, useState} from 'react'
 
 export function useFetch(
   input: RequestInfo | null,
@@ -41,4 +41,36 @@ export function useEventListener<T extends EventTarget, E extends Event>(
     target.addEventListener(event, callback as EventListener)
     return () => target.removeEventListener(event, callback as EventListener)
   }, deps)
+}
+
+export function useIntersectionObserver(
+  ref: RefObject<HTMLElement>,
+  {root = null, rootMargin = '0px', threshold = 0}: IntersectionObserverInit = {}
+): IntersectionObserverEntry | null {
+  const [entry, setEntry] = useState<IntersectionObserverEntry | null>(null)
+
+  useEffect(() => {
+    const element = ref.current
+
+    if (!element) return () => {}
+
+    const observer = new IntersectionObserver(([entry]) => setEntry(entry), {
+      root,
+      rootMargin,
+      threshold
+    })
+
+    observer.observe(element)
+    return () => observer.unobserve(element)
+  }, [ref.current])
+
+  return entry
+}
+
+export function useVisibility(
+  ref: RefObject<HTMLElement>,
+  opts?: IntersectionObserverInit
+): boolean {
+  const entry = useIntersectionObserver(ref, opts)
+  return entry ? entry.isIntersecting : false
 }

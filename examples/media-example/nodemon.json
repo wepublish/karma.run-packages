@@ -1,0 +1,15 @@
+{
+  "watch": [
+    "../../node_modules/@karma.run/media/lib/*.js",
+    "../../node_modules/@karma.run/media-*/lib/*.js",
+    "./index.js",
+    "./nodemon.json"
+  ],
+  "delay": 250,
+  "env": {
+    "NUM_CLUSTERS": 1,
+    "DEBUG": true,
+    "STORAGE_PATH": "./.media"
+  },
+  "ignoreRoot": []
+}
