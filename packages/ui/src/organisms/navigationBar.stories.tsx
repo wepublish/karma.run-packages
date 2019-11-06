@@ -9,7 +9,7 @@ import {
 } from '@karma.run/icons'
 
 import {NavigationBar} from './navigationBar'
-import {IconLabelButton} from '../atoms/iconLabelButton'
+import {IconButton} from '../atoms/iconButton'
 import {centerLayoutDecorator} from '../.storybook/decorators'
 
 export default {
@@ -20,13 +20,13 @@ export default {
 
 export const Standard = () => (
   <NavigationBar
-    leftChildren={<IconLabelButton label="Back" icon={MaterialIconArrowBack} />}
-    rightChildren={<IconLabelButton label="Preview" icon={MaterialIconPhonelink} />}
+    leftChildren={<IconButton label="Back" icon={MaterialIconArrowBack} />}
+    rightChildren={<IconButton label="Preview" icon={MaterialIconPhonelink} />}
     centerChildren={
       <>
-        <IconLabelButton label="Metadata" icon={MaterialIconDescription} />
-        <IconLabelButton label="Save" icon={MaterialIconSaveOutlined} />
-        <IconLabelButton label="Publish" icon={MaterialIconPublishOutlined} />
+        <IconButton label="Metadata" icon={MaterialIconDescription} />
+        <IconButton label="Save" icon={MaterialIconSaveOutlined} />
+        <IconButton label="Publish" icon={MaterialIconPublishOutlined} />
       </>
     }
   />

@@ -24,13 +24,14 @@ const NavigationTemplateContentWrapperStyle = cssRuleWithTheme(() => ({
   justifyContent: 'center',
 
   width: '100%',
-  height: '100%'
+  height: '100%',
+
+  padding: `${pxToRem(Spacing.ExtraLarge)} ${pxToRem(Spacing.Large)}`
 }))
 
 const NavigationTemplateContentStyle = cssRuleWithTheme(() => ({
   width: '100%',
-  maxWidth: pxToRem(contentMaxWidth),
-  padding: `${pxToRem(Spacing.ExtraLarge)} ${pxToRem(Spacing.Large)}`
+  maxWidth: pxToRem(contentMaxWidth)
 }))
 
 export interface NavigationTemplateProps {

@@ -29,15 +29,14 @@ const DragOverStyle = cssRule({
 })
 
 export interface FileDropZoneProps {
-  readonly formatRestriction?: string[]
-  children?: ReactNode
+  readonly children?: ReactNode
   readonly isDisabled?: boolean
   readonly showPlaceholder?: boolean
-  onDrop(fileList: FileList): void
+
+  onDrop(fileList: File[]): void
 }
 
 export function FileDropZone({
-  formatRestriction,
   isDisabled = false,
   showPlaceholder = false,
   onDrop,
@@ -75,13 +74,12 @@ export function FileDropZone({
     setDragging({dragging: false, dragCount: 0})
 
     if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
-      onDrop(event.dataTransfer.files)
+      onDrop(Array.from(event.dataTransfer.files))
       event.dataTransfer.clearData()
     }
   }
 
   return (
-    // TODO use <input type=file > ?
     <div
       className={css(FileDropZoneStyle)}
       onDrop={!isDisabled ? handleDrop : undefined}
@@ -91,7 +89,7 @@ export function FileDropZone({
       {showPlaceholder ? (
         <div>
           <Icon element={MaterialIconCloudUploadOutlined} scale={IconScale.Double} />
-          <div>{'Drop image here or click to upload'}</div>
+          <div>{'Drop Image Here'}</div>
         </div>
       ) : (
         children
@@ -99,7 +97,7 @@ export function FileDropZone({
       {dragging && (
         <div className={css(DragOverStyle)}>
           <Icon element={MaterialIconCloudUploadOutlined} scale={IconScale.Double} />
-          <div>{'Drop here'}</div>
+          <div>{'Drop Here'}</div>
         </div>
       )}
     </div>

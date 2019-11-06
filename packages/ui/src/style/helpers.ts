@@ -1,4 +1,5 @@
 import {CSSStyle} from '@karma.run/react'
+import {Theme} from './themeContext'
 
 export enum Breakpoint {
   Mobile = 0,
@@ -38,13 +39,18 @@ export enum BorderWidth {
 }
 
 export enum BorderRadius {
-  Tiny = 2,
-  Small = 5,
-  Medium = 10
+  Tiny = '0.2rem',
+  Small = '0.5rem',
+  Medium = '1rem'
+}
+
+export enum TransitionDurationRaw {
+  Fast = 100,
+  Slow = 200
 }
 
 export enum TransitionDuration {
-  Fast = '50ms',
+  Fast = '100ms',
   Slow = '200ms'
 }
 
@@ -78,4 +84,28 @@ export function hexToRgba(hex: string | number, alpha: number) {
   const blue = 0xff & (hex >> 0)
 
   return `rgba(${red}, ${green}, ${blue}, ${alpha})`
+}
+
+export function remify(value?: string | number) {
+  return typeof value === 'string' ? value : value != undefined ? pxToRem(value) : value
+}
+
+export function scrollBarStyle(theme: Theme): CSSStyle {
+  return {
+    '::-webkit-scrollbar': {
+      width: pxToRem(Spacing.Tiny)
+    },
+
+    '::-webkit-scrollbar-thumb': {
+      backgroundColor: theme.colors.gray,
+      borderTopLeftRadius: pxToRem(Spacing.Tiny),
+      borderBottomLeftRadius: pxToRem(Spacing.Tiny)
+    },
+
+    '::-webkit-scrollbar-track': {
+      backgroundColor: theme.colors.grayLight,
+      borderTopLeftRadius: pxToRem(Spacing.Tiny),
+      borderBottomLeftRadius: pxToRem(Spacing.Tiny)
+    }
+  }
 }

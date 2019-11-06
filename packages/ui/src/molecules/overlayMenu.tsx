@@ -2,7 +2,7 @@ import React from 'react'
 
 import {IconType, IconScale} from '../atoms/icon'
 import {MenuIconButton} from '../atoms/menuIconButton'
-import {IconLabelButton} from '../atoms/iconLabelButton'
+import {IconButton} from '../atoms/iconButton'
 
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem} from '../style/helpers'
@@ -66,7 +66,7 @@ export function OverlayMenu({menuItems, inline, onMenuItemClick}: OverlayMenuPro
         {rows.map((columns, index) => (
           <div key={index}>
             {columns.map((item, index) => (
-              <IconLabelButton
+              <IconButton
                 key={index}
                 label={item.label}
                 icon={item.icon}

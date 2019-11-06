@@ -1,6 +1,6 @@
 import React, {ReactNode, MouseEventHandler} from 'react'
 
-import {cssRule, padding} from '@karma.run/react'
+import {cssRule, padding, CSSStyle} from '@karma.run/react'
 import {toArray} from '@karma.run/utility'
 
 import {useThemeStyle, CSSRuleWithTheme} from '../style/themeContext'
@@ -30,7 +30,7 @@ export interface BaseButtonPropsWithStyleProps<P = undefined> extends ButtonProp
   readonly styleProps: P
 }
 
-export const BaseButtonStyle = cssRule({
+export const ButtonResetStyle: CSSStyle = {
   display: 'inline-block',
   overflow: 'hidden',
 
@@ -53,7 +53,9 @@ export const BaseButtonStyle = cssRule({
   ':focus': {
     outline: 'none'
   }
-})
+}
+
+export const BaseButtonStyle = cssRule(ButtonResetStyle)
 
 export function BaseButton(props: BaseButtonPropsWithoutStyleProps): JSX.Element
 export function BaseButton<P = undefined>(props: BaseButtonPropsWithStyleProps<P>): JSX.Element

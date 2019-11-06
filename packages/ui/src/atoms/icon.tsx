@@ -17,6 +17,8 @@ interface IconStyleProps {
 }
 
 const IconStyle = cssRuleWithTheme<IconStyleProps>(({scale, block}) => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'Icon' : undefined,
+
   display: block ? 'block' : 'inline-block',
 
   flexShrink: 0,

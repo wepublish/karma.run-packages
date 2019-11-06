@@ -9,7 +9,7 @@ import {MaterialIconClose, MaterialIconKeyboardArrowDown} from '@karma.run/icons
 
 const SearchBarStyle = cssRuleWithTheme(({theme}) => ({
   border: `1px solid ${theme.colors.grayLight}`,
-  borderRadius: pxToRem(BorderRadius.Medium),
+  borderRadius: BorderRadius.Medium,
   display: 'flex',
   fontSize: pxToEm(FontSize.Medium),
   padding: pxToRem(Spacing.ExtraSmall),

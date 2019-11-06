@@ -16,10 +16,11 @@ import {
   WidthProperty,
   HeightProperty,
   MinHeightProperty,
-  MaxHeightProperty
+  MaxHeightProperty,
+  OverflowProperty
 } from 'csstype'
 
-import {pxToRem} from '../style/helpers'
+import {remify} from '../style/helpers'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
 import {margin, padding} from '@karma.run/react'
 
@@ -28,6 +29,7 @@ export interface BaseBoxProps {
   readonly inlineFlex?: boolean
   readonly inline?: boolean
   readonly block?: boolean
+  readonly overflow?: OverflowProperty
 
   readonly flexDirection?: FlexDirectionProperty
   readonly justifyContent?: JustifyContentProperty
@@ -41,13 +43,13 @@ export interface BaseBoxProps {
   readonly flexShrink?: GlobalsNumber
   readonly flexWrap?: FlexWrapProperty
 
-  readonly width?: WidthProperty<string>
-  readonly minWidth?: MinWidthProperty<string>
-  readonly maxWidth?: MaxWidthProperty<string>
+  readonly width?: WidthProperty<string | number>
+  readonly minWidth?: MinWidthProperty<string | number>
+  readonly maxWidth?: MaxWidthProperty<string | number>
 
-  readonly height?: HeightProperty<string>
-  readonly minHeight?: MinHeightProperty<string>
-  readonly maxHeight?: MaxHeightProperty<string>
+  readonly height?: HeightProperty<string | number>
+  readonly minHeight?: MinHeightProperty<string | number>
+  readonly maxHeight?: MaxHeightProperty<string | number>
 
   readonly padding?: number | string
   readonly paddingTop?: number | string
@@ -76,6 +78,15 @@ const BoxBaseStyle = cssRuleWithTheme<BoxStyleProps>(
     margin: marginValue,
     padding: paddingValue,
     theme,
+
+    width,
+    minWidth,
+    maxWidth,
+
+    height,
+    minHeight,
+    maxHeight,
+
     marginTop,
     marginBottom,
     marginLeft,
@@ -86,32 +97,8 @@ const BoxBaseStyle = cssRuleWithTheme<BoxStyleProps>(
     paddingRight,
     ...props
   }) => {
-    marginValue =
-      typeof marginValue === 'string' ? marginValue : marginValue && pxToRem(marginValue)
-
-    marginTop = typeof marginTop === 'string' ? marginTop : marginTop && pxToRem(marginTop)
-
-    marginBottom =
-      typeof marginBottom === 'string' ? marginBottom : marginBottom && pxToRem(marginBottom)
-
-    marginLeft = typeof marginLeft === 'string' ? marginLeft : marginLeft && pxToRem(marginLeft)
-
-    marginRight =
-      typeof marginRight === 'string' ? marginRight : marginRight && pxToRem(marginRight)
-
-    paddingValue =
-      typeof paddingValue === 'string' ? paddingValue : paddingValue && pxToRem(paddingValue)
-
-    paddingTop = typeof paddingTop === 'string' ? paddingTop : paddingTop && pxToRem(paddingTop)
-
-    paddingBottom =
-      typeof paddingBottom === 'string' ? paddingBottom : paddingBottom && pxToRem(paddingBottom)
-
-    paddingLeft =
-      typeof paddingLeft === 'string' ? paddingLeft : paddingLeft && pxToRem(paddingLeft)
-
-    paddingRight =
-      typeof paddingRight === 'string' ? paddingRight : paddingRight && pxToRem(paddingRight)
+    marginValue = remify(marginValue)
+    paddingValue = remify(paddingValue)
 
     return {
       _className: process.env.NODE_ENV !== 'production' ? 'Box' : undefined,
@@ -126,18 +113,26 @@ const BoxBaseStyle = cssRuleWithTheme<BoxStyleProps>(
         ? 'inline'
         : undefined,
 
+      width: remify(width),
+      minWidth: remify(minWidth),
+      maxWidth: remify(maxWidth),
+
+      height: remify(height),
+      minHeight: remify(minHeight),
+      maxHeight: remify(maxHeight),
+
       ...margin(
-        marginTop || marginValue,
-        marginRight || marginValue,
-        marginBottom || marginValue,
-        marginLeft || marginValue
+        remify(marginTop) || marginValue,
+        remify(marginRight) || marginValue,
+        remify(marginBottom) || marginValue,
+        remify(marginLeft) || marginValue
       ),
 
       ...padding(
-        paddingTop || paddingValue,
-        paddingRight || paddingValue,
-        paddingBottom || paddingValue,
-        paddingLeft || paddingValue
+        remify(paddingTop) || paddingValue,
+        remify(paddingRight) || paddingValue,
+        remify(paddingBottom) || paddingValue,
+        remify(paddingLeft) || paddingValue
       ),
 
       ...props

@@ -1,7 +1,7 @@
-import React, {ReactNode, useState, createContext} from 'react'
+import React, {ReactNode, useState, createContext, useEffect} from 'react'
 import {Icon} from '../atoms/icon'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
-import {pxToRem, TransitionDuration, Spacing, FontSize} from '../style/helpers'
+import {pxToRem, TransitionDuration, Spacing, FontSize, scrollBarStyle} from '../style/helpers'
 import {BaseButton} from '../atoms/baseButton'
 import {MaterialIconChevronLeft, MaterialIconChevronRight} from '@karma.run/icons'
 
@@ -33,21 +33,7 @@ const NavigationItemContentStyle = cssRuleWithTheme<NavigationStyleProps>(({them
   marginBottom: pxToRem(Spacing.Large),
   overflow: 'auto',
 
-  '::-webkit-scrollbar': {
-    width: pxToRem(Spacing.Tiny)
-  },
-
-  '::-webkit-scrollbar-thumb': {
-    backgroundColor: theme.colors.gray,
-    borderTopLeftRadius: pxToRem(Spacing.Tiny),
-    borderBottomLeftRadius: pxToRem(Spacing.Tiny)
-  },
-
-  '::-webkit-scrollbar-track': {
-    backgroundColor: theme.colors.grayLight,
-    borderTopLeftRadius: pxToRem(Spacing.Tiny),
-    borderBottomLeftRadius: pxToRem(Spacing.Tiny)
-  }
+  ...scrollBarStyle(theme)
 }))
 
 export interface NavigationProps {
@@ -55,8 +41,17 @@ export interface NavigationProps {
 }
 
 export function Navigation({children}: NavigationProps) {
-  const [isCollapsed, setCollapsed] = useState(false)
+  const [isCollapsed, setCollapsed] = useState(
+    typeof localStorage === 'object'
+      ? JSON.parse(localStorage.getItem('karma.run/ui:isNavigationCollapsed') || 'false') // TODO: Use context to save user preferences
+      : false
+  )
+
   const css = useThemeStyle({isCollapsed})
+
+  useEffect(() => {
+    localStorage.setItem('karma.run/ui:isNavigationCollapsed', JSON.stringify(isCollapsed))
+  }, [isCollapsed])
 
   return (
     <NavigationContext.Provider value={{isCollapsed}}>

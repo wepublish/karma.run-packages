@@ -22,7 +22,11 @@ configure(
     require.context('../blocks', true, /\.stories.tsx?$/),
     require.context('../layout', true, /\.stories.tsx?$/),
     require.context('../fields', true, /\.stories.tsx?$/),
-    require.context('../containers', true, /\.stories.tsx?$/),
+    require.context('../data', true, /\.stories.tsx?$/),
+    require.context('../panel', true, /\.stories.tsx?$/),
+    require.context('../modal', true, /\.stories.tsx?$/),
+    require.context('../feedback', true, /\.stories.tsx?$/),
+    require.context('../interaction', true, /\.stories.tsx?$/),
     require.context('../templates', true, /\.stories.tsx?$/),
     require.context('../', true, /\.stories.tsx?$/)
   ],

@@ -9,9 +9,9 @@ interface GridStyleProps {
 const GridStyle = cssRule<GridStyleProps>(({spacing}) => ({
   display: 'flex',
   flexWrap: 'wrap',
-  width: `calc(100% + ${pxToRem(spacing)})`,
+  width: `calc(100% + ${pxToRem(spacing / 2)})`,
   height: '100%',
-  margin: pxToRem(-spacing)
+  margin: pxToRem(-spacing / 2)
 }))
 
 export interface GridProps {
@@ -46,7 +46,7 @@ const ColumnStyle = cssRule<ColumnStyleProps>(({flexBasis, spacing}) => ({
 const ColumnItemStyle = cssRule<ColumnStyleProps>(({spacing}) => ({
   width: '100%',
   height: '100%',
-  padding: pxToRem(spacing)
+  padding: pxToRem(spacing / 2)
 }))
 
 export interface GridColumnProp {

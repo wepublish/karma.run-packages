@@ -13,7 +13,7 @@ import {
 const TextButtonStyle = cssRuleWithTheme(({theme}) => ({
   border: 'none',
   color: theme.colors.alert,
-  borderRadius: pxToRem(BorderRadius.Tiny),
+  borderRadius: BorderRadius.Tiny,
 
   fontSize: pxToEm(FontSize.Medium),
 

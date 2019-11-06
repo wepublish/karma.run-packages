@@ -1,18 +1,24 @@
-import React, {ButtonHTMLAttributes, forwardRef, AnchorHTMLAttributes} from 'react'
-import {styled, padding} from '@karma.run/react'
+import React, {forwardRef, AnchorHTMLAttributes, ButtonHTMLAttributes} from 'react'
+import {styled, padding, cssRule} from '@karma.run/react'
 
-import {BaseButtonStyle} from './baseButton'
-import {cssRuleWithTheme, themeMiddleware} from '../style/themeContext'
+import {ButtonResetStyle} from './baseButton'
+import {themeMiddleware, Theme} from '../style/themeContext'
 import {pxToRem, FontSize, TransitionDuration, Spacing} from '../style/helpers'
 
-const PrimaryButtonStyle = cssRuleWithTheme(({theme}) => ({
+interface PrimaryButtonStyleProps {
+  readonly fill?: boolean
+  readonly theme: Theme
+}
+
+const PrimaryButtonStyle = cssRule<PrimaryButtonStyleProps>(({fill, theme}) => ({
   _className: process.env.NODE_ENV !== 'production' ? 'PrimaryButton' : undefined,
 
-  minWidth: pxToRem(140),
-
-  borderRadius: pxToRem(Spacing.ExtraSmall),
-
+  ...ButtonResetStyle,
   ...padding(pxToRem(Spacing.ExtraSmall)),
+
+  width: fill ? '100%' : undefined,
+  minWidth: pxToRem(140),
+  borderRadius: pxToRem(Spacing.ExtraSmall),
 
   color: theme.colors.white,
   backgroundColor: theme.colors.primary,
@@ -49,36 +55,34 @@ const PrimaryButtonStyle = cssRuleWithTheme(({theme}) => ({
   }
 }))
 
-export interface PrimaryButtonProps {
+export interface BasePrimaryButtonProps {
   readonly label: string
+  readonly fill?: boolean
 }
 
-export const PrimaryButton = styled(
-  forwardRef<HTMLButtonElement, PrimaryButtonProps & ButtonHTMLAttributes<HTMLButtonElement>>(
-    ({label, ...props}, ref) => (
-      <button {...props} ref={ref}>
+export type PrimaryButtonProps = BasePrimaryButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
+export type PrimaryLinkButtonProps = BasePrimaryButtonProps &
+  AnchorHTMLAttributes<HTMLAnchorElement>
+
+export const PrimaryButtonContainer = styled('button', PrimaryButtonStyle, themeMiddleware)
+export const PrimaryLinkButtonContainer = styled('a', PrimaryButtonStyle, themeMiddleware)
+
+export const PrimaryButton = forwardRef<HTMLButtonElement, PrimaryButtonProps>(
+  function PrimaryButton({label, fill, ...props}, ref) {
+    return (
+      <PrimaryButtonContainer ref={ref} styleProps={{fill}} {...props}>
         {label}
-      </button>
+      </PrimaryButtonContainer>
     )
-  ),
-  (...props) => ({
-    ...BaseButtonStyle(...props),
-    ...PrimaryButtonStyle(...props)
-  }),
-  themeMiddleware
+  }
 )
 
-export const PrimaryLinkButton = styled(
-  forwardRef<HTMLAnchorElement, PrimaryButtonProps & AnchorHTMLAttributes<HTMLAnchorElement>>(
-    ({label, ...props}, ref) => (
-      <a {...props} ref={ref}>
+export const PrimaryLinkButton = forwardRef<HTMLAnchorElement, PrimaryLinkButtonProps>(
+  function PrimaryLinkButton({label, fill, ...props}, ref) {
+    return (
+      <PrimaryLinkButtonContainer ref={ref} styleProps={{fill}} {...props}>
         {label}
-      </a>
+      </PrimaryLinkButtonContainer>
     )
-  ),
-  (...props) => ({
-    ...BaseButtonStyle(...props),
-    ...PrimaryButtonStyle(...props)
-  }),
-  themeMiddleware
+  }
 )

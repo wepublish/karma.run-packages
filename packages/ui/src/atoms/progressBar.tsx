@@ -3,7 +3,7 @@ import {MaterialIconClose} from '@karma.run/icons'
 
 import {OptionButtonSmall} from './optionButtonSmall'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
-import {pxToRem, BorderRadius, TransitionDuration} from '../style/helpers'
+import {BorderRadius, TransitionDuration} from '../style/helpers'
 
 const ProgressBarStyle = cssRuleWithTheme(({theme}) => ({
   width: '100%'
@@ -13,13 +13,13 @@ const ProgressStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.light,
   position: 'relative',
   height: '20px',
-  borderRadius: pxToRem(BorderRadius.Medium)
+  borderRadius: BorderRadius.Medium
 }))
 
 const FillerStyle = cssRuleWithTheme<{progress: number}>(({progress, theme}) => ({
   backgroundColor: theme.colors.gray,
   height: '100%',
-  borderRadius: pxToRem(BorderRadius.Medium),
+  borderRadius: BorderRadius.Medium,
   width: `${progress}%`,
   transition: TransitionDuration.Slow
 }))
