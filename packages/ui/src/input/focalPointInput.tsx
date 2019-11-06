@@ -5,14 +5,9 @@ import {pxToRem, FontSize} from '../style/helpers'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {MaterialIconCenterFocusStrong} from '@karma.run/icons'
 import {Image} from '../data/image'
-import {DraggableContainer, Draggable} from '../interaction/draggable'
+import {DraggableContainer, Draggable, Point} from '../interaction/draggable'
 import {LayerContainer, Layer} from '../layout/layer'
 import {Box} from '../layout/box'
-
-export interface Point {
-  readonly x: number
-  readonly y: number
-}
 
 export interface FocalPointInputProps {
   readonly imageURL: string

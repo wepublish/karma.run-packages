@@ -39,7 +39,7 @@ export * from './layout/typography'
 // Inputs
 export * from './input/richTextInput'
 export * from './input/fileDropInput'
-export * from './input/imageListInput'
+export * from './input/focalPointInput'
 
 // Feedback
 export * from './feedback/toast'
