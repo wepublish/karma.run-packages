@@ -13,6 +13,6 @@ export default {
 
 export const Default = () => (
   <Box height={200}>
-    <Image src="https://dummyimage.com/300x200/ba37ba/fff" width={300} height={200} />
+    <Image src="https://dummyimage.com/300x200/fff/000" width={300} height={200} />
   </Box>
 )
