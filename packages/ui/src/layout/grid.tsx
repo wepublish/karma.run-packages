@@ -9,7 +9,6 @@ interface GridStyleProps {
 const GridStyle = cssRule<GridStyleProps>(({spacing}) => ({
   display: 'flex',
   flexWrap: 'wrap',
-  width: `calc(100% + ${pxToRem(spacing / 2)})`,
   height: '100%',
   margin: pxToRem(-spacing / 2)
 }))
