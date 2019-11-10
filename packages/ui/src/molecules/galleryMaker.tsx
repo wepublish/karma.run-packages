@@ -1,11 +1,10 @@
 import React, {useState} from 'react'
 
-import {TextButton} from '../atoms/textButton'
-import {OptionButtonSmall} from '../atoms/optionButtonSmall'
+import {OptionButtonSmall} from '../input/optionButtonSmall'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem, Spacing, BorderWidth, FontSize} from '../style/helpers'
-import {OutlineButton} from '../atoms/outlineButton'
 import {MaterialIconKeyboardArrowUp, MaterialIconKeyboardArrowDown} from '@karma.run/icons'
+import {Button} from '../input/button'
 
 export interface GalleryImage {
   readonly id: string
@@ -108,7 +107,7 @@ export function GalleryMakerList({
         />
       ))}
       <div className={css(GalleryMakerFooterStyle)}>
-        <OutlineButton isInvert={true} label={'Update'} onClick={() => onConfirm()} />
+        <Button variant="outlined" label={'Update'} onClick={() => onConfirm()} />
       </div>
     </div>
   )
@@ -176,7 +175,7 @@ export function GalleryMakerItem({image, onMoveUp, onMoveDown, onRemove}: Galler
           <span>{image.name}</span>
         </div>
         <div className={css(GalleryMakerItemOptionStyle)}>
-          <TextButton label={'Remove'} onClick={() => onRemove()} />
+          <Button variant="text" label={'Remove'} onClick={() => onRemove()} />
           <div className={css(GalleryMakerItemMoverStyle)}>
             <OptionButtonSmall
               title="Move Up"

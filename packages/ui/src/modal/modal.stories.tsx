@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {PrimaryButton} from '../atoms/primaryButton'
+import {Button} from '../input/button'
 import {Modal} from './modal'
 import {centerLayoutDecorator} from '../.storybook/decorators'
 
@@ -15,8 +15,8 @@ export const Interactive = () => {
 
   return (
     <>
-      <PrimaryButton label={'Open Modal'} onClick={() => setOpen(true)} />
-      <Modal open={open} onClose={() => setOpen(false)}>
+      <Button label={'Open Modal'} onClick={() => setOpen(true)} />
+      <Modal open={open} onClose={() => setOpen(false)} closeOnBackgroundClick>
         {() => null}
       </Modal>
     </>

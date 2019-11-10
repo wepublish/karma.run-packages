@@ -4,7 +4,7 @@ import {MaterialIconArrowForward, MaterialIconSaveOutlined} from '@karma.run/ico
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
 import {PanelHeader} from './panelHeader'
-import {IconButton} from '../atoms/iconButton'
+import {NavigationButton} from '../input/navigationButton'
 
 export default {
   component: PanelHeader,
@@ -15,7 +15,7 @@ export default {
 export const Default = () => (
   <PanelHeader
     title="Title"
-    leftChildren={<IconButton icon={MaterialIconArrowForward} label={'Close'} />}
-    rightChildren={<IconButton icon={MaterialIconSaveOutlined} label={'Save'} />}
+    leftChildren={<NavigationButton icon={MaterialIconArrowForward} label={'Close'} />}
+    rightChildren={<NavigationButton icon={MaterialIconSaveOutlined} label={'Save'} />}
   />
 )

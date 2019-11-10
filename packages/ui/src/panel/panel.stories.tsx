@@ -1,15 +1,12 @@
 import React from 'react'
 
-import {MaterialIconArrowForward, MaterialIconSaveOutlined} from '@karma.run/icons'
-
 import {centerLayoutDecorator} from '../.storybook/decorators'
-import {IconButton} from '../atoms/iconButton'
 import {Text} from '../layout/typography.stories'
+import {Default as DefaultPanelHeader} from './panelHeader.stories'
 import {Default as DefaultFocalPointInput} from '../input/focalPointInput.stories'
 import {Default as DefaultDescriptionList} from '../data/descriptionList.stories'
 
 import {Panel} from './panel'
-import {PanelHeader} from './panelHeader'
 import {PanelSectionHeader} from './panelSectionHeader'
 import {PanelSection} from './panelSection'
 import {Box} from '../layout/box'
@@ -23,11 +20,7 @@ export default {
 
 export const Default = () => (
   <Panel>
-    <PanelHeader
-      title="Panel Title"
-      leftChildren={<IconButton icon={MaterialIconArrowForward} label={'Close'} />}
-      rightChildren={<IconButton icon={MaterialIconSaveOutlined} label={'Save'} />}
-    />
+    <DefaultPanelHeader />
     <PanelSection>
       <Text />
     </PanelSection>

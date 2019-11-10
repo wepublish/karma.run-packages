@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import {centerLayoutDecorator} from '../.storybook/decorators'
 import {DraggableContainer, Draggable} from './draggable'
 import {Box} from '../layout/box'
+import {Button} from '../input/button'
 
 export default {
   component: Draggable,
@@ -17,7 +18,7 @@ export const Standard = () => {
     <Box height={200}>
       <DraggableContainer>
         <Draggable point={point} onChange={setPoint}>
-          <div style={{padding: '10px', backgroundColor: 'red', color: 'white'}}>Drag Me</div>
+          <Button label="Drag Me" />
         </Draggable>
       </DraggableContainer>
     </Box>

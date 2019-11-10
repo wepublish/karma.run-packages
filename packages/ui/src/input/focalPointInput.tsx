@@ -7,7 +7,16 @@ import {MaterialIconCenterFocusStrong} from '@karma.run/icons'
 import {Image} from '../data/image'
 import {DraggableContainer, Draggable, Point} from '../interaction/draggable'
 import {LayerContainer, Layer} from '../layout/layer'
-import {Box} from '../layout/box'
+import {styled} from '@karma.run/react'
+
+const FocalPointInputWrapper = styled('div', () => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'FocalPointInput' : undefined,
+
+  display: 'flex',
+  width: '100%',
+  justifyContent: 'center',
+  alignItems: 'center'
+}))
 
 export interface FocalPointInputProps {
   readonly imageURL: string
@@ -66,14 +75,8 @@ export function FocalPointInput({
   }, [])
 
   return (
-    <Box
-      ref={containerRef}
-      width="100%"
-      height="100%"
-      justifyContent="center"
-      alignItems="center"
-      flex>
-      <Box ref={imageContainer}>
+    <FocalPointInputWrapper ref={containerRef}>
+      <div ref={imageContainer}>
         {layouted && (
           <LayerContainer>
             <Image src={imageURL} width={imageWidth} height={imageHeight} />
@@ -88,8 +91,8 @@ export function FocalPointInput({
             </Layer>
           </LayerContainer>
         )}
-      </Box>
-    </Box>
+      </div>
+    </FocalPointInputWrapper>
   )
 }
 

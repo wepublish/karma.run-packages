@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {OptionButtonSmall} from '../atoms/optionButtonSmall'
+import {OptionButtonSmall} from '../input/optionButtonSmall'
 import {FavorButton, FavorButtonProps} from '../atoms/favorButton'
 import {BlockActionBar} from './blockActionBar'
 import {MaterialIconChevronLeft, MaterialIconChevronRight, MaterialIconEdit} from '@karma.run/icons'

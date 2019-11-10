@@ -21,6 +21,7 @@ const MenuIconButtonStyle = cssRuleWithTheme(({theme}) => ({
   textAlign: 'left',
 
   fill: theme.colors.dark,
+  color: theme.colors.dark,
 
   transitionProperty: 'background-color',
   transitionTimingFunction: 'ease-in',

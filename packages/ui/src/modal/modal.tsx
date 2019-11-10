@@ -53,12 +53,14 @@ const ModalContent = styled('div', () => ({
 }))
 
 export interface ModalProps {
-  open: boolean
+  readonly open: boolean
+  readonly closeOnBackgroundClick?: boolean
+
   onClose?: () => void
   children?: (transitionStatus: TransitionStatus) => ReactNode
 }
 
-export function Modal({children, onClose, open}: ModalProps) {
+export function Modal({children, onClose, open, closeOnBackgroundClick}: ModalProps) {
   useEffect(() => {
     // TODO: Move into context
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
@@ -78,7 +80,10 @@ export function Modal({children, onClose, open}: ModalProps) {
         createPortal(
           <ModalWrapper>
             <ModalBackground styleProps={{transitionStatus}} />
-            <ModalContent onClick={e => e.target === e.currentTarget && onClose && onClose()}>
+            <ModalContent
+              onClick={e =>
+                closeOnBackgroundClick && e.target === e.currentTarget && onClose && onClose()
+              }>
               {children && children(transitionStatus)}
             </ModalContent>
           </ModalWrapper>,

@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {PrimaryButton} from '../atoms/primaryButton'
+import {Button} from '../input/button'
 import {Drawer} from './drawer'
 import {Default as DefaultPanel} from '../panel/panel.stories'
 import {centerLayoutDecorator} from '../.storybook/decorators'
@@ -16,8 +16,8 @@ export const Interactive = () => {
 
   return (
     <>
-      <PrimaryButton label={'Open Drawer'} onClick={() => setOpen(true)} />
-      <Drawer open={open} onClose={() => setOpen(false)} width={480}>
+      <Button label={'Open Drawer'} onClick={() => setOpen(true)} />
+      <Drawer open={open} onClose={() => setOpen(false)} width={480} closeOnBackgroundClick>
         {() => <DefaultPanel />}
       </Drawer>
     </>

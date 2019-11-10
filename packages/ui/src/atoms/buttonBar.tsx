@@ -1,7 +1,6 @@
 import React from 'react'
-import {TextButton} from './textButton'
-import {OutlineButton} from './outlineButton'
 import {cssRule, useStyle} from '@karma.run/react'
+import {Button} from '../input/button'
 
 const ButtonBarStyle = cssRule({
   width: '100%',
@@ -20,8 +19,8 @@ export function ButtonBar({confirmLabel, cancelLabel, onConfirm, onCancel}: Butt
   const css = useStyle()
   return (
     <div className={css(ButtonBarStyle)}>
-      {cancelLabel && <TextButton label={cancelLabel} onClick={onCancel} />}
-      <OutlineButton label={confirmLabel} onClick={onConfirm} />
+      {cancelLabel && <Button variant="text" label={cancelLabel} onClick={onCancel} />}
+      <Button label={confirmLabel} onClick={onConfirm} variant="outlined" />
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import React, {ReactNode} from 'react'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
-import {OptionButton} from './optionButton'
+import {OptionButton} from '../input/optionButton'
 import {pxToEm} from '../style/helpers'
 import {MaterialIconAdd} from '@karma.run/icons'
 

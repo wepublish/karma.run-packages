@@ -5,12 +5,6 @@ export * from './atoms/card'
 export * from './atoms/dropdown'
 export * from './atoms/filterTag'
 export * from './atoms/placeholder'
-export * from './atoms/iconButton'
-export * from './atoms/outlineButton'
-export * from './atoms/primaryButton'
-export * from './atoms/textButton'
-export * from './atoms/optionButton'
-export * from './atoms/optionButtonSmall'
 export * from './atoms/menuIconButton'
 export * from './atoms/icon'
 export * from './atoms/textInput'
@@ -40,6 +34,12 @@ export * from './layout/typography'
 export * from './input/richTextInput'
 export * from './input/fileDropInput'
 export * from './input/focalPointInput'
+export * from './input/button'
+export * from './input/navigationButton'
+export * from './input/optionButton'
+export * from './input/optionButtonSmall'
+
+export {BaseButtonProps, ButtonProps} from './input/button'
 
 // Feedback
 export * from './feedback/toast'
@@ -71,6 +71,7 @@ export * from './modal/dialog'
 // Data
 export * from './data/image'
 export * from './data/descriptionList'
+export * from './data/link'
 
 // Interaction
 export * from './interaction/draggable'

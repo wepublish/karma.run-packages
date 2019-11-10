@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react'
-import {LoginTemplate, TextInput, PrimaryButton} from '@karma.run/ui'
+import {LoginTemplate, TextInput, Button} from '@karma.run/ui'
 import {RouteActionType} from '@karma.run/react'
 
 import {useRouteDispatch, matchRoute, useRoute, IndexRoute} from './route'
@@ -46,7 +46,7 @@ export function Login() {
         value={password}
         onChange={event => setPassword(event.target.value)}
       />
-      <PrimaryButton label="Login" onClick={login} disabled={loading} />
+      <Button label="Login" onClick={login} disabled={loading} />
     </LoginTemplate>
   )
 }

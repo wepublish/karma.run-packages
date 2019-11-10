@@ -23,8 +23,6 @@
     "find-my-way": "^2.1.0",
     "immutable": "^4.0.0-rc.12",
     "nanoid": "^2.0.3",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
     "react-transition-group": "4.3.0",
     "slate": "^0.47.8",
     "slate-react": "^0.22.9"
@@ -52,7 +50,12 @@
     "react-docgen-typescript-loader": "^3.2.1",
     "shx": "^0.3.2",
     "ts-loader": "^6.1.0",
-    "typescript": "^3.6.2",
-    "webpack": "^4.35.3"
+    "typescript": "^3.7.2",
+    "webpack": "^4.35.3",
+    "prettier": "1.18.2"
+  },
+  "peerDependencies": {
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2"
   }
 }

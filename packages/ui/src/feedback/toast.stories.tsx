@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Toast, ToastType} from './toast'
-import {PrimaryButton} from '../atoms/primaryButton'
+import {Button} from '../input/button'
 import {Grid, Column} from '../layout/grid'
 import {centerLayoutDecorator} from '../.storybook/decorators'
 import {Spacing} from '../style/helpers'
@@ -19,7 +19,7 @@ export const Interactive = () => {
     <>
       <Grid spacing={Spacing.Medium}>
         <Column ratio={1 / 3}>
-          <PrimaryButton
+          <Button
             label={'Info'}
             onClick={() => {
               setType('info')
@@ -29,7 +29,7 @@ export const Interactive = () => {
           />
         </Column>
         <Column ratio={1 / 3}>
-          <PrimaryButton
+          <Button
             label={'Success'}
             onClick={() => {
               setType('success')
@@ -39,7 +39,7 @@ export const Interactive = () => {
           />
         </Column>
         <Column ratio={1 / 3}>
-          <PrimaryButton
+          <Button
             label={'Error'}
             onClick={() => {
               setType('error')

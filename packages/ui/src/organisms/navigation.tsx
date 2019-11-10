@@ -75,12 +75,12 @@ const NavigationButtonStyle = cssRuleWithTheme(({theme}) => ({
   }
 }))
 
-export interface NavigationButtonProps {
+interface NavigationButtonProps {
   readonly isCollapsed: boolean
   onClick(): void
 }
 
-export function NavigationButton({isCollapsed, onClick}: NavigationButtonProps) {
+function NavigationButton({isCollapsed, onClick}: NavigationButtonProps) {
   return (
     <BaseButton onClick={onClick} style={NavigationButtonStyle}>
       <Icon element={isCollapsed ? MaterialIconChevronRight : MaterialIconChevronLeft} block />

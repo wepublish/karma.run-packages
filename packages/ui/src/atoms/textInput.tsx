@@ -8,11 +8,11 @@ import {pxToRem, FontSize, TransitionDuration, Spacing} from '../style/helpers'
 import {cssRule} from '@karma.run/react'
 
 interface TextInputStyleProps {
-  hasError: boolean
+  readonly hasError: boolean
+  readonly hasIcon: boolean
 }
 
 const TextInputContainerStyle = cssRuleWithTheme(() => ({
-  minHeight: pxToRem(54),
   paddingTop: pxToRem(16)
 }))
 
@@ -30,15 +30,15 @@ const IconStyle = cssRule(() => ({
   marginRight: pxToRem(Spacing.Tiny)
 }))
 
-const TextInputStyle = cssRuleWithTheme<TextInputStyleProps>(({hasError, theme}) => ({
+const TextInputStyle = cssRuleWithTheme<TextInputStyleProps>(({hasIcon, theme}) => ({
   width: '100%',
 
   borderBottom: `1px solid ${theme.colors.gray}`,
   transitionProperty: 'border-color',
   transitionTimingFunction: 'ease-in',
   transitionDuration: TransitionDuration.Slow,
-  // If Input has Icon add padding:
-  //paddingLeft: pxToRem(20),
+
+  paddingLeft: hasIcon ? pxToRem(20) : undefined,
 
   '::placeholder': {
     color: theme.colors.gray
@@ -70,15 +70,11 @@ const TextInputStyle = cssRuleWithTheme<TextInputStyleProps>(({hasError, theme})
   },
 
   ':disabled': {
-    borderBottomStyle: 'dashed'
+    opacity: 0.5
   },
 
   ':invalid + span': {
     color: theme.colors.alert
-  },
-
-  ':disabled::placeholder': {
-    textDecoration: 'line-through'
   },
 
   ':placeholder-shown + span': {
@@ -121,7 +117,7 @@ export interface TextInputProps {
 }
 
 export function TextInput({label, description, errorDescription, icon, ...props}: TextInputProps) {
-  const styleProps = {hasError: errorDescription != null}
+  const styleProps = {hasError: errorDescription != null, hasIcon: icon != null}
   const css = useThemeStyle<TextInputStyleProps>(styleProps)
 
   return (

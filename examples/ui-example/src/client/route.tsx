@@ -11,7 +11,7 @@ import {
   required
 } from '@karma.run/react'
 
-import {PrimaryButton, MenuIconButton} from '@karma.run/ui'
+import {Button, MenuIconButton} from '@karma.run/ui'
 import {AuthContext, AuthDispatchContext, AuthDispatchActionType} from './authContext'
 
 export enum RouteType {
@@ -57,7 +57,7 @@ export const {
   useRouteDispatch
 } = createRouteContext(routes)
 
-export const LinkPrimaryButton = createLinkHOC(PrimaryButton)
+export const LinkButton = createLinkHOC(Button)
 export const LinkMenuIconButton = createLinkHOC(MenuIconButton)
 
 export type Route = RouteInstancesForRoutes<typeof routes>

@@ -10,7 +10,7 @@ import {
 
 import {Card} from '../atoms/card'
 import {Icon, IconType} from '../atoms/icon'
-import {OptionButtonSmall} from '../atoms/optionButtonSmall'
+import {OptionButtonSmall} from '../input/optionButtonSmall'
 import {pxToRem, Spacing} from '../style/helpers'
 
 const ListItemWrapperStyle = cssRule({

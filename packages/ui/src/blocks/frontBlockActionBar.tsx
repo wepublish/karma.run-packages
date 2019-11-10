@@ -3,7 +3,7 @@ import React from 'react'
 import {MaterialIconEdit, MaterialIconFindReplace} from '@karma.run/icons'
 
 import {BlockActionBar} from './blockActionBar'
-import {OptionButtonSmall} from '../atoms/optionButtonSmall'
+import {OptionButtonSmall} from '../input/optionButtonSmall'
 
 export interface FrontBlockActionBarProps {
   onEdit(): void

@@ -189,7 +189,7 @@ export interface CreateRouteContextResult<R extends RouteInstance = RouteInstanc
   useRouteDispatch(): RouteDispatchContextState<R>
   matchRoute(url: string): R | null
 
-  createLinkHOC<P extends LinkHOCCompatibleProps>(
+  routeLink<P extends LinkHOCCompatibleProps>(
     Component: ComponentType<P>
   ): ComponentType<P & LinkProps<R>>
 }
@@ -252,7 +252,7 @@ export function createRouteContext<
     }
   }
 
-  function createLinkHOC<P extends LinkHOCCompatibleProps>(
+  function routeLink<P extends LinkHOCCompatibleProps>(
     Component: ComponentType<P>
   ): ComponentType<P & LinkProps<R>> {
     return ({route, onClick, ...rest}: P & LinkProps<R>) => {
@@ -369,7 +369,7 @@ export function createRouteContext<
     matchRoute,
     useRouteDispatch,
     useRoute,
-    createLinkHOC
+    routeLink
   }
 }
 

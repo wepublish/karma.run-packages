@@ -3,7 +3,8 @@ import React from 'react'
 import {LoginTemplate} from './loginTemplate'
 
 import {TextInput} from '../atoms/textInput'
-import {PrimaryButton} from '../atoms/primaryButton'
+import {Button} from '../input/button'
+import {Box} from '../layout/box'
 
 export default {
   component: LoginTemplate,
@@ -13,9 +14,14 @@ export default {
 export const Standard = () => {
   return (
     <LoginTemplate>
-      <TextInput label="Username" value={''} onChange={() => {}} />
-      <TextInput label="Password" value={''} onChange={() => {}} />
-      <PrimaryButton label="Login" />
+      <Box>
+        <TextInput label="Username" value={''} onChange={() => {}} />
+      </Box>
+      <Box>
+        <TextInput label="Password" value={''} onChange={() => {}} />
+      </Box>
+
+      <Button label="Login" />
     </LoginTemplate>
   )
 }
