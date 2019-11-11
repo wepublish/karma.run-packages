@@ -36,7 +36,7 @@ function getMainColor({color, disabled, theme}: ButtonStyleProps) {
       return theme.colors.action
 
     case 'default':
-      return theme.colors.dark
+      return theme.colors.grayDark
   }
 }
 
@@ -49,7 +49,7 @@ function getActiveMainColor({color, theme}: ButtonStyleProps) {
       return theme.colors.actionDark
 
     case 'default':
-      return theme.colors.grayDark
+      return theme.colors.dark
   }
 }
 

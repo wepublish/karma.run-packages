@@ -70,6 +70,7 @@ export * from './modal/dialog'
 
 // Data
 export * from './data/image'
+export * from './data/divider'
 export * from './data/descriptionList'
 export * from './data/link'
 

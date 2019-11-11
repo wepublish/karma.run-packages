@@ -1,7 +1,7 @@
-import {ReactNode, useContext} from 'react'
+import {ReactNode} from 'react'
 
-import {ThemeContext} from '../style/themeContext'
-import {pxToRem, Spacing} from '../style/helpers'
+import {themeMiddleware} from '../style/themeContext'
+import {BorderRadius, BorderWidth} from '../style/helpers'
 import {styled} from '@karma.run/react'
 
 export interface CardProps {
@@ -11,13 +11,14 @@ export interface CardProps {
 export const Card = styled(
   'div',
   ({theme}) => ({
-    border: `solid 1px ${theme.colors.grayLight}`,
-    borderRadius: pxToRem(8),
+    borderStyle: 'solid',
+    borderWidth: BorderWidth.Small,
+    borderColor: theme.colors.grayLight,
+    borderRadius: BorderRadius.Small,
     backgroundColor: theme.colors.white,
-    padding: pxToRem(Spacing.ExtraSmall),
-    width: '100%'
+    overflow: 'hidden',
+    width: '100%',
+    height: 'inherit'
   }),
-  () => ({
-    theme: useContext(ThemeContext)
-  })
+  themeMiddleware
 )

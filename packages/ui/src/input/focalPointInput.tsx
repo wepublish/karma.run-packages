@@ -8,6 +8,7 @@ import {Image} from '../data/image'
 import {DraggableContainer, Draggable, Point} from '../interaction/draggable'
 import {LayerContainer, Layer} from '../layout/layer'
 import {styled} from '@karma.run/react'
+import {Card} from '../atoms/card'
 
 const FocalPointInputWrapper = styled('div', () => ({
   _className: process.env.NODE_ENV !== 'production' ? 'FocalPointInput' : undefined,
@@ -79,7 +80,9 @@ export function FocalPointInput({
       <div ref={imageContainer}>
         {layouted && (
           <LayerContainer>
-            <Image src={imageURL} width={imageWidth} height={imageHeight} />
+            <Card>
+              <Image src={imageURL} width={imageWidth} height={imageHeight} />
+            </Card>
             <Layer>
               <DraggableContainer>
                 {focalPoint && (
