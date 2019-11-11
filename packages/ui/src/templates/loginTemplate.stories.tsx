@@ -3,7 +3,7 @@ import React from 'react'
 import {LoginTemplate} from './loginTemplate'
 
 import {TextInput} from '../atoms/textInput'
-import {Button} from '../input/button'
+import {Button} from '../input/buttons/button'
 import {Box} from '../layout/box'
 
 export default {

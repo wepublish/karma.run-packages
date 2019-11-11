@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 
-import {centerLayoutDecorator} from '../.storybook/decorators'
+import {centerLayoutDecorator} from '../../.storybook/decorators'
 import {TextField} from './textField'
 
 export default {
   component: TextField,
-  title: 'Fields|TextField',
+  title: 'Input|Fields/TextField',
   decorators: [centerLayoutDecorator()]
 }
 

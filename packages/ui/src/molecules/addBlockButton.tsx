@@ -1,5 +1,5 @@
 import React from 'react'
-import {OptionButtonSmall} from '../input/optionButtonSmall'
+import {OptionButtonSmall} from '../input/buttons/optionButtonSmall'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
 import {MaterialIconAdd} from '@karma.run/icons'
 

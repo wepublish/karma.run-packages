@@ -4,7 +4,7 @@ import {MaterialIconDelete, MaterialIconEdit} from '@karma.run/icons'
 import {centerLayoutDecorator} from '../.storybook/decorators'
 import {LayerContainer, Layer} from './layer'
 import {Image} from '../data/image'
-import {OptionButtonSmall} from '../input/optionButtonSmall'
+import {OptionButtonSmall} from '../input/buttons/optionButtonSmall'
 import {Box} from '../layout/box'
 import {Spacing} from '../style/helpers'
 

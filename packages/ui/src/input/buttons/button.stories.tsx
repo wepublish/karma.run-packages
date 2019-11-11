@@ -1,9 +1,9 @@
 import React from 'react'
 import {Button, LinkButton} from './button'
-import {Box} from '../layout/box'
+import {Box} from '../../layout/box'
 
-import {centerLayoutDecorator} from '../.storybook/decorators'
-import {Spacing} from '../style/helpers'
+import {centerLayoutDecorator} from '../../.storybook/decorators'
+import {Spacing} from '../../style/helpers'
 import {MaterialIconStarOutlined} from '@karma.run/icons'
 
 export default {

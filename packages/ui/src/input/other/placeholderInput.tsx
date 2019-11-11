@@ -1,7 +1,7 @@
 import React, {ReactNode} from 'react'
-import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
-import {OptionButton} from '../input/optionButton'
-import {pxToEm} from '../style/helpers'
+import {useThemeStyle, cssRuleWithTheme} from '../../style/themeContext'
+import {OptionButton} from '../buttons/optionButton'
+import {pxToEm} from '../../style/helpers'
 import {MaterialIconAdd} from '@karma.run/icons'
 
 const PlaceholderStyle = cssRuleWithTheme(({theme}) => ({
@@ -16,7 +16,7 @@ const PlaceholderStyle = cssRuleWithTheme(({theme}) => ({
   backgroundColor: theme.colors.light
 }))
 
-export interface PlaceholderProps {
+export interface PlaceholderInputProps {
   /**
    * Setting children will directly render them.
    */
@@ -25,13 +25,13 @@ export interface PlaceholderProps {
   /**
    * Called when the add button is clicked.
    */
-  onAdd?(): void
+  onAddClick?(): void
 }
 
 /**
- * A placeholder for a component.
+ * A placeholder for a block.
  */
-export function Placeholder({children, onAdd}: PlaceholderProps) {
+export function PlaceholderInput({children, onAddClick}: PlaceholderInputProps) {
   const css = useThemeStyle()
 
   if (children) {
@@ -40,7 +40,7 @@ export function Placeholder({children, onAdd}: PlaceholderProps) {
 
   return (
     <div className={css(PlaceholderStyle)}>
-      <OptionButton icon={MaterialIconAdd} onClick={() => onAdd && onAdd()} />
+      <OptionButton icon={MaterialIconAdd} onClick={() => onAddClick && onAddClick()} />
     </div>
   )
 }

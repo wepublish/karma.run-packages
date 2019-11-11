@@ -1,7 +1,7 @@
 import React from 'react'
 import {OptionButtonSmall} from './optionButtonSmall'
 
-import {centerLayoutDecorator} from '../.storybook/decorators'
+import {centerLayoutDecorator} from '../../.storybook/decorators'
 import {MaterialIconKeyboardArrowDown} from '@karma.run/icons'
 
 export default {

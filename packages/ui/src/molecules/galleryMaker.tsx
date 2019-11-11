@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 
-import {OptionButtonSmall} from '../input/optionButtonSmall'
+import {OptionButtonSmall} from '../input/buttons/optionButtonSmall'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem, Spacing, BorderWidth, FontSize} from '../style/helpers'
 import {MaterialIconKeyboardArrowUp, MaterialIconKeyboardArrowDown} from '@karma.run/icons'
-import {Button} from '../input/button'
+import {Button} from '../input/buttons/button'
 
 export interface GalleryImage {
   readonly id: string

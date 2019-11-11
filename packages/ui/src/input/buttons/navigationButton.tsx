@@ -1,10 +1,10 @@
 import React, {forwardRef, ButtonHTMLAttributes, AnchorHTMLAttributes} from 'react'
 
-import {pxToRem, Spacing, TransitionDuration, FontSize} from '../style/helpers'
-import {cssRuleWithTheme, themeMiddleware, Theme} from '../style/themeContext'
-import {Icon, IconScale, IconType} from '../atoms/icon'
+import {pxToRem, Spacing, TransitionDuration, FontSize} from '../../style/helpers'
+import {cssRuleWithTheme, themeMiddleware, Theme} from '../../style/themeContext'
+import {Icon, IconScale, IconType} from '../../atoms/icon'
 import {styled} from '@karma.run/react'
-import {Box} from '../layout/box'
+import {Box} from '../../layout/box'
 
 interface NavigationButtonStyleProps {
   readonly disabled?: boolean

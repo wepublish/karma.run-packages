@@ -10,8 +10,9 @@ import {
 
 import {Card} from '../atoms/card'
 import {Icon, IconType} from '../atoms/icon'
-import {OptionButtonSmall} from '../input/optionButtonSmall'
+import {OptionButtonSmall} from '../input/buttons/optionButtonSmall'
 import {pxToRem, Spacing} from '../style/helpers'
+import {Box} from '../layout/box'
 
 const ListItemWrapperStyle = cssRule({
   display: 'flex',
@@ -87,7 +88,9 @@ export function ListItemWrapper({
         </div>
       </div>
       <div className={css(ListItemWrapperContentStyle)}>
-        <Card>{children}</Card>
+        <Card>
+          <Box padding={Spacing.ExtraSmall}>{children}</Box>
+        </Card>
       </div>
       <div className={css(ListItemWrapperAccessoryStyle)}>{icon && <Icon element={icon} />}</div>
     </div>

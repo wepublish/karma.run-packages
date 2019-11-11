@@ -1,8 +1,8 @@
 import React, {useState, useRef} from 'react'
 
-import {pxToRem, FontSize, Spacing, BorderWidth} from '../style/helpers'
-import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
-import {Icon, IconScale, IconType} from '../atoms/icon'
+import {pxToRem, FontSize, Spacing, BorderWidth} from '../../style/helpers'
+import {useThemeStyle, cssRuleWithTheme} from '../../style/themeContext'
+import {Icon, IconScale, IconType} from '../../atoms/icon'
 import {cssRule} from '@karma.run/react'
 
 const FileDropInputStyle = cssRuleWithTheme<{dragging: boolean; disabled: boolean}>(

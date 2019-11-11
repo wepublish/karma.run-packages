@@ -3,8 +3,8 @@ import React from 'react'
 import {Editor as CoreEditor} from 'slate'
 import {Editor, BasicEditorProps, Plugin, EditorProps} from 'slate-react'
 
-import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
-import {EditMenuButton, EditMenu} from '../blocks/editMenu'
+import {cssRuleWithTheme, useThemeStyle} from '../../style/themeContext'
+import {EditMenuButton, EditMenu} from '../../blocks/editMenu'
 
 const RichtextBlockStyle = cssRuleWithTheme(({theme}) => ({}))
 

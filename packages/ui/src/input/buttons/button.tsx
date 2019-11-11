@@ -1,7 +1,7 @@
 import React, {forwardRef, AnchorHTMLAttributes, ButtonHTMLAttributes} from 'react'
 import {styled, cssRule} from '@karma.run/react'
 
-import {themeMiddleware, Theme} from '../style/themeContext'
+import {themeMiddleware, Theme} from '../../style/themeContext'
 
 import {
   pxToRem,
@@ -10,9 +10,9 @@ import {
   Spacing,
   BorderWidth,
   hexToRgba
-} from '../style/helpers'
+} from '../../style/helpers'
 
-import {IconType, Icon} from '../atoms/icon'
+import {IconType, Icon} from '../../atoms/icon'
 
 export type ButtonVariant = 'default' | 'outlined' | 'text'
 export type ButtonColor = 'default' | 'primary' | 'secondary'

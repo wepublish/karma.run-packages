@@ -2,7 +2,7 @@ import React from 'react'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {cssRule} from '@karma.run/react'
 import {pxToRem, FontSize} from '../style/helpers'
-import {FieldProps} from '../fields/types'
+import {FieldProps} from '../input/fields/types'
 import {BaseInput, InputType} from '../atoms/baseInput'
 import {BaseTextArea} from '../atoms/baseTextArea'
 

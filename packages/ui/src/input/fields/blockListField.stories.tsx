@@ -8,22 +8,21 @@ import {
   MaterialIconShortText
 } from '@karma.run/icons'
 
-import {centerLayoutDecorator} from '../.storybook/decorators'
-import {UnionListField} from './unionListField'
+import {centerLayoutDecorator} from '../../.storybook/decorators'
+import {BlockListField, BlockListValue} from './blockListField'
 import {TextField} from './textField'
 
-import {UnionListValue} from './types'
 import {ListField, ListValue} from './listField'
-import {Grid, Column} from '../layout/grid'
-import {Placeholder} from '../atoms/placeholder'
+import {Grid, Column} from '../../layout/grid'
+import {PlaceholderInput} from '../other/placeholderInput'
 
-export type StringValue = UnionListValue<'string', string>
-export type StringArrayValue = UnionListValue<'stringArray', ListValue<string>[]>
+export type StringValue = BlockListValue<'string', string>
+export type StringArrayValue = BlockListValue<'stringArray', ListValue<string>[]>
 export type WrapperValue = StringValue | StringArrayValue
 
 export default {
-  component: UnionListField,
-  title: 'Fields|UnionListField',
+  component: BlockListField,
+  title: 'Input|Fields/BlockListField',
   decorators: [centerLayoutDecorator(0.8)]
 }
 
@@ -31,7 +30,7 @@ export const Standard = () => {
   const [values, setValues] = useState<WrapperValue[]>([])
 
   return (
-    <UnionListField value={values} onChange={setValues}>
+    <BlockListField value={values} onChange={setValues}>
       {{
         string: {
           field: props => <TextField {...props} />,
@@ -51,7 +50,7 @@ export const Standard = () => {
           icon: MaterialIconShortText
         }
       }}
-    </UnionListField>
+    </BlockListField>
   )
 }
 
@@ -59,22 +58,22 @@ export const WithGrid = () => {
   const [values, setValues] = useState([])
 
   return (
-    <UnionListField value={values} onChange={setValues}>
+    <BlockListField value={values} onChange={setValues}>
       {{
         string: {
           field: props => (
             <Grid>
               <Column ratio={1 / 4}>
-                <Placeholder></Placeholder>
+                <PlaceholderInput></PlaceholderInput>
               </Column>
               <Column ratio={1 / 4}>
-                <Placeholder></Placeholder>
+                <PlaceholderInput></PlaceholderInput>
               </Column>
               <Column ratio={1 / 4}>
-                <Placeholder></Placeholder>
+                <PlaceholderInput></PlaceholderInput>
               </Column>
               <Column ratio={1 / 4}>
-                <Placeholder></Placeholder>
+                <PlaceholderInput></PlaceholderInput>
               </Column>
             </Grid>
           ),
@@ -87,10 +86,10 @@ export const WithGrid = () => {
           field: props => (
             <Grid>
               <Column ratio={1 / 2}>
-                <Placeholder></Placeholder>
+                <PlaceholderInput></PlaceholderInput>
               </Column>
               <Column ratio={1 / 2}>
-                <Placeholder></Placeholder>
+                <PlaceholderInput></PlaceholderInput>
               </Column>
             </Grid>
           ),
@@ -103,10 +102,10 @@ export const WithGrid = () => {
           field: props => (
             <Grid>
               <Column ratio={2 / 3}>
-                <Placeholder></Placeholder>
+                <PlaceholderInput></PlaceholderInput>
               </Column>
               <Column ratio={1 / 3}>
-                <Placeholder></Placeholder>
+                <PlaceholderInput></PlaceholderInput>
               </Column>
             </Grid>
           ),
@@ -115,6 +114,6 @@ export const WithGrid = () => {
           icon: IconColumn2Alt
         }
       }}
-    </UnionListField>
+    </BlockListField>
   )
 }

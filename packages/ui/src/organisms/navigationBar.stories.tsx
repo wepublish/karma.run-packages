@@ -9,7 +9,7 @@ import {
 } from '@karma.run/icons'
 
 import {NavigationBar} from './navigationBar'
-import {NavigationButton} from '../input/navigationButton'
+import {NavigationButton} from '../input/buttons/navigationButton'
 import {centerLayoutDecorator} from '../.storybook/decorators'
 
 export default {

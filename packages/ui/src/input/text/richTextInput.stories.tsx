@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import {Value, DocumentJSON, ValueJSON, Editor as CoreEditor} from 'slate'
 import {RenderMarkProps, RenderBlockProps, Plugin} from 'slate-react'
 
-import {centerLayoutDecorator} from '../.storybook/decorators'
+import {centerLayoutDecorator} from '../../.storybook/decorators'
 import {RichTextInput, RichTextMenuPlugin} from './richTextInput'
 
 import {
@@ -20,7 +20,7 @@ import {
 
 export default {
   component: RichTextInput,
-  title: 'Blocks|RichtextBlock',
+  title: 'Input|Text/RichTextInput',
   decorators: [centerLayoutDecorator(0.8)]
 }
 

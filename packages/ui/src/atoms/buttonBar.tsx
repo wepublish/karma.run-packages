@@ -1,6 +1,6 @@
 import React from 'react'
 import {cssRule, useStyle} from '@karma.run/react'
-import {Button} from '../input/button'
+import {Button} from '../input/buttons/button'
 
 const ButtonBarStyle = cssRule({
   width: '100%',

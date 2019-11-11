@@ -2,7 +2,7 @@ import React from 'react'
 
 import {IconType, IconScale} from '../atoms/icon'
 import {MenuIconButton} from '../atoms/menuIconButton'
-import {NavigationButton} from '../input/navigationButton'
+import {NavigationButton} from '../input/buttons/navigationButton'
 
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem} from '../style/helpers'

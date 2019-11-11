@@ -3,8 +3,8 @@ import React from 'react'
 import {centerLayoutDecorator} from '../.storybook/decorators'
 
 import {Grid, Column} from './grid'
-import {Placeholder} from '../atoms/placeholder'
 import {Spacing} from '../style/helpers'
+import {PlaceholderInput} from '../input/other/placeholderInput'
 
 export default {
   component: Grid,
@@ -15,32 +15,32 @@ export default {
 export const Standard = () => (
   <Grid spacing={Spacing.Tiny}>
     <Column>
-      <Placeholder />
+      <PlaceholderInput />
     </Column>
     <Column ratio={1 / 3}>
-      <Placeholder />
-      <Placeholder />
+      <PlaceholderInput />
+      <PlaceholderInput />
     </Column>
     <Column ratio={2 / 3}>
-      <Placeholder />
+      <PlaceholderInput />
     </Column>
     <Column ratio={1 / 2}>
-      <Placeholder />
+      <PlaceholderInput />
     </Column>
     <Column ratio={1 / 2}>
-      <Placeholder />
+      <PlaceholderInput />
     </Column>
     <Column ratio={1 / 4}>
-      <Placeholder />
+      <PlaceholderInput />
     </Column>
     <Column ratio={1 / 4}>
-      <Placeholder />
+      <PlaceholderInput />
     </Column>
     <Column ratio={1 / 4}>
-      <Placeholder />
+      <PlaceholderInput />
     </Column>
     <Column ratio={1 / 4}>
-      <Placeholder />
+      <PlaceholderInput />
     </Column>
   </Grid>
 )

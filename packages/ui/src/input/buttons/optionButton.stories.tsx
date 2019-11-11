@@ -1,7 +1,7 @@
 import React from 'react'
 import {OptionButton} from './optionButton'
 
-import {centerLayoutDecorator} from '../.storybook/decorators'
+import {centerLayoutDecorator} from '../../.storybook/decorators'
 import {MaterialIconAdd} from '@karma.run/icons'
 
 export default {

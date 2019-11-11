@@ -1,30 +1,50 @@
-import React, {useState, Fragment} from 'react'
+import React, {Fragment} from 'react'
 import nanoid from 'nanoid'
 
 import {isFunctionalUpdate, useStyle, cssRule} from '@karma.run/react'
-import {isValueConstructor} from '@karma.run/utility'
+import {isValueConstructor, ValueConstructor, UnionToIntersection} from '@karma.run/utility'
 
-import {FieldProps, UnionListValue, UnionListCaseMapForValue, UnionFieldCaseMap} from './types'
-import {Icon, IconType} from '../atoms/icon'
-import {ListItemWrapper} from '../molecules/listItemWrapper'
-import {AddBlockMenu} from '../blocks/addBlockMenu'
+import {FieldProps, FieldConstructorFn} from './types'
 
-const UnionListFieldStyle = cssRule({
+import {IconType} from '../../atoms/icon'
+import {ListItemWrapper} from '../../molecules/listItemWrapper'
+import {AddBlockMenu} from '../../blocks/addBlockMenu'
+
+export interface BlockFieldCaseProps<V = any> {
+  readonly label: string
+  readonly icon: IconType
+  readonly defaultValue: ValueConstructor<V>
+  readonly field: FieldConstructorFn<V>
+}
+
+export interface BlockListValue<T extends string = string, V = any> {
+  readonly id: string
+  readonly type: T
+  readonly value: V
+}
+
+export type BlockFieldCaseMap = Record<string, BlockFieldCaseProps>
+
+export type BlockListCaseMapForValue<R extends BlockListValue> = UnionToIntersection<
+  R extends BlockListValue<infer T, infer V> ? {[K in T]: BlockFieldCaseProps<V>} : never
+>
+
+const BlockListFieldStyle = cssRule({
   width: '100%'
 })
 
-export interface UnionListItemProps<T extends string = string, V = any> {
+export interface BlockListItemProps<T extends string = string, V = any> {
   readonly index: number
-  readonly value: UnionListValue<T, V>
+  readonly value: BlockListValue<T, V>
   readonly icon: IconType
-  readonly onChange: (index: number, value: React.SetStateAction<UnionListValue<T, V>>) => void
+  readonly onChange: (index: number, value: React.SetStateAction<BlockListValue<T, V>>) => void
   readonly onDelete: (index: number) => void
   readonly onMoveUp?: (index: number) => void
   readonly onMoveDown?: (index: number) => void
   readonly children: (props: FieldProps<V>) => JSX.Element
 }
 
-function UnionListItem({
+function BlockListItem({
   index,
   value,
   icon,
@@ -33,7 +53,7 @@ function UnionListItem({
   onMoveUp,
   onMoveDown,
   children
-}: UnionListItemProps) {
+}: BlockListItemProps) {
   function handleValueChange(fieldValue: React.SetStateAction<any>) {
     onChange(index, value => ({
       ...value,
@@ -52,22 +72,21 @@ function UnionListItem({
   )
 }
 
-export interface UnionListFieldProps<V extends UnionListValue> extends FieldProps<V[]> {
+export interface BlockListFieldProps<V extends BlockListValue> extends FieldProps<V[]> {
   readonly label?: string
-  readonly children: UnionListCaseMapForValue<V>
+  readonly children: BlockListCaseMapForValue<V>
 }
 
-export function UnionListField<V extends UnionListValue>({
+export function BlockListField<V extends BlockListValue>({
   value: values,
   label,
   children,
   onChange
-}: UnionListFieldProps<V>) {
-  const [casePickerIndex, setCasePickerIndex] = useState<number | null>(null)
-  const unionFieldMap = children as UnionFieldCaseMap
+}: BlockListFieldProps<V>) {
+  const unionFieldMap = children as BlockFieldCaseMap
   const css = useStyle()
 
-  function handleItemChange(index: number, itemValue: React.SetStateAction<UnionListValue>) {
+  function handleItemChange(index: number, itemValue: React.SetStateAction<BlockListValue>) {
     onChange(value =>
       Object.assign([], value, {
         [index]: isFunctionalUpdate(itemValue) ? itemValue(value[index]) : itemValue
@@ -88,8 +107,6 @@ export function UnionListField<V extends UnionListValue>({
 
       return valuesCopy
     })
-
-    setCasePickerIndex(null)
   }
 
   function handleRemove(itemIndex: number) {
@@ -117,25 +134,14 @@ export function UnionListField<V extends UnionListValue>({
 
   function addButtonForIndex(index: number) {
     return (
-      <>
-        <AddBlockMenu
-          menuItems={Object.entries(unionFieldMap).map(([type, {icon, label}]) => ({
-            id: type,
-            icon,
-            label
-          }))}
-          onMenuItemClick={({id}) => handleAdd(index, id)}
-        />
-        <div>
-          {casePickerIndex === index &&
-            Object.entries(unionFieldMap).map(([type, value]) => (
-              <button key={type} onClick={() => handleAdd(index, type)}>
-                <Icon element={value.icon} />
-                {value.label}
-              </button>
-            ))}
-        </div>
-      </>
+      <AddBlockMenu
+        menuItems={Object.entries(unionFieldMap).map(([type, {icon, label}]) => ({
+          id: type,
+          icon,
+          label
+        }))}
+        onMenuItemClick={({id}) => handleAdd(index, id)}
+      />
     )
   }
 
@@ -147,7 +153,7 @@ export function UnionListField<V extends UnionListValue>({
 
     return (
       <Fragment key={value.id}>
-        <UnionListItem
+        <BlockListItem
           index={index}
           value={value}
           icon={unionCase.icon}
@@ -156,14 +162,14 @@ export function UnionListField<V extends UnionListValue>({
           onMoveUp={hasPrevIndex ? handleMoveUp : undefined}
           onMoveDown={hasNextIndex ? handleMoveDown : undefined}>
           {unionCase.field}
-        </UnionListItem>
+        </BlockListItem>
         {addButtonForIndex(index)}
       </Fragment>
     )
   }
 
   return (
-    <div className={css(UnionListFieldStyle)}>
+    <div className={css(BlockListFieldStyle)}>
       {label && <label>{label}</label>}
       {values.map((value, index) => listItemForIndex(value, index))}
       {values.length === 0 && addButtonForIndex(values.length - 1)}

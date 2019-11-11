@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Button} from '../input/button'
+import {Button} from '../input/buttons/button'
 import {Modal} from './modal'
 import {centerLayoutDecorator} from '../.storybook/decorators'
 

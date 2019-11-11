@@ -2,11 +2,11 @@ import React, {useState} from 'react'
 
 import {TransformField} from './transformField'
 import {TextField} from './textField'
-import {centerLayoutDecorator} from '../.storybook/decorators'
+import {centerLayoutDecorator} from '../../.storybook/decorators'
 
 export default {
   component: TransformField,
-  title: 'Fields|TransformField',
+  title: 'Input|Fields/TransformField',
   decorators: [centerLayoutDecorator()]
 }
 

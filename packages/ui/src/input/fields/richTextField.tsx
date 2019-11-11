@@ -2,7 +2,7 @@ import React, {memo} from 'react'
 import {Value} from 'slate'
 
 import {FieldProps} from './types'
-import {RichTextInput} from '../input/richTextInput'
+import {RichTextInput} from '../text/richTextInput'
 
 export interface RichTextFieldProps extends FieldProps<Value> {
   readonly placeholder?: string

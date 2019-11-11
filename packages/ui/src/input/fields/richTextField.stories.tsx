@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
 
-import {centerLayoutDecorator} from '../.storybook/decorators'
+import {centerLayoutDecorator} from '../../.storybook/decorators'
 import {RichTextField} from './richTextField'
 import {Value, Document, Block} from 'slate'
 
 export default {
   component: RichTextField,
-  title: 'Fields|RichTextField',
+  title: 'Input|Fields/RichTextField',
   decorators: [centerLayoutDecorator(0.8)]
 }
 

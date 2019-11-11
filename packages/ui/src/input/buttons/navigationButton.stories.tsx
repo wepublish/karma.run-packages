@@ -1,10 +1,10 @@
 import React from 'react'
 
 import {NavigationButton, NavigationLinkButton} from './navigationButton'
-import {centerLayoutDecorator} from '../.storybook/decorators'
+import {centerLayoutDecorator} from '../../.storybook/decorators'
 import {MaterialIconSaveOutlined} from '@karma.run/icons'
-import {Spacing} from '../style/helpers'
-import {Box} from '../layout/box'
+import {Spacing} from '../../style/helpers'
+import {Box} from '../../layout/box'
 
 export default {
   component: NavigationButton,

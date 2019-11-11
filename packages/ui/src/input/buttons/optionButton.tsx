@@ -1,9 +1,9 @@
 import React from 'react'
 
-import {BaseButton, ButtonProps} from '../atoms/baseButton'
-import {IconType, Icon} from '../atoms/icon'
-import {pxToRem, TransitionDuration, FontSize} from '../style/helpers'
-import {cssRuleWithTheme} from '../style/themeContext'
+import {BaseButton, ButtonProps} from '../../atoms/baseButton'
+import {IconType, Icon} from '../../atoms/icon'
+import {pxToRem, TransitionDuration, FontSize} from '../../style/helpers'
+import {cssRuleWithTheme} from '../../style/themeContext'
 
 const OptionButtonStyle = cssRuleWithTheme(({theme}) => ({
   width: pxToRem(40),

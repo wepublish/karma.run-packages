@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 
-import {centerLayoutDecorator} from '../.storybook/decorators'
+import {centerLayoutDecorator} from '../../.storybook/decorators'
 import {FocalPointInput} from './focalPointInput'
 
 export default {
   component: FocalPointInput,
-  title: 'Input|FocalPointInput',
+  title: 'Input|Other/FocalPointInput',
   decorators: [centerLayoutDecorator(0.5)]
 }
 

@@ -1,14 +1,14 @@
 import React, {useRef, useState, useLayoutEffect} from 'react'
 
-import {Icon} from '../atoms/icon'
-import {pxToRem, FontSize} from '../style/helpers'
-import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
+import {Icon} from '../../atoms/icon'
+import {pxToRem, FontSize} from '../../style/helpers'
+import {cssRuleWithTheme, useThemeStyle} from '../../style/themeContext'
 import {MaterialIconCenterFocusStrong} from '@karma.run/icons'
-import {Image} from '../data/image'
-import {DraggableContainer, Draggable, Point} from '../interaction/draggable'
-import {LayerContainer, Layer} from '../layout/layer'
+import {Image} from '../../data/image'
+import {DraggableContainer, Draggable, Point} from '../../interaction/draggable'
+import {LayerContainer, Layer} from '../../layout/layer'
 import {styled} from '@karma.run/react'
-import {Card} from '../atoms/card'
+import {Card} from '../../atoms/card'
 
 const FocalPointInputWrapper = styled('div', () => ({
   _className: process.env.NODE_ENV !== 'production' ? 'FocalPointInput' : undefined,

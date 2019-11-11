@@ -1,9 +1,9 @@
 import React from 'react'
 
-import {BaseButton, ButtonProps} from '../atoms/baseButton'
-import {IconType, Icon} from '../atoms/icon'
-import {cssRuleWithTheme} from '../style/themeContext'
-import {pxToEm, TransitionDuration, FontSize} from '../style/helpers'
+import {BaseButton, ButtonProps} from '../../atoms/baseButton'
+import {IconType, Icon} from '../../atoms/icon'
+import {cssRuleWithTheme} from '../../style/themeContext'
+import {pxToEm, TransitionDuration, FontSize} from '../../style/helpers'
 
 const OptionButtonSmallStyle = cssRuleWithTheme(({theme}) => ({
   display: 'flex',

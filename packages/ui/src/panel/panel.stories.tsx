@@ -3,7 +3,7 @@ import React from 'react'
 import {centerLayoutDecorator} from '../.storybook/decorators'
 import {Text} from '../layout/typography.stories'
 import {Default as DefaultPanelHeader} from './panelHeader.stories'
-import {Default as DefaultFocalPointInput} from '../input/focalPointInput.stories'
+import {Default as DefaultFocalPointInput} from '../input/other/focalPointInput.stories'
 import {Default as DefaultDescriptionList} from '../data/descriptionList.stories'
 
 import {Panel} from './panel'

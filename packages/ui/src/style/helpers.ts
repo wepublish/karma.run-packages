@@ -11,8 +11,7 @@ export enum ZIndex {
   Default = 0,
   NavigationBar = 10,
   Sidebar = 20,
-  Modal = 1050,
-  ModalBackdrop = 1040
+  Modal = 1050
 }
 
 export enum Spacing {

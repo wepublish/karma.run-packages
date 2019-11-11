@@ -1,7 +1,7 @@
 import React from 'react'
 import {MaterialIconClose} from '@karma.run/icons'
 
-import {OptionButtonSmall} from '../input/optionButtonSmall'
+import {OptionButtonSmall} from '../input/buttons/optionButtonSmall'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {BorderRadius, TransitionDuration} from '../style/helpers'
 
