@@ -27,6 +27,7 @@ export * from './organisms/optionMenu'
 
 // Layout
 export * from './layout/box'
+export * from './layout/layer'
 export * from './layout/grid'
 export * from './layout/typography'
 

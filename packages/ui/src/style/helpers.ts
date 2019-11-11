@@ -4,14 +4,15 @@ import {Theme} from './themeContext'
 export enum Breakpoint {
   Mobile = 0,
   Tablet = 600,
-  Desktop = 992
+  Desktop = 990
 }
 
 export enum ZIndex {
   Default = 0,
-  NavigationBar = 10,
-  Sidebar = 20,
-  Modal = 1050
+  Tooltip = 1,
+  NavigationBar = 2,
+  Modal = 3,
+  Toast = 4
 }
 
 export enum Spacing {
@@ -62,14 +63,12 @@ export function pxToEm(px: number) {
 }
 
 export function whenTablet(styles: CSSStyle) {
-  // prettier-ignore
   return {
     [`@media screen and (max-width: ${Breakpoint.Desktop - 1}px)`]: styles
   }
 }
 
 export function whenMobile(styles: CSSStyle) {
-  // prettier-ignore
   return {
     [`@media screen and (max-width: ${Breakpoint.Tablet - 1}px)`]: styles
   }

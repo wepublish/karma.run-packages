@@ -26,8 +26,8 @@ const NavigationButtonStyle = cssRuleWithTheme<NavigationButtonStyleProps>(({dis
   fontSize: pxToRem(FontSize.Small),
   fontFamily: 'inherit',
 
-  paddingLeft: pxToRem(Spacing.Tiny),
-  paddingRight: pxToRem(Spacing.Tiny),
+  paddingLeft: pxToRem(Spacing.ExtraSmall),
+  paddingRight: pxToRem(Spacing.ExtraSmall),
 
   fill: disabled ? theme.colors.gray : theme.colors.dark,
   color: disabled ? theme.colors.gray : theme.colors.dark,

@@ -1,9 +1,10 @@
 import React from 'react'
-import {OptionButtonSmall} from '../input/buttons/optionButtonSmall'
-import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
+import {OptionButtonSmall} from './optionButtonSmall'
+import {useThemeStyle, cssRuleWithTheme} from '../../style/themeContext'
 import {MaterialIconAdd} from '@karma.run/icons'
+import {ZIndex} from '../../style/helpers'
 
-export interface AddBlockButtonStyleProps {
+interface AddBlockButtonStyleProps {
   active: boolean
 }
 
@@ -21,6 +22,7 @@ const AddBlockButtonStyle = cssRuleWithTheme<AddBlockButtonStyleProps>(({theme, 
     content: '""',
 
     position: 'absolute',
+    zIndex: ZIndex.Default,
     display: 'block',
 
     top: '50%',
@@ -33,14 +35,12 @@ const AddBlockButtonStyle = cssRuleWithTheme<AddBlockButtonStyleProps>(({theme, 
 }))
 
 const AddBlockButtonWrapperStyle = cssRuleWithTheme(() => ({
-  zIndex: 1,
-  top: '50%',
-  left: '50%'
+  zIndex: ZIndex.Default
 }))
 
 export interface AddBlockButtonProps {
+  readonly active?: boolean
   onClick(): void
-  active?: boolean
 }
 
 export function AddBlockButton({onClick, active = false}: AddBlockButtonProps) {

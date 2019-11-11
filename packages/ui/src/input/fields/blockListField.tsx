@@ -8,7 +8,9 @@ import {FieldProps, FieldConstructorFn} from './types'
 
 import {IconType} from '../../atoms/icon'
 import {ListItemWrapper} from '../../molecules/listItemWrapper'
-import {AddBlockMenu} from '../../blocks/addBlockMenu'
+import {AddBlockInput} from '../other/addBlockInput'
+import {Box} from '../../layout/box'
+import {Spacing} from '../../style/helpers'
 
 export interface BlockFieldCaseProps<V = any> {
   readonly label: string
@@ -73,13 +75,11 @@ function BlockListItem({
 }
 
 export interface BlockListFieldProps<V extends BlockListValue> extends FieldProps<V[]> {
-  readonly label?: string
   readonly children: BlockListCaseMapForValue<V>
 }
 
 export function BlockListField<V extends BlockListValue>({
   value: values,
-  label,
   children,
   onChange
 }: BlockListFieldProps<V>) {
@@ -134,14 +134,20 @@ export function BlockListField<V extends BlockListValue>({
 
   function addButtonForIndex(index: number) {
     return (
-      <AddBlockMenu
-        menuItems={Object.entries(unionFieldMap).map(([type, {icon, label}]) => ({
-          id: type,
-          icon,
-          label
-        }))}
-        onMenuItemClick={({id}) => handleAdd(index, id)}
-      />
+      <Box
+        paddingLeft={Spacing.Medium}
+        paddingRight={Spacing.Medium}
+        marginTop={Spacing.ExtraSmall}
+        marginBottom={Spacing.ExtraSmall}>
+        <AddBlockInput
+          menuItems={Object.entries(unionFieldMap).map(([type, {icon, label}]) => ({
+            id: type,
+            icon,
+            label
+          }))}
+          onMenuItemClick={({id}) => handleAdd(index, id)}
+        />
+      </Box>
     )
   }
 
@@ -170,7 +176,6 @@ export function BlockListField<V extends BlockListValue>({
 
   return (
     <div className={css(BlockListFieldStyle)}>
-      {label && <label>{label}</label>}
       {values.map((value, index) => listItemForIndex(value, index))}
       {values.length === 0 && addButtonForIndex(values.length - 1)}
     </div>

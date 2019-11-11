@@ -11,6 +11,8 @@ export interface CardProps {
 export const Card = styled(
   'div',
   ({theme}) => ({
+    _className: process.env.NODE_ENV !== 'production' ? 'Card' : undefined,
+
     borderStyle: 'solid',
     borderWidth: BorderWidth.Small,
     borderColor: theme.colors.grayLight,

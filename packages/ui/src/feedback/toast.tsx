@@ -14,7 +14,8 @@ import {
   BorderWidth,
   TransitionDurationRaw,
   TransitionDuration,
-  BorderRadius
+  BorderRadius,
+  ZIndex
 } from '../style/helpers'
 
 function borderColorForType(type: ToastType, theme: Theme): string {
@@ -56,6 +57,7 @@ const ToastContainer = styled(
     position: 'fixed',
     left: '50%',
     top: pxToRem(Spacing.Medium),
+    zIndex: ZIndex.Toast,
 
     transform: `translateX(-50%) scale(${transitionStatus === 'entered' ? 1 : 0.5})`,
     transformOrigin: 'center',
