@@ -3,21 +3,20 @@ import React from 'react'
 import {Editor as CoreEditor} from 'slate'
 import {Editor, BasicEditorProps, Plugin, EditorProps} from 'slate-react'
 
-import {cssRuleWithTheme, useThemeStyle} from '../../style/themeContext'
 import {EditMenuButton, EditMenu} from '../../blocks/editMenu'
+import {useStyle, cssRule} from '@karma.run/react'
 
-const RichtextBlockStyle = cssRuleWithTheme(({theme}) => ({}))
+const RichTextInputStyle = cssRule(() => ({
+  width: '100%',
+  minHeight: '100%'
+}))
 
 export interface RichtextBlockProps extends BasicEditorProps {}
 
 export function RichTextInput(props: RichtextBlockProps) {
-  const css = useThemeStyle()
+  const css = useStyle()
 
-  return (
-    <div className={css(RichtextBlockStyle)}>
-      <Editor {...props} />
-    </div>
-  )
+  return <Editor {...props} className={css(RichTextInputStyle)} />
 }
 
 export function RichTextMenuPlugin(menuItems: EditMenuButton[]): Plugin {
@@ -25,20 +24,19 @@ export function RichTextMenuPlugin(menuItems: EditMenuButton[]): Plugin {
     renderEditor(props: EditorProps, editor: CoreEditor, next: () => any) {
       return (
         <>
-          {editor.value.selection.isFocused ? (
-            <EditMenu>
-              {menuItems.map((item, idx) => (
-                <EditMenuButton
-                  key={idx}
-                  editor={editor}
-                  isActive={item.isActive}
-                  icon={item.icon}
-                  onApply={item.onApply}
-                  label={item.label}
-                />
-              ))}
-            </EditMenu>
-          ) : null}
+          <EditMenu>
+            {/* TODO: Change opacitiy on focus: editor.value.selection.isFocused */}
+            {menuItems.map((item, idx) => (
+              <EditMenuButton
+                key={idx}
+                editor={editor}
+                isActive={item.isActive}
+                icon={item.icon}
+                onApply={item.onApply}
+                label={item.label}
+              />
+            ))}
+          </EditMenu>
           {next()}
         </>
       )

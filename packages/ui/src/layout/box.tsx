@@ -21,8 +21,7 @@ import {
 } from 'csstype'
 
 import {remify} from '../style/helpers'
-import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
-import {margin, padding} from '@karma.run/react'
+import {margin, padding, cssRule, useStyle} from '@karma.run/react'
 
 export interface BaseBoxProps {
   readonly flex?: boolean
@@ -64,12 +63,12 @@ export interface BaseBoxProps {
   readonly marginRight?: number | string
 
   readonly element?: keyof JSX.IntrinsicElements
-  readonly children?: ReactNode | ((props: {className: string}, ref: Ref<any>) => ReactNode)
+  readonly children?: ReactNode | ((props: {className: string; ref: Ref<any>}) => ReactNode)
 }
 
-type BoxStyleProps = Omit<Omit<BaseBoxProps, 'element'>, 'children'>
+type BoxStyleProps = Omit<BaseBoxProps, 'element' | 'children'>
 
-const BoxBaseStyle = cssRuleWithTheme<BoxStyleProps>(
+const BoxBaseStyle = cssRule<BoxStyleProps>(
   ({
     flex,
     inlineFlex,
@@ -77,7 +76,6 @@ const BoxBaseStyle = cssRuleWithTheme<BoxStyleProps>(
     inline,
     margin: marginValue,
     padding: paddingValue,
-    theme,
 
     width,
     minWidth,
@@ -95,6 +93,7 @@ const BoxBaseStyle = cssRuleWithTheme<BoxStyleProps>(
     paddingBottom,
     paddingLeft,
     paddingRight,
+
     ...props
   }) => {
     marginValue = remify(marginValue)
@@ -140,22 +139,21 @@ const BoxBaseStyle = cssRuleWithTheme<BoxStyleProps>(
   }
 )
 
-export const Box = forwardRef<any, BaseBoxProps>(
-  ({element = 'div', children, ...props}, ref: any) => {
-    const style = useThemeStyle(props)
-    const className = style(BoxBaseStyle)
+export const Box = forwardRef<any, BaseBoxProps>(function Box(
+  {element = 'div', children, ...props},
+  ref
+) {
+  const style = useStyle(props)
+  const className = style(BoxBaseStyle)
 
-    const Element = element as any
-    const anyChildren = children as any
+  const Element = element as any
+  const anyChildren = children as any
 
-    return typeof anyChildren === 'function' ? (
-      anyChildren({className}, ref)
-    ) : (
-      <Element className={className} ref={ref}>
-        {children}
-      </Element>
-    )
-  }
-)
-
-Box.displayName = 'Box'
+  return typeof anyChildren === 'function' ? (
+    anyChildren({className, ref})
+  ) : (
+    <Element className={className} ref={ref}>
+      {children}
+    </Element>
+  )
+})

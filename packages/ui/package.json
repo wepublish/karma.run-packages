@@ -51,8 +51,7 @@
     "shx": "^0.3.2",
     "ts-loader": "^6.1.0",
     "typescript": "^3.7.2",
-    "webpack": "^4.35.3",
-    "prettier": "1.18.2"
+    "webpack": "^4.35.3"
   },
   "peerDependencies": {
     "react": "^16.10.2",

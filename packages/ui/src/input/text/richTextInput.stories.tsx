@@ -5,6 +5,7 @@ import {RenderMarkProps, RenderBlockProps, Plugin} from 'slate-react'
 
 import {centerLayoutDecorator} from '../../.storybook/decorators'
 import {RichTextInput, RichTextMenuPlugin} from './richTextInput'
+import {Typography} from '../../layout/typography'
 
 import {
   MaterialIconFormatBold,
@@ -60,12 +61,26 @@ function renderMark(props: RenderMarkProps, editor: CoreEditor, next: () => any)
 
 function renderBlock(props: RenderBlockProps, editor: CoreEditor, next: () => any) {
   const {children, node, attributes} = props
-
+  console.log(node.type)
   switch (node.type) {
     case 'heading-two':
-      return <h2 {...attributes}>{children}</h2>
+      return (
+        <Typography variant="h2" spacing="small" {...attributes}>
+          {children}
+        </Typography>
+      )
     case 'heading-three':
-      return <h3 {...attributes}>{children}</h3>
+      return (
+        <Typography variant="h3" spacing="small" {...attributes}>
+          {children}
+        </Typography>
+      )
+    case 'paragraph':
+      return (
+        <Typography variant="body1" spacing="large" {...attributes}>
+          {children}
+        </Typography>
+      )
     case 'link':
       return <a {...attributes}>{children}</a>
     case 'bulleted-list':
@@ -213,7 +228,7 @@ const standardRichTextEditItems = [
   {
     icon: MaterialIconLink,
     label: 'link',
-    onApply: (editor: CoreEditor, value: Value) => {}, // todo open side panel to enter href
+    onApply: (editor: CoreEditor, value: Value) => {},
     isActive: hasInlines
   }
 ]

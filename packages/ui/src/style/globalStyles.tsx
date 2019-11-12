@@ -1,6 +1,7 @@
 import {useStaticStyle} from '@karma.run/react'
 import {useContext} from 'react'
 import {ThemeContext} from './themeContext'
+import {FontSize, pxToRem} from './helpers'
 
 export interface GlobalStylesProps {
   readonly rootElementID: string
@@ -21,6 +22,10 @@ export function GlobalStyles({rootElementID}: GlobalStylesProps) {
     padding: 0,
     margin: 0,
     color: theme.colors.dark
+  })
+
+  staticCSS('body', {
+    fontSize: pxToRem(FontSize.Medium)
   })
 
   staticCSS('a, a:link, a:visited, a:hover, a:active', {

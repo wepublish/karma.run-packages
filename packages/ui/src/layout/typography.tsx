@@ -1,4 +1,4 @@
-import React, {ReactNode, ElementType, CSSProperties} from 'react'
+import React, {ReactNode, ElementType, CSSProperties, forwardRef} from 'react'
 
 import {pxToRem, FontSize} from '../style/helpers'
 import {cssRuleWithTheme, useThemeStyle, ThemeColors} from '../style/themeContext'
@@ -51,17 +51,21 @@ export interface TypographyProps {
   readonly children?: ReactNode
 }
 
-export function Typography({
-  variant = 'body1',
-  color,
-  align,
-  display,
-  spacing,
-  noWrap,
-  element = elementForTypographyVariant(variant),
-  children
-}: TypographyProps) {
-  const Element = element
+export const Typography = forwardRef<HTMLElement, TypographyProps>(function Typography(
+  {
+    variant = 'body1',
+    color,
+    align,
+    display,
+    spacing,
+    noWrap,
+    element = elementForTypographyVariant(variant),
+    children,
+    ...props
+  },
+  ref
+) {
+  const Element = element as any
   const css = useThemeStyle<TypographStyleProps>({
     variant,
     color,
@@ -71,8 +75,12 @@ export function Typography({
     noWrap
   })
 
-  return <Element className={css(TypographStyle)}>{children}</Element>
-}
+  return (
+    <Element ref={ref} className={css(TypographStyle)} {...props}>
+      {children}
+    </Element>
+  )
+})
 
 export function elementForTypographyVariant(variant: TypographyVariant) {
   switch (variant) {

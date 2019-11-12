@@ -60,17 +60,23 @@
     "watch:media-example": "yarn workspace @karma.run/media-example watch",
     "start:media-example": "yarn workspace @karma.run/media-example start"
   },
-  "workspaces": ["packages/*", "examples/*"],
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
   "devDependencies": {
-    "webpack": "^4.35.3",
+    "husky": "^3.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
     "pretty-quick": "^1.11.1",
-    "husky": "^3.0.0"
+    "webpack": "^4.35.3"
   },
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged --pattern 'packages/**/*.{js,ts,tsx,json}'"
     }
+  },
+  "dependencies": {
+    "@karma.run/ui": "0.0.2"
   }
 }
