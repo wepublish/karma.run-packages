@@ -1,15 +1,15 @@
 import React, {useState} from 'react'
 
 import {centerLayoutDecorator} from '../../.storybook/decorators'
-import {TextField} from './textField'
+import {TextInputBlock} from './textInputBlock'
 
 export default {
-  component: TextField,
-  title: 'Input|Fields/TextField',
+  component: TextInputBlock,
+  title: 'Input|Blocks/TextInputBlock',
   decorators: [centerLayoutDecorator()]
 }
 
 export const Standard = () => {
   const [value, setValue] = useState('')
-  return <TextField value={value} onChange={value => setValue(value)} />
+  return <TextInputBlock value={value} onChange={value => setValue(value)} />
 }

@@ -90,7 +90,7 @@ export function ListItemWrapper({
       </div>
       <div className={css(ListItemWrapperContentStyle)}>
         <Card>
-          <Box padding={Spacing.ExtraSmall} minHeight="100%">
+          <Box padding={Spacing.Small} minHeight="100%">
             {children}
           </Box>
         </Card>

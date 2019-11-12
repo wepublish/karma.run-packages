@@ -4,7 +4,7 @@ import nanoid from 'nanoid'
 import {isFunctionalUpdate} from '@karma.run/react'
 import {isValueConstructor} from '@karma.run/utility'
 
-import {FieldProps} from './types'
+import {BlockProps} from './types'
 
 export interface ListValue<T = any> {
   readonly id: string
@@ -16,7 +16,7 @@ export interface ListItemProps<T = any> {
   readonly value: ListValue<T>
   readonly onChange: (index: number, value: React.SetStateAction<ListValue<T>>) => void
   readonly onRemove: (index: number) => void
-  readonly children: (props: FieldProps<T>) => JSX.Element
+  readonly children: (props: BlockProps<T>) => JSX.Element
 }
 
 export function ListItem({index, value, onChange, onRemove, children}: ListItemProps) {
@@ -39,12 +39,13 @@ export function ListItem({index, value, onChange, onRemove, children}: ListItemP
   )
 }
 
-export interface ListFieldProps<T = any> extends FieldProps<ListValue<T>[]> {
+export interface ListFieldProps<T = any> extends BlockProps<ListValue<T>[]> {
   readonly label?: string
   readonly defaultValue: T | (() => T)
-  readonly children: (props: FieldProps<T>) => JSX.Element
+  readonly children: (props: BlockProps<T>) => JSX.Element
 }
 
+// TODO: Find proper name
 export function ListField<T>({value, label, defaultValue, children, onChange}: ListFieldProps<T>) {
   function handleItemChange(index: number, itemValue: React.SetStateAction<ListValue>) {
     onChange(value =>

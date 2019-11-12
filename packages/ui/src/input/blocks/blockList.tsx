@@ -4,7 +4,7 @@ import nanoid from 'nanoid'
 import {isFunctionalUpdate, useStyle, cssRule} from '@karma.run/react'
 import {isValueConstructor, ValueConstructor, UnionToIntersection} from '@karma.run/utility'
 
-import {FieldProps, FieldConstructorFn} from './types'
+import {BlockProps, BlockConstructorFn} from './types'
 
 import {IconType} from '../../atoms/icon'
 import {ListItemWrapper} from '../../molecules/listItemWrapper'
@@ -12,11 +12,11 @@ import {AddBlockInput} from '../other/addBlockInput'
 import {Box} from '../../layout/box'
 import {Spacing} from '../../style/helpers'
 
-export interface BlockFieldCaseProps<V = any> {
+export interface BlockCaseProps<V = any> {
   readonly label: string
   readonly icon: IconType
   readonly defaultValue: ValueConstructor<V>
-  readonly field: FieldConstructorFn<V>
+  readonly field: BlockConstructorFn<V>
 }
 
 export interface BlockListValue<T extends string = string, V = any> {
@@ -25,13 +25,13 @@ export interface BlockListValue<T extends string = string, V = any> {
   readonly value: V
 }
 
-export type BlockFieldCaseMap = Record<string, BlockFieldCaseProps>
+export type BlockCaseMap = Record<string, BlockCaseProps>
 
-export type BlockListCaseMapForValue<R extends BlockListValue> = UnionToIntersection<
-  R extends BlockListValue<infer T, infer V> ? {[K in T]: BlockFieldCaseProps<V>} : never
+export type BlockCaseMapForValue<R extends BlockListValue> = UnionToIntersection<
+  R extends BlockListValue<infer T, infer V> ? {[K in T]: BlockCaseProps<V>} : never
 >
 
-const BlockListFieldStyle = cssRule({
+const BlockListStyle = cssRule({
   width: '100%'
 })
 
@@ -43,7 +43,7 @@ export interface BlockListItemProps<T extends string = string, V = any> {
   readonly onDelete: (index: number) => void
   readonly onMoveUp?: (index: number) => void
   readonly onMoveDown?: (index: number) => void
-  readonly children: (props: FieldProps<V>) => JSX.Element
+  readonly children: (props: BlockProps<V>) => JSX.Element
 }
 
 function BlockListItem({
@@ -74,16 +74,16 @@ function BlockListItem({
   )
 }
 
-export interface BlockListFieldProps<V extends BlockListValue> extends FieldProps<V[]> {
-  readonly children: BlockListCaseMapForValue<V>
+export interface BlockListProps<V extends BlockListValue> extends BlockProps<V[]> {
+  readonly children: BlockCaseMapForValue<V>
 }
 
-export function BlockListField<V extends BlockListValue>({
+export function BlockList<V extends BlockListValue>({
   value: values,
   children,
   onChange
-}: BlockListFieldProps<V>) {
-  const unionFieldMap = children as BlockFieldCaseMap
+}: BlockListProps<V>) {
+  const unionFieldMap = children as BlockCaseMap
   const css = useStyle()
 
   function handleItemChange(index: number, itemValue: React.SetStateAction<BlockListValue>) {
@@ -99,7 +99,7 @@ export function BlockListField<V extends BlockListValue>({
       const {defaultValue} = unionFieldMap[type]
       const valuesCopy = values.slice()
 
-      valuesCopy.splice(index + 1, 0, {
+      valuesCopy.splice(index, 0, {
         id: nanoid(),
         type,
         value: isValueConstructor(defaultValue) ? defaultValue() : defaultValue
@@ -169,15 +169,15 @@ export function BlockListField<V extends BlockListValue>({
           onMoveDown={hasNextIndex ? handleMoveDown : undefined}>
           {unionCase.field}
         </BlockListItem>
-        {addButtonForIndex(index)}
+        {addButtonForIndex(index + 1)}
       </Fragment>
     )
   }
 
   return (
-    <div className={css(BlockListFieldStyle)}>
+    <div className={css(BlockListStyle)}>
+      {addButtonForIndex(0)}
       {values.map((value, index) => listItemForIndex(value, index))}
-      {values.length === 0 && addButtonForIndex(values.length - 1)}
     </div>
   )
 }

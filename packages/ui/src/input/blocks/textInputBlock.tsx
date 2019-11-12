@@ -1,8 +1,8 @@
 import React, {memo} from 'react'
-import {FieldProps} from './types'
+import {BlockProps} from './types'
 import {TextInput} from '../../atoms/textInput'
 
-export const TextField = memo(function TextField({value, onChange}: FieldProps<string>) {
+export const TextInputBlock = memo(function TextField({value, onChange}: BlockProps<string>) {
   return (
     <TextInput
       label="Label"

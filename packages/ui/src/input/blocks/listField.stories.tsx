@@ -2,11 +2,11 @@ import React, {useState} from 'react'
 
 import {centerLayoutDecorator} from '../../.storybook/decorators'
 import {ListField, ListValue} from './listField'
-import {TextField} from './textField'
+import {TextInputBlock} from './textInputBlock'
 
 export default {
   component: ListField,
-  title: 'Input|Fields/ListField',
+  title: 'Input|Blocks/ListField',
   decorators: [centerLayoutDecorator()]
 }
 
@@ -15,7 +15,7 @@ export const Standard = () => {
 
   return (
     <ListField value={values} onChange={setValues} defaultValue={''}>
-      {props => <TextField {...props} />}
+      {props => <TextInputBlock {...props} />}
     </ListField>
   )
 }

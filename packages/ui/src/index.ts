@@ -33,6 +33,7 @@ export * from './layout/typography'
 
 // Inputs
 export * from './input/text/richTextInput'
+export * from './input/text/typographyTextArea'
 export * from './input/other/fileDropInput'
 export * from './input/other/focalPointInput'
 export * from './input/buttons/button'
@@ -42,16 +43,16 @@ export * from './input/buttons/optionButtonSmall'
 
 export {BaseButtonProps, ButtonProps} from './input/buttons/button'
 
+// Blocks
+export * from './input/blocks/types'
+export * from './input/blocks/listField'
+export * from './input/blocks/blockList'
+export * from './input/blocks/transformBlock'
+export * from './input/blocks/textInputBlock'
+export * from './input/blocks/richTextInputBlock'
+
 // Feedback
 export * from './feedback/toast'
-
-// Fields
-export * from './input/fields/types'
-export * from './input/fields/listField'
-export * from './input/fields/blockListField'
-export * from './input/fields/transformField'
-export * from './input/fields/textField'
-export * from './input/fields/richTextField'
 
 // Style
 export * from './style/globalStyles'

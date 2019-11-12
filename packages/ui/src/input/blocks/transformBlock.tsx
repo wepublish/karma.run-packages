@@ -1,20 +1,20 @@
 import {SetStateAction} from 'react'
-import {FieldProps} from './types'
+import {BlockProps} from './types'
 import {isFunctionalUpdate} from '@karma.run/react'
 
-export interface TransformFieldProps<T, O> extends FieldProps<T> {
+export interface TransformBlockProps<T, O> extends BlockProps<T> {
   readonly transformTo: (value: T) => O
   readonly transformFrom: (value: O) => T
-  readonly children: (props: FieldProps<O>) => JSX.Element
+  readonly children: (props: BlockProps<O>) => JSX.Element
 }
 
-export function TransformField<T, O>({
+export function TransformBlock<T, O>({
   transformTo,
   transformFrom,
   children,
   value,
   onChange
-}: TransformFieldProps<T, O>) {
+}: TransformBlockProps<T, O>) {
   const transformedValue = transformTo(value)
   const onTransformedChange = (newValue: SetStateAction<O>) => {
     onChange(transformFrom(isFunctionalUpdate(newValue) ? newValue(transformedValue) : newValue))
