@@ -27,7 +27,7 @@ export const RichTextInputBlock = memo(function RichTextField({
     }
 
     return () => {}
-  }, [allowInit])
+  }, [])
 
   return (
     <RichTextInput ref={ref} value={value} onChange={({value}) => onChange(value)} {...props} />
