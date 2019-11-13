@@ -26,6 +26,7 @@ const TextAreaWrapper = styled(
     borderWidth: 0,
     borderColor: 'transparent',
 
+    fontFamily: 'inherit',
     color: theme.colors.dark,
     textAlign: align,
     ...stylesForTypographyVariant(variant),

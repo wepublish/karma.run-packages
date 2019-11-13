@@ -31,7 +31,7 @@ export enum FontSize {
   Heading3 = 20,
   Heading2 = 24,
   Heading1 = 28,
-  ExtraLarge = 60
+  ExtraLarge = 40
 }
 
 export enum BorderWidth {

@@ -39,6 +39,7 @@ export interface BlockListItemProps<T extends string = string, V = any> {
   readonly index: number
   readonly value: BlockListValue<T, V>
   readonly icon: IconType
+  readonly allowInit?: boolean
   readonly onChange: (index: number, value: React.SetStateAction<BlockListValue<T, V>>) => void
   readonly onDelete: (index: number) => void
   readonly onMoveUp?: (index: number) => void
@@ -54,6 +55,7 @@ function BlockListItem({
   onDelete,
   onMoveUp,
   onMoveDown,
+  allowInit,
   children
 }: BlockListItemProps) {
   function handleValueChange(fieldValue: React.SetStateAction<any>) {
@@ -69,7 +71,7 @@ function BlockListItem({
       onDelete={() => onDelete(index)}
       onMoveUp={onMoveUp ? () => onMoveUp(index) : undefined}
       onMoveDown={onMoveDown ? () => onMoveDown(index) : undefined}>
-      {children({value: value.value, onChange: handleValueChange})}
+      {children({value: value.value, onChange: handleValueChange, allowInit})}
     </ListItemWrapper>
   )
 }
@@ -81,7 +83,8 @@ export interface BlockListProps<V extends BlockListValue> extends BlockProps<V[]
 export function BlockList<V extends BlockListValue>({
   value: values,
   children,
-  onChange
+  onChange,
+  allowInit
 }: BlockListProps<V>) {
   const unionFieldMap = children as BlockCaseMap
   const css = useStyle()
@@ -146,6 +149,7 @@ export function BlockList<V extends BlockListValue>({
             label
           }))}
           onMenuItemClick={({id}) => handleAdd(index, id)}
+          subtle={index !== values.length}
         />
       </Box>
     )
@@ -166,7 +170,8 @@ export function BlockList<V extends BlockListValue>({
           onDelete={handleRemove}
           onChange={handleItemChange}
           onMoveUp={hasPrevIndex ? handleMoveUp : undefined}
-          onMoveDown={hasNextIndex ? handleMoveDown : undefined}>
+          onMoveDown={hasNextIndex ? handleMoveDown : undefined}
+          allowInit={allowInit}>
           {unionCase.field}
         </BlockListItem>
         {addButtonForIndex(index + 1)}

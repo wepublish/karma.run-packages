@@ -13,7 +13,8 @@ export function TransformBlock<T, O>({
   transformFrom,
   children,
   value,
-  onChange
+  onChange,
+  allowInit
 }: TransformBlockProps<T, O>) {
   const transformedValue = transformTo(value)
   const onTransformedChange = (newValue: SetStateAction<O>) => {
@@ -22,6 +23,7 @@ export function TransformBlock<T, O>({
 
   return children({
     value: transformedValue,
-    onChange: onTransformedChange
+    onChange: onTransformedChange,
+    allowInit
   })
 }

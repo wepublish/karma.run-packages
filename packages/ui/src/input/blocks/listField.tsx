@@ -14,12 +14,13 @@ export interface ListValue<T = any> {
 export interface ListItemProps<T = any> {
   readonly index: number
   readonly value: ListValue<T>
+  readonly allowInit?: boolean
   readonly onChange: (index: number, value: React.SetStateAction<ListValue<T>>) => void
   readonly onRemove: (index: number) => void
   readonly children: (props: BlockProps<T>) => JSX.Element
 }
 
-export function ListItem({index, value, onChange, onRemove, children}: ListItemProps) {
+export function ListItem({index, value, onChange, onRemove, children, allowInit}: ListItemProps) {
   function handleValueChange(fieldValue: React.SetStateAction<any>) {
     onChange(index, value => ({
       ...value,
@@ -33,7 +34,7 @@ export function ListItem({index, value, onChange, onRemove, children}: ListItemP
 
   return (
     <div>
-      {children({value: value.value, onChange: handleValueChange})}
+      {children({value: value.value, onChange: handleValueChange, allowInit})}
       <button onClick={handleRemove}>-</button>
     </div>
   )
@@ -58,7 +59,10 @@ export function ListField<T>({value, label, defaultValue, children, onChange}: L
   function handleAdd() {
     onChange(value => [
       ...value,
-      {id: nanoid(), value: isValueConstructor(defaultValue) ? defaultValue() : defaultValue}
+      {
+        id: nanoid(),
+        value: isValueConstructor(defaultValue) ? defaultValue() : defaultValue
+      }
     ])
   }
 

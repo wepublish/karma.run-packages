@@ -115,22 +115,26 @@ export function stylesForTypographyVariant(style: TypographyVariant): CSSPropert
   switch (style) {
     case 'title':
       return {
-        fontSize: pxToRem(FontSize.ExtraLarge)
+        fontSize: pxToRem(FontSize.ExtraLarge),
+        fontWeight: 'bold'
       }
 
     case 'h1':
       return {
-        fontSize: pxToRem(FontSize.Heading1)
+        fontSize: pxToRem(FontSize.Heading1),
+        fontWeight: 'bold'
       }
 
     case 'h2':
       return {
-        fontSize: pxToRem(FontSize.Heading2)
+        fontSize: pxToRem(FontSize.Heading2),
+        fontWeight: 'bold'
       }
 
     case 'h3':
       return {
-        fontSize: pxToRem(FontSize.Heading3)
+        fontSize: pxToRem(FontSize.Heading3),
+        fontWeight: 'bold'
       }
 
     case 'body1':

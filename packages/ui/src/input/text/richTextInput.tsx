@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react'
+import React, {ReactNode, forwardRef} from 'react'
 
 import {Editor as CoreEditor, Value} from 'slate'
 import {Editor, BasicEditorProps, Plugin, EditorProps} from 'slate-react'
@@ -16,10 +16,13 @@ const RichTextInputStyle = cssRule(() => ({
 
 export interface RichTextInputProps extends BasicEditorProps {}
 
-export function RichTextInput(props: RichTextInputProps) {
+export const RichTextInput = forwardRef<Editor, RichTextInputProps>(function RichTextInput(
+  props,
+  ref
+) {
   const css = useStyle()
-  return <Editor {...props} className={css(RichTextInputStyle)} />
-}
+  return <Editor ref={ref} {...props} className={css(RichTextInputStyle)} />
+})
 
 export function RichTextMenuPlugin(menuItems: EditMenuButton[]): Plugin {
   return {
