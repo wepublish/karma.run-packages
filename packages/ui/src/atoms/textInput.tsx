@@ -106,6 +106,7 @@ const DescriptionStyle = cssRuleWithTheme<TextInputStyleProps>(({hasError, theme
 }))
 
 export interface TextInputProps {
+  readonly type?: InputType.Text
   readonly label?: string
   readonly value: string
   readonly description?: string
@@ -116,7 +117,14 @@ export interface TextInputProps {
   onChange(event: ChangeEvent<HTMLInputElement>): void
 }
 
-export function TextInput({label, description, errorDescription, icon, ...props}: TextInputProps) {
+export function TextInput({
+  type = InputType.Text,
+  label,
+  description,
+  errorDescription,
+  icon,
+  ...props
+}: TextInputProps) {
   const styleProps = {hasError: errorDescription != null, hasIcon: icon != null}
   const css = useThemeStyle<TextInputStyleProps>(styleProps)
 
@@ -125,7 +133,7 @@ export function TextInput({label, description, errorDescription, icon, ...props}
       <label className={css(TextInputWrapperStyle)}>
         {icon && <Icon element={icon} style={IconStyle} />}
         <BaseInput
-          type={InputType.Text}
+          type={type}
           placeholder={label}
           style={TextInputStyle}
           styleProps={styleProps}
