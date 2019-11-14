@@ -1166,6 +1166,37 @@
     path-to-regexp "^3.0.0"
     react "^16.8.6"
 
+"@karma.run/react@^0.0.19":
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/@karma.run/react/-/react-0.0.19.tgz#e8f4c709b3094083c5d3c034aa74bb52be8e2f48"
+  integrity sha512-AreYvA/AEBdTGytSlWo3bN5ZouBxeY0l3TG6WWxikdJ6n4pX8XOdth37Wx1Nd3JfllmXMCkPqKJCk8nvgtyL1Q==
+  dependencies:
+    "@karma.run/utility" "^0.0.1"
+    csstype "^2.6.6"
+    fela "^10.6.1"
+    fela-dom "^10.6.1"
+    fela-plugin-fallback-value "^10.6.1"
+    fela-plugin-prefixer "^10.6.1"
+    path-to-regexp "^3.0.0"
+    react "^16.10.1"
+    react-dom "^16.10.1"
+
+"@karma.run/ui@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@karma.run/ui/-/ui-0.0.2.tgz#7d8d58137db9dd2f18a4f1e3c442809a04a35c8c"
+  integrity sha512-2Zf/xRl1/fnHZcH275dIh+C8UrI+PjmgZMWfj8lLk63C3VLcPqFBXcWKkTNXKcnHw55H1Uh/pnwo7TYHMDOjNw==
+  dependencies:
+    "@karma.run/icons" "^0.0.0"
+    "@karma.run/react" "^0.0.19"
+    "@karma.run/utility" "^0.0.1"
+    find-my-way "^2.1.0"
+    immutable "^4.0.0-rc.12"
+    nanoid "^2.0.3"
+    react "^16.10.2"
+    react-dom "^16.10.2"
+    slate "^0.47.8"
+    slate-react "^0.22.9"
+
 "@karma.run/ui@^0.0.0":
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/@karma.run/ui/-/ui-0.0.0.tgz#b50b1976ca91bd05123c028970879cb1684bb684"
@@ -9256,7 +9287,7 @@ react-docgen@^4.1.1:
     node-dir "^0.1.10"
     recast "^0.17.3"
 
-react-dom@^16.10.1, react-dom@^16.8.3:
+react-dom@^16.10.1, react-dom@^16.10.2, react-dom@^16.8.3:
   version "16.11.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.11.0.tgz#7e7c4a5a85a569d565c2462f5d345da2dd849af5"
   integrity sha512-nrRyIUE1e7j8PaXSPtyRKtz+2y9ubW/ghNgqKFHHAHaeP0fpF5uXR+sq8IMRHC+ZUxw7W9NyCDTBtwWxvkb0iA==
@@ -9432,7 +9463,7 @@ react-transition-group@^2.2.1:
     prop-types "^15.6.2"
     react-lifecycles-compat "^3.0.4"
 
-react@^16.10.1, react@^16.8.3, react@^16.8.6:
+react@^16.10.1, react@^16.10.2, react@^16.8.3, react@^16.8.6:
   version "16.11.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.11.0.tgz#d294545fe62299ccee83363599bf904e4a07fdbb"
   integrity sha512-M5Y8yITaLmU0ynd0r1Yvfq98Rmll6q8AxaEe88c8e7LxO8fZ2cNgmFt0aGAS9wzf1Ao32NKXtCl+/tVVtkxq6g==

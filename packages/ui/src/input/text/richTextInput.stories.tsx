@@ -61,7 +61,7 @@ function renderMark(props: RenderMarkProps, editor: CoreEditor, next: () => any)
 
 function renderBlock(props: RenderBlockProps, editor: CoreEditor, next: () => any) {
   const {children, node, attributes} = props
-  console.log(node.type)
+
   switch (node.type) {
     case 'heading-two':
       return (

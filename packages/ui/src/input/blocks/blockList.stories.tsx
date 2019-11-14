@@ -34,7 +34,7 @@ export const Default = () => {
   const [values, setValues] = useState<WrapperValue[]>([])
 
   return (
-    <BlockList value={values} onChange={setValues} allowInit>
+    <BlockList value={values} onChange={setValues}>
       {{
         richText: {
           field: props => <RichTextInputBlock {...props} />,

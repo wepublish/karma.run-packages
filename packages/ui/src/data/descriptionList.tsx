@@ -44,7 +44,7 @@ const DescriptionListItemTerm = styled(
 
 const DescriptionListItemDetail = styled('dd', () => ({
   _className: process.env.NODE_ENV !== 'production' ? 'DescriptionListItemDetail' : undefined,
-  marginLeft: 0
+  marginLeft: pxToRem(Spacing.Small)
 }))
 
 export interface DescriptionListItemProps {

@@ -13,8 +13,9 @@ export interface KeyGenerator {
 }
 
 export interface CreateRichTextScalarOptions {
-  validation: ValidationOptions
-  keyGeneratorClass?: KeyGeneratorClass
+  readonly name: string
+  readonly validation: ValidationOptions
+  readonly keyGeneratorClass?: KeyGeneratorClass
 }
 
 export class IncrementalKeyGenerator implements KeyGenerator {
@@ -26,11 +27,12 @@ export class IncrementalKeyGenerator implements KeyGenerator {
 }
 
 export function createRichTextScalar({
+  name,
   validation,
   keyGeneratorClass = IncrementalKeyGenerator
 }: CreateRichTextScalarOptions) {
   return new GraphQLScalarType({
-    name: 'GraphQLRichText',
+    name,
     serialize(value: DocumentJSON) {
       const keyGenerator = new keyGeneratorClass()
       const opts = {validation, keyGenerator}

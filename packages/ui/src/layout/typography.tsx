@@ -31,6 +31,7 @@ const TypographStyle = cssRuleWithTheme<TypographStyleProps>(
     display,
     textAlign: align,
     color: color ? theme.colors[color] : undefined,
+    fill: color ? theme.colors[color] : undefined,
     whiteSpace: noWrap ? 'nowrap' : undefined,
     textOverflow: noWrap ? 'ellipsis' : undefined,
     overflow: noWrap ? 'hidden' : undefined,

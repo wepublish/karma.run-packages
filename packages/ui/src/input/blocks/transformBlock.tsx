@@ -14,7 +14,7 @@ export function TransformBlock<T, O>({
   children,
   value,
   onChange,
-  allowInit
+  autofocus
 }: TransformBlockProps<T, O>) {
   const transformedValue = transformTo(value)
   const onTransformedChange = (newValue: SetStateAction<O>) => {
@@ -24,6 +24,6 @@ export function TransformBlock<T, O>({
   return children({
     value: transformedValue,
     onChange: onTransformedChange,
-    allowInit
+    autofocus
   })
 }

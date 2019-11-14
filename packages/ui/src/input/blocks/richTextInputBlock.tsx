@@ -14,13 +14,13 @@ export interface RichTextInputBlockProps
 export const RichTextInputBlock = memo(function RichTextField({
   value,
   onChange,
-  allowInit,
+  autofocus,
   ...props
 }: RichTextInputBlockProps) {
   const ref = useRef<Editor>(null)
 
   useEffect(() => {
-    if (allowInit) {
+    if (autofocus) {
       // TODO: Slate bug? We have to delay focus for one tick.
       const timeoutID = setTimeout(() => ref.current?.focus(), 0)
       return () => clearTimeout(timeoutID)

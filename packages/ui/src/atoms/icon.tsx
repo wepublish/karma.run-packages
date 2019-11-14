@@ -12,8 +12,8 @@ export enum IconScale {
 }
 
 interface IconStyleProps {
-  block?: boolean
-  scale: IconScale
+  readonly block?: boolean
+  readonly scale: IconScale
 }
 
 const IconStyle = cssRuleWithTheme<IconStyleProps>(({scale, block}) => ({

@@ -7,20 +7,19 @@ import {isValueConstructor} from '@karma.run/utility'
 import {BlockProps} from './types'
 
 export interface ListValue<T = any> {
-  readonly id: string
+  readonly key: string
   readonly value: T
 }
 
 export interface ListItemProps<T = any> {
   readonly index: number
   readonly value: ListValue<T>
-  readonly allowInit?: boolean
   readonly onChange: (index: number, value: React.SetStateAction<ListValue<T>>) => void
   readonly onRemove: (index: number) => void
   readonly children: (props: BlockProps<T>) => JSX.Element
 }
 
-export function ListItem({index, value, onChange, onRemove, children, allowInit}: ListItemProps) {
+export function ListItem({index, value, onChange, onRemove, children}: ListItemProps) {
   function handleValueChange(fieldValue: React.SetStateAction<any>) {
     onChange(index, value => ({
       ...value,
@@ -34,7 +33,7 @@ export function ListItem({index, value, onChange, onRemove, children, allowInit}
 
   return (
     <div>
-      {children({value: value.value, onChange: handleValueChange, allowInit})}
+      {children({value: value.value, onChange: handleValueChange})}
       <button onClick={handleRemove}>-</button>
     </div>
   )
@@ -60,7 +59,7 @@ export function ListField<T>({value, label, defaultValue, children, onChange}: L
     onChange(value => [
       ...value,
       {
-        id: nanoid(),
+        key: nanoid(),
         value: isValueConstructor(defaultValue) ? defaultValue() : defaultValue
       }
     ])
@@ -75,7 +74,7 @@ export function ListField<T>({value, label, defaultValue, children, onChange}: L
       {label && <label>{label}</label>}
       {value.map((value, index) => (
         <ListItem
-          key={value.id}
+          key={value.key}
           index={index}
           value={value}
           onChange={handleItemChange}

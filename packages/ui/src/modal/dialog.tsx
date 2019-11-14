@@ -47,6 +47,7 @@ const DialogContentWrapper = styled('div', ({width}: DialogContentWrapperProps) 
 const DialogContent = styled('div', () => ({
   _className: process.env.NODE_ENV !== 'production' ? 'DialogContent' : undefined,
 
+  width: '100%',
   overflowX: 'hidden',
   overflowY: 'auto'
 }))

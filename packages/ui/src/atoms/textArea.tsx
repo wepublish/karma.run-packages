@@ -31,6 +31,7 @@ const TextAreaStyle = cssRuleWithTheme<TextAreaStyleProps>(({hasError, theme}) =
 
     resize: 'none',
 
+    fontFamily: 'inherit',
     fontSize: pxToRem(FontSize.Medium),
 
     '::placeholder': {
@@ -99,6 +100,7 @@ export function TextArea({
         <textarea
           placeholder={placeholder}
           value={value}
+          rows={4} // TODO: Forward props and ref
           onChange={event => {
             onValueChange(event.target.value, event)
           }}
