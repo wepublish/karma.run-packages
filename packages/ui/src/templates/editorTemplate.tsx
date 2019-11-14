@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
 import {pxToRem, ZIndex, Spacing} from '../style/helpers'
 
-const contentMaxWidth = 820
+const contentMaxWidth = 880
 
 const EditorTemplateStyle = cssRuleWithTheme(() => ({
   display: 'flex',
