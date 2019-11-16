@@ -7,16 +7,16 @@ import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {pxToRem, FontSize, TransitionDuration, Spacing} from '../style/helpers'
 import {cssRule} from '@karma.run/react'
 
-interface TextInputStyleProps {
+export interface TextInputStyleProps {
   readonly hasError: boolean
   readonly hasIcon: boolean
 }
 
-const TextInputContainerStyle = cssRuleWithTheme(() => ({
+export const TextInputContainerStyle = cssRuleWithTheme(() => ({
   paddingTop: pxToRem(16)
 }))
 
-const TextInputWrapperStyle = cssRuleWithTheme<TextInputStyleProps>(({hasError, theme}) => ({
+export const TextInputWrapperStyle = cssRuleWithTheme<TextInputStyleProps>(({hasError, theme}) => ({
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
@@ -30,7 +30,7 @@ const IconStyle = cssRule(() => ({
   marginRight: pxToRem(Spacing.Tiny)
 }))
 
-const TextInputStyle = cssRuleWithTheme<TextInputStyleProps>(({hasIcon, theme}) => ({
+export const TextInputStyle = cssRuleWithTheme<TextInputStyleProps>(({hasIcon, theme}) => ({
   width: '100%',
 
   borderBottom: `1px solid ${theme.colors.gray}`,
@@ -87,7 +87,7 @@ const TextInputStyle = cssRuleWithTheme<TextInputStyleProps>(({hasIcon, theme}) 
   }
 }))
 
-const LabelStyle = cssRuleWithTheme<TextInputStyleProps>(({hasError, theme}) => ({
+export const LabelStyle = cssRuleWithTheme<TextInputStyleProps>(({hasError, theme}) => ({
   color: hasError ? theme.colors.alert : theme.colors.gray,
   position: 'absolute',
   top: '-1.6rem',

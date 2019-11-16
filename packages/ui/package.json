@@ -27,7 +27,8 @@
     "nanoid": "^2.0.3",
     "react-transition-group": "4.3.0",
     "slate": "^0.47.8",
-    "slate-react": "^0.22.9"
+    "slate-react": "^0.22.9",
+    "downshift": "^3.3.4"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",

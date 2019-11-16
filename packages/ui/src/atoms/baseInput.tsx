@@ -32,6 +32,7 @@ export interface InputProps<T extends InputType> {
   readonly disabled?: boolean
 
   onChange?(event: ChangeEvent<HTMLInputElement>): void
+  onKeyDown?(event: React.KeyboardEvent): void
 }
 
 export interface BaseInputProps<T extends InputType, P = undefined> extends InputProps<T> {
