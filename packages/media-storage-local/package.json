@@ -1,6 +1,6 @@
 {
   "name": "@karma.run/media-storage-local",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./lib/index.js",
   "license": "MIT",
   "repository": "github:karmarun/karma.media",
@@ -18,6 +18,6 @@
     "sync-package-info": "node ./../../scripts/syncPackageInfo.js ./src/version.ts"
   },
   "peerDependencies": {
-    "@karma.run/media": "^0.0.1"
+    "@karma.run/media": "^0.1.0"
   }
 }
