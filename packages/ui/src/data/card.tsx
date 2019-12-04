@@ -13,7 +13,8 @@ import {
   FlexChildProps,
   FlexContainerProps,
   extractStyleProps,
-  DisplayProps
+  DisplayProps,
+  OverflowProps
 } from '../style/helpers'
 
 interface CardElementProps
@@ -23,7 +24,8 @@ interface CardElementProps
     HeightProps,
     FlexChildProps,
     FlexContainerProps,
-    DisplayProps {
+    DisplayProps,
+    OverflowProps {
   readonly theme: Theme
 }
 
@@ -37,7 +39,6 @@ export const CardElement = styled(
     borderColor: theme.colors.grayLight,
     borderRadius: BorderRadius.Small,
     backgroundColor: theme.colors.white,
-    overflow: 'hidden',
 
     ...props
   }),
@@ -51,7 +52,8 @@ export interface CardProps
     HeightProps,
     FlexChildProps,
     FlexContainerProps,
-    DisplayProps {
+    DisplayProps,
+    OverflowProps {
   readonly children?: ReactNode
 }
 

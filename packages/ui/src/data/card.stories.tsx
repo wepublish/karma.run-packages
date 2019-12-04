@@ -11,7 +11,7 @@ export default {
 }
 
 export const Standard = () => (
-  <Card width="100%">
+  <Card width="100%" overflow="hidden">
     <DefaultImage />
   </Card>
 )

@@ -26,7 +26,8 @@ import {
   MarginLeftProperty,
   MarginRightProperty,
   AlignItemsProperty,
-  DisplayProperty
+  DisplayProperty,
+  OverflowProperty
 } from 'csstype'
 
 import {Theme} from './themeContext'
@@ -168,6 +169,10 @@ export interface DisplayProps {
   readonly display?: DisplayProperty
 }
 
+export interface OverflowProps {
+  readonly overflow?: OverflowProperty
+}
+
 export interface FlexContainerProps {
   readonly flexDirection?: FlexDirectionProperty
   readonly justifyContent?: JustifyContentProperty
@@ -191,7 +196,8 @@ export interface StyleProps
     MarginProps,
     FlexContainerProps,
     FlexChildProps,
-    DisplayProps {}
+    DisplayProps,
+    OverflowProps {}
 
 export function extractStyleProps<P extends StyleProps>(
   input: P
@@ -224,6 +230,7 @@ export function extractStyleProps<P extends StyleProps>(
     flexGrow,
     flexShrink,
     display,
+    overflow,
     ...props
   } = input
 
@@ -254,7 +261,8 @@ export function extractStyleProps<P extends StyleProps>(
     flexBasis,
     flexGrow,
     flexShrink,
-    display
+    display,
+    overflow
   }
 
   for (const key in styleProps) {
