@@ -2,7 +2,7 @@ import React from 'react'
 
 import {styled} from '@karma.run/react'
 import {themeMiddleware} from '../style/themeContext'
-import {pxToRem, FontSize, BorderWidth} from '../style/helpers'
+import { FontSize, BorderWidth} from '../style/helpers'
 import {ReactNode} from 'react'
 import {Box} from '../layout/box'
 
@@ -19,7 +19,7 @@ const PanelHeaderContainer = styled(
     alignItems: 'center',
     overflow: 'hidden',
     width: '100%',
-    height: pxToRem(60),
+    height: 60,
     backgroundColor: theme.colors.light,
 
     borderBottomStyle: 'solid',
@@ -37,7 +37,7 @@ const PanelHeaderTitle = styled('span', () => ({
   position: 'absolute',
   left: '50%',
   transform: 'translateX(-50%)',
-  fontSize: pxToRem(FontSize.Medium),
+  fontSize: FontSize.Medium,
   fontWeight: 'bold'
 }))
 

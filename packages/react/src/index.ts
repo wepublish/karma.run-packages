@@ -1,6 +1,5 @@
 export * from './hooks'
 export * from './route'
 export * from './style'
-export * from './styleHelpers'
 export * from './utility'
 export * from './lazy'

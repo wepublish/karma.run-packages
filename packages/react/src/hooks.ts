@@ -74,3 +74,17 @@ export function useVisibility(
   const entry = useIntersectionObserver(ref, opts)
   return entry ? entry.isIntersecting : false
 }
+
+export function useClickAwayListener(ref: RefObject<HTMLElement>, onClickAway: () => void) {
+  useEffect(() => {
+    function handleMouseDown(e: MouseEvent) {
+      if (!ref.current) return
+      if (!ref.current.contains(e.target as any)) {
+        onClickAway()
+      }
+    }
+
+    document.addEventListener('mousedown', handleMouseDown)
+    return () => document.removeEventListener('mousedown', handleMouseDown)
+  })
+}

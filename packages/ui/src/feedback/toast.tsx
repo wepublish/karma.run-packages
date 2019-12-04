@@ -1,13 +1,12 @@
 import React, {ReactNode, useEffect} from 'react'
 
-import {styled, padding} from '@karma.run/react'
+import {styled} from '@karma.run/react'
 import Transition, {TransitionStatus} from 'react-transition-group/Transition'
 import {createPortal} from 'react-dom'
 
 import {Theme, themeMiddleware} from '../style/themeContext'
 
 import {
-  pxToRem,
   Spacing,
   FontSize,
   hexToRgba,
@@ -56,7 +55,7 @@ const ToastContainer = styled(
     cursor: 'pointer',
     position: 'fixed',
     left: '50%',
-    top: pxToRem(Spacing.Medium),
+    top: Spacing.Medium,
     zIndex: ZIndex.Toast,
 
     transform: `translateX(-50%) scale(${transitionStatus === 'entered' ? 1 : 0.5})`,
@@ -67,7 +66,7 @@ const ToastContainer = styled(
     backgroundColor: hexToRgba(backgroundColorForType(type, theme), 0.85),
 
     textAlign: 'center',
-    fontSize: pxToRem(FontSize.Medium),
+    fontSize: FontSize.Medium,
     fontWeight: 'bold',
     color: theme.colors.white,
 
@@ -82,7 +81,7 @@ const ToastContainer = styled(
     transitionDuration: TransitionDuration.Slow,
     transitionTimingFunction: 'linear, cubic-bezier(0.5, 0.5, 0.5, 2)',
 
-    ...padding(pxToRem(Spacing.ExtraSmall))
+    padding: Spacing.ExtraSmall
   }),
   themeMiddleware
 )

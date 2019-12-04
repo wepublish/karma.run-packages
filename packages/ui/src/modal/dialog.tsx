@@ -1,7 +1,7 @@
 import React from 'react'
-import {styled, padding} from '@karma.run/react'
+import {styled} from '@karma.run/react'
 
-import {TransitionDuration, pxToRem, BorderRadius, Spacing} from '../style/helpers'
+import {TransitionDuration, BorderRadius, Spacing} from '../style/helpers'
 import {TransitionStatus} from 'react-transition-group/Transition'
 import {Modal, ModalProps} from './modal'
 
@@ -26,7 +26,7 @@ const DialogWrapper = styled('div', ({transitionStatus}: DialogWrapperProps) => 
   transitionProperty: 'transform opacity',
   transitionDuration: TransitionDuration.Slow,
 
-  ...padding(pxToRem(Spacing.Large))
+  padding: Spacing.Large
 }))
 
 interface DialogContentWrapperProps {
@@ -37,7 +37,7 @@ const DialogContentWrapper = styled('div', ({width}: DialogContentWrapperProps) 
   _className: process.env.NODE_ENV !== 'production' ? 'DialogContentWrapper' : undefined,
 
   display: 'flex',
-  width: typeof width === 'number' ? pxToRem(width) : width,
+  width: typeof width === 'number' ? width : width,
   overflow: 'hidden',
 
   borderRadius: BorderRadius.Medium,

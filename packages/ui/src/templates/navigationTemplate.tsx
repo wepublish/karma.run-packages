@@ -1,7 +1,7 @@
 import React, {ReactNode} from 'react'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
-import {pxToRem, Spacing} from '../style/helpers'
-import {Navigation} from '../organisms/navigation'
+import {Spacing} from '../style/helpers'
+import {Navigation} from '../navigation/navigation'
 
 const contentMaxWidth = 880
 
@@ -26,12 +26,12 @@ const NavigationTemplateContentWrapperStyle = cssRuleWithTheme(() => ({
   width: '100%',
   height: '100%',
 
-  padding: `${pxToRem(Spacing.ExtraLarge)} ${pxToRem(Spacing.Large)}`
+  padding: `${Spacing.ExtraLarge} ${Spacing.Large}`
 }))
 
 const NavigationTemplateContentStyle = cssRuleWithTheme(() => ({
   width: '100%',
-  maxWidth: pxToRem(contentMaxWidth)
+  maxWidth: contentMaxWidth
 }))
 
 export interface NavigationTemplateProps {

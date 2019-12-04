@@ -1,7 +1,7 @@
 import {useStaticStyle} from '@karma.run/react'
 import {useContext} from 'react'
 import {ThemeContext} from './themeContext'
-import {FontSize, pxToRem} from './helpers'
+import {FontSize, LineHeight} from './helpers'
 
 export interface GlobalStylesProps {
   readonly rootElementID: string
@@ -12,8 +12,7 @@ export function GlobalStyles({rootElementID}: GlobalStylesProps) {
   const theme = useContext(ThemeContext)
 
   staticCSS('html', {
-    fontFamily: `'Open Sans', Arial, sans-serif`,
-    fontSize: '62.5%'
+    fontFamily: `'Open Sans', Arial, sans-serif`
   })
 
   staticCSS(`body, html, #${rootElementID}`, {
@@ -25,7 +24,8 @@ export function GlobalStyles({rootElementID}: GlobalStylesProps) {
   })
 
   staticCSS('body', {
-    fontSize: pxToRem(FontSize.Medium)
+    fontSize: FontSize.Medium,
+    lineHeight: LineHeight.Default
   })
 
   staticCSS('a, a:link, a:visited, a:hover, a:active', {

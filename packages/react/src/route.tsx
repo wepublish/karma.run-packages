@@ -8,14 +8,13 @@ import React, {
   AnchorHTMLAttributes,
   useCallback,
   MouseEvent,
-  MouseEventHandler
+  MouseEventHandler,
+  ReactNode
 } from 'react'
 
 import {UnionToIntersection} from '@karma.run/utility'
 
 import pathToRegexp, {Key} from 'path-to-regexp'
-
-import {ChildrenProps} from './types'
 import {useEventListener} from './hooks'
 
 export enum HistoryType {
@@ -166,9 +165,10 @@ export function routeReducer<R extends RouteInstance = RouteInstance>(
   }
 }
 
-export interface RouteProviderProps<R extends RouteInstance> extends ChildrenProps {
+export interface RouteProviderProps<R extends RouteInstance> {
   readonly initialRoute?: R | null
   readonly handleNextRoute?: HandleNextRouteFn<R>
+  readonly children?: ReactNode
 }
 
 export interface LinkProps<R extends RouteInstance> {
@@ -514,7 +514,7 @@ export function route<T extends string, P extends RouteParameter[]>(
       return {
         type,
         params,
-        path: path.reverse(params),
+        path: path.reverse(params, query, hash),
         query,
         hash,
         data: data === undefined ? defaultData : data,
@@ -556,7 +556,7 @@ export function routePath<P extends RouteParameter[]>(
 
     reverse(params: ObjectForParams<P>, query?: Record<string, string>, hash?: string) {
       const queryString = new URLSearchParams(query).toString()
-      const path = toPath(params as object)
+      const path = toPath(params as object) || '/'
 
       return `${path}${queryString ? `?${queryString}` : ''}${hash ? `#${hash}` : ''}`
     },

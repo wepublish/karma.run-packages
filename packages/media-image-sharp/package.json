@@ -1,6 +1,6 @@
 {
   "name": "@karma.run/media-image-sharp",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "main": "./lib/index.js",
   "license": "MIT",
   "repository": "github:karmarun/karma.media",
@@ -14,7 +14,7 @@
     "watch:cjs": "tsc -p ./tsconfig.json --declarationMap --declaration --outDir ./lib --watch",
     "copy-license": "shx cp ../../LICENSE ./",
     "clean": "shx rm -rf ./LICENSE ./lib",
-    "prepare": "run-s clean copy-license build sync-package-info",
+    "prepare": "run-s clean build",
     "sync-package-info": "node ../../scripts/syncPackageInfo.js ./src/version.ts",
     "test": "ava ./tests/*.test.* --verbose"
   },
@@ -26,7 +26,7 @@
     "ava": "^2.1.0"
   },
   "peerDependencies": {
-    "@karma.run/media": "^0.0.0"
+    "@karma.run/media": "^0.0.1"
   },
   "ava": {
     "compileEnhancements": false,

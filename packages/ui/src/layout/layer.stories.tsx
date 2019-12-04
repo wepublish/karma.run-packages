@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {MaterialIconDelete, MaterialIconEdit} from '@karma.run/icons'
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
 import {LayerContainer, Layer} from './layer'
 import {Image} from '../data/image'
-import {OptionButtonSmall} from '../input/buttons/optionButtonSmall'
+import {IconButton} from '../buttons/iconButton'
 import {Box} from '../layout/box'
 import {Spacing} from '../style/helpers'
 
@@ -17,17 +17,17 @@ export default {
 export const Standard = () => {
   return (
     <LayerContainer>
-      <Box height={300}>
-        <Image src="https://dummyimage.com/300x300/999/fff" width={300} height={300} />
-      </Box>
-      <Layer>
-        <Box padding={Spacing.Small} height="100%" justifyContent="flex-end" flex>
-          <Box marginRight={Spacing.Tiny}>
-            <OptionButtonSmall icon={MaterialIconEdit} />
-          </Box>
-          <Box>
-            <OptionButtonSmall icon={MaterialIconDelete} />
-          </Box>
+      <Image
+        src="https://dummyimage.com/300x300/999/fff"
+        width="100%"
+        height={300}
+        imageWidth={300}
+        imageHeight={300}
+      />
+      <Layer top={0} right={0}>
+        <Box padding={Spacing.Small} height="100%" justifyContent="flex-end" display="flex">
+          <IconButton icon={MaterialIconEdit} marginRight={Spacing.ExtraSmall} />
+          <IconButton icon={MaterialIconDelete} />
         </Box>
       </Layer>
     </LayerContainer>

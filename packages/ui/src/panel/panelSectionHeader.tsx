@@ -2,7 +2,7 @@ import React from 'react'
 
 import {styled} from '@karma.run/react'
 import {themeMiddleware} from '../style/themeContext'
-import {pxToRem, Spacing, BorderWidth, FontSize} from '../style/helpers'
+import { Spacing, BorderWidth, FontSize} from '../style/helpers'
 
 const PanelSectionHeaderContainer = styled(
   'div',
@@ -10,14 +10,14 @@ const PanelSectionHeaderContainer = styled(
     _className: process.env.NODE_ENV !== 'production' ? 'PanelSectionHeader' : undefined,
 
     position: 'sticky',
-    top: pxToRem(60 - 1),
+    top: 60 - 1,
 
-    paddingTop: pxToRem(Spacing.Tiny),
-    paddingBottom: pxToRem(Spacing.Tiny),
-    paddingLeft: pxToRem(Spacing.Small),
-    paddingRight: pxToRem(Spacing.Small),
+    paddingTop: Spacing.Tiny,
+    paddingBottom: Spacing.Tiny,
+    paddingLeft: Spacing.Small,
+    paddingRight: Spacing.Small,
 
-    fontSize: pxToRem(FontSize.Small),
+    fontSize: FontSize.Small,
     color: theme.colors.grayDark,
     backgroundColor: theme.colors.light,
 

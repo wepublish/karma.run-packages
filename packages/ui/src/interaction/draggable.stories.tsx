@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import {centerLayoutDecorator} from '../.storybook/decorators'
 import {DraggableContainer, Draggable} from './draggable'
 import {Box} from '../layout/box'
-import {Button} from '../input/buttons/button'
+import {Button} from '../buttons/button'
 
 export default {
   component: Draggable,

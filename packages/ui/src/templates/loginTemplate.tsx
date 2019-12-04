@@ -1,14 +1,16 @@
 import React, {ReactNode} from 'react'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
-import {pxToRem, Spacing} from '../style/helpers'
+import {Spacing, BorderRadius, ZIndex} from '../style/helpers'
+import {cssRule} from '@karma.run/react'
 
 const contentMaxWidth = 520
 
-const LoginTemplateStyle = cssRuleWithTheme(() => ({
+const LoginTemplateStyle = cssRuleWithTheme(({theme}) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+  backgroundColor: theme.colors.light,
 
   width: '100%',
   height: '100%'
@@ -18,26 +20,36 @@ const LoginTemplateContentStyle = cssRuleWithTheme(({theme}) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
+  overflow: 'hidden',
+  zIndex: ZIndex.Default,
 
   width: '100%',
-  maxWidth: pxToRem(contentMaxWidth + Spacing.Large),
-  padding: pxToRem(Spacing.Large),
+  maxWidth: contentMaxWidth + Spacing.Large,
+
+  padding: Spacing.Large,
 
   backgroundColor: theme.colors.white,
-  boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.5)',
-  borderRadius: pxToRem(10),
-  overflow: 'hidden'
+  borderRadius: BorderRadius.Medium,
+
+  boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.2)'
+}))
+
+const LoginLogoStyle = cssRule(() => ({
+  marginBottom: Spacing.Small,
+  zIndex: ZIndex.Background
 }))
 
 export interface LoginTemplateProps {
-  children?: ReactNode
+  readonly children?: ReactNode
+  readonly backgroundChildren?: ReactNode
 }
 
-export function LoginTemplate({children}: LoginTemplateProps) {
+export function LoginTemplate({backgroundChildren, children}: LoginTemplateProps) {
   const css = useThemeStyle()
 
   return (
     <div className={css(LoginTemplateStyle)}>
+      {backgroundChildren && <div className={css(LoginLogoStyle)}>{backgroundChildren}</div>}
       <div className={css(LoginTemplateContentStyle)}>{children}</div>
     </div>
   )

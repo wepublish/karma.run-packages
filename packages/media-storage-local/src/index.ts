@@ -34,8 +34,11 @@ export default class LocalStorageBackend implements StorageBackend {
     })
   }
 
-  public async read(fileID: FileID): Promise<NodeJS.ReadableStream> {
-    return fs.createReadStream(path.join(this.storagePath, fileID.toFilePath()))
+  public async read(fileID: FileID): Promise<[NodeJS.ReadableStream, number]> {
+    const filePath = path.join(this.storagePath, fileID.toFilePath())
+    const stats = await fs.promises.stat(filePath)
+
+    return [fs.createReadStream(filePath), stats.size]
   }
 
   public async delete(fileID: FileID) {

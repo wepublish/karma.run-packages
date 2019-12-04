@@ -4,7 +4,7 @@ import {MaterialIconArrowForward, MaterialIconSaveOutlined} from '@karma.run/ico
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
 import {PanelHeader} from './panelHeader'
-import {NavigationButton} from '../input/buttons/navigationButton'
+import {NavigationButton} from '../buttons/navigationButton'
 
 export default {
   component: PanelHeader,

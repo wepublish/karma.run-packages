@@ -1,8 +1,7 @@
 import React from 'react'
 
-import {centerLayoutDecorator, InfoBox} from '../.storybook/decorators'
+import {centerLayoutDecorator} from '../.storybook/decorators'
 import {Typography} from './typography'
-import {Spacing} from '../style/helpers'
 
 export default {
   component: Typography,
@@ -12,30 +11,14 @@ export default {
 
 export const All = () => (
   <>
-    <InfoBox label="title">
-      <Typography variant="title">Title</Typography>
-    </InfoBox>
-    <InfoBox label="h1">
-      <Typography variant="h1">Heading 1</Typography>
-    </InfoBox>
-    <InfoBox label="h2">
-      <Typography variant="h2">Heading 2</Typography>
-    </InfoBox>
-    <InfoBox label="h3">
-      <Typography variant="h3">Heading 3</Typography>
-    </InfoBox>
-    <InfoBox label="body1">
-      <Typography variant="body1">Body 1</Typography>
-    </InfoBox>
-    <InfoBox label="body2">
-      <Typography variant="body2">Body 2</Typography>
-    </InfoBox>
-    <InfoBox label="subtitle1">
-      <Typography variant="subtitle1">Subtitle 1</Typography>
-    </InfoBox>
-    <InfoBox label="subtitle2">
-      <Typography variant="subtitle2">Subtitle 2</Typography>
-    </InfoBox>
+    <Typography variant="title">Title</Typography>
+    <Typography variant="h1">Heading 1</Typography>
+    <Typography variant="h2">Heading 2</Typography>
+    <Typography variant="h3">Heading 3</Typography>
+    <Typography variant="body1">Body 1</Typography>
+    <Typography variant="body2">Body 2</Typography>
+    <Typography variant="subtitle1">Subtitle 1</Typography>
+    <Typography variant="subtitle2">Subtitle 2</Typography>
   </>
 )
 

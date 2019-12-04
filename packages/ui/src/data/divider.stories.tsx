@@ -5,7 +5,7 @@ import {Divider} from './divider'
 import {Typography} from '../layout/typography'
 import {Box} from '../layout/box'
 import {Spacing} from '../style/helpers'
-import {Card} from '../atoms/card'
+import {Card} from '../data/card'
 
 export default {
   component: Divider,

@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Toast, ToastType} from './toast'
-import {Button} from '../input/buttons/button'
+import {Button} from '../buttons/button'
 import {Grid, Column} from '../layout/grid'
 import {centerLayoutDecorator} from '../.storybook/decorators'
 import {Spacing} from '../style/helpers'
@@ -25,7 +25,7 @@ export const Interactive = () => {
               setType('info')
               setOpen(true)
             }}
-            fill
+            width="100%"
           />
         </Column>
         <Column ratio={1 / 3}>
@@ -35,7 +35,7 @@ export const Interactive = () => {
               setType('success')
               setOpen(true)
             }}
-            fill
+            width="100%"
           />
         </Column>
         <Column ratio={1 / 3}>
@@ -45,7 +45,7 @@ export const Interactive = () => {
               setType('error')
               setOpen(true)
             }}
-            fill
+            width="100%"
           />
         </Column>
       </Grid>

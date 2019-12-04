@@ -2,12 +2,12 @@ import React, {ReactNode} from 'react'
 
 import {styled} from '@karma.run/react'
 import {themeMiddleware} from '../style/themeContext'
-import {FontSize, pxToRem, Spacing} from '../style/helpers'
+import {FontSize,  Spacing} from '../style/helpers'
 
 const DescriptionListWrapper = styled('dl', () => ({
   _className: process.env.NODE_ENV !== 'production' ? 'DescriptionList' : undefined,
 
-  fontSize: pxToRem(FontSize.Small),
+  fontSize: FontSize.Small,
   marginTop: 0,
   marginBottom: 0
 }))
@@ -24,7 +24,7 @@ const DescriptionListItemWrapper = styled('div', () => ({
   _className: process.env.NODE_ENV !== 'production' ? 'DescriptionListItem' : undefined,
 
   display: 'flex',
-  marginBottom: pxToRem(Spacing.ExtraSmall),
+  marginBottom: Spacing.ExtraSmall,
 
   ':last-child': {
     marginBottom: 0
@@ -44,7 +44,7 @@ const DescriptionListItemTerm = styled(
 
 const DescriptionListItemDetail = styled('dd', () => ({
   _className: process.env.NODE_ENV !== 'production' ? 'DescriptionListItemDetail' : undefined,
-  marginLeft: pxToRem(Spacing.Small)
+  marginLeft: Spacing.Small
 }))
 
 export interface DescriptionListItemProps {

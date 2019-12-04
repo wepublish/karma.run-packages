@@ -1,6 +1,6 @@
 import React, {ReactNode, Children, createContext, useContext} from 'react'
 import {useStyle, cssRule} from '@karma.run/react'
-import {pxToRem, Spacing} from '../style/helpers'
+import { Spacing} from '../style/helpers'
 
 interface GridStyleProps {
   readonly spacing: Spacing
@@ -10,7 +10,7 @@ const GridStyle = cssRule<GridStyleProps>(({spacing}) => ({
   display: 'flex',
   flexWrap: 'wrap',
   height: '100%',
-  margin: pxToRem(-spacing / 2)
+  margin: -spacing / 2
 }))
 
 export interface GridProps {
@@ -45,7 +45,7 @@ const ColumnStyle = cssRule<ColumnStyleProps>(({flexBasis, spacing}) => ({
 const ColumnItemStyle = cssRule<ColumnStyleProps>(({spacing}) => ({
   width: '100%',
   height: '100%',
-  padding: pxToRem(spacing / 2)
+  padding: spacing / 2
 }))
 
 export interface GridColumnProp {

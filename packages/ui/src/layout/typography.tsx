@@ -1,6 +1,6 @@
 import React, {ReactNode, ElementType, CSSProperties, forwardRef} from 'react'
 
-import {pxToRem, FontSize} from '../style/helpers'
+import { FontSize} from '../style/helpers'
 import {cssRuleWithTheme, useThemeStyle, ThemeColors} from '../style/themeContext'
 
 export type TypographyVariant =
@@ -116,39 +116,39 @@ export function stylesForTypographyVariant(style: TypographyVariant): CSSPropert
   switch (style) {
     case 'title':
       return {
-        fontSize: pxToRem(FontSize.ExtraLarge),
+        fontSize: FontSize.ExtraLarge,
         fontWeight: 'bold'
       }
 
     case 'h1':
       return {
-        fontSize: pxToRem(FontSize.Heading1),
+        fontSize: FontSize.Heading1,
         fontWeight: 'bold'
       }
 
     case 'h2':
       return {
-        fontSize: pxToRem(FontSize.Heading2),
+        fontSize: FontSize.Heading2,
         fontWeight: 'bold'
       }
 
     case 'h3':
       return {
-        fontSize: pxToRem(FontSize.Heading3),
+        fontSize: FontSize.Heading3,
         fontWeight: 'bold'
       }
 
     case 'body1':
     case 'body2':
       return {
-        fontSize: pxToRem(FontSize.Medium),
+        fontSize: FontSize.Medium,
         fontWeight: style === 'body2' ? 'bold' : undefined
       }
 
     case 'subtitle1':
     case 'subtitle2':
       return {
-        fontSize: pxToRem(FontSize.Small),
+        fontSize: FontSize.Small,
         fontStyle: style === 'subtitle2' ? 'italic' : undefined
       }
   }

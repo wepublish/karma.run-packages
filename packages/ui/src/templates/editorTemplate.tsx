@@ -1,6 +1,6 @@
 import React, {ReactNode} from 'react'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
-import {pxToRem, ZIndex, Spacing} from '../style/helpers'
+import {ZIndex, Spacing} from '../style/helpers'
 
 const contentMaxWidth = 880
 
@@ -25,16 +25,16 @@ const EditorTemplateContentWrapperStyle = cssRuleWithTheme(() => ({
   justifyContent: 'center',
   alignItems: 'center',
   width: '100%',
-  paddingTop: pxToRem(Spacing.Large),
-  paddingBottom: pxToRem(Spacing.ExtraLarge),
-  paddingLeft: pxToRem(Spacing.Large),
-  paddingRight: pxToRem(Spacing.Large)
+  paddingTop: Spacing.Large,
+  paddingBottom: Spacing.ExtraLarge,
+  paddingLeft: Spacing.Large,
+  paddingRight: Spacing.Large
 }))
 
 const EditorTemplateContentStyle = cssRuleWithTheme(() => ({
   display: 'flex',
   width: '100%',
-  maxWidth: pxToRem(contentMaxWidth + Spacing.Large)
+  maxWidth: contentMaxWidth + Spacing.Large
 }))
 
 export interface EditorTemplateProps {

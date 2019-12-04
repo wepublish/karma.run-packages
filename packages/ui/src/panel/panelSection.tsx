@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react'
 
 import {styled} from '@karma.run/react'
 
-import {pxToRem, Spacing} from '../style/helpers'
+import { Spacing} from '../style/helpers'
 import {Theme, themeMiddleware} from '../style/themeContext'
 
 interface PanelSectionWrapperProps {
@@ -15,7 +15,7 @@ const PanelSectionWrapper = styled(
   ({dark = false, theme}: PanelSectionWrapperProps) => ({
     _className: process.env.NODE_ENV !== 'production' ? 'PanelSection' : undefined,
 
-    padding: pxToRem(Spacing.Small),
+    padding: Spacing.Small,
     color: dark ? theme.colors.white : undefined,
     backgroundColor: dark ? theme.colors.dark : undefined
   }),

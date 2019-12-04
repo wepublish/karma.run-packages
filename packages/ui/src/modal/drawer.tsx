@@ -1,6 +1,6 @@
 import React from 'react'
 import {styled} from '@karma.run/react'
-import {TransitionDuration, pxToRem} from '../style/helpers'
+import {TransitionDuration} from '../style/helpers'
 import {TransitionStatus} from 'react-transition-group/Transition'
 import {Modal, ModalProps} from './modal'
 import {themeMiddleware, Theme} from '../style/themeContext'
@@ -19,7 +19,7 @@ const DrawerWrapper = styled(
     position: 'absolute',
     right: 0,
 
-    width: typeof width === 'number' ? pxToRem(width) : width,
+    width: typeof width === 'number' ? width : width,
     height: '100vh',
 
     overflowX: 'hidden',

@@ -1,6 +1,6 @@
 {
   "name": "@karma.run/ui",
-  "version": "0.0.7",
+  "version": "0.2.0",
   "module": "./lib/esm/",
   "sideEffects": false,
   "license": "MIT",
@@ -17,18 +17,19 @@
     "sync-package-info": "node ./../../scripts/syncPackageInfo.js ./src/version.ts"
   },
   "dependencies": {
-    "@karma.run/icons": "^0.0.0",
-    "@karma.run/react": "^0.0.21",
-    "@karma.run/utility": "^0.0.1",
-    "@types/slate": "^0.47.3",
-    "@types/slate-react": "^0.22.5",
-    "find-my-way": "^2.1.0",
-    "immutable": "^4.0.0-rc.12",
+    "@karma.run/icons": "^1.0.0",
+    "@karma.run/react": "^0.1.1",
+    "@karma.run/utility": "^0.1.0",
+    "csstype": "^2.6.6",
+    "downshift": "^3.3.4",
+    "fela": "^10.6.1",
+    "fela-dom": "^10.6.1",
+    "fela-plugin-expand-shorthand": "^11.0.2",
+    "fela-plugin-fallback-value": "^10.6.1",
+    "fela-plugin-prefixer": "^10.6.1",
+    "fela-plugin-unit": "^10.8.2",
     "nanoid": "^2.0.3",
-    "react-transition-group": "4.3.0",
-    "slate": "^0.47.8",
-    "slate-react": "^0.22.9",
-    "downshift": "^3.3.4"
+    "react-transition-group": "4.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
@@ -47,7 +48,6 @@
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.9.3",
     "@types/react-transition-group": "^4.2.3",
-    "@types/slate-react": "^0.22.5",
     "@types/webpack": "^4.39.2",
     "@types/webpack-env": "^1.14.0",
     "babel-loader": "^8.0.6",
@@ -56,10 +56,14 @@
     "shx": "^0.3.2",
     "ts-loader": "^6.1.0",
     "typescript": "^3.7.2",
-    "webpack": "^4.35.3"
+    "webpack": "^4.35.3",
+    "slate": "^0.50.7",
+    "slate-react": "^0.50.9",
+    "slate-history": "^0.50.9",
+    "slate-schema": "^0.50.8"
   },
   "peerDependencies": {
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2"
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   }
 }

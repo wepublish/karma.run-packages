@@ -4,7 +4,7 @@ import {centerLayoutDecorator} from '../.storybook/decorators'
 
 import {Grid, Column} from './grid'
 import {Spacing} from '../style/helpers'
-import {PlaceholderInput} from '../input/other/placeholderInput'
+import {PlaceholderInput} from '../input/placeholderInput'
 
 export default {
   component: Grid,

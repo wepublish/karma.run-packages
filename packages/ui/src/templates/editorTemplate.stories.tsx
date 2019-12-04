@@ -1,7 +1,7 @@
 import React from 'react'
 
-import {WithGrid} from '../input/blocks/blockList.stories'
-import {Standard as StandardNavigationBar} from '../organisms/navigationBar.stories'
+import {WithGrid} from '../blocks/blockList.stories'
+import {Standard as StandardNavigationBar} from '../navigation/navigationBar.stories'
 import {EditorTemplate} from './editorTemplate'
 
 export default {

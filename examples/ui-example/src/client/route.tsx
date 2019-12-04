@@ -11,7 +11,7 @@ import {
   required
 } from '@karma.run/react'
 
-import {Button, MenuIconButton} from '@karma.run/ui'
+import {Button, MenuButton} from '@karma.run/ui'
 import {AuthContext, AuthDispatchContext, AuthDispatchActionType} from './authContext'
 
 export enum RouteType {

@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Button} from '../input/buttons/button'
+import {Button} from '../buttons/button'
 import {Dialog} from './dialog'
 import {Default as DefaultPanel} from '../panel/panel.stories'
 import {centerLayoutDecorator} from '../.storybook/decorators'

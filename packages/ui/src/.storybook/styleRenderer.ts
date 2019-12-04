@@ -1,4 +1,5 @@
-import {createStyleRenderer, renderStyles} from '@karma.run/react'
+import {render} from 'fela-dom'
+import {createStyleRenderer} from '../utility'
 
 export const renderer = createStyleRenderer()
-renderStyles(renderer)
+render(renderer)

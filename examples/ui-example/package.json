@@ -22,8 +22,8 @@
     "sync-package-info": "exit 0"
   },
   "dependencies": {
-    "@karma.run/ui": "^0.0.0",
-    "@karma.run/icons": "^0.0.0",
+    "@karma.run/ui": "*",
+    "@karma.run/icons": "*",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-hot-loader": "^4.12.3",

@@ -11,15 +11,9 @@ import React, {
   RefAttributes
 } from 'react'
 
-import {createRenderer, IRenderer, combineRules} from 'fela'
-import {rehydrate, render, renderToMarkup, renderToSheetList} from 'fela-dom'
-
-import felaPrefixer from 'fela-plugin-prefixer'
-import felaFallbackValue from 'fela-plugin-fallback-value'
-
+import {IRenderer, combineRules} from 'fela'
+import {renderToMarkup, renderToSheetList} from 'fela-dom'
 import {PropertiesFallback} from 'csstype'
-
-import {ChildrenProps} from './types'
 
 export interface CSSStyle extends PropertiesFallback<string | number> {
   ':active'?: CSSStyle
@@ -107,8 +101,8 @@ export interface CSSStyle extends PropertiesFallback<string | number> {
 }
 
 export type CSSRenderer = IRenderer
-export type CSSRule<P = unknown> = (props: P, renderer: CSSRenderer) => CSSStyle
-export type CSSKeyframes<P = unknown> = (
+export type CSSRule<P extends {} = {}> = (props: P, renderer: CSSRenderer) => CSSStyle
+export type CSSKeyframes<P extends {} = {}> = (
   props: P,
   renderer: CSSRenderer
 ) => Record<string, CSSStyle>
@@ -119,28 +113,14 @@ export interface StyleContextType {
 
 export const StyleContext = createContext<StyleContextType | null>(null)
 
-export interface StyleRendererProviderProps extends ChildrenProps {
+export interface StyleRendererProviderProps {
   readonly renderer: CSSRenderer
+  readonly children?: ReactNode
 }
 
 export function StyleProvider(props: StyleRendererProviderProps) {
   const value = useMemo(() => ({renderer: props.renderer}), [props.renderer])
   return <StyleContext.Provider value={value}>{props.children}</StyleContext.Provider>
-}
-
-export function createStyleRenderer() {
-  return createRenderer({
-    devMode: process.env.NODE_ENV !== 'production',
-    plugins: [felaPrefixer(), felaFallbackValue()]
-  })
-}
-
-export function rehydrateStyles(renderer: CSSRenderer): void {
-  rehydrate(renderer)
-}
-
-export function renderStyles(renderer: CSSRenderer): void {
-  render(renderer)
 }
 
 export function renderStylesToComponents(renderer: CSSRenderer): ReactNode {
@@ -179,9 +159,7 @@ export interface CSSFontProps {
   unicodeRange?: string
 }
 
-export function useStaticStyle<P = unknown>(): (selector: string, style: CSSStyle) => void
-export function useStaticStyle<P>(props: P): (selector: string, style: CSSStyle) => void
-export function useStaticStyle<P>(props?: P): (selector: string, style: CSSStyle) => void {
+export function useStaticStyle<P = unknown>(): (selector: string, style: CSSStyle) => void {
   const context = useContext(StyleContext)
 
   if (process.env.NODE_ENV !== 'production') {
@@ -248,6 +226,21 @@ export function useFont<P>(
   }
 }
 
+export function useStyleRenderer(): IRenderer {
+  const context = useContext(StyleContext)
+
+  if (process.env.NODE_ENV !== 'production') {
+    if (!context) {
+      throw new Error(
+        "Couldn't find a StyleContext provider, did you forget to include StyleProvider in the component tree."
+      )
+    }
+  }
+
+  const {renderer} = context!
+  return renderer
+}
+
 export type StylePropsFromProps<P extends {}> = keyof P extends never
   ? {styleProps?: P}
   : {styleProps: P}
@@ -255,6 +248,11 @@ export type StylePropsFromProps<P extends {}> = keyof P extends never
 export type RefTypeForElement<
   E extends keyof JSX.IntrinsicElements
 > = JSX.IntrinsicElements[E] extends DetailedHTMLProps<infer _, infer T> ? T : never
+
+export interface StyledProps<P extends {}, SP extends {} = {}> {
+  styleRules: CSSRule<SP>[]
+  styleProps: P & SP
+}
 
 export function styled<
   E extends keyof JSX.IntrinsicElements,
@@ -283,30 +281,32 @@ export function styled(
   rule: (props: any, renderer: CSSRenderer) => any,
   middleware?: () => any
 ): ForwardRefExoticComponent<any> {
-  const forwardedRef = forwardRef<any, {styleProps: any}>(({styleProps, ...props}, ref) => {
-    const context = useContext(StyleContext)
+  const forwardedRef = forwardRef<any, {styleRules: any; styleProps: any}>(
+    ({styleProps, ...props}, ref) => {
+      const context = useContext(StyleContext)
 
-    if (process.env.NODE_ENV !== 'production') {
-      if (!context) {
-        throw new Error(
-          "Couldn't find a StyleContext provider, did you forget to include StyleProvider in the component tree."
-        )
+      if (process.env.NODE_ENV !== 'production') {
+        if (!context) {
+          throw new Error(
+            "Couldn't find a StyleContext provider, did you forget to include StyleProvider in the component tree."
+          )
+        }
       }
+
+      const {renderer} = context!
+      const stylePropsWithMiddleware = middleware
+        ? Object.assign({}, styleProps, middleware())
+        : styleProps ?? {}
+
+      return (
+        <Element
+          ref={ref}
+          {...props}
+          className={renderer.renderRule(rule, stylePropsWithMiddleware)}
+        />
+      )
     }
-
-    const {renderer} = context!
-    const stylePropsWithMiddleware = middleware
-      ? Object.assign({}, styleProps, middleware())
-      : styleProps
-
-    return (
-      <Element
-        ref={ref}
-        {...props}
-        className={renderer.renderRule(rule, stylePropsWithMiddleware)}
-      />
-    )
-  })
+  )
 
   const displayName = typeof Element === 'string' ? Element : Element.displayName || Element.name
   forwardedRef.displayName = `Styled(${displayName})`
