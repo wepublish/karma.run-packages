@@ -14,7 +14,7 @@ const ToolbarElement = styled(
     justifyContent: 'center',
     alignItems: 'center',
     position: 'sticky',
-    top: Spacing.ExtraSmall,
+    top: 60 + Spacing.ExtraSmall, // TODO: Don't hardcode NavigationBar height into the toolbar, move all the position sticky stuff into own component
     left: '50%',
     zIndex: ZIndex.Default,
 
