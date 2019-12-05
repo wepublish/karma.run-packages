@@ -24,6 +24,8 @@ export * from './input/radioGroup'
 export * from './input/searchInput'
 export * from './input/select'
 export * from './input/placeholderInput'
+export * from './input/autocompleteInput'
+export * from './input/tagInput'
 
 // Blocks
 export * from './blocks/block'

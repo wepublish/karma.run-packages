@@ -80,7 +80,7 @@ export function FocalPointInput({
       <div ref={imageContainer}>
         {layouted && (
           <LayerContainer>
-            <Card>
+            <Card overflow="hidden" height="100%">
               <Image
                 src={imageURL}
                 width="100%"
