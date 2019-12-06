@@ -1,4 +1,4 @@
-import React, {Fragment, useState, ReactNode} from 'react'
+import React, {Fragment, useState, ReactNode, useCallback, useMemo, memo} from 'react'
 import nanoid from 'nanoid'
 
 import {isFunctionalUpdate, useStyle, cssRule} from '@karma.run/react'
@@ -32,9 +32,9 @@ export interface BlockListValue<T extends string = string, V = any> {
   readonly value: V
 }
 
-export type BlockCaseMap = Record<string, BlockCaseProps>
+export type BlockMap = Record<string, BlockCaseProps>
 
-export type BlockCaseMapForValue<R extends BlockListValue> = UnionToIntersection<
+export type BlockMapForValue<R extends BlockListValue> = UnionToIntersection<
   R extends BlockListValue<infer T, infer V> ? {[K in T]: BlockCaseProps<V>} : never
 >
 
@@ -54,7 +54,7 @@ export interface BlockListItemProps<T extends string = string, V = any> {
   readonly children: (props: BlockProps<V>) => JSX.Element
 }
 
-function BlockListItem({
+const BlockListItem = memo(function BlockListItem({
   index,
   value,
   icon,
@@ -65,12 +65,15 @@ function BlockListItem({
   autofocus,
   children
 }: BlockListItemProps) {
-  function handleValueChange(fieldValue: React.SetStateAction<any>) {
-    onChange(index, value => ({
-      ...value,
-      value: isFunctionalUpdate(fieldValue) ? fieldValue(value.value) : fieldValue
-    }))
-  }
+  const handleValueChange = useCallback(
+    (fieldValue: React.SetStateAction<any>) => {
+      onChange(index, value => ({
+        ...value,
+        value: isFunctionalUpdate(fieldValue) ? fieldValue(value.value) : fieldValue
+      }))
+    },
+    [onChange, index]
+  )
 
   return (
     <ListItemWrapper
@@ -81,10 +84,17 @@ function BlockListItem({
       {children({value: value.value, onChange: handleValueChange, autofocus})}
     </ListItemWrapper>
   )
+})
+
+export function useBlockMap<V extends BlockListValue>(
+  map: () => BlockMapForValue<V>,
+  deps: ReadonlyArray<any> | undefined
+) {
+  return useMemo(map, deps)
 }
 
 export interface BlockListProps<V extends BlockListValue> extends BlockProps<V[]> {
-  readonly children: BlockCaseMapForValue<V>
+  readonly children: BlockMapForValue<V>
 }
 
 export function BlockList<V extends BlockListValue>({
@@ -95,54 +105,72 @@ export function BlockList<V extends BlockListValue>({
   const [focusIndex, setFocusIndex] = useState<number | null>(null)
   const css = useStyle()
 
-  const unionFieldMap = children as BlockCaseMap
+  const blockMap = children as BlockMap
 
-  function handleItemChange(index: number, itemValue: React.SetStateAction<BlockListValue>) {
-    onChange(value =>
-      Object.assign([], value, {
-        [index]: isFunctionalUpdate(itemValue) ? itemValue(value[index]) : itemValue
+  const handleItemChange = useCallback(
+    (index: number, itemValue: React.SetStateAction<BlockListValue>) => {
+      onChange(value =>
+        Object.assign([], value, {
+          [index]: isFunctionalUpdate(itemValue) ? itemValue(value[index]) : itemValue
+        })
+      )
+    },
+    [onChange]
+  )
+
+  const handleAdd = useCallback(
+    (index: number, type: string) => {
+      setFocusIndex(index)
+      onChange(values => {
+        const {defaultValue} = blockMap[type]
+        const valuesCopy = values.slice()
+
+        valuesCopy.splice(index, 0, {
+          key: nanoid(),
+          type,
+          value: isValueConstructor(defaultValue) ? defaultValue() : defaultValue
+        } as V)
+
+        return valuesCopy
       })
-    )
-  }
+    },
+    [blockMap, onChange]
+  )
 
-  function handleAdd(index: number, type: string) {
-    setFocusIndex(index)
-    onChange(values => {
-      const {defaultValue} = unionFieldMap[type]
-      const valuesCopy = values.slice()
+  const handleRemove = useCallback(
+    (itemIndex: number) => {
+      onChange(value => value.filter((value, index) => index !== itemIndex))
+    },
+    [onChange]
+  )
 
-      valuesCopy.splice(index, 0, {
-        key: nanoid(),
-        type,
-        value: isValueConstructor(defaultValue) ? defaultValue() : defaultValue
-      } as V)
+  const handleMoveIndex = useCallback(
+    (from: number, to: number) => {
+      onChange(values => {
+        const valuesCopy = values.slice()
+        const [value] = valuesCopy.splice(from, 1)
 
-      return valuesCopy
-    })
-  }
+        valuesCopy.splice(to, 0, value)
 
-  function handleRemove(itemIndex: number) {
-    onChange(value => value.filter((_value, index) => index !== itemIndex))
-  }
+        return valuesCopy
+      })
+    },
+    [onChange]
+  )
 
-  function handleMoveIndex(from: number, to: number) {
-    onChange(values => {
-      const valuesCopy = values.slice()
-      const [value] = valuesCopy.splice(from, 1)
+  const handleMoveUp = useCallback(
+    (index: number) => {
+      handleMoveIndex(index, index - 1)
+    },
+    [handleMoveIndex]
+  )
 
-      valuesCopy.splice(to, 0, value)
-
-      return valuesCopy
-    })
-  }
-
-  function handleMoveUp(index: number) {
-    handleMoveIndex(index, index - 1)
-  }
-
-  function handleMoveDown(index: number) {
-    handleMoveIndex(index, index + 1)
-  }
+  const handleMoveDown = useCallback(
+    (index: number) => {
+      handleMoveIndex(index, index + 1)
+    },
+    [handleMoveIndex]
+  )
 
   function addButtonForIndex(index: number) {
     return (
@@ -152,7 +180,7 @@ export function BlockList<V extends BlockListValue>({
         marginTop={Spacing.ExtraSmall}
         marginBottom={Spacing.ExtraSmall}>
         <AddBlockInput
-          menuItems={Object.entries(unionFieldMap).map(([type, {icon, label}]) => ({
+          menuItems={Object.entries(blockMap).map(([type, {icon, label}]) => ({
             id: type,
             icon,
             label
@@ -167,21 +195,20 @@ export function BlockList<V extends BlockListValue>({
   function listItemForIndex(value: V, index: number) {
     const hasPrevIndex = index - 1 >= 0
     const hasNextIndex = index + 1 < values.length
-
-    const unionCase = unionFieldMap[value.type]
+    const blockDef = blockMap[value.type]
 
     return (
       <Fragment key={value.key}>
         <BlockListItem
           index={index}
           value={value}
-          icon={unionCase.icon}
+          icon={blockDef.icon}
           onDelete={handleRemove}
           onChange={handleItemChange}
           onMoveUp={hasPrevIndex ? handleMoveUp : undefined}
           onMoveDown={hasNextIndex ? handleMoveDown : undefined}
           autofocus={focusIndex === index}>
-          {unionCase.field}
+          {blockDef.field}
         </BlockListItem>
         {addButtonForIndex(index + 1)}
       </Fragment>

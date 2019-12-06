@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, memo} from 'react'
 
 import {IconColumn4, IconColumn2, IconColumn2Alt, MaterialIconTextFormat} from '@karma.run/icons'
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
-import {BlockList, BlockListValue} from './blockList'
+import {BlockList, BlockListValue, useBlockMap} from './blockList'
 
 import {Grid, Column} from '../layout/grid'
 import {PlaceholderInput} from '../input/placeholderInput'
@@ -25,14 +25,17 @@ export const Default = () => {
 
   return (
     <BlockList value={values} onChange={setValues}>
-      {{
-        string: {
-          field: props => <TextInputBlock {...props} />,
-          defaultValue: '',
-          label: 'String',
-          icon: MaterialIconTextFormat
-        }
-      }}
+      {useBlockMap<WrapperValue>(
+        () => ({
+          string: {
+            field: props => <TextInputBlock {...props} />,
+            defaultValue: '',
+            label: 'String',
+            icon: MaterialIconTextFormat
+          }
+        }),
+        []
+      )}
     </BlockList>
   )
 }
@@ -117,7 +120,7 @@ export const WithGrid = () => {
   )
 }
 
-function TextInputBlock({value, onChange}: BlockProps<string>) {
+const TextInputBlock = memo(({value, onChange}: BlockProps<string>) => {
   return (
     <TextInput
       label="Label"
@@ -127,4 +130,4 @@ function TextInputBlock({value, onChange}: BlockProps<string>) {
       }}
     />
   )
-}
+})
