@@ -1,4 +1,4 @@
-import React, {ReactNode, forwardRef} from 'react'
+import React, {ReactNode, forwardRef, HTMLAttributes} from 'react'
 import {styled} from '@karma.run/react'
 
 import {themeMiddleware, Theme} from '../style/themeContext'
@@ -46,7 +46,8 @@ export const CardElement = styled(
 )
 
 export interface CardProps
-  extends PaddingProps,
+  extends HTMLAttributes<HTMLDivElement>,
+    PaddingProps,
     MarginProps,
     WidthProps,
     HeightProps,

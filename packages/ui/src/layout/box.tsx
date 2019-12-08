@@ -1,6 +1,4 @@
-import React, {ReactNode, forwardRef, Ref} from 'react'
-
-import {OverflowProperty} from 'csstype'
+import React, {ReactNode, forwardRef, Ref, HTMLAttributes} from 'react'
 import {cssRule, useStyle} from '@karma.run/react'
 
 import {
@@ -10,23 +8,25 @@ import {
   HeightProps,
   PaddingProps,
   MarginProps,
-  DisplayProps
+  DisplayProps,
+  OverflowProps,
+  extractStyleProps
 } from '../style/helpers'
 
-export interface BaseBoxProps
+interface BoxStyleProps
   extends FlexContainerProps,
     FlexChildProps,
     WidthProps,
     HeightProps,
     PaddingProps,
     MarginProps,
-    DisplayProps {
-  readonly overflow?: OverflowProperty
+    DisplayProps,
+    OverflowProps {}
+
+export interface BaseBoxProps extends HTMLAttributes<any>, BoxStyleProps {
   readonly element?: keyof JSX.IntrinsicElements
   readonly children?: ReactNode | ((props: {className: string; ref: Ref<any>}) => ReactNode)
 }
-
-type BoxStyleProps = Omit<BaseBoxProps, 'element' | 'children'>
 
 const BoxBaseStyle = cssRule<BoxStyleProps>(props => {
   return {
@@ -39,16 +39,18 @@ export const Box = forwardRef<any, BaseBoxProps>(function Box(
   {element = 'div', children, ...props},
   ref
 ) {
-  const style = useStyle(props)
+  const [layoutProps, elementProps] = extractStyleProps(props)
+
+  const style = useStyle(layoutProps)
   const className = style(BoxBaseStyle)
 
   const Element = element as any
   const anyChildren = children as any
 
   return typeof anyChildren === 'function' ? (
-    anyChildren({className, ref})
+    anyChildren({...elementProps, className, ref})
   ) : (
-    <Element className={className} ref={ref}>
+    <Element {...elementProps} className={className} ref={ref}>
       {children}
     </Element>
   )
