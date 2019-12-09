@@ -61,7 +61,10 @@ export default async function startMediaServer(opts: ServerOptions): Promise<() 
     }
   }
 
-  const server = fastify({logger: opts.logger ? {prettyPrint: true} : false})
+  const server = fastify({
+    logger: opts.logger ? {prettyPrint: true} : false,
+    maxParamLength: 300
+  })
 
   server.register(fastifyMultipart, {
     limits: {
@@ -83,6 +86,8 @@ export default async function startMediaServer(opts: ServerOptions): Promise<() 
   server.get('/:id/:transformation/:filename', getMediaMiddleware(context))
 
   server.setNotFoundHandler((_req, res) => {
+    console.log(_req.raw.url)
+
     res.status(404).send(
       createErrorResponse({
         code: ErrorCode.NotFound,
