@@ -72,7 +72,7 @@ export const TypographicTextArea = forwardRef<HTMLTextAreaElement, TypographicTe
     }, [])
 
     useEffect(() => {
-      if (typeof ResizeObserver) {
+      if (typeof ResizeObserver !== 'undefined') {
         const observer = new ResizeObserver(() => {
           handleResize()
         })

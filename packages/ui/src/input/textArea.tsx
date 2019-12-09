@@ -192,7 +192,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
   }, [value])
 
   useEffect(() => {
-    if (typeof ResizeObserver) {
+    if (typeof ResizeObserver !== 'undefined') {
       const observer = new ResizeObserver(() => {
         handleResize()
       })
