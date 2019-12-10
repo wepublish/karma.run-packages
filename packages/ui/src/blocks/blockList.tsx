@@ -47,23 +47,26 @@ export interface BlockListItemProps<T extends string = string, V = any> {
   readonly value: BlockListValue<T, V>
   readonly icon: IconElement
   readonly autofocus: boolean
-  readonly onChange: (index: number, value: React.SetStateAction<BlockListValue<T, V>>) => void
-  readonly onDelete: (index: number) => void
-  readonly onMoveUp?: (index: number) => void
-  readonly onMoveDown?: (index: number) => void
-  readonly children: (props: BlockProps<V>) => JSX.Element
+  readonly disabled?: boolean
+
+  onChange(index: number, value: React.SetStateAction<BlockListValue<T, V>>): void
+  onDelete(index: number): void
+  onMoveUp?(index: number): void
+  onMoveDown?(index: number): void
+  children(props: BlockProps<V>): JSX.Element
 }
 
 const BlockListItem = memo(function BlockListItem({
   index,
   value,
   icon,
+  autofocus,
+  disabled,
+  children,
   onChange,
   onDelete,
   onMoveUp,
-  onMoveDown,
-  autofocus,
-  children
+  onMoveDown
 }: BlockListItemProps) {
   const handleValueChange = useCallback(
     (fieldValue: React.SetStateAction<any>) => {
@@ -78,10 +81,11 @@ const BlockListItem = memo(function BlockListItem({
   return (
     <ListItemWrapper
       icon={icon}
+      disabled={disabled}
       onDelete={() => onDelete(index)}
       onMoveUp={onMoveUp ? () => onMoveUp(index) : undefined}
       onMoveDown={onMoveDown ? () => onMoveDown(index) : undefined}>
-      {children({value: value.value, onChange: handleValueChange, autofocus})}
+      {children({value: value.value, onChange: handleValueChange, autofocus, disabled})}
     </ListItemWrapper>
   )
 })
@@ -100,6 +104,7 @@ export interface BlockListProps<V extends BlockListValue> extends BlockProps<V[]
 export function BlockList<V extends BlockListValue>({
   value: values,
   children,
+  disabled,
   onChange
 }: BlockListProps<V>) {
   const [focusIndex, setFocusIndex] = useState<number | null>(null)
@@ -186,7 +191,8 @@ export function BlockList<V extends BlockListValue>({
             label
           }))}
           onMenuItemClick={({id}) => handleAdd(index, id)}
-          subtle={index !== values.length}
+          subtle={index !== values.length || disabled}
+          disabled={disabled}
         />
       </Box>
     )
@@ -207,7 +213,8 @@ export function BlockList<V extends BlockListValue>({
           onChange={handleItemChange}
           onMoveUp={hasPrevIndex ? handleMoveUp : undefined}
           onMoveDown={hasNextIndex ? handleMoveDown : undefined}
-          autofocus={focusIndex === index}>
+          autofocus={focusIndex === index}
+          disabled={disabled}>
           {blockDef.field}
         </BlockListItem>
         {addButtonForIndex(index + 1)}
@@ -251,13 +258,21 @@ interface ListItemWrapperProps {
   readonly children?: ReactNode
   readonly accessory?: ReactNode // TODO
   readonly icon?: IconElement
+  readonly disabled?: boolean
 
   onDelete?(): void
   onMoveUp?(): void
   onMoveDown?(): void
 }
 
-function ListItemWrapper({children, icon, onDelete, onMoveUp, onMoveDown}: ListItemWrapperProps) {
+function ListItemWrapper({
+  children,
+  icon,
+  disabled,
+  onDelete,
+  onMoveUp,
+  onMoveDown
+}: ListItemWrapperProps) {
   const css = useThemeStyle()
 
   return (
@@ -267,7 +282,7 @@ function ListItemWrapper({children, icon, onDelete, onMoveUp, onMoveDown}: ListI
           title="Delete"
           icon={MaterialIconDeleteOutlined}
           onClick={onDelete}
-          disabled={onDelete == null}
+          disabled={onDelete == null || disabled}
         />
         <Box flexGrow={1} />
         <Box marginTop={Spacing.ExtraSmall} marginBottom={Spacing.Tiny}>
@@ -275,7 +290,7 @@ function ListItemWrapper({children, icon, onDelete, onMoveUp, onMoveDown}: ListI
             title="Move Up"
             icon={MaterialIconKeyboardArrowUp}
             onClick={onMoveUp}
-            disabled={onMoveUp == null}
+            disabled={onMoveUp == null || disabled}
           />
         </Box>
         <Box marginBottom={Spacing.ExtraSmall}>
@@ -283,7 +298,7 @@ function ListItemWrapper({children, icon, onDelete, onMoveUp, onMoveDown}: ListI
             title="Move Down"
             icon={MaterialIconKeyboardArrowDown}
             onClick={onMoveDown}
-            disabled={onMoveDown == null}
+            disabled={onMoveDown == null || disabled}
           />
         </Box>
         <Box flexGrow={1} />

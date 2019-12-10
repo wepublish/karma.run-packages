@@ -21,11 +21,12 @@ const MenuWrapperStyle = cssRule(() => ({
 export interface AddBlockInputProps {
   readonly menuItems: Array<MenuItem>
   readonly subtle?: boolean
+  readonly disabled?: boolean
 
   onMenuItemClick(item: MenuItem): void
 }
 
-export function AddBlockInput({menuItems, subtle, onMenuItemClick}: AddBlockInputProps) {
+export function AddBlockInput({menuItems, subtle, disabled, onMenuItemClick}: AddBlockInputProps) {
   const css = useStyle()
 
   const ref = useRef<HTMLDivElement>(null)
@@ -37,7 +38,12 @@ export function AddBlockInput({menuItems, subtle, onMenuItemClick}: AddBlockInpu
 
   return (
     <div className={css(AddBlockInputStyle)}>
-      <AddBlockButton onClick={() => setOpen(!isOpen)} active={isOpen} subtle={subtle} />
+      <AddBlockButton
+        onClick={() => setOpen(!isOpen)}
+        active={isOpen}
+        subtle={subtle}
+        disabled={disabled}
+      />
 
       {isOpen && (
         <div ref={ref} className={css(MenuWrapperStyle)}>

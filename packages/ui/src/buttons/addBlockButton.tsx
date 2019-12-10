@@ -50,11 +50,17 @@ const AddBlockButtonWrapperStyle = cssRuleWithTheme(() => ({
 export interface AddBlockButtonProps {
   readonly active?: boolean
   readonly subtle?: boolean
+  readonly disabled?: boolean
 
   onClick(): void
 }
 
-export function AddBlockButton({onClick, active = false, subtle = false}: AddBlockButtonProps) {
+export function AddBlockButton({
+  onClick,
+  active = false,
+  subtle = false,
+  disabled
+}: AddBlockButtonProps) {
   const css = useThemeStyle<AddBlockButtonStyleProps>({active, subtle})
 
   return (
@@ -65,6 +71,7 @@ export function AddBlockButton({onClick, active = false, subtle = false}: AddBlo
           active={active}
           icon={MaterialIconAdd}
           onClick={() => onClick()}
+          disabled={disabled}
         />
       </div>
     </div>

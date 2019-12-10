@@ -21,7 +21,10 @@ export default {
 }
 
 export const Default = () => {
-  const [values, setValues] = useState<WrapperValue[]>([])
+  const [values, setValues] = useState<WrapperValue[]>([
+    {key: '1', type: 'string', value: 'Hello'},
+    {key: '2', type: 'string', value: 'World'}
+  ])
 
   return (
     <BlockList value={values} onChange={setValues}>
@@ -41,12 +44,16 @@ export const Default = () => {
 }
 
 export const WithGrid = () => {
-  const [values, setValues] = useState([])
+  const [values, setValues] = useState([
+    {key: '1', type: 'column2', value: []},
+    {key: '2', type: 'column4', value: []},
+    {key: '3', type: 'column2Alt', value: []}
+  ])
 
   return (
     <BlockList value={values} onChange={setValues}>
       {{
-        string: {
+        column4: {
           field: props => (
             <Grid>
               <Column ratio={1 / 4}>
@@ -71,7 +78,7 @@ export const WithGrid = () => {
               </Column>
             </Grid>
           ),
-          defaultValue: '',
+          defaultValue: [],
           label: '4 Cols',
           icon: IconColumn4
         },
@@ -120,11 +127,35 @@ export const WithGrid = () => {
   )
 }
 
-const TextInputBlock = memo(({value, onChange}: BlockProps<string>) => {
+export const Disabled = () => {
+  const [values, setValues] = useState<WrapperValue[]>([
+    {key: '1', type: 'string', value: 'Hello'},
+    {key: '2', type: 'string', value: 'World'}
+  ])
+
+  return (
+    <BlockList value={values} onChange={setValues} disabled>
+      {useBlockMap<WrapperValue>(
+        () => ({
+          string: {
+            field: props => <TextInputBlock {...props} />,
+            defaultValue: '',
+            label: 'String',
+            icon: MaterialIconTextFormat
+          }
+        }),
+        []
+      )}
+    </BlockList>
+  )
+}
+
+const TextInputBlock = memo(({value, onChange, disabled}: BlockProps<string>) => {
   return (
     <TextInput
       label="Label"
       value={value}
+      disabled={disabled}
       onChange={e => {
         onChange(e.currentTarget.value)
       }}
