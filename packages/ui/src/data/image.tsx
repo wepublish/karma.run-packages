@@ -1,7 +1,7 @@
-import React, {forwardRef, ImgHTMLAttributes, useState} from 'react'
+import React, {forwardRef, ImgHTMLAttributes, useState, AriaAttributes, DOMAttributes} from 'react'
 
 import {styled} from '@karma.run/react'
-import {themeMiddleware, Theme} from '../style/themeContext'
+import {themeMiddleware, Theme, useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
 
 import {
   TransitionDuration,
@@ -13,9 +13,9 @@ import {
 } from '../style/helpers'
 
 interface ImageWrapperProps extends WidthProps, HeightProps, MarginProps, FlexChildProps {
-  readonly isLoaded?: boolean
-  readonly contain?: boolean
-  readonly theme: Theme
+  isLoaded?: boolean
+  contain?: boolean
+  theme: Theme
 }
 
 const ImageWrapper = styled(
@@ -43,9 +43,9 @@ export interface ImageProps
     MarginProps,
     FlexChildProps,
     Omit<ImgHTMLAttributes<HTMLImageElement>, 'width' | 'height'> {
-  readonly contain?: boolean
-  readonly imageWidth?: number
-  readonly imageHeight?: number
+  contain?: boolean
+  imageWidth?: number
+  imageHeight?: number
 }
 
 export const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
@@ -69,3 +69,39 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
     />
   )
 })
+
+interface ImagePlaceholderStyleProps extends WidthProps, HeightProps, MarginProps, FlexChildProps {
+  theme: Theme
+}
+
+const ImagePlaceholderStyle = cssRuleWithTheme<ImagePlaceholderStyleProps>(({theme, ...props}) => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'ImagePlaceholder' : undefined,
+
+  overflow: 'hidden',
+  fill: 'inherit',
+  stroke: theme.colors.grayLight,
+
+  ...props
+}))
+
+export interface ImagePlaceholderProps
+  extends WidthProps,
+    HeightProps,
+    MarginProps,
+    FlexChildProps,
+    AriaAttributes,
+    DOMAttributes<SVGSVGElement> {}
+
+export const ImagePlaceholder = forwardRef<SVGSVGElement, ImagePlaceholderProps>(
+  function ImagePlaceholder(props, ref) {
+    const [layoutProps, elementProps] = extractStyleProps(props)
+    const css = useThemeStyle(layoutProps)
+
+    return (
+      <svg {...elementProps} ref={ref} className={css(ImagePlaceholderStyle)} viewBox="0 0 64 64">
+        <line x1="0" y1="0" x2="64" y2="64" fill="none" stroke-width="1" />
+        <line x1="64" y1="0" x2="0" y2="64" fill="none" stroke-width="1" />
+      </svg>
+    )
+  }
+)

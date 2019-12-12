@@ -29,7 +29,7 @@ interface CardElementProps
   readonly theme: Theme
 }
 
-export const CardElement = styled(
+const CardElement = styled(
   'div',
   ({theme, ...props}: CardElementProps) => ({
     _className: process.env.NODE_ENV !== 'production' ? 'Card' : undefined,

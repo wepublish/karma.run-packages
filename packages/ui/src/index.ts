@@ -52,6 +52,7 @@ export * from './modal/drawer'
 export * from './modal/dialog'
 
 // Data
+export * from './data/avatar'
 export * from './data/image'
 export * from './data/divider'
 export * from './data/descriptionList'

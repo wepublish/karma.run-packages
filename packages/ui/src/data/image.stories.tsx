@@ -1,23 +1,21 @@
 import React from 'react'
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
-
-import {Image} from './image'
-import {Box} from '../layout/box'
+import {Image, ImagePlaceholder} from './image'
 
 export default {
   component: Image,
   title: 'Data|Image',
-  decorators: [centerLayoutDecorator(0.5)]
+  decorators: [centerLayoutDecorator()]
 }
 
 export const Default = () => (
-  <Box height={200}>
-    <Image
-      src="https://dummyimage.com/300x200/333/fff"
-      imageWidth={300}
-      imageHeight={200}
-      width="100%"
-    />
-  </Box>
+  <Image
+    src="https://dummyimage.com/300x200/333/fff"
+    imageWidth={300}
+    imageHeight={200}
+    width="100%"
+  />
 )
+
+export const Placeholder = () => <ImagePlaceholder width={300} height={300} />

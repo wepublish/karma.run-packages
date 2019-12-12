@@ -1,51 +1,68 @@
-import React, {useContext, ButtonHTMLAttributes, AnchorHTMLAttributes} from 'react'
+import React, {useContext, ButtonHTMLAttributes, AnchorHTMLAttributes, forwardRef} from 'react'
 import {IconElement, Icon, IconScale} from '../data/icon'
 
-import {Spacing, TransitionDuration, FontSize} from '../style/helpers'
+import {
+  Spacing,
+  TransitionDuration,
+  FontSize,
+  MarginProps,
+  extractStyleProps
+} from '../style/helpers'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {NavigationContext} from '../navigation/navigation'
 
-interface MenuButtonStyleProps {
-  readonly isCollapsed: boolean
+interface MenuButtonStyleProps extends MarginProps {
+  disabled?: boolean
+  active?: boolean
+  isCollapsed: boolean
 }
 
-const MenuButtonStyle = cssRuleWithTheme(({theme}) => ({
-  _className: process.env.NODE_ENV !== 'production' ? 'MenuButton' : undefined,
+const MenuButtonStyle = cssRuleWithTheme<MenuButtonStyleProps>(
+  ({theme, isCollapsed, disabled, active, ...props}) => ({
+    _className: process.env.NODE_ENV !== 'production' ? 'MenuButton' : undefined,
 
-  overflow: 'hidden',
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
+    cursor: 'pointer',
+    pointerEvents: disabled ? 'none' : undefined,
+    userSelect: 'none',
 
-  padding: `12px 18px`,
+    overflow: 'hidden',
+    display: 'flex',
+    alignItems: 'center',
 
-  width: '100%',
-  fontSize: FontSize.Medium,
-  textAlign: 'left',
+    padding: `12px 18px`,
 
-  fill: theme.colors.dark,
-  color: theme.colors.dark,
-  backgroundColor: 'transparent',
-  border: 'none',
+    width: '100%',
+    fontSize: FontSize.Medium,
+    textAlign: 'left',
 
-  transitionProperty: 'background-color, fill',
-  transitionTimingFunction: 'ease-in',
-  transitionDuration: TransitionDuration.Fast,
+    fill: active ? theme.colors.primaryDark : theme.colors.dark,
+    color: theme.colors.dark,
+    backgroundColor: active ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+    border: 'none',
 
-  ':hover:enabled': {
-    backgroundColor: theme.colors.grayLight,
-    fill: theme.colors.dark
-  },
+    transitionProperty: 'background-color, fill',
+    transitionTimingFunction: 'ease-in',
+    transitionDuration: TransitionDuration.Fast,
 
-  ':active:enabled': {
-    backgroundColor: theme.colors.white,
-    fill: theme.colors.primaryDark
-  },
+    opacity: disabled ? 0.5 : undefined,
 
-  ':focus': {
-    outline: 'none'
-  }
-}))
+    ':hover': {
+      backgroundColor: 'rgba(0, 0, 0, 0.025)',
+      fill: theme.colors.dark
+    },
+
+    ':active': {
+      backgroundColor: 'rgba(0, 0, 0, 0.05)',
+      fill: theme.colors.primaryDark
+    },
+
+    ':focus': {
+      outline: 'none'
+    },
+
+    ...props
+  })
+)
 
 const LabelStyle = cssRuleWithTheme<MenuButtonStyleProps>(({isCollapsed}) => ({
   _className: process.env.NODE_ENV !== 'production' ? 'MenuButtonLabel' : undefined,
@@ -58,11 +75,13 @@ const LabelStyle = cssRuleWithTheme<MenuButtonStyleProps>(({isCollapsed}) => ({
   transitionDuration: TransitionDuration.Slow
 }))
 
-export interface BaseMenuButtonProps {
-  readonly label?: string
-  readonly icon: IconElement
-  readonly iconScale?: IconScale
-  readonly hideLabel?: boolean
+export interface BaseMenuButtonProps extends MarginProps {
+  label?: string
+  icon: IconElement
+  iconScale?: IconScale
+  hideLabel?: boolean
+  disabled?: boolean
+  active?: boolean
 }
 
 export interface MenuButtonProps
@@ -70,36 +89,46 @@ export interface MenuButtonProps
     ButtonHTMLAttributes<HTMLButtonElement> {}
 
 // TODO: Forward ref
-export function MenuButton({label, iconScale = IconScale.Larger, icon, ...props}: MenuButtonProps) {
+export const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(function MenuButton(
+  {label, iconScale = IconScale.Larger, icon, disabled, active, ...props},
+  ref
+) {
+  const [layoutProps, elementProps] = extractStyleProps(props)
+
   const {isCollapsed} = useContext(NavigationContext)
-  const css = useThemeStyle({isCollapsed})
+  const css = useThemeStyle({isCollapsed, disabled, active, ...layoutProps})
 
   return (
-    <button className={css(MenuButtonStyle)} {...props}>
+    <button {...elementProps} ref={ref} className={css(MenuButtonStyle)}>
       <Icon element={icon} scale={iconScale} block />
       <span className={css(LabelStyle)}>{label}</span>
     </button>
   )
-}
+})
 
 export interface MenuLinkButtonProps
   extends BaseMenuButtonProps,
     AnchorHTMLAttributes<HTMLAnchorElement> {}
 
-// TODO: Forward ref
-export function MenuLinkButton({
-  label,
-  iconScale = IconScale.Larger,
-  icon,
-  ...props
-}: MenuLinkButtonProps) {
-  const {isCollapsed} = useContext(NavigationContext)
-  const css = useThemeStyle({isCollapsed})
+export const MenuLinkButton = forwardRef<HTMLAnchorElement, MenuLinkButtonProps>(
+  function MenuLinkButton(
+    {label, iconScale = IconScale.Larger, icon, disabled, active, ...props},
+    ref
+  ) {
+    const [layoutProps, elementProps] = extractStyleProps(props)
 
-  return (
-    <a className={css(MenuButtonStyle)} {...props}>
-      <Icon element={icon} scale={iconScale} block />
-      <span className={css(LabelStyle)}>{label}</span>
-    </a>
-  )
-}
+    const {isCollapsed} = useContext(NavigationContext)
+    const css = useThemeStyle({isCollapsed, disabled, active, ...layoutProps})
+
+    return (
+      <a
+        {...elementProps}
+        ref={ref}
+        className={css(MenuButtonStyle)}
+        tabIndex={disabled ? -1 : elementProps.tabIndex}>
+        <Icon element={icon} scale={iconScale} block />
+        <span className={css(LabelStyle)}>{label}</span>
+      </a>
+    )
+  }
+)
