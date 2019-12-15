@@ -25,6 +25,7 @@ export * from './input/searchInput'
 export * from './input/select'
 export * from './input/placeholderInput'
 export * from './input/autocompleteInput'
+export * from './input/selectList'
 export * from './input/tagInput'
 
 // Blocks

@@ -99,8 +99,8 @@ export const ImagePlaceholder = forwardRef<SVGSVGElement, ImagePlaceholderProps>
 
     return (
       <svg {...elementProps} ref={ref} className={css(ImagePlaceholderStyle)} viewBox="0 0 64 64">
-        <line x1="0" y1="0" x2="64" y2="64" fill="none" stroke-width="1" />
-        <line x1="64" y1="0" x2="0" y2="64" fill="none" stroke-width="1" />
+        <line x1="0" y1="0" x2="64" y2="64" fill="none" strokeWidth="1" />
+        <line x1="64" y1="0" x2="0" y2="64" fill="none" strokeWidth="1" />
       </svg>
     )
   }
