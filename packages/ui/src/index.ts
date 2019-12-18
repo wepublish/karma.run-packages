@@ -10,6 +10,7 @@ export * from './buttons/button'
 export * from './buttons/iconButton'
 export * from './buttons/menuButton'
 export * from './buttons/addBlockButton'
+export * from './buttons/optionButton'
 
 // Inputs
 export * from './input/typographicTextArea'
