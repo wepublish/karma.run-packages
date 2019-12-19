@@ -35,19 +35,15 @@ interface ColumnStyleProps {
 const ColumnStyle = cssRule<ColumnStyleProps>(({flexBasis, spacing}) => ({
   _className: process.env.NODE_ENV !== 'production' ? 'Column' : undefined,
 
+  overflow: 'hidden',
   display: 'flex',
   flexDirection: 'column',
   flexWrap: 'nowrap',
-  flexGrow: 1,
-  flexShrink: 1,
   flexBasis
 }))
 
 const ColumnItemStyle = cssRule<ColumnStyleProps>(({spacing}) => ({
   _className: process.env.NODE_ENV !== 'production' ? 'ColumnItem' : undefined,
-
-  flexShrink: 0,
-  flexGrow: 1,
 
   padding: spacing / 2
 }))
