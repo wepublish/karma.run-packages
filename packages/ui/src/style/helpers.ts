@@ -27,7 +27,13 @@ import {
   MarginRightProperty,
   AlignItemsProperty,
   DisplayProperty,
-  OverflowProperty
+  OverflowProperty,
+  PositionProperty,
+  TopProperty,
+  BottomProperty,
+  LeftProperty,
+  RightProperty,
+  ZIndexProperty
 } from 'csstype'
 
 import {Theme} from './themeContext'
@@ -137,6 +143,15 @@ export function scrollBarStyle(theme: Theme): CSSStyle {
 
 export type CSSLength = string | number
 
+export interface PositionProps {
+  readonly position?: PositionProperty
+  readonly top?: TopProperty<CSSLength>
+  readonly bottom?: BottomProperty<CSSLength>
+  readonly left?: LeftProperty<CSSLength>
+  readonly right?: RightProperty<CSSLength>
+  readonly zIndex?: ZIndexProperty
+}
+
 export interface WidthProps {
   readonly width?: WidthProperty<CSSLength>
   readonly minWidth?: MinWidthProperty<CSSLength>
@@ -197,7 +212,8 @@ export interface StyleProps
     FlexContainerProps,
     FlexChildProps,
     DisplayProps,
-    OverflowProps {}
+    OverflowProps,
+    PositionProps {}
 
 export function extractStyleProps<P extends StyleProps>(
   input: P
@@ -231,6 +247,12 @@ export function extractStyleProps<P extends StyleProps>(
     flexShrink,
     display,
     overflow,
+    position,
+    top,
+    bottom,
+    left,
+    right,
+    zIndex,
     ...props
   } = input
 
@@ -262,7 +284,13 @@ export function extractStyleProps<P extends StyleProps>(
     flexGrow,
     flexShrink,
     display,
-    overflow
+    overflow,
+    position,
+    top,
+    bottom,
+    left,
+    right,
+    zIndex
   }
 
   for (const key in styleProps) {

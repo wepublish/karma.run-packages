@@ -6,7 +6,7 @@ import {Spacing, ZIndex} from '../style/helpers'
 import {IconButton} from './iconButton'
 import {MaterialIconMoreVert} from '@karma.run/icons'
 
-const AddBlockInputStyle = cssRule(() => ({
+const OptionButtonStyle = cssRule(() => ({
   position: 'relative'
 }))
 
@@ -25,7 +25,7 @@ const MenuWrapperStyle = cssRule<MenuWrapperStyleProps>(({position}) => ({
 
 export type MenuPosition = 'left' | 'right'
 
-export interface AddBlockInputProps {
+export interface OptionButtonProps {
   menuItems: Array<MenuItem>
 
   position?: MenuPosition
@@ -34,12 +34,12 @@ export interface AddBlockInputProps {
   onMenuItemClick(item: MenuItem): void
 }
 
-export function AddBlockInput({
+export function OptionButton({
   menuItems,
   position = 'right',
   disabled,
   onMenuItemClick
-}: AddBlockInputProps) {
+}: OptionButtonProps) {
   const css = useStyle({position})
 
   const ref = useRef<HTMLDivElement>(null)
@@ -50,7 +50,7 @@ export function AddBlockInput({
   })
 
   return (
-    <div className={css(AddBlockInputStyle)}>
+    <div className={css(OptionButtonStyle)}>
       <IconButton
         onClick={() => setOpen(!isOpen)}
         active={isOpen}

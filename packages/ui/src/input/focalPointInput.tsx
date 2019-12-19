@@ -6,9 +6,9 @@ import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {MaterialIconCenterFocusStrong} from '@karma.run/icons'
 import {Image} from '../data/image'
 import {DraggableContainer, Draggable, Point} from '../interaction/draggable'
-import {LayerContainer, Layer} from '../layout/layer'
 import {styled} from '@karma.run/react'
 import {Card} from '../data/card'
+import {Box} from '../layout/box'
 
 const FocalPointInputWrapper = styled('div', () => ({
   _className: process.env.NODE_ENV !== 'production' ? 'FocalPointInput' : undefined,
@@ -79,8 +79,8 @@ export function FocalPointInput({
     <FocalPointInputWrapper ref={containerRef}>
       <div ref={imageContainer}>
         {layouted && (
-          <LayerContainer>
-            <Card overflow="hidden" height="100%">
+          <Box position="relative" width="100%" height="100%">
+            <Card overflow="hidden" width="100%" height="100%">
               <Image
                 src={imageURL}
                 width="100%"
@@ -89,7 +89,7 @@ export function FocalPointInput({
                 imageHeight={imageHeight}
               />
             </Card>
-            <Layer top={0} left={0} width="100%" height="100%">
+            <Box position="absolute" top={0} left={0} width="100%" height="100%">
               <DraggableContainer>
                 {focalPoint && (
                   <Draggable point={focalPoint} onChange={onChange} disabled={disabled}>
@@ -97,8 +97,8 @@ export function FocalPointInput({
                   </Draggable>
                 )}
               </DraggableContainer>
-            </Layer>
-          </LayerContainer>
+            </Box>
+          </Box>
         )}
       </div>
     </FocalPointInputWrapper>

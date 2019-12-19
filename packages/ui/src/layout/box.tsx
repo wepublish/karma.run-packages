@@ -10,7 +10,8 @@ import {
   MarginProps,
   DisplayProps,
   OverflowProps,
-  extractStyleProps
+  extractStyleProps,
+  PositionProps
 } from '../style/helpers'
 
 interface BoxStyleProps
@@ -21,7 +22,8 @@ interface BoxStyleProps
     PaddingProps,
     MarginProps,
     DisplayProps,
-    OverflowProps {}
+    OverflowProps,
+    PositionProps {}
 
 export interface BaseBoxProps extends HTMLAttributes<any>, BoxStyleProps {
   readonly element?: keyof JSX.IntrinsicElements

@@ -1,6 +1,6 @@
 import React, {ReactNode, Children, createContext, useContext} from 'react'
 import {useStyle, cssRule} from '@karma.run/react'
-import { Spacing} from '../style/helpers'
+import {Spacing} from '../style/helpers'
 
 interface GridStyleProps {
   readonly spacing: Spacing
@@ -9,7 +9,6 @@ interface GridStyleProps {
 const GridStyle = cssRule<GridStyleProps>(({spacing}) => ({
   display: 'flex',
   flexWrap: 'wrap',
-  height: '100%',
   margin: -spacing / 2
 }))
 
@@ -34,6 +33,8 @@ interface ColumnStyleProps {
 }
 
 const ColumnStyle = cssRule<ColumnStyleProps>(({flexBasis, spacing}) => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'Column' : undefined,
+
   display: 'flex',
   flexDirection: 'column',
   flexWrap: 'nowrap',
@@ -43,8 +44,11 @@ const ColumnStyle = cssRule<ColumnStyleProps>(({flexBasis, spacing}) => ({
 }))
 
 const ColumnItemStyle = cssRule<ColumnStyleProps>(({spacing}) => ({
-  width: '100%',
-  height: '100%',
+  _className: process.env.NODE_ENV !== 'production' ? 'ColumnItem' : undefined,
+
+  flexShrink: 0,
+  flexGrow: 1,
+
   padding: spacing / 2
 }))
 
@@ -56,7 +60,7 @@ export interface GridColumnProp {
 export function Column({ratio, children}: GridColumnProp) {
   const {spacing} = useContext(GridContext)
   const css = useStyle<ColumnStyleProps>({
-    flexBasis: ratio ? `${(ratio * 100).toFixed(2)}%` : '100%',
+    flexBasis: ratio ? `${ratio * 100}%` : '100%',
     spacing
   })
 

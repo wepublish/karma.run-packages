@@ -1,6 +1,6 @@
 {
   "name": "@karma.run/media-storage-local",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "main": "./lib/index.js",
   "license": "MIT",
   "repository": "github:karmarun/karma.media",

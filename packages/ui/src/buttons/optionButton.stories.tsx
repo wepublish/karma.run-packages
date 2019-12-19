@@ -2,16 +2,16 @@ import React from 'react'
 import {MaterialIconFileCopyOutlined, MaterialIconDeleteOutlined} from '@karma.run/icons'
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
-import {AddBlockInput} from './optionButton'
+import {OptionButton} from './optionButton'
 
 export default {
-  component: AddBlockInput,
+  component: OptionButton,
   title: 'Buttons|OptionButton',
   decorators: [centerLayoutDecorator()]
 }
 
 export const Standard = () => (
-  <AddBlockInput
+  <OptionButton
     menuItems={[
       {id: 'delete', icon: MaterialIconDeleteOutlined, label: 'Delete'},
       {id: 'copy', icon: MaterialIconFileCopyOutlined, label: 'Copy'}
@@ -21,7 +21,7 @@ export const Standard = () => (
 )
 
 export const PositionLeft = () => (
-  <AddBlockInput
+  <OptionButton
     position="left"
     menuItems={[
       {id: 'delete', icon: MaterialIconDeleteOutlined, label: 'Delete'},

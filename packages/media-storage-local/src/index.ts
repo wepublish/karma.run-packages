@@ -42,8 +42,8 @@ export default class LocalStorageBackend implements StorageBackend {
   }
 
   public async delete(fileID: FileID) {
-    const filePath = this.fullFilePath(fileID.toFilePath())
-    await fs.promises.unlink(filePath)
+    const dirPath = path.dirname(this.fullFilePath(fileID.toFilePath()))
+    await fs.promises.rmdir(dirPath, {recursive: true})
   }
 
   public async exists(fileID: FileID): Promise<boolean> {
