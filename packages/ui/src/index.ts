@@ -61,6 +61,7 @@ export * from './data/link'
 export * from './data/chip'
 export * from './data/card'
 export * from './data/icon'
+export * from './data/overlay'
 
 // Interaction
 export * from './interaction/draggable'

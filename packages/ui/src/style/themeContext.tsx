@@ -24,6 +24,7 @@ export interface ThemeColors {
   dark: string
 
   white: string
+  black: string
 }
 
 export interface Theme {

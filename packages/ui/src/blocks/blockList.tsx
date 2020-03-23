@@ -4,6 +4,12 @@ import nanoid from 'nanoid'
 import {isFunctionalUpdate, useStyle, cssRule} from '@karma.run/react'
 import {isValueConstructor, ValueConstructor, UnionToIntersection} from '@karma.run/utility'
 
+import {
+  MaterialIconDeleteOutlined,
+  MaterialIconKeyboardArrowUp,
+  MaterialIconKeyboardArrowDown
+} from '@karma.run/icons'
+
 import {BlockProps, BlockConstructorFn} from './block'
 
 import {IconElement, Icon} from '../data/icon'
@@ -12,24 +18,19 @@ import {Box} from '../layout/box'
 import {Spacing} from '../style/helpers'
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {IconButton} from '../buttons/iconButton'
-import {
-  MaterialIconDeleteOutlined,
-  MaterialIconKeyboardArrowUp,
-  MaterialIconKeyboardArrowDown
-} from '@karma.run/icons'
 import {Card} from '../data/card'
 
 export interface BlockCaseProps<V = any> {
-  readonly label: string
-  readonly icon: IconElement
-  readonly defaultValue: ValueConstructor<V>
-  readonly field: BlockConstructorFn<V>
+  label: string
+  icon: IconElement
+  defaultValue: ValueConstructor<V>
+  field: BlockConstructorFn<V>
 }
 
 export interface BlockListValue<T extends string = string, V = any> {
-  readonly key: string
-  readonly type: T
-  readonly value: V
+  key: string
+  type: T
+  value: V
 }
 
 export type BlockMap = Record<string, BlockCaseProps>
@@ -43,17 +44,17 @@ const BlockListStyle = cssRule({
 })
 
 export interface BlockListItemProps<T extends string = string, V = any> {
-  readonly index: number
-  readonly value: BlockListValue<T, V>
-  readonly icon: IconElement
-  readonly autofocus: boolean
-  readonly disabled?: boolean
+  index: number
+  value: BlockListValue<T, V>
+  icon: IconElement
+  autofocus: boolean
+  disabled?: boolean
 
-  onChange(index: number, value: React.SetStateAction<BlockListValue<T, V>>): void
-  onDelete(index: number): void
-  onMoveUp?(index: number): void
-  onMoveDown?(index: number): void
-  children(props: BlockProps<V>): JSX.Element
+  onChange: (index: number, value: React.SetStateAction<BlockListValue<T, V>>) => void
+  onDelete: (index: number) => void
+  onMoveUp?: (index: number) => void
+  onMoveDown?: (index: number) => void
+  children: (props: BlockProps<V>) => JSX.Element
 }
 
 const BlockListItem = memo(function BlockListItem({
@@ -98,7 +99,7 @@ export function useBlockMap<V extends BlockListValue>(
 }
 
 export interface BlockListProps<V extends BlockListValue> extends BlockProps<V[]> {
-  readonly children: BlockMapForValue<V>
+  children: BlockMapForValue<V>
 }
 
 export function BlockList<V extends BlockListValue>({
@@ -255,14 +256,13 @@ const ListItemWrapperContentStyle = cssRule({
 })
 
 interface ListItemWrapperProps {
-  readonly children?: ReactNode
-  readonly accessory?: ReactNode // TODO
-  readonly icon?: IconElement
-  readonly disabled?: boolean
+  children?: ReactNode
+  icon?: IconElement
+  disabled?: boolean
 
-  onDelete?(): void
-  onMoveUp?(): void
-  onMoveDown?(): void
+  onDelete?: () => void
+  onMoveUp?: () => void
+  onMoveDown?: () => void
 }
 
 function ListItemWrapper({
@@ -305,9 +305,7 @@ function ListItemWrapper({
       </div>
       <div className={css(ListItemWrapperContentStyle)}>
         <Card width="100%">
-          <Box padding={Spacing.Small} minHeight="100%">
-            {children}
-          </Box>
+          <Box padding={Spacing.Small}>{children}</Box>
         </Card>
       </div>
       <div className={css(ListItemWrapperAccessoryStyle)}>{icon && <Icon element={icon} />}</div>

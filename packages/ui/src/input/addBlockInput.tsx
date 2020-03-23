@@ -6,10 +6,13 @@ import {useStyle, cssRule, useClickAwayListener} from '@karma.run/react'
 import {Spacing, ZIndex} from '../style/helpers'
 
 const AddBlockInputStyle = cssRule(() => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'AddBlockInput' : undefined,
   position: 'relative'
 }))
 
 const MenuWrapperStyle = cssRule(() => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'MenuWrapper' : undefined,
+
   position: 'absolute',
   zIndex: ZIndex.Tooltip,
   left: '50%',
@@ -19,11 +22,11 @@ const MenuWrapperStyle = cssRule(() => ({
 }))
 
 export interface AddBlockInputProps {
-  readonly menuItems: Array<MenuItem>
-  readonly subtle?: boolean
-  readonly disabled?: boolean
+  menuItems: Array<MenuItem>
+  subtle?: boolean
+  disabled?: boolean
 
-  onMenuItemClick(item: MenuItem): void
+  onMenuItemClick: (item: MenuItem) => void
 }
 
 export function AddBlockInput({menuItems, subtle, disabled, onMenuItemClick}: AddBlockInputProps) {

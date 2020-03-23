@@ -1,4 +1,5 @@
 import React, {forwardRef, ButtonHTMLAttributes, AnchorHTMLAttributes} from 'react'
+import {styled} from '@karma.run/react'
 
 import {
   Spacing,
@@ -7,9 +8,9 @@ import {
   MarginProps,
   extractStyleProps
 } from '../style/helpers'
+
 import {cssRuleWithTheme, themeMiddleware, Theme} from '../style/themeContext'
 import {Icon, IconScale, IconElement} from '../data/icon'
-import {styled} from '@karma.run/react'
 import {Box} from '../layout/box'
 
 interface NavigationButtonStyleProps extends MarginProps {

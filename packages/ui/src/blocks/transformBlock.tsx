@@ -1,11 +1,11 @@
 import {SetStateAction} from 'react'
-import {BlockProps} from './block'
 import {isFunctionalUpdate} from '@karma.run/react'
+import {BlockProps} from './block'
 
 export interface TransformBlockProps<T, O> extends BlockProps<T> {
-  readonly transformTo: (value: T) => O
-  readonly transformFrom: (value: O) => T
-  readonly children: (props: BlockProps<O>) => JSX.Element
+  transformTo: (value: T) => O
+  transformFrom: (value: O) => T
+  children: (props: BlockProps<O>) => JSX.Element
 }
 
 export function TransformBlock<T, O>({

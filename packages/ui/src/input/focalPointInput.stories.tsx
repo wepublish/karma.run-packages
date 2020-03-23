@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
 import {FocalPointInput} from './focalPointInput'
+import {randomImageURL} from '../.storybook/util'
 
 export default {
   component: FocalPointInput,
@@ -14,7 +15,7 @@ export const Default = () => {
 
   return (
     <FocalPointInput
-      imageURL="https://dummyimage.com/800x300/ba37ba/fff"
+      imageURL={randomImageURL(800, 300)}
       imageWidth={800}
       imageHeight={300}
       maxHeight={300}

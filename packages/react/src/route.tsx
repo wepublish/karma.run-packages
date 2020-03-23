@@ -349,8 +349,8 @@ export function createRouteContext<
 
         if (!route) return
 
-        route.data = route.data || e.state.data
-        route.scroll = e.state.scroll
+        route.data = e.state?.data ?? route.data
+        route.scroll = e.state?.scroll ?? null
 
         dispatch(syncFromBrowser(route))
       }

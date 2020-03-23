@@ -5,6 +5,8 @@ import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
 import {IconButton} from '../buttons/iconButton'
 
 const PlaceholderStyle = cssRuleWithTheme(({theme}) => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'PlaceholderInput' : undefined,
+
   display: 'flex',
   width: '100%',
   height: '100%',
@@ -18,12 +20,12 @@ export interface PlaceholderInputProps {
   /**
    * Setting children will directly render them.
    */
-  readonly children?: ReactNode
+  children?: ReactNode
 
   /**
    * Called when the add button is clicked.
    */
-  onAddClick?(): void
+  onAddClick?: () => void
 }
 
 /**

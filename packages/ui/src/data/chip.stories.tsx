@@ -3,6 +3,7 @@ import React from 'react'
 import {centerLayoutDecorator} from '../.storybook/decorators'
 import {Chip} from './chip'
 import {MaterialIconClose} from '@karma.run/icons'
+import {randomImageURL} from '../.storybook/util'
 
 export default {
   component: Chip,
@@ -11,9 +12,5 @@ export default {
 }
 
 export const Standard = () => (
-  <Chip
-    label="Default"
-    imageURL="https://dummyimage.com/300x200/ccc/000"
-    icon={MaterialIconClose}
-  />
+  <Chip label="Default" imageURL={randomImageURL(50, 50)} icon={MaterialIconClose} />
 )

@@ -42,9 +42,9 @@ function backgroundColorForType(type: ToastType, theme: Theme): string {
 export type ToastType = 'info' | 'success' | 'error'
 
 interface ToastContainerProps {
-  readonly type: ToastType
-  readonly theme: Theme
-  readonly transitionStatus: TransitionStatus
+  type: ToastType
+  theme: Theme
+  transitionStatus: TransitionStatus
 }
 
 const ToastContainer = styled(
@@ -87,12 +87,12 @@ const ToastContainer = styled(
 )
 
 export interface ToastProps {
-  readonly type: ToastType
-  readonly open: boolean
-  readonly autoHideDuration?: number
+  type: ToastType
+  open: boolean
+  autoHideDuration?: number
+  children?: ReactNode
 
   onClose?: () => void
-  children?: ReactNode
 }
 
 export function Toast({type, open, autoHideDuration, onClose, children}: ToastProps) {

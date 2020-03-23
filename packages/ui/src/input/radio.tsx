@@ -5,6 +5,8 @@ import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {RadioGroupContext} from './radioGroup'
 
 const RadioContainerStyle = cssRuleWithTheme(() => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'RadioContainer' : undefined,
+
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
@@ -15,6 +17,8 @@ const RadioContainerStyle = cssRuleWithTheme(() => ({
 }))
 
 const RadioStyle = cssRuleWithTheme(({theme}) => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'Radio' : undefined,
+
   position: 'absolute',
 
   width: 0,
@@ -51,6 +55,8 @@ const RadioStyle = cssRuleWithTheme(({theme}) => ({
 }))
 
 const CheckMarkStyle = cssRuleWithTheme(({theme}) => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'CheckMark' : undefined,
+
   position: 'relative',
 
   width: 20,
@@ -76,14 +82,14 @@ const LabelStyle = cssRuleWithTheme(({theme}) => ({
 }))
 
 export interface RadioProps {
-  readonly label: string
+  label: string
 
-  readonly name?: string
-  readonly checked?: boolean
-  readonly value?: string
-  readonly disabled?: boolean
+  name?: string
+  checked?: boolean
+  value?: string
+  disabled?: boolean
 
-  onChange?(event: ChangeEvent<HTMLInputElement>): void
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 export function Radio({label, name, value, checked, onChange, ...props}: RadioProps) {

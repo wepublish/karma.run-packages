@@ -8,6 +8,7 @@ import {
   MarginProps,
   extractStyleProps
 } from '../style/helpers'
+
 import {cssRuleWithTheme, useThemeStyle} from '../style/themeContext'
 import {NavigationContext} from '../navigation/navigation'
 
@@ -88,7 +89,6 @@ export interface MenuButtonProps
   extends BaseMenuButtonProps,
     ButtonHTMLAttributes<HTMLButtonElement> {}
 
-// TODO: Forward ref
 export const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(function MenuButton(
   {label, iconScale = IconScale.Larger, icon, disabled, active, ...props},
   ref

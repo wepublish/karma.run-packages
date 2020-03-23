@@ -1,6 +1,6 @@
 import React, {ReactNode, ElementType, CSSProperties, forwardRef} from 'react'
 
-import { FontSize} from '../style/helpers'
+import {FontSize} from '../style/helpers'
 import {cssRuleWithTheme, useThemeStyle, ThemeColors} from '../style/themeContext'
 
 export type TypographyVariant =
@@ -18,23 +18,23 @@ export type TypographyDisplay = 'block' | 'inline'
 export type TypographySpacing = 'small' | 'large'
 
 interface TypographStyleProps {
-  readonly variant: TypographyVariant
-  readonly color?: keyof ThemeColors
-  readonly align?: TypographyTextAlign
-  readonly display?: TypographyDisplay
-  readonly spacing?: TypographySpacing
-  readonly noWrap?: boolean
+  variant: TypographyVariant
+  color?: keyof ThemeColors
+  align?: TypographyTextAlign
+  display?: TypographyDisplay
+  spacing?: TypographySpacing
+  ellipsize?: boolean
 }
 
 const TypographStyle = cssRuleWithTheme<TypographStyleProps>(
-  ({variant, color, align, display, spacing, noWrap, theme}) => ({
+  ({variant, color, align, display, spacing, ellipsize, theme}) => ({
     display,
     textAlign: align,
     color: color ? theme.colors[color] : undefined,
     fill: color ? theme.colors[color] : undefined,
-    whiteSpace: noWrap ? 'nowrap' : undefined,
-    textOverflow: noWrap ? 'ellipsis' : undefined,
-    overflow: noWrap ? 'hidden' : undefined,
+    whiteSpace: ellipsize ? 'nowrap' : undefined,
+    textOverflow: ellipsize ? 'ellipsis' : undefined,
+    overflow: ellipsize ? 'hidden' : undefined,
     marginTop: 0,
     marginBottom: spacing ? marginForTypographySpacing(spacing) : 0,
     ...stylesForTypographyVariant(variant)
@@ -42,14 +42,14 @@ const TypographStyle = cssRuleWithTheme<TypographStyleProps>(
 )
 
 export interface TypographyProps {
-  readonly variant?: TypographyVariant
-  readonly color?: keyof ThemeColors
-  readonly align?: TypographyTextAlign
-  readonly display?: TypographyDisplay
-  readonly spacing?: TypographySpacing
-  readonly noWrap?: boolean
-  readonly element?: ElementType<{className?: string}>
-  readonly children?: ReactNode
+  variant?: TypographyVariant
+  color?: keyof ThemeColors
+  align?: TypographyTextAlign
+  display?: TypographyDisplay
+  spacing?: TypographySpacing
+  ellipsize?: boolean
+  element?: ElementType<{className?: string}>
+  children?: ReactNode
 }
 
 export const Typography = forwardRef<HTMLElement, TypographyProps>(function Typography(
@@ -59,7 +59,7 @@ export const Typography = forwardRef<HTMLElement, TypographyProps>(function Typo
     align,
     display,
     spacing,
-    noWrap,
+    ellipsize,
     element = elementForTypographyVariant(variant),
     children,
     ...props
@@ -73,7 +73,7 @@ export const Typography = forwardRef<HTMLElement, TypographyProps>(function Typo
     align,
     display,
     spacing,
-    noWrap
+    ellipsize
   })
 
   return (

@@ -21,10 +21,10 @@ export type ButtonVariant = 'default' | 'outlined' | 'text'
 export type ButtonColor = 'default' | 'primary' | 'secondary'
 
 interface ButtonStyleProps extends WidthProps, MarginProps, FlexChildProps {
-  readonly disabled?: boolean
-  readonly variant: ButtonVariant
-  readonly color: ButtonColor
-  readonly theme: Theme
+  disabled?: boolean
+  variant: ButtonVariant
+  color: ButtonColor
+  theme: Theme
 }
 
 function getMainColor({color, disabled, theme}: ButtonStyleProps) {
@@ -158,12 +158,12 @@ const ButtonStyle = cssRule<ButtonStyleProps>(props => {
 })
 
 export interface BaseButtonProps extends WidthProps, MarginProps, FlexChildProps {
-  readonly icon?: IconElement
-  readonly label: string
-  readonly disabled?: boolean
-  readonly color?: ButtonColor
-  readonly variant?: ButtonVariant
-  readonly outlined?: boolean
+  icon?: IconElement
+  label: string
+  disabled?: boolean
+  color?: ButtonColor
+  variant?: ButtonVariant
+  outlined?: boolean
 }
 
 export type ButtonProps = BaseButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
@@ -174,6 +174,7 @@ const LinkButtonElement = styled('a', ButtonStyle, themeMiddleware)
 
 const ButtonIcon = styled('span', () => ({
   _className: process.env.NODE_ENV !== 'production' ? 'ButtonIcon' : undefined,
+
   marginRight: Spacing.Tiny,
   marginLeft: -Spacing.Tiny
 }))

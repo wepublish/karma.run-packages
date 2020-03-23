@@ -9,12 +9,14 @@ import {themeMiddleware, Theme} from '../style/themeContext'
 import {FontSize, Spacing, BorderRadius, BorderWidth, MarginProps} from '../style/helpers'
 
 interface ChipElementProps extends MarginProps {
-  readonly theme: Theme
+  theme: Theme
 }
 
 const ChipElement = styled(
   'div',
   ({theme, ...props}: ChipElementProps) => ({
+    _className: process.env.NODE_ENV !== 'production' ? 'Chip' : undefined,
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'fill',
@@ -37,14 +39,15 @@ const ChipElement = styled(
 )
 
 const ChipLabel = styled('span', () => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'ChipLabel' : undefined,
   padding: `${Spacing.Tiny} ${Spacing.ExtraSmall}`
 }))
 
 export interface ChipProps extends MarginProps {
-  readonly label: string
-  readonly imageURL?: string
-  readonly icon?: IconElement
-  readonly onIconClick?: () => void
+  label: string
+  imageURL?: string
+  icon?: IconElement
+  onIconClick?: () => void
 }
 
 export function Chip({label, imageURL, icon, onIconClick, ...props}: ChipProps) {

@@ -1,7 +1,9 @@
 import React, {forwardRef, ButtonHTMLAttributes, AnchorHTMLAttributes} from 'react'
+import {styled} from '@karma.run/react'
 
 import {IconElement, Icon} from '../data/icon'
 import {cssRuleWithTheme, themeMiddleware, Theme} from '../style/themeContext'
+
 import {
   TransitionDuration,
   FontSize,
@@ -10,15 +12,14 @@ import {
   extractStyleProps,
   BorderWidth
 } from '../style/helpers'
-import {styled} from '@karma.run/react'
 
 export type IconButtonVariant = 'default' | 'light' | 'large'
 
 interface IconButtonStyleProps extends MarginProps, FlexChildProps {
-  readonly active?: boolean
-  readonly disabled?: boolean
-  readonly variant: IconButtonVariant
-  readonly theme: Theme
+  active?: boolean
+  disabled?: boolean
+  variant: IconButtonVariant
+  theme: Theme
 }
 
 const IconButtonStyle = cssRuleWithTheme<IconButtonStyleProps>(
@@ -87,14 +88,14 @@ const IconButtonStyle = cssRuleWithTheme<IconButtonStyleProps>(
   })
 )
 
-const IconButtonSmallElement = styled('button', IconButtonStyle, themeMiddleware)
-const LinkIconButtonSmallElement = styled('a', IconButtonStyle, themeMiddleware)
+const IconButtonElement = styled('button', IconButtonStyle, themeMiddleware)
+const LinkIconButtonElement = styled('a', IconButtonStyle, themeMiddleware)
 
 export interface BaseIconButtonProps extends MarginProps, FlexChildProps {
-  readonly active?: boolean
-  readonly icon: IconElement
-  readonly variant?: IconButtonVariant
-  readonly disabled?: boolean
+  active?: boolean
+  icon: IconElement
+  variant?: IconButtonVariant
+  disabled?: boolean
 }
 
 export type IconButtonProps = BaseIconButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
@@ -107,13 +108,13 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(functio
   const [marginProps, elementProps] = extractStyleProps(props)
 
   return (
-    <IconButtonSmallElement
+    <IconButtonElement
       ref={ref}
       styleProps={{variant, active, disabled, ...marginProps}}
       disabled={disabled}
       {...elementProps}>
       <Icon element={icon} block />
-    </IconButtonSmallElement>
+    </IconButtonElement>
   )
 })
 
@@ -122,13 +123,13 @@ export const LinkIconButton = forwardRef<HTMLAnchorElement, LinkIconButtonProps>
     const [marginProps, elementProps] = extractStyleProps(props)
 
     return (
-      <LinkIconButtonSmallElement
+      <LinkIconButtonElement
         ref={ref}
         styleProps={{variant, active, disabled, ...marginProps}}
         tabIndex={disabled ? -1 : undefined}
         {...elementProps}>
         <Icon element={icon} block />
-      </LinkIconButtonSmallElement>
+      </LinkIconButtonElement>
     )
   }
 )

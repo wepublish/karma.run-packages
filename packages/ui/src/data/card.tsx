@@ -14,7 +14,8 @@ import {
   FlexContainerProps,
   extractStyleProps,
   DisplayProps,
-  OverflowProps
+  OverflowProps,
+  PositionProps
 } from '../style/helpers'
 
 interface CardElementProps
@@ -25,8 +26,9 @@ interface CardElementProps
     FlexChildProps,
     FlexContainerProps,
     DisplayProps,
+    PositionProps,
     OverflowProps {
-  readonly theme: Theme
+  theme: Theme
 }
 
 const CardElement = styled(
@@ -53,9 +55,10 @@ export interface CardProps
     HeightProps,
     FlexChildProps,
     FlexContainerProps,
+    PositionProps,
     DisplayProps,
     OverflowProps {
-  readonly children?: ReactNode
+  children?: ReactNode
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(function Card({children, ...props}, ref) {

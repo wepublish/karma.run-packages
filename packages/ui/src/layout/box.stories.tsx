@@ -6,6 +6,7 @@ import {Spacing} from '../style/helpers'
 import {IconButton} from '../buttons/iconButton'
 import {MaterialIconEdit, MaterialIconDelete} from '@karma.run/icons'
 import {Image} from '../data/image'
+import {randomImageURL} from '../.storybook/util'
 
 export default {
   component: Box,
@@ -17,7 +18,7 @@ export const Standard = () => {
   return (
     <Box position="relative" width="100%" height="100%">
       <Image
-        src="https://dummyimage.com/300x300/999/fff"
+        src={randomImageURL(300, 200)}
         width="100%"
         height={300}
         imageWidth={300}

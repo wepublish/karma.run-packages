@@ -2,7 +2,13 @@ import React, {ReactNode, useEffect} from 'react'
 import {createPortal} from 'react-dom'
 import {Transition} from 'react-transition-group'
 import {styled} from '@karma.run/react'
-import {hexToRgba, TransitionDuration, TransitionDurationRaw, ZIndex} from '../style/helpers'
+import {
+  hexToRgba,
+  TransitionDuration,
+  TransitionDurationRaw,
+  ZIndex,
+  BlurStrength
+} from '../style/helpers'
 import {themeMiddleware, Theme} from '../style/themeContext'
 import {TransitionStatus} from 'react-transition-group/Transition'
 
@@ -35,7 +41,7 @@ const ModalBackdrop = styled(
     bottom: 0,
 
     backgroundColor: hexToRgba(theme.colors.dark, 0.5),
-    backdropFilter: 'blur(2px)',
+    backdropFilter: `blur(${BlurStrength.Strong})`,
     transitionProperty: 'opacity',
     transitionDuration: TransitionDuration.Slow,
 

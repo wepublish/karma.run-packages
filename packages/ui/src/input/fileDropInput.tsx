@@ -7,6 +7,8 @@ import {cssRule} from '@karma.run/react'
 
 const FileDropInputStyle = cssRuleWithTheme<{dragging: boolean; disabled: boolean}>(
   ({dragging, disabled, theme}) => ({
+    _className: process.env.NODE_ENV !== 'production' ? 'FileDropInput' : undefined,
+
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -39,6 +41,8 @@ const FileDropInputStyle = cssRuleWithTheme<{dragging: boolean; disabled: boolea
 )
 
 const FileDropInputInputStyle = cssRule(() => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'FileDropInputInput' : undefined,
+
   position: 'absolute',
   top: 0,
   left: 0,
@@ -48,12 +52,12 @@ const FileDropInputInputStyle = cssRule(() => ({
 }))
 
 export interface FileDropInputProps {
-  readonly disabled?: boolean
+  disabled?: boolean
 
-  readonly icon?: IconElement
-  readonly text?: string
+  icon?: IconElement
+  text?: string
 
-  onDrop(fileList: File[]): void
+  onDrop: (fileList: File[]) => void
 }
 
 export function FileDropInput({disabled = false, onDrop, icon, text}: FileDropInputProps) {

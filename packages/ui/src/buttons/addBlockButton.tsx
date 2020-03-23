@@ -5,8 +5,8 @@ import {MaterialIconAdd} from '@karma.run/icons'
 import {ZIndex, hexToRgba} from '../style/helpers'
 
 interface AddBlockButtonStyleProps {
-  readonly active: boolean
-  readonly subtle: boolean
+  active: boolean
+  subtle: boolean
 }
 
 const AddBlockButtonStyle = cssRuleWithTheme<AddBlockButtonStyleProps>(
@@ -14,6 +14,8 @@ const AddBlockButtonStyle = cssRuleWithTheme<AddBlockButtonStyleProps>(
     const color = subtle ? theme.colors.grayLight : theme.colors.action
 
     return {
+      _className: process.env.NODE_ENV !== 'production' ? 'AddBlockButton' : undefined,
+
       display: 'flex',
       position: 'relative',
 
@@ -43,16 +45,17 @@ const AddBlockButtonStyle = cssRuleWithTheme<AddBlockButtonStyleProps>(
   }
 )
 
-const AddBlockButtonWrapperStyle = cssRuleWithTheme(() => ({
+const AddBlockButtonContentStyle = cssRuleWithTheme(() => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'AddBlockButtonContent' : undefined,
   zIndex: ZIndex.Default
 }))
 
 export interface AddBlockButtonProps {
-  readonly active?: boolean
-  readonly subtle?: boolean
-  readonly disabled?: boolean
+  active?: boolean
+  subtle?: boolean
+  disabled?: boolean
 
-  onClick(): void
+  onClick: () => void
 }
 
 export function AddBlockButton({
@@ -65,7 +68,7 @@ export function AddBlockButton({
 
   return (
     <div className={css(AddBlockButtonStyle)}>
-      <div className={css(AddBlockButtonWrapperStyle)}>
+      <div className={css(AddBlockButtonContentStyle)}>
         <IconButton
           title="Add Block"
           active={active}

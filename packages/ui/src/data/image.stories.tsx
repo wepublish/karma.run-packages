@@ -1,7 +1,8 @@
 import React from 'react'
 
 import {centerLayoutDecorator} from '../.storybook/decorators'
-import {Image, ImagePlaceholder} from './image'
+import {randomImageURL} from '../.storybook/util'
+import {Image, PlaceholderImage} from './image'
 
 export default {
   component: Image,
@@ -10,12 +11,7 @@ export default {
 }
 
 export const Default = () => (
-  <Image
-    src="https://dummyimage.com/300x200/333/fff"
-    imageWidth={300}
-    imageHeight={200}
-    width="100%"
-  />
+  <Image src={randomImageURL(300, 200)} imageWidth={300} imageHeight={200} width="100%" />
 )
 
-export const Placeholder = () => <ImagePlaceholder width={300} height={300} />
+export const Placeholder = () => <PlaceholderImage width={300} height={200} />

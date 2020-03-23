@@ -18,21 +18,26 @@ import {Chip} from '../data/chip'
 import {MaterialIconClose} from '@karma.run/icons'
 
 interface AutocompleteInputStyleProps {
-  readonly hasError: boolean
-  readonly theme: Theme
+  hasError: boolean
+  theme: Theme
 }
 
 interface AutocompleteInputLayoutProps extends MarginProps, WidthProps, FlexChildProps {}
 
 const AutocompleteInputWrapper = styled('div', (props: AutocompleteInputLayoutProps) => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'AutocompleteInput' : undefined,
+
   position: 'relative',
   paddingTop: 16,
+
   ...props
 }))
 
 const AutocompleteInputLabelWrapper = styled(
   'label',
   ({theme}) => ({
+    _className: process.env.NODE_ENV !== 'production' ? 'AutocompleteInputLabelWrapper' : undefined,
+
     position: 'relative',
     display: 'flex',
     flexWrap: 'wrap',
@@ -48,12 +53,17 @@ const AutocompleteInputLabelWrapper = styled(
 const AutocompleteInputLabel = styled(
   'span',
   ({hasError, theme}: AutocompleteInputStyleProps) => ({
+    _className: process.env.NODE_ENV !== 'production' ? 'AutocompleteInputLabel' : undefined,
+
     color: hasError ? theme.colors.alert : theme.colors.gray,
+
     position: 'absolute',
     top: -FontSize.Medium,
     left: 0,
+
     fontSize: FontSize.Small,
     opacity: 1,
+
     transform: 'translateY(0%)',
     transitionProperty: 'transform, opacity, color',
     transitionTimingFunction: 'ease-in-out',
@@ -65,6 +75,8 @@ const AutocompleteInputLabel = styled(
 const AutocompleteInputElement = styled(
   'input',
   ({theme}: AutocompleteInputStyleProps) => ({
+    _className: process.env.NODE_ENV !== 'production' ? 'AutocompleteInputElement' : undefined,
+
     flexGrow: 1,
 
     color: theme.colors.dark,
@@ -132,6 +144,8 @@ const AutocompleteInputElement = styled(
 const AutocompleteInputInfo = styled(
   'div',
   ({theme}) => ({
+    _className: process.env.NODE_ENV !== 'production' ? 'AutocompleteInputInfo' : undefined,
+
     color: theme.colors.gray,
     fontSize: FontSize.Small,
     marginTop: Spacing.Tiny
@@ -142,6 +156,8 @@ const AutocompleteInputInfo = styled(
 const AutocompleteInputError = styled(
   'div',
   ({theme}) => ({
+    _className: process.env.NODE_ENV !== 'production' ? 'AutocompleteInputError' : undefined,
+
     color: theme.colors.alert,
     fontSize: FontSize.Small,
     marginTop: Spacing.Tiny
@@ -150,31 +166,30 @@ const AutocompleteInputError = styled(
 )
 
 export interface AutocompleteInputListProps {
-  readonly isOpen: boolean
+  isOpen: boolean
 
-  readonly inputValue: string | null
-  readonly highlightedIndex: number | null
+  inputValue: string | null
+  highlightedIndex: number | null
 
-  readonly getMenuProps: UseSelectPropGetters<any>['getMenuProps']
-  readonly getItemProps: UseSelectPropGetters<any>['getItemProps']
+  getMenuProps: UseSelectPropGetters<any>['getMenuProps']
+  getItemProps: UseSelectPropGetters<any>['getItemProps']
 }
 
 export interface ChipData {
-  readonly imageURL?: string
-  readonly label: string
+  imageURL?: string
+  label: string
 }
 
 export interface AutocompleteInputProps<T> extends MarginProps, WidthProps, FlexChildProps {
-  readonly label?: string
-  readonly description?: string
-  readonly errorMessage?: string
-  readonly value: T[]
-  readonly disabled?: boolean
+  label?: string
+  description?: string
+  errorMessage?: string
+  value: T[]
+  disabled?: boolean
 
-  valueToChipData(value: T): ChipData
-  onChange(value?: T[]): void
-
-  children(props: AutocompleteInputListProps): ReactNode
+  valueToChipData: (value: T) => ChipData
+  onChange: (value?: T[]) => void
+  children: (props: AutocompleteInputListProps) => ReactNode
 }
 
 export function AutocompleteInput<T>({

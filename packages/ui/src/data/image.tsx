@@ -70,12 +70,12 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
   )
 })
 
-interface ImagePlaceholderStyleProps extends WidthProps, HeightProps, MarginProps, FlexChildProps {
+interface PlaceholderImageStyleProps extends WidthProps, HeightProps, MarginProps, FlexChildProps {
   theme: Theme
 }
 
-const ImagePlaceholderStyle = cssRuleWithTheme<ImagePlaceholderStyleProps>(({theme, ...props}) => ({
-  _className: process.env.NODE_ENV !== 'production' ? 'ImagePlaceholder' : undefined,
+const PlaceholderImageStyle = cssRuleWithTheme<PlaceholderImageStyleProps>(({theme, ...props}) => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'PlaceholderImage' : undefined,
 
   overflow: 'hidden',
   fill: 'inherit',
@@ -84,7 +84,7 @@ const ImagePlaceholderStyle = cssRuleWithTheme<ImagePlaceholderStyleProps>(({the
   ...props
 }))
 
-export interface ImagePlaceholderProps
+export interface PlaceholderImageProps
   extends WidthProps,
     HeightProps,
     MarginProps,
@@ -92,15 +92,36 @@ export interface ImagePlaceholderProps
     AriaAttributes,
     DOMAttributes<SVGSVGElement> {}
 
-export const ImagePlaceholder = forwardRef<SVGSVGElement, ImagePlaceholderProps>(
-  function ImagePlaceholder(props, ref) {
+export const PlaceholderImage = forwardRef<SVGSVGElement, PlaceholderImageProps>(
+  function PlaceholderImage(props, ref) {
     const [layoutProps, elementProps] = extractStyleProps(props)
     const css = useThemeStyle(layoutProps)
 
     return (
-      <svg {...elementProps} ref={ref} className={css(ImagePlaceholderStyle)} viewBox="0 0 64 64">
-        <line x1="0" y1="0" x2="64" y2="64" fill="none" strokeWidth="1" />
-        <line x1="64" y1="0" x2="0" y2="64" fill="none" strokeWidth="1" />
+      <svg
+        {...elementProps}
+        ref={ref}
+        className={css(PlaceholderImageStyle)}
+        viewBox="0 0 64 64"
+        preserveAspectRatio="none">
+        <line
+          x1="0"
+          y1="0"
+          x2="64"
+          y2="64"
+          fill="none"
+          strokeWidth="1"
+          vectorEffect="non-scaling-stroke"
+        />
+        <line
+          x1="64"
+          y1="0"
+          x2="0"
+          y2="64"
+          fill="none"
+          strokeWidth="1"
+          vectorEffect="non-scaling-stroke"
+        />
       </svg>
     )
   }

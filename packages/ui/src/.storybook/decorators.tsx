@@ -4,10 +4,12 @@ import {StoryFn} from '@storybook/addons'
 import {Spacing} from '../style/helpers'
 
 interface CenterLayoutStyleProps {
-  readonly scale?: number
+  scale?: number
 }
 
 const CenterLayoutStyle = cssRule({
+  _className: process.env.NODE_ENV !== 'production' ? 'StorybookCenterLayout' : undefined,
+
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -17,13 +19,15 @@ const CenterLayoutStyle = cssRule({
 })
 
 const CenterLayoutContentStyle = cssRule(({scale}: CenterLayoutStyleProps) => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'StorybookCenterLayoutContent' : undefined,
+
   width: scale ? `${scale * 100}%` : undefined,
   margin: Spacing.Large
 }))
 
 export interface CenterLayoutProps {
-  readonly scale?: number
-  readonly children?: ReactNode
+  scale?: number
+  children?: ReactNode
 }
 
 export function CenterLayout({scale, children}: CenterLayoutProps) {

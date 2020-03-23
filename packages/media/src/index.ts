@@ -82,12 +82,11 @@ export default async function startMediaServer(opts: ServerOptions): Promise<() 
   server.delete('/:id', deleteMediaMiddleware(context))
 
   server.get('/:id', getMediaMiddleware(context))
-  server.get('/:id/:transformation', getMediaMiddleware(context))
-  server.get('/:id/:transformation/:filename', getMediaMiddleware(context))
+  server.get('/:id/:filename?', getMediaMiddleware(context))
+  server.get('/:id/t/:transformation', getMediaMiddleware(context))
+  server.get('/:id/t/:transformation/:filename?', getMediaMiddleware(context))
 
   server.setNotFoundHandler((_req, res) => {
-    console.log(_req.raw.url)
-
     res.status(404).send(
       createErrorResponse({
         code: ErrorCode.NotFound,

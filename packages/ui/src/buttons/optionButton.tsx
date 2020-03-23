@@ -1,12 +1,13 @@
 import React, {useState, useRef} from 'react'
-
-import {Menu, MenuItem} from '../navigation/menu'
 import {useStyle, cssRule, useClickAwayListener} from '@karma.run/react'
-import {Spacing, ZIndex} from '../style/helpers'
-import {IconButton} from './iconButton'
 import {MaterialIconMoreVert} from '@karma.run/icons'
 
+import {IconButton} from './iconButton'
+import {Menu, MenuItem} from '../navigation/menu'
+import {Spacing, ZIndex} from '../style/helpers'
+
 const OptionButtonStyle = cssRule(() => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'OptionButton' : undefined,
   position: 'relative'
 }))
 
@@ -15,6 +16,8 @@ interface MenuWrapperStyleProps {
 }
 
 const MenuWrapperStyle = cssRule<MenuWrapperStyleProps>(({position}) => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'MenuWrapper' : undefined,
+
   position: 'absolute',
   zIndex: ZIndex.Tooltip,
   left: position === 'right' ? 0 : undefined,

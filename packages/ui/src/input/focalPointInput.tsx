@@ -20,15 +20,15 @@ const FocalPointInputWrapper = styled('div', () => ({
 }))
 
 export interface FocalPointInputProps {
-  readonly imageURL: string
-  readonly imageWidth: number
-  readonly imageHeight: number
-  readonly maxHeight: number
+  imageURL: string
+  imageWidth: number
+  imageHeight: number
+  maxHeight: number
 
-  readonly focalPoint?: Point | null
-  readonly disabled?: boolean
+  focalPoint?: Point | null
+  disabled?: boolean
 
-  onChange?(point: Point): void
+  onChange?: (point: Point) => void
 }
 
 export function FocalPointInput({
@@ -106,6 +106,8 @@ export function FocalPointInput({
 }
 
 const FocalPointStyle = cssRuleWithTheme(({theme}) => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'FocalPoint' : undefined,
+
   width: 50,
   height: 50,
   backgroundColor: 'rgba(0, 0, 0, 0.2)',

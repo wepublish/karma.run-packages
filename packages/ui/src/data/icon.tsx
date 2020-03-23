@@ -12,8 +12,8 @@ export enum IconScale {
 }
 
 interface IconStyleProps {
-  readonly block?: boolean
-  readonly scale: IconScale
+  block?: boolean
+  scale: IconScale
 }
 
 const IconStyle = cssRuleWithTheme<IconStyleProps>(({scale, block}) => ({
@@ -34,23 +34,23 @@ const IconStyle = cssRuleWithTheme<IconStyleProps>(({scale, block}) => ({
 }))
 
 export interface BaseIconProps {
-  readonly element: IconElement
-  readonly scale?: IconScale
-  readonly block?: boolean
+  element: IconElement
+  scale?: IconScale
+  block?: boolean
 }
 
 export interface IconProps<P = undefined> extends BaseIconProps {
-  readonly style?: CSSRuleWithTheme | CSSRuleWithTheme[]
-  readonly styleProps?: P
+  style?: CSSRuleWithTheme | CSSRuleWithTheme[]
+  styleProps?: P
 }
 
 export interface IconPropsWithoutStyleProps extends BaseIconProps {
-  readonly style?: CSSRuleWithTheme | CSSRuleWithTheme[]
+  style?: CSSRuleWithTheme | CSSRuleWithTheme[]
 }
 
 export interface IconPropsWithStyleProps<P = undefined> extends BaseIconProps {
-  readonly style?: CSSRuleWithTheme<P> | CSSRuleWithTheme<P>[]
-  readonly styleProps: P
+  style?: CSSRuleWithTheme<P> | CSSRuleWithTheme<P>[]
+  styleProps: P
 }
 
 export function Icon(props: IconPropsWithoutStyleProps): JSX.Element

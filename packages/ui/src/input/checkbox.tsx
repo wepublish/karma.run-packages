@@ -4,6 +4,8 @@ import {FontSize, Spacing} from '../style/helpers'
 import {useThemeStyle, cssRuleWithTheme} from '../style/themeContext'
 
 const CheckboxContainerStyle = cssRuleWithTheme(() => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'CheckboxContainer' : undefined,
+
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
@@ -15,6 +17,8 @@ const CheckboxContainerStyle = cssRuleWithTheme(() => ({
 }))
 
 const CheckboxStyle = cssRuleWithTheme(({theme}) => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'Checkbox' : undefined,
+
   position: 'absolute',
 
   width: 0,
@@ -52,6 +56,8 @@ const CheckboxStyle = cssRuleWithTheme(({theme}) => ({
 }))
 
 const CheckMarkStyle = cssRuleWithTheme(({theme}) => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'CheckMark' : undefined,
+
   position: 'relative',
 
   width: 20,
@@ -68,19 +74,21 @@ const CheckMarkStyle = cssRuleWithTheme(({theme}) => ({
 }))
 
 const LabelStyle = cssRuleWithTheme(({theme}) => ({
+  _className: process.env.NODE_ENV !== 'production' ? 'CheckMarkLabel' : undefined,
+
   color: theme.colors.dark,
   fontSize: FontSize.Medium,
   marginLeft: Spacing.ExtraSmall
 }))
 
 export interface CheckboxProps {
-  readonly label: string
-  readonly checked: boolean
+  label: string
+  checked: boolean
 
-  readonly value?: string
-  readonly disabled?: boolean
+  value?: string
+  disabled?: boolean
 
-  onChange(event: ChangeEvent<HTMLInputElement>): void
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 export function Checkbox({label, ...props}: CheckboxProps) {

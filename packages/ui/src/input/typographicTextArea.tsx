@@ -94,7 +94,6 @@ export const TypographicTextArea = forwardRef<HTMLTextAreaElement, TypographicTe
       ref.current!.style.overflow = 'hidden'
       ref.current!.style.height = 'auto'
       ref.current!.style.height = `${ref.current!.scrollHeight + AutoSizeBuffer}px`
-      ref.current!.style.overflow = ''
     }
 
     return (

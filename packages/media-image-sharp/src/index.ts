@@ -70,7 +70,7 @@ export default class SharpImageBackend implements ImageBackend {
       }
 
       const originalSize =
-        metadata.orientation || 0 > 4
+        (metadata.orientation || 0) > 4
           ? {width: metadata.height, height: metadata.width}
           : {width: metadata.width, height: metadata.height}
 

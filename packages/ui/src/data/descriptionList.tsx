@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react'
 
 import {styled} from '@karma.run/react'
 import {themeMiddleware} from '../style/themeContext'
-import {FontSize,  Spacing} from '../style/helpers'
+import {FontSize, Spacing} from '../style/helpers'
 
 const DescriptionListWrapper = styled('dl', () => ({
   _className: process.env.NODE_ENV !== 'production' ? 'DescriptionList' : undefined,
@@ -13,7 +13,7 @@ const DescriptionListWrapper = styled('dl', () => ({
 }))
 
 export interface DescriptionItemProps {
-  readonly children?: ReactNode
+  children?: ReactNode
 }
 
 export function DescriptionList({children}: DescriptionListItemProps) {
@@ -48,8 +48,8 @@ const DescriptionListItemDetail = styled('dd', () => ({
 }))
 
 export interface DescriptionListItemProps {
-  readonly label?: ReactNode
-  readonly children?: ReactNode
+  label?: ReactNode
+  children?: ReactNode
 }
 
 export function DescriptionListItem({label, children}: DescriptionListItemProps) {

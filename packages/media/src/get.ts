@@ -12,7 +12,10 @@ export function getMediaMiddleware(context: ServerContext): fastify.RequestHandl
       req.params['filename']
     )
 
-    if ((context.debug || !fileID.isOriginal) && !(await context.storageBackend.exists(fileID))) {
+    const fileExists = await context.storageBackend.exists(fileID)
+    const forceTransform = context.debug && !fileID.isOriginal
+
+    if (forceTransform || !fileExists) {
       const originalFileID = fileID.original()
 
       if (!(await context.storageBackend.exists(originalFileID))) {

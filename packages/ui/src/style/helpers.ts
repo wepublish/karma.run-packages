@@ -38,6 +38,11 @@ import {
 
 import {Theme} from './themeContext'
 
+export enum BlurStrength {
+  Soft = '2px',
+  Strong = '4px'
+}
+
 export enum Breakpoint {
   Mobile = 0,
   Tablet = 600,
@@ -79,8 +84,8 @@ export enum BorderWidth {
 }
 
 export enum BorderRadius {
-  Tiny = 2,
-  Small = 5,
+  Tiny = 3,
+  Small = 6,
   Medium = 10
 }
 
