@@ -38,12 +38,11 @@ export default async function startMediaServer(opts: ServerOptions): Promise<() 
     console.warn('No "token" defined, you won\'t be able to upload or manage media.')
   }
 
-  opts.logger = opts.logger || true
-
-  const hostname = opts.hostname || ''
-  const tempDirPath = opts.tempDirPath || path.join(os.tmpdir(), 'karma.run-media')
-  const maxUploadSize = opts.maxUploadSize || 1024 * 1024 * 3
-  const debug = opts.debug || false
+  const hostname = opts.hostname ?? ''
+  const tempDirPath = opts.tempDirPath ?? path.join(os.tmpdir(), 'karma.run-media')
+  const maxUploadSize = opts.maxUploadSize ?? 1024 * 1024 * 3
+  const debug = opts.debug ?? false
+  const logger = opts.logger ?? true
 
   const context: ServerContext = {
     hostname,
@@ -62,7 +61,7 @@ export default async function startMediaServer(opts: ServerOptions): Promise<() 
   }
 
   const server = fastify({
-    logger: opts.logger ? {prettyPrint: true} : false,
+    logger: logger ? {prettyPrint: true} : {prettyPrint: true, level: 'error'},
     maxParamLength: 300
   })
 

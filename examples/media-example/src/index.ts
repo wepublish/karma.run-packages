@@ -33,6 +33,7 @@ if (cluster.isMaster) {
     imageBackend: new SharpImageBackend(),
     maxUploadSize: 1024 * 1024 * 10,
 
+    logger: false,
     port,
     debug,
 

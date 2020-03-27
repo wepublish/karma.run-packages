@@ -55,7 +55,8 @@ export enum ZIndex {
   Tooltip,
   NavigationBar,
   Modal,
-  Toast
+  Toast,
+  DragHelper
 }
 
 export enum Spacing {
