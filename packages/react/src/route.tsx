@@ -115,7 +115,6 @@ export function routeReducer<R extends RouteInstance = RouteInstance>(
 ): RouteContextState<R> {
   switch (action.type) {
     case RouteActionType.PushRoute:
-    case RouteActionType.ReplaceRoute:
       return {
         current: state.current,
         next: action.route,
