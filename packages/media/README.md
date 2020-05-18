@@ -2,7 +2,9 @@
 
 # Public
 
-`GET /:id/:transformations/:filename.format`
+`GET /:id`<br/>
+`GET /:id/:filename.format`<br/>
+`GET /:id/t/:transformations/:filename.format`<br/>
 
 # Authorized
 
