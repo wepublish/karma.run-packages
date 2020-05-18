@@ -176,6 +176,7 @@ export interface AutocompleteInputListProps {
 }
 
 export interface ChipData {
+  id: string
   imageURL?: string
   label: string
 }
@@ -205,9 +206,11 @@ export function AutocompleteInput<T>({
   const styleProps = {hasError: errorMessage != undefined}
   const [layoutProps] = extractStyleProps(props)
 
-  function handleChange(selectedItem: T, downshift: ControllerStateAndHelpers<T>) {
+  function handleChange(selectedItem: T | null, downshift: ControllerStateAndHelpers<T>) {
     downshift.reset()
-    onChange([...value, selectedItem])
+    if (selectedItem) {
+      onChange([...value, selectedItem])
+    }
   }
 
   function handleRemove(removeIndex: number) {
@@ -235,9 +238,10 @@ export function AutocompleteInput<T>({
         <AutocompleteInputWrapper styleProps={layoutProps} {...getRootProps()}>
           <AutocompleteInputLabelWrapper {...getLabelProps()}>
             {value?.map((value, index) => {
-              const {imageURL, label} = valueToTag(value)
+              const {id, imageURL, label} = valueToTag(value)
               return (
                 <Chip
+                  key={id}
                   imageURL={imageURL}
                   label={label}
                   margin={Spacing.ExtraTiny}

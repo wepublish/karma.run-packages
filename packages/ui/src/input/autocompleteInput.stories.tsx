@@ -19,7 +19,7 @@ export const Default = () => {
       <AutocompleteInput
         label="Default"
         value={value}
-        valueToChipData={value => ({label: value})}
+        valueToChipData={value => ({id: value, label: value})}
         onChange={value => setValue(value)}
         marginBottom={Spacing.Small}>
         {props => <DefaultList {...props} />}
