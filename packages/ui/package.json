@@ -1,6 +1,6 @@
 {
   "name": "@karma.run/ui",
-  "version": "0.3.15",
+  "version": "0.3.16",
   "module": "./lib/esm/",
   "sideEffects": false,
   "license": "MIT",

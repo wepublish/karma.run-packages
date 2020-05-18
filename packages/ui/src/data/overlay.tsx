@@ -24,7 +24,7 @@ const OverlayElement = styled(
 
     display: 'block',
     position: position ?? 'absolute',
-    backgroundColor: hexToRgba(theme.colors.black, 0.7),
+    backgroundColor: hexToRgba(theme.colors.black, 0.8),
     color: theme.colors.white,
 
     backdropFilter: `blur(${BlurStrength.Strong})`,
