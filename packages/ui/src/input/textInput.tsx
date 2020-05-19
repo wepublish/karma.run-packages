@@ -48,7 +48,7 @@ const TextInputLabelWrapper = styled(
 const TextInputLabel = styled(
   'span',
   ({hasError, theme}: TextInputStyleProps) => ({
-    color: hasError ? theme.colors.alert : theme.colors.gray,
+    color: hasError ? theme.colors.alert : theme.colors.grayDark,
     position: 'absolute',
     top: -FontSize.Medium,
     left: 0,

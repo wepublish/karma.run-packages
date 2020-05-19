@@ -55,7 +55,7 @@ const AutocompleteInputLabel = styled(
   ({hasError, theme}: AutocompleteInputStyleProps) => ({
     _className: process.env.NODE_ENV !== 'production' ? 'AutocompleteInputLabel' : undefined,
 
-    color: hasError ? theme.colors.alert : theme.colors.gray,
+    color: hasError ? theme.colors.alert : theme.colors.grayDark,
 
     position: 'absolute',
     top: -FontSize.Medium,

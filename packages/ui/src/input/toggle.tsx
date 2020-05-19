@@ -83,7 +83,9 @@ const ToggleTextWrapperStyle = cssRuleWithTheme(({theme}) => ({
   color: theme.colors.dark
 }))
 
-const ToggleLabelStyle = cssRuleWithTheme(({theme}) => ({}))
+const ToggleLabelStyle = cssRuleWithTheme(({theme}) => ({
+  color: theme.colors.grayDark
+}))
 
 const ToggleDescriptionStyle = cssRuleWithTheme(({theme}) => ({
   color: theme.colors.gray,

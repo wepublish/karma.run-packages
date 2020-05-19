@@ -63,7 +63,7 @@ const SelectLabelWrapper = styled(
 const SelectLabel = styled(
   'span',
   ({hasFocus, hasError, isPlaceholderShown, theme}: SelectStyleProps) => ({
-    color: hasError ? theme.colors.alert : hasFocus ? theme.colors.action : theme.colors.gray,
+    color: hasError ? theme.colors.alert : hasFocus ? theme.colors.action : theme.colors.grayDark,
     position: 'absolute',
     top: -FontSize.Medium,
     left: 0,

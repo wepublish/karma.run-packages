@@ -76,7 +76,7 @@ const CheckMarkStyle = cssRuleWithTheme(({theme}) => ({
 }))
 
 const LabelStyle = cssRuleWithTheme(({theme}) => ({
-  color: theme.colors.dark,
+  color: theme.colors.grayDark,
   fontSize: FontSize.Medium,
   marginLeft: Spacing.ExtraSmall
 }))

@@ -57,7 +57,7 @@ const TextAreaLabelWrapper = styled(
 const TextAreaLabel = styled(
   'span',
   ({hasError, theme}: TextAreaStyleProps) => ({
-    color: hasError ? theme.colors.alert : theme.colors.gray,
+    color: hasError ? theme.colors.alert : theme.colors.grayDark,
     position: 'absolute',
     top: -FontSize.Medium,
     left: 0,
