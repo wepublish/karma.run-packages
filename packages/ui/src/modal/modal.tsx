@@ -1,7 +1,9 @@
-import React, {ReactNode, useEffect} from 'react'
+import React, {ReactNode, useEffect, useContext, createContext, useReducer} from 'react'
 import {createPortal} from 'react-dom'
 import {Transition} from 'react-transition-group'
 import {styled} from '@karma.run/react'
+import {TransitionStatus} from 'react-transition-group/Transition'
+
 import {
   hexToRgba,
   TransitionDuration,
@@ -9,8 +11,75 @@ import {
   ZIndex,
   BlurStrength
 } from '../style/helpers'
+
 import {themeMiddleware, Theme} from '../style/themeContext'
-import {TransitionStatus} from 'react-transition-group/Transition'
+
+export const ModalContext = createContext<React.Dispatch<ModalContextAction> | null>(null)
+
+export interface ModalContextActionPush {
+  type: 'push'
+}
+
+export interface ModalContextActionPop {
+  type: 'pop'
+}
+
+export type ModalContextAction = ModalContextActionPush | ModalContextActionPop
+
+interface ModalContextState {
+  numOpenModals: number
+}
+
+const initialState = {numOpenModals: 0}
+
+function modalContextReducer(
+  {numOpenModals}: ModalContextState,
+  action: ModalContextAction
+): ModalContextState {
+  switch (action.type) {
+    case 'push':
+      return {numOpenModals: numOpenModals + 1}
+
+    case 'pop':
+      if (numOpenModals - 1 < 0) {
+        console.warn('Unbalanced calls to push/pop.')
+      }
+
+      return {numOpenModals: numOpenModals - 1}
+  }
+}
+
+export interface ModalContextProviderProps {
+  children?: ReactNode
+}
+
+export function ModalContextProvider({children}: ModalContextProviderProps) {
+  const [state, dispatch] = useReducer(modalContextReducer, initialState)
+
+  useEffect(() => {
+    if (state.numOpenModals > 0) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+
+      document.body.style.paddingRight = `${scrollbarWidth}px`
+      document.documentElement.style.overflow = 'hidden'
+    } else {
+      document.body.style.paddingRight = ''
+      document.documentElement.style.overflow = ''
+    }
+  }, [state.numOpenModals])
+
+  return <ModalContext.Provider value={dispatch}>{children}</ModalContext.Provider>
+}
+
+export function useModalContext() {
+  const context = useContext(ModalContext)
+
+  if (!context) {
+    throw new Error('No ModalContextProvider found in component tree.')
+  }
+
+  return context
+}
 
 const ModalWrapper = styled('div', () => ({
   _className: process.env.NODE_ENV !== 'production' ? 'Modal' : undefined,
@@ -69,17 +138,15 @@ export interface ModalProps {
 }
 
 export function Modal({children, onClose, open, closeOnBackgroundClick}: ModalProps) {
+  const dispatch = useModalContext()
+
   useEffect(() => {
-    // TODO: Move into context
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
-
-    document.body.style.paddingRight = open ? `${scrollbarWidth}px` : ''
-    document.documentElement.style.overflow = open ? 'hidden' : ''
-
-    return () => {
-      document.body.style.paddingRight = ''
-      document.documentElement.style.overflow = ''
+    if (open) {
+      dispatch({type: 'push'})
+      return () => dispatch({type: 'pop'})
     }
+
+    return () => {}
   }, [open])
 
   return (

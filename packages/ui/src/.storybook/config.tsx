@@ -1,16 +1,14 @@
 import React from 'react'
 import {configure, addDecorator} from '@storybook/react'
 
-import {StyleProvider} from '@karma.run/react'
-import {GlobalStyles} from '../style/globalStyles'
 import {renderer} from './styleRenderer'
+import {UIProvider} from '../utility'
 
 addDecorator(story => {
   return (
-    <StyleProvider renderer={renderer}>
-      <GlobalStyles rootElementID="root" />
+    <UIProvider rootElementID="root" styleRenderer={renderer}>
       {story()}
-    </StyleProvider>
+    </UIProvider>
   )
 })
 

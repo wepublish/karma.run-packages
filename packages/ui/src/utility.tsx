@@ -9,6 +9,7 @@ import felaUnit from 'fela-plugin-unit'
 import felaExpandShorthand from 'fela-plugin-expand-shorthand'
 
 import {tabletMediaQuery, mobileMediaQuery} from './style/helpers'
+import {ModalContextProvider} from './modal/modal'
 
 export enum ElementID {
   ReactRoot = 'react-root'
@@ -30,9 +31,11 @@ export function createStyleRenderer() {
 
 export function UIProvider({rootElementID, styleRenderer, children}: UIProviderProps) {
   return (
-    <StyleProvider renderer={styleRenderer}>
-      <GlobalStyles rootElementID={rootElementID} />
-      {children}
-    </StyleProvider>
+    <ModalContextProvider>
+      <StyleProvider renderer={styleRenderer}>
+        <GlobalStyles rootElementID={rootElementID} />
+        {children}
+      </StyleProvider>
+    </ModalContextProvider>
   )
 }
