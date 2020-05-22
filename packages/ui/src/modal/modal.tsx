@@ -55,9 +55,10 @@ export interface ModalContextProviderProps {
 
 export function ModalContextProvider({children}: ModalContextProviderProps) {
   const [state, dispatch] = useReducer(modalContextReducer, initialState)
+  const shouldHideScrollbars = state.numOpenModals > 0
 
   useEffect(() => {
-    if (state.numOpenModals > 0) {
+    if (shouldHideScrollbars) {
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
 
       document.body.style.paddingRight = `${scrollbarWidth}px`
@@ -66,7 +67,14 @@ export function ModalContextProvider({children}: ModalContextProviderProps) {
       document.body.style.paddingRight = ''
       document.documentElement.style.overflow = ''
     }
-  }, [state.numOpenModals])
+  }, [shouldHideScrollbars])
+
+  useEffect(() => {
+    return () => {
+      document.body.style.paddingRight = ''
+      document.documentElement.style.overflow = ''
+    }
+  }, [])
 
   return <ModalContext.Provider value={dispatch}>{children}</ModalContext.Provider>
 }
