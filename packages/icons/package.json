@@ -16,7 +16,7 @@
     "sync-package-info": "node ./../../scripts/syncPackageInfo.js ./src/version.ts"
   },
   "devDependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "@svgr/core": "^4.3.3",
     "@types/react": "^16.8.23",
     "npm-run-all": "^4.1.5",
