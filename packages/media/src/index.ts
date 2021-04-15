@@ -19,6 +19,8 @@ export * from './transformation'
 export * from './error'
 
 export interface ServerOptions {
+  jsonErrorResponse?: boolean
+
   hostname?: string
   address?: string
   port?: number
@@ -38,6 +40,7 @@ export default async function startMediaServer(opts: ServerOptions): Promise<() 
     console.warn('No "token" defined, you won\'t be able to upload or manage media.')
   }
 
+  const jsonErrorResponse = opts.jsonErrorResponse ?? true
   const hostname = opts.hostname ?? ''
   const tempDirPath = opts.tempDirPath ?? path.join(os.tmpdir(), 'karma.run-media')
   const maxUploadSize = opts.maxUploadSize ?? 1024 * 1024 * 3
@@ -87,10 +90,12 @@ export default async function startMediaServer(opts: ServerOptions): Promise<() 
 
   server.setNotFoundHandler((_req, res) => {
     res.status(404).send(
-      createErrorResponse({
-        code: ErrorCode.NotFound,
-        message: 'Not Found'
-      })
+      jsonErrorResponse
+        ? createErrorResponse({
+            code: ErrorCode.NotFound,
+            message: 'Not Found'
+          })
+        : undefined
     )
   })
 
@@ -99,18 +104,22 @@ export default async function startMediaServer(opts: ServerOptions): Promise<() 
 
     if (err instanceof MediaError) {
       res.status(statusCodeForErrorCode(err.code)).send(
-        createErrorResponse({
-          code: err.code,
-          message: err.message,
-          data: err.data
-        })
+        jsonErrorResponse
+          ? createErrorResponse({
+              code: err.code,
+              message: err.message,
+              data: err.data
+            })
+          : undefined
       )
     } else {
       res.status(500).send(
-        createErrorResponse({
-          code: ErrorCode.Internal,
-          message: 'Internal Error'
-        })
+        jsonErrorResponse
+          ? createErrorResponse({
+              code: ErrorCode.Internal,
+              message: 'Internal Error'
+            })
+          : undefined
       )
     }
   })
