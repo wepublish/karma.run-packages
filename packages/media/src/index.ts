@@ -58,7 +58,7 @@ export default async function startMediaServer(opts: ServerOptions): Promise<() 
     token: opts.token,
 
     verifyToken(req: FastifyRequest) {
-      const [, token] = req.headers.authorization.match(/Bearer (.+?$)/i) || []
+      const [, token] = req.headers.authorization?.match(/Bearer (.+?$)/i) || []
       return token === opts.token
     }
   }
@@ -81,6 +81,7 @@ export default async function startMediaServer(opts: ServerOptions): Promise<() 
   })
 
   server.post('/', uploadMediaMiddleware(context))
+  server.put('/:id', uploadMediaMiddleware(context))
   server.delete('/:id', deleteMediaMiddleware(context))
 
   server.get('/:id', getMediaMiddleware(context))

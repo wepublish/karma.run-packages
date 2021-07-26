@@ -9,5 +9,5 @@
 # Authorized
 
 `POST /`<br/>
-`COPY /:id`<br/>
+`PUT /:id`<br/>
 `DELETE /:id`<br/>

@@ -29,6 +29,7 @@ if (cluster.isMaster) {
   const debug = Boolean(process.env.DEBUG)
 
   startMediaServer({
+    jsonErrorResponse: false,
     storageBackend: new LocalStorageBackend(storagePath),
     imageBackend: new SharpImageBackend(),
     maxUploadSize: 1024 * 1024 * 10,

@@ -10,16 +10,21 @@ export default class LocalStorageBackend implements StorageBackend {
     this.storagePath = storagePath
   }
 
-  private fullFilePath(filePath: string) {
-    return path.join(this.storagePath, filePath)
+  private fullFilePath(filePath: string, temp: boolean = false) {
+    return path.join(this.storagePath, temp ? '.temp' : '', filePath)
   }
 
-  public async write(fileID: FileID, stream: NodeJS.ReadableStream): Promise<void> {
-    const filePath = this.fullFilePath(fileID.toFilePath())
+  public async write(
+    fileID: FileID,
+    stream: NodeJS.ReadableStream,
+    replace: boolean
+  ): Promise<void> {
+    const filePath = this.fullFilePath(fileID.toFilePath(), replace)
+    const dirname = path.dirname(filePath)
 
-    await fs.promises.mkdir(path.dirname(filePath), {recursive: true})
+    await fs.promises.mkdir(dirname, {recursive: true})
 
-    return new Promise<void>((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
       const writeStream = fs.createWriteStream(filePath)
 
       writeStream.on('error', err => {
@@ -32,6 +37,14 @@ export default class LocalStorageBackend implements StorageBackend {
 
       stream.pipe(writeStream)
     })
+
+    if (replace) {
+      const originalFilePath = this.fullFilePath(fileID.toFilePath())
+      const originalDirname = path.dirname(originalFilePath)
+
+      await fs.promises.rmdir(originalDirname, {recursive: true})
+      await fs.promises.rename(dirname, originalDirname)
+    }
   }
 
   public async read(fileID: FileID): Promise<[NodeJS.ReadableStream, number]> {

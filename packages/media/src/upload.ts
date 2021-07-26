@@ -86,6 +86,8 @@ export function uploadMediaMiddleware(context: ServerContext): fastify.RequestHa
       )
     }
 
+    const replaceID = req.params.id ? new FileID(req.params.id) : null
+
     return new Promise((resolve, reject) => {
       req.multipart(
         async (_field, fileStream, filename, _encoding, _mimetype) => {
@@ -111,7 +113,7 @@ export function uploadMediaMiddleware(context: ServerContext): fastify.RequestHa
             )
           }
 
-          const result = await uploadMedia(tempFile, null, context)
+          const result = await uploadMedia(tempFile, replaceID, context)
 
           await cleanup()
           resolve(result)
@@ -126,15 +128,14 @@ export function uploadMediaMiddleware(context: ServerContext): fastify.RequestHa
 
 export async function uploadMedia(
   uploadFile: TemporaryFile,
-  overrideID: FileID | null,
+  replaceID: FileID | null,
   context: ServerContext
 ): Promise<UploadResponse> {
   const fileStream = fs.createReadStream(uploadFile.path)
   const metadata = await getTemporaryFileMetadata(uploadFile, context)
-  const fileID = new FileID(undefined, undefined, metadata.filename)
+  const fileID = new FileID(replaceID?.id, undefined, metadata.filename)
 
-  await context.storageBackend.write(fileID, fileStream)
-  if (overrideID) await context.storageBackend.delete(overrideID)
+  await context.storageBackend.write(fileID, fileStream, replaceID ? true : false)
 
   return {
     id: fileID.id,
