@@ -4,7 +4,8 @@ import 'regenerator-runtime/runtime'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import {createStyleRenderer, renderStyles} from '@karma.run/react'
+import {renderStylesToMarkup} from '@karma.run/react'
+import {createStyleRenderer} from '@karma.run/ui'
 import {UIProvider} from '@karma.run/ui'
 
 import {hot} from 'react-hot-loader/root'
@@ -17,7 +18,7 @@ const HotApp = hot(App)
 
 const onDOMContentLoaded = async () => {
   const styleRenderer = createStyleRenderer()
-  renderStyles(styleRenderer)
+  renderStylesToMarkup(styleRenderer)
 
   ReactDOM.render(
     <UIProvider styleRenderer={styleRenderer} rootElementID={ElementID.ReactRoot}>

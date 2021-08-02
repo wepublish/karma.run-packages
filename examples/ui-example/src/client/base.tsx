@@ -17,7 +17,7 @@ export function Base({children}: BaseProps) {
           <LinkMenuIconButton
             icon={MaterialIconInsertDriveFileOutlined}
             label="Article"
-            route={ArticleListRoute.create({})}
+            route={ArticleListRoute.create({}, {query: {test: '123'}})}
           />
 
           <LinkMenuIconButton

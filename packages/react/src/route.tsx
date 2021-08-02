@@ -104,9 +104,9 @@ export type RouteAction<R extends RouteInstance = RouteInstance> =
   | SetCurrentRouteAction<R>
   | SyncFromBrowser<R>
 
+/** @deprecated Use route.path instead */
 export function fullPathForRoute(route: RouteInstance) {
-  const queryString = new URLSearchParams(route.query).toString()
-  return `${route.path}${queryString ? `?${queryString}` : ''}${route.hash ? `#${route.hash}` : ''}`
+  return route.path
 }
 
 export function routeReducer<R extends RouteInstance = RouteInstance>(
@@ -121,7 +121,7 @@ export function routeReducer<R extends RouteInstance = RouteInstance>(
         previous: state.previous,
         history: {
           type: HistoryType.Push,
-          path: fullPathForRoute(action.route),
+          path: action.route.path,
           data: action.route.data,
           scroll: action.route.scroll
         }
@@ -134,7 +134,7 @@ export function routeReducer<R extends RouteInstance = RouteInstance>(
         previous: state.previous,
         history: {
           type: HistoryType.Replace,
-          path: fullPathForRoute(action.route),
+          path: action.route.path,
           data: action.route.data,
           scroll: action.route.scroll
         }
@@ -147,7 +147,7 @@ export function routeReducer<R extends RouteInstance = RouteInstance>(
         previous: state.current,
         history: {
           type: HistoryType.Replace,
-          path: fullPathForRoute(action.route),
+          path: action.route.path,
           data: action.route.data,
           scroll: action.route.scroll
         }
@@ -245,7 +245,7 @@ export function createRouteContext<
     )
 
     if (route) {
-      return <a {...rest} href={fullPathForRoute(route)} onClick={clickHandler} />
+      return <a {...rest} href={route.path} onClick={clickHandler} />
     } else {
       return <a {...rest} />
     }
@@ -268,7 +268,7 @@ export function createRouteContext<
       )
 
       if (route) {
-        return <Component {...(rest as P)} href={fullPathForRoute(route)} onClick={clickHandler} />
+        return <Component {...(rest as P)} href={route.path} onClick={clickHandler} />
       } else {
         return <Component {...(rest as P)} onClick={onClick} />
       }
@@ -461,6 +461,7 @@ export interface RouteInstance<
   params: ObjectForParams<P>
   data: D
 
+  pathname: string
   path: string
   query?: Record<string, string>
   hash?: string
@@ -513,6 +514,7 @@ export function route<T extends string, P extends RouteParameter[]>(
       return {
         type,
         params,
+        pathname: path.reverse(params),
         path: path.reverse(params, query, hash),
         query,
         hash,
@@ -604,7 +606,8 @@ export function matchRoutes<R extends readonly Route[], I extends RouteInstances
         params: match,
         query: Object.keys(queryObj).length ? queryObj : undefined,
         hash: url.hash.slice(1) || undefined,
-        path: url.pathname
+        path: url.pathname + url.search + url.hash,
+        pathname: url.pathname
       } as I
     }
   }
