@@ -26,10 +26,10 @@ if (cluster.isMaster) {
   const token = process.env.TOKEN!
   const storagePath = process.env.STORAGE_PATH!
   const port = process.env.PORT ? parseInt(process.env.PORT) : undefined
-  const debug = Boolean(process.env.DEBUG)
+  const debug = true
 
   startMediaServer({
-    jsonErrorResponse: false,
+    jsonErrorResponse: true,
     storageBackend: new LocalStorageBackend(storagePath),
     imageBackend: new SharpImageBackend(),
     maxUploadSize: 1024 * 1024 * 10,
