@@ -8,6 +8,7 @@
     "clean": "run-p clean:**",
     "build": "run-s --print-label build:utility build:graphql build:webpack build:react build:icons build:ui build:ui-example",
     "watch": "run-p --print-label watch:*",
+    "watchMedia": "run-p --print-label watch:media-image-sharp watch:media-storage-local watch:media watch:media-example",
     "publish": "run-s --print-label publish:utility publish:graphql publish:webpack publish:react publish:ui",
     "clean:icons": "yarn workspace @karma.run/icons clean",
     "build:icons": "yarn workspace @karma.run/icons build",
