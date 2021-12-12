@@ -9,7 +9,7 @@ import {
   ImageMetadata,
   MediaError,
   ErrorCode
-} from '@karma.run/media'
+} from '@wepublish/krp-media-server'
 
 export interface SharpImageBackendOptions {
   maxSize?: number

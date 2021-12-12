@@ -14,9 +14,9 @@
     "watch:cjs": "tsc -p ./tsconfig.json --declarationMap --declaration --outDir ./lib --watch"
   },
   "dependencies": {
-    "@karma.run/media": "*",
-    "@karma.run/media-storage-local": "*",
-    "@karma.run/media-image-sharp": "*"
+    "@wepublish/krp-media-server": "*",
+    "@wepublish/krp-media-storage-local": "*",
+    "@wepublish/krp-media-image-sharp": "*"
   },
   "devDependencies": {
     "@types/node": "^12.0.10",
