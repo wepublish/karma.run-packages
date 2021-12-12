@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-import {StorageBackend, FileID} from '@karma.run/media'
+import {StorageBackend, FileID} from '@wepublish/krp-media-server'
 
 export default class LocalStorageBackend implements StorageBackend {
   private storagePath: string

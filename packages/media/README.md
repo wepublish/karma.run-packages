@@ -1,4 +1,4 @@
-# @karma.run/media
+# @wepublish/krp-media-server
 
 # Public
 
@@ -11,3 +11,5 @@
 `POST /`<br/>
 `PUT /:id`<br/>
 `DELETE /:id`<br/>
+
+`GET /_healthz`<br/>

@@ -1,8 +1,8 @@
 import os from 'os'
 import cluster from 'cluster'
-import startMediaServer from '@karma.run/media'
-import LocalStorageBackend from '@karma.run/media-storage-local'
-import SharpImageBackend from '@karma.run/media-image-sharp'
+import startMediaServer from '@wepublish/krp-media-server'
+import LocalStorageBackend from '@wepublish/krp-media-storage-local'
+import SharpImageBackend from '@wepublish/krp-media-image-sharp'
 
 if (cluster.isMaster) {
   const numClusters = process.env.NUM_CLUSTERS
@@ -26,10 +26,10 @@ if (cluster.isMaster) {
   const token = process.env.TOKEN!
   const storagePath = process.env.STORAGE_PATH!
   const port = process.env.PORT ? parseInt(process.env.PORT) : undefined
-  const debug = Boolean(process.env.DEBUG)
+  const debug = true
 
   startMediaServer({
-    jsonErrorResponse: false,
+    jsonErrorResponse: true,
     storageBackend: new LocalStorageBackend(storagePath),
     imageBackend: new SharpImageBackend(),
     maxUploadSize: 1024 * 1024 * 10,
