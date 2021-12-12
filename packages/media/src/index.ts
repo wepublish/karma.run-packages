@@ -11,6 +11,7 @@ import {ServerContext} from './context'
 import {getMediaMiddleware} from './get'
 import {createErrorResponse, ErrorCode, MediaError, statusCodeForErrorCode} from './error'
 import {deleteMediaMiddleware} from './delete'
+import {healthMiddleware} from './health'
 
 export * from './storageBackend'
 export * from './imageBackend'
@@ -88,6 +89,8 @@ export default async function startMediaServer(opts: ServerOptions): Promise<() 
   server.get('/:id/:filename?', getMediaMiddleware(context))
   server.get('/:id/t/:transformation', getMediaMiddleware(context))
   server.get('/:id/t/:transformation/:filename?', getMediaMiddleware(context))
+
+  server.get('/_healthz', healthMiddleware(context))
 
   server.setNotFoundHandler((_req, res) => {
     res.status(404).send(
