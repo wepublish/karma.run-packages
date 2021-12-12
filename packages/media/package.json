@@ -1,9 +1,13 @@
 {
-  "name": "@karma.run/media",
-  "version": "0.3.0",
+  "name": "@wepublish/krp-media-server",
+  "version": "0.3.2",
   "main": "./lib/index.js",
   "license": "MIT",
-  "repository": "github:karmarun/karma.media",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wepublish/karma.run-packages.git",
+    "directory": "packages/media"
+  },
   "engines": {
     "node": ">=12.0.0"
   },
